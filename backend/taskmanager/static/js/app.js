@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 
-	modalBox.addEventListener('click', function(event) {
-		if (!modalBox.children()  || !modalBox) {
+	modal.addEventListener('click', (e) => {
+		if(!e.target.classList.contains('modal')) {
 			modal.classList.remove('open');
-		};
-	});
+		}
+	})
 
 });
 
