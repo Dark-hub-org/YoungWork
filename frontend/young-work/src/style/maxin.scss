@@ -1,0 +1,10 @@
+@mixin wrapper {
+  max-width: 1648px;
+  @include displayFlex;
+}
+
+@mixin displayFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
