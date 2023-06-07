@@ -1,6 +1,6 @@
 @mixin wrapper {
   max-width: 1648px;
-  @include displayFlex;
+  margin: auto;
 }
 
 @mixin displayFlex {

@@ -33,6 +33,12 @@ body {
   margin: 0;
   font-family: $fontInter;
   font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.02em;
   font-weight: 500;
   color: $colorGrey;
+}
+
+.wrapper {
+  @include wrapper;
 }
