@@ -1,14 +1,17 @@
 <template>
   <div id="app">
-    <h1>YWork</h1>
+    <site-header/>
   </div>
 </template>
 
 <script>
 
+import SiteHeader from "@/components/site-header.vue";
+
 export default {
   name: 'App',
   components: {
+    SiteHeader
   }
 }
 </script>
