@@ -115,4 +115,18 @@
 }
 //reviews end
 
+// recommendation start
+
+.recommendation {
+  margin-bottom: 80px;
+}
+
+.recommendation-block {
+  @include displayFlex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+// recommendation end
+
 

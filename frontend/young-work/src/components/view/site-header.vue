@@ -17,7 +17,7 @@
           </li>
           <li class="header-nav__list-item">
             <button type="button" class="button-green">Регистрация</button>
-            <modal-window></modal-window>
+            <modal-window :show="isModalWinReg"></modal-window>
           </li>
         </ul>
       </nav>

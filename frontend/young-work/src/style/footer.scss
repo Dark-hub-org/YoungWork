@@ -1,0 +1,63 @@
+@import "varibles";
+@import "mixin";
+@import "main";
+
+.footer {
+  background-color: #373E47;
+}
+
+.wrapper-footer {
+  padding: 40px;
+}
+
+.footer-logo {
+  display: block;
+  color: $colorWhite;
+}
+
+.footer-list {
+  display: flex;
+  justify-content: space-between;
+  max-width: 415px;
+  margin-bottom: 143px;
+
+  .footer-list__item {
+    display: flex;
+    flex-direction: column;
+
+    .footer-list__item-link {
+      position: relative;
+      line-height: 24px;
+      color: $colorWhite;
+
+      span {
+
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $colorWhite;
+        transition: all .3s ease-in-out;
+      }
+
+      &:hover:after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+
+.footer-bottom {
+  @include displayFlex;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: $colorWhite;
+
+}
