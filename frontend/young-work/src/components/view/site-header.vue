@@ -20,18 +20,32 @@
           </li>
         </ul>
       </nav>
+
+      <site-button-green>
+        Hello
+      </site-button-green>
+
+      <site-button-orange>
+        Hi
+      </site-button-orange>
     </div>
   </header>
 
 </template>
 
 <script>
+import siteButtonOrange from '../ui/site-button-orange';
+import siteButtonGreen from '../ui/site-button-green'
 export default {
-name: 'site-header'
+  name: 'site-header',
+  components: {
+    siteButtonOrange,
+    siteButtonGreen
+  }
 }
 </script>
 
 <style lang="scss">
-@import "src/style/header";
-@import "src/style/main";
+@import "../../style/header";
+@import "../../style/main";
 </style>
