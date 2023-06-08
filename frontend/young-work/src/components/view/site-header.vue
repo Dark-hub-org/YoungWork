@@ -1,47 +1,43 @@
 <template>
   <header class="header">
-    <div class="wrapper">
+    <div class="wrapper wrapper-header">
       <a href="#" class="header-logo-link">
         <span>Лого</span>
       </a>
       <nav class="header-nav">
         <ul class="header-nav__list">
           <li class="header-nav__list-item">
-
+            <button type="button" class="button-orange">Услуги</button>
           </li>
           <li class="header-nav__list-item">
-
+            <button type="button" class="button-orange">Работа</button>
           </li>
           <li class="header-nav__list-item">
-
+            <button type="button" class="button-green">Вход</button>
           </li>
           <li class="header-nav__list-item">
-
+            <button type="button" class="button-green">Регистрация</button>
+            <modal-window></modal-window>
           </li>
         </ul>
       </nav>
-
-      <site-button-green>
-        Hello
-      </site-button-green>
-
-      <site-button-orange>
-        Hi
-      </site-button-orange>
     </div>
   </header>
-
 </template>
 
 <script>
-import siteButtonOrange from '../ui/site-button-orange';
-import siteButtonGreen from '../ui/site-button-green'
+import ModalWindow from "@/components/ui/modalWin.vue";
+
 export default {
   name: 'site-header',
   components: {
-    siteButtonOrange,
-    siteButtonGreen
-  }
+    ModalWindow
+  },
+  data() {
+    return {
+      isModalWinReg: false,
+    }
+  },
 }
 </script>
 

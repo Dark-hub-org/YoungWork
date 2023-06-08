@@ -1,5 +1,5 @@
 @import "varibles";
-@import "maxin";
+@import "mixin";
 
 //reset style start
 
@@ -33,7 +33,7 @@ body {
   margin: 0;
   font-family: $fontInter;
   font-size: 18px;
-  line-height: 22px;
+  line-height: 24px;
   letter-spacing: -0.02em;
   font-weight: 500;
   color: $colorGrey;
@@ -41,4 +41,20 @@ body {
 
 .wrapper {
   @include wrapper;
+}
+
+.button-orange {
+  @include buttonOrange;
+}
+
+.button-green {
+  @include buttonGreen;
+}
+
+.button-orange-another {
+  @include buttonOrangeAnother;
+}
+
+.section-title {
+  @include sectionTitle;
 }

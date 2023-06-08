@@ -1,4 +1,25 @@
 @import "varibles";
-@import "maxin";
+@import "mixin";
 @import "main";
+
+.header {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  height: 54px;
+}
+
+.wrapper-header {
+  @include displayFlex;
+}
+
+.header-nav {
+  width: 562px;
+
+  .header-nav__list {
+    @include displayFlex;
+  }
+}
+
 

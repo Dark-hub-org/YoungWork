@@ -1,0 +1,27 @@
+
+.modal-wrapper {
+  z-index: 999;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 80, 124, 0.7);
+}
+
+.modal-window {
+  padding: 20px 20px 60px 20px;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+.modal-window-close {
+  width: 30px;
+  height: 30px;
+  background-image: url('@/assets/close-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
