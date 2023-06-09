@@ -1,7 +1,7 @@
 <template>
 <main class="main">
   <section class="inner">
-    <div class="wrapper">
+    <div class="wrapper inner-wrapper">
       <h1 class="inner-title">Сервис по поиску работы для подростков </h1>
       <form class="inner-form">
         <input type="text" class="inner-form__search" placeholder="найти вакансию">
@@ -23,7 +23,10 @@
           </div>
         </div>
         <div class="inner-info__card">
-          <img src="@/assets/inner/info-3.png" alt="рукопожатие" class="inner-info-image">
+          <picture>
+            <source media="(max-width: 1024px)" srcset="@/assets/inner/info-3__1024.png">
+            <img src="@/assets/inner/info-3.png" alt="рукопожатие" class="inner-info-image">
+          </picture>
           <div class="info__card-block">
               <a href="#" class="button-orange-another info__card-block__link">Перейти</a>
               <h4 class="info__card-block__title">Узнать подробнее о сервисе</h4>

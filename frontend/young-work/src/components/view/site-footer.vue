@@ -6,12 +6,12 @@
         <p class="footer-logo">ЛОГО</p>
       </li>
       <li class="footer-list__item">
-        <a href="#"><span class="footer-list__item-link">Вакансии</span></a>
-        <a href="#"><span class="footer-list__item-link">Отзывы</span></a>
+        <a href="#" class="footer-list__item-link"><span class="footer-list__item-text">Вакансии</span></a>
+        <a href="#" class="footer-list__item-link"><span class="footer-list__item-text">Отзывы</span></a>
       </li>
       <li class="footer-list__item">
-        <a href="#"><span class="footer-list__item-link">Служба поддержки</span></a>
-        <a href="#"><span class="footer-list__item-link">О сервисе</span></a>
+        <a href="#" class="footer-list__item-link"><span class="footer-list__item-text">Служба поддержки</span></a>
+        <a href="#" class="footer-list__item-link"><span class="footer-list__item-text">О сервисе</span></a>
       </li>
     </ul>
     <div class="footer-bottom">

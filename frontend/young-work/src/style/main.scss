@@ -59,3 +59,37 @@ body {
 .section-title {
   @include sectionTitle;
 }
+
+@media(max-width: 1440px) {
+  .wrapper {
+    margin: 0 10px;
+  }
+}
+
+@media(max-width: 1024px) {
+  .section-title {
+    font-size: 48px;
+    line-height: 47px;
+  }
+}
+
+@media(max-width: 360px) {
+
+  .button-orange-another {
+    padding: 10px 14px;
+    font-size: 14px !important;
+    line-height: 17px !important;
+    letter-spacing: -0.02em;
+  }
+
+  .button-orange {
+    font-size: 14px !important;
+    line-height: 17px !important;
+    padding: 10px 14px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    line-height: 24px;
+  }
+}
