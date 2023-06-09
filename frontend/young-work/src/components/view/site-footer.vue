@@ -3,7 +3,7 @@
   <div class="wrapper wrapper-footer">
     <ul class="footer-list">
       <li class="footer-list__item">
-        <p class="footer-logo">ЛОГО</p>
+        <img src="@/assets/logo.svg" alt="логотип" class="header-logo">
       </li>
       <li class="footer-list__item">
         <a href="#" class="footer-list__item-link"><span class="footer-list__item-text">Вакансии</span></a>

@@ -1,8 +1,9 @@
 <template>
   <div
       v-if="show"
+      @click.stop="CloseModal"
       class="modal-wrapper">
-    <div class="modal-window">
+    <div @click.stop class="modal-window">
       <button
           @click="CloseModal"
           class="modal-window-close"></button>

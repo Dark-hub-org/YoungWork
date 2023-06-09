@@ -13,15 +13,111 @@
 }
 
 .modal-window {
-  padding: 20px 20px 60px 20px;
+  position: relative;
   border-radius: 20px;
   background-color: #ffffff;
 }
 
 .modal-window-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
   width: 30px;
   height: 30px;
   background-image: url('@/assets/close-icon.svg');
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.modal-reg-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 36px 60px 36px;
+}
+
+.modal-title {
+  margin-bottom: 45px;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 42px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  width: 319px;
+
+  .modal-form-block {
+    display: flex;
+    flex-direction: column;
+
+    .modal-form-name {
+      margin-bottom: 5px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .modal-form__input {
+      height: 50px;
+      padding: 18px 8px;
+      border-radius: 20px;
+      border: 1px solid #000;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 120%;
+      color: #E55B1C;
+
+      &:focus {
+        border-color: #E55B1C;
+      }
+    }
+  }
+
+  .modal-form-block:not(:last-of-type) {
+    margin-bottom: 20px;
+  }
+
+  .modal-form__submit {
+    margin: 40px 0;
+  }
+
+  .modal-form-login {
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+.modal-form__submit {
+  font-weight: 800;
+  font-size: 16px;
+}
+//modal log start
+
+.modal-form-log {
+  width: 268px;
+}
+
+.modal-title-reg {
+  margin-bottom: 32px;
+}
+
+.modal-form-password {
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 17px;
+  color: #E55B1C;
+}
+
+//modal log end
+
+//modal reset start
+
+.modal-form-reset {
+  width: 395px;
+}
+
+//modal reset end
