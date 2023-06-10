@@ -94,6 +94,16 @@
     font-size: 114px;
     line-height: 112px
   }
+
+  .inner-info {
+    .inner-info__card {
+    .info__card-block {
+      .info__card-block__title {
+        font-size: 30px;
+      }
+    }
+  }
+  }
 }
 
 @media(max-width: 1024px) {
@@ -220,11 +230,20 @@
 }
 
 .recommendation-block {
-  @include displayFlex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(300px, 405px));
+  grid-template-rows: repeat(2, 1fr);
   gap: 10px;
+  margin-bottom: 24px;
 }
 
+
+@media(max-width: 1440px) {
+  .recommendation-block {
+    grid-template-columns: repeat(3, minmax(300px, 405px));
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
 // recommendation end
 
 

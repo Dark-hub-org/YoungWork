@@ -29,6 +29,7 @@
         </ul>
       </nav>
       <modal-window
+         @show="isModalWinReg = false"
         :show="isModalWinReg">
         <div class="modal-reg-wrapper">
           <p class="modal-title">Регистрация</p>
@@ -39,7 +40,7 @@
             </div>
             <div class="modal-form-block">
               <label class="modal-form-name">Электронная почта</label>
-              <input type="text" class="modal-form__input">
+              <input type="email" class="modal-form__input">
             </div>
             <div class="modal-form-block">
               <label class="modal-form-name">Придумайте пароль (минимум 6 символов)</label>
@@ -54,13 +55,14 @@
         </div>
       </modal-window>
       <modal-window
+        @show="isModalWinLog = false"
         :show="isModalWinLog">
         <div class="modal-reg-wrapper">
           <p class="modal-title modal-title-reg">Войти</p>
           <form action="#" class="modal-form modal-form-log">
             <div class="modal-form-block">
               <label class="modal-form-name">электронная почта</label>
-              <input type="text" class="modal-form__input">
+              <input type="email" class="modal-form__input">
             </div>
             <div class="modal-form-block">
               <label class="modal-form-name">Пароль</label>
@@ -76,13 +78,14 @@
         </div>
       </modal-window>
        <modal-window
+        @show="isModalWinResetPass = false"
        :show="isModalWinResetPass">
         <div class="modal-reg-wrapper">
           <p class="modal-title modal-title-reg">Восстановление пароля</p>
           <form action="#" class="modal-form modal-form-reset">
             <div class="modal-form-block">
               <label class="modal-form-name">Укажите E-mail, который вы использовали при регистрации</label>
-              <input type="text" class="modal-form__input">
+              <input type="email" class="modal-form__input">
             </div>
             <button class="modal-form__submit button-orange-another">Далее</button>
           </form>

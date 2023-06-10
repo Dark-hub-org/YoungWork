@@ -58,6 +58,7 @@
             :key="vacancy.id"
           ></vacancy-item>
       </div>
+      <a href="#" class="reviews-more">Смотреть все</a>
     </div>
   </section>
 </main>

@@ -1,15 +1,15 @@
 <template>
-  <div
+     <div
       v-if="show"
       @click.stop="CloseModal"
       class="modal-wrapper">
-    <div @click.stop class="modal-window">
-      <button
-          @click="CloseModal"
-          class="modal-window-close"></button>
-      <slot></slot>
+      <div @click.stop class="modal-window">
+        <button
+         @click="CloseModal"
+         class="modal-window-close"></button>
+         <slot></slot>
+      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -23,7 +23,7 @@ name: 'modalWindow',
   },
   methods: {
     CloseModal() {
-        this.$emit('update:show', false)
+        this.$emit('show', false)
     }
   }
 }
@@ -31,4 +31,5 @@ name: 'modalWindow',
 
 <style lang="scss" scoped>
 @import "src/style/ui/modalWin";
+
 </style>
