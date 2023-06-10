@@ -1,46 +1,147 @@
 <template>
   <header class="header">
-    <div class="wrapper">
+    <div class="wrapper wrapper-header">
       <a href="#" class="header-logo-link">
-        <span>Лого</span>
+        <img src="@/assets/logo.svg" alt="логотип" class="header-logo">
       </a>
-      <nav class="header-nav">
+      <nav :class="{active: isMenuActive}" class="header-nav">
         <ul class="header-nav__list">
           <li class="header-nav__list-item">
-
+            <button type="button" class="header-btn button-orange">Услуги</button>
           </li>
           <li class="header-nav__list-item">
-
+            <button type="button" class="header-btn button-orange">Работа</button>
           </li>
           <li class="header-nav__list-item">
-
+            <button
+                @click="isModalWinLog = true"
+                type="button"
+                class="header-btn button-green">
+              Вход</button>
           </li>
           <li class="header-nav__list-item">
-
+            <button
+                @click="isModalWinReg = true"
+                type="button"
+                class="header-btn button-green">
+              Регистрация</button>
           </li>
         </ul>
       </nav>
-
-      <site-button-green>
-        Hello
-      </site-button-green>
-
-      <site-button-orange>
-        Hi
-      </site-button-orange>
+      <modal-window
+         @show="isModalWinReg = false"
+        :show="isModalWinReg">
+        <div class="modal-reg-wrapper">
+          <p class="modal-title">Регистрация</p>
+          <form action="#" class="modal-form">
+            <div class="modal-form-block">
+              <label class="modal-form-name">Имя</label>
+              <input type="text" class="modal-form__input">
+            </div>
+            <div class="modal-form-block">
+              <label class="modal-form-name">Электронная почта</label>
+              <input type="email" class="modal-form__input">
+            </div>
+            <div class="modal-form-block">
+              <label class="modal-form-name">Придумайте пароль (минимум 6 символов)</label>
+              <div class="modal-form__password-wrapper">
+                <input :type="passwordType" class="modal-form__input">
+                <button @click="hidePasword" type="password" class="modal-form__hide"></button>
+              </div>
+            </div>
+            <button class="modal-form__submit button-orange-another">Зарегистрироваться</button>
+            <button
+                @click="isModalWinLog = true"
+                class="modal-form-login">
+              Войти</button>
+          </form>
+        </div>
+      </modal-window>
+      <modal-window
+        @show="isModalWinLog = false"
+        :show="isModalWinLog">
+        <div class="modal-reg-wrapper">
+          <p class="modal-title modal-title-reg">Войти</p>
+          <form action="#" class="modal-form modal-form-log">
+            <div class="modal-form-block">
+              <label class="modal-form-name">электронная почта</label>
+              <input type="email" class="modal-form__input">
+            </div>
+            <div class="modal-form-block">
+              <label class="modal-form-name">Пароль</label>
+              <div class="modal-form__password-wrapper">
+                <input :type="passwordType" class="modal-form__input">
+                <button @click="hidePasword" type="password" class="modal-form__hide"></button>
+              </div>
+            </div>
+            <button
+                @click="isModalWinResetPass = true"
+                class="modal-form-password-reset">
+              Забыли пароль?</button>
+            <button class="modal-form__submit button-orange-another">Войти</button>
+            <button class="modal-form-login">Зарегистрироваться</button>
+          </form>
+        </div>
+      </modal-window>
+       <modal-window
+        @show="isModalWinResetPass = false"
+       :show="isModalWinResetPass">
+        <div class="modal-reg-wrapper">
+          <p class="modal-title modal-title-reg">Восстановление пароля</p>
+          <form action="#" class="modal-form modal-form-reset">
+            <div class="modal-form-block">
+              <label class="modal-form-name">Укажите E-mail, который вы использовали при регистрации</label>
+              <input type="email" class="modal-form__input">
+            </div>
+            <button class="modal-form__submit button-orange-another">Далее</button>
+          </form>
+        </div>
+       </modal-window>
+      <button @click="openItem" class="menu-btn">
+        <span class="menu-btn__line"></span>
+        <span class="menu-btn__line"></span>
+        <span class="menu-btn__line"></span>
+      </button>
     </div>
   </header>
-
 </template>
 
 <script>
-import siteButtonOrange from '../ui/site-button-orange';
-import siteButtonGreen from '../ui/site-button-green'
+import ModalWindow from "@/components/ui/modalWin.vue";
+
 export default {
   name: 'site-header',
   components: {
-    siteButtonOrange,
-    siteButtonGreen
+    ModalWindow
+  },
+  data() {
+    return {
+      password: '',
+      passwordType: 'password',
+      isModalWinReg: false,
+      isModalWinLog: false,
+      isModalWinResetPass: false,
+      isMenuActive: false,
+    }
+  },
+
+  methods: {
+    openItem() {
+      this.isMenuActive = !this.isMenuActive;
+        document.documentElement.style.overflow = 'hidden';
+    },
+    hidePasword() {
+      this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+    }
+  },
+  watch: {
+    isMenuActive: function() {
+      if(this.isMenuActive){
+        document.documentElement.style.overflow = 'hidden'
+        return
+      }
+      document.documentElement.style.overflow = 'auto'
+    }
   }
 }
 </script>

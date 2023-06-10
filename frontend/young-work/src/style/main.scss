@@ -1,5 +1,5 @@
 @import "varibles";
-@import "maxin";
+@import "mixin";
 
 //reset style start
 
@@ -20,6 +20,10 @@ img {
   display: block;
 }
 
+input {
+  outline: none;
+}
+
 button {
   border: none;
   background-color: transparent;
@@ -29,11 +33,12 @@ button {
 
 body {
   display: block;
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: $fontInter;
   font-size: 18px;
-  line-height: 22px;
+  line-height: 24px;
   letter-spacing: -0.02em;
   font-weight: 500;
   color: $colorGrey;
@@ -41,4 +46,54 @@ body {
 
 .wrapper {
   @include wrapper;
+}
+
+.button-orange {
+  @include buttonOrange;
+}
+
+.button-green {
+  @include buttonGreen;
+}
+
+.button-orange-another {
+  @include buttonOrangeAnother;
+}
+
+.section-title {
+  @include sectionTitle;
+}
+
+@media(max-width: 1440px) {
+  .wrapper {
+    margin: 0 10px;
+  }
+}
+
+@media(max-width: 1024px) {
+  .section-title {
+    font-size: 48px;
+    line-height: 47px;
+  }
+}
+
+@media(max-width: 360px) {
+
+  .button-orange-another {
+    padding: 10px 14px;
+    font-size: 14px !important;
+    line-height: 17px !important;
+    letter-spacing: -0.02em;
+  }
+
+  .button-orange {
+    font-size: 14px !important;
+    line-height: 17px !important;
+    padding: 10px 14px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    line-height: 24px;
+  }
 }

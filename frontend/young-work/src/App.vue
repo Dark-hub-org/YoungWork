@@ -10,7 +10,7 @@
 
 import SiteHeader from "@/components/view/site-header.vue";
 import SiteContent from './components/view/site-content';
-import SiteFooter from './components/view/site-footer'
+import SiteFooter from './components/view/site-footer';
 
 export default {
   name: 'App',
@@ -18,7 +18,7 @@ export default {
     SiteHeader,
     SiteContent,
     SiteFooter,
-  }
+  },
 }
 </script>
 
