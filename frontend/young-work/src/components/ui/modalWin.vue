@@ -25,6 +25,15 @@ name: 'modalWindow',
     CloseModal() {
         this.$emit('show', false)
     }
+  },
+  watch: {
+    show: function() {
+      if(this.show == true){
+        document.documentElement.style.overflow = 'hidden'
+        return
+      }
+      document.documentElement.style.overflow = 'auto'
+    }
   }
 }
 </script>

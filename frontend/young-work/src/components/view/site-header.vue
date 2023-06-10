@@ -44,7 +44,10 @@
             </div>
             <div class="modal-form-block">
               <label class="modal-form-name">Придумайте пароль (минимум 6 символов)</label>
-              <input type="text" class="modal-form__input">
+              <div class="modal-form__password-wrapper">
+                <input :type="passwordType" class="modal-form__input">
+                <button @click="hidePasword" type="password" class="modal-form__hide"></button>
+              </div>
             </div>
             <button class="modal-form__submit button-orange-another">Зарегистрироваться</button>
             <button
@@ -66,11 +69,14 @@
             </div>
             <div class="modal-form-block">
               <label class="modal-form-name">Пароль</label>
-              <input type="text" class="modal-form__input">
+              <div class="modal-form__password-wrapper">
+                <input :type="passwordType" class="modal-form__input">
+                <button @click="hidePasword" type="password" class="modal-form__hide"></button>
+              </div>
             </div>
             <button
                 @click="isModalWinResetPass = true"
-                class="modal-form-password">
+                class="modal-form-password-reset">
               Забыли пароль?</button>
             <button class="modal-form__submit button-orange-another">Войти</button>
             <button class="modal-form-login">Зарегистрироваться</button>
@@ -110,17 +116,23 @@ export default {
   },
   data() {
     return {
+      password: '',
+      passwordType: 'password',
       isModalWinReg: false,
       isModalWinLog: false,
       isModalWinResetPass: false,
       isMenuActive: false,
     }
   },
+
   methods: {
     openItem() {
       this.isMenuActive = !this.isMenuActive;
         document.documentElement.style.overflow = 'hidden';
     },
+    hidePasword() {
+      this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+    }
   },
   watch: {
     isMenuActive: function() {
