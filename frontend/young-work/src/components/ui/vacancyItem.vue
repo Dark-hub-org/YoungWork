@@ -6,7 +6,8 @@
          <span>Требования:</span>{{vacancy.requirements}}
       </li>
       <li class="vacancy-card-list__item">
-          <span>Задачи:</span>{{vacancy.tasks}}
+        <span>Задачи:</span>{{vacancy.tasks}}
+      </li>
       <li class="vacancy-card-list__item">
           <span>Оплата:</span> {{vacancy.salary}}
       </li>
