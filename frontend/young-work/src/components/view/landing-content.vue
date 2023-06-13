@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="inner-info__card">
-          <img src="@/assets/inner/info-2.png" alt="сужчина с табличкой" class="inner-info-image">
+          <img src="@/assets/inner/info-2.png" alt="мужчина с табличкой" class="inner-info-image">
           <div class="info__card-block">
               <a href="#" class="button-orange-another info__card-block__link">Перейти</a>
               <h4 class="info__card-block__title white">Топ вакансий на этом сервисе</h4>
