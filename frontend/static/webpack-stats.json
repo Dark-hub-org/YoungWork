@@ -1,0 +1,92 @@
+{
+  "status": "done",
+  "assets": {
+    "favicon.ico": {
+      "name": "favicon.ico",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\favicon.ico",
+      "publicPath": "http://localhost:8080/favicon.ico"
+    },
+    "img/close-icon.805bf63a.svg": {
+      "name": "img/close-icon.805bf63a.svg",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\close-icon.805bf63a.svg",
+      "publicPath": "http://localhost:8080/img/close-icon.805bf63a.svg"
+    },
+    "img/error-icon.f9e395a0.svg": {
+      "name": "img/error-icon.f9e395a0.svg",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\error-icon.f9e395a0.svg",
+      "publicPath": "http://localhost:8080/img/error-icon.f9e395a0.svg"
+    },
+    "img/hide-icon.212ac3d4.svg": {
+      "name": "img/hide-icon.212ac3d4.svg",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\hide-icon.212ac3d4.svg",
+      "publicPath": "http://localhost:8080/img/hide-icon.212ac3d4.svg"
+    },
+    "img/info-1.70ecb817.png": {
+      "name": "img/info-1.70ecb817.png",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\info-1.70ecb817.png",
+      "publicPath": "http://localhost:8080/img/info-1.70ecb817.png"
+    },
+    "img/info-2.1592b2ce.png": {
+      "name": "img/info-2.1592b2ce.png",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\info-2.1592b2ce.png",
+      "publicPath": "http://localhost:8080/img/info-2.1592b2ce.png"
+    },
+    "img/info-3__1024.eeddb5a0.png": {
+      "name": "img/info-3__1024.eeddb5a0.png",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\info-3__1024.eeddb5a0.png",
+      "publicPath": "http://localhost:8080/img/info-3__1024.eeddb5a0.png"
+    },
+    "img/info-3.54361fbe.png": {
+      "name": "img/info-3.54361fbe.png",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\info-3.54361fbe.png",
+      "publicPath": "http://localhost:8080/img/info-3.54361fbe.png"
+    },
+    "img/logo.9832d087.svg": {
+      "name": "img/logo.9832d087.svg",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\logo.9832d087.svg",
+      "publicPath": "http://localhost:8080/img/logo.9832d087.svg"
+    },
+    "img/person-2.5990a123.png": {
+      "name": "img/person-2.5990a123.png",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\person-2.5990a123.png",
+      "publicPath": "http://localhost:8080/img/person-2.5990a123.png"
+    },
+    "img/person-3.7739c2ff.png": {
+      "name": "img/person-3.7739c2ff.png",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\person-3.7739c2ff.png",
+      "publicPath": "http://localhost:8080/img/person-3.7739c2ff.png"
+    },
+    "img/person-4.84a132ca.png": {
+      "name": "img/person-4.84a132ca.png",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\person-4.84a132ca.png",
+      "publicPath": "http://localhost:8080/img/person-4.84a132ca.png"
+    },
+    "img/search-icon.f8a4cec3.svg": {
+      "name": "img/search-icon.f8a4cec3.svg",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\img\\search-icon.f8a4cec3.svg",
+      "publicPath": "http://localhost:8080/img/search-icon.f8a4cec3.svg"
+    },
+    "index.html": {
+      "name": "index.html",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\index.html",
+      "publicPath": "http://localhost:8080/index.html"
+    },
+    "js/app.js": {
+      "name": "js/app.js",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\js\\app.js",
+      "publicPath": "http://localhost:8080/js/app.js"
+    },
+    "js/chunk-vendors.js": {
+      "name": "js/chunk-vendors.js",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\js\\chunk-vendors.js",
+      "publicPath": "http://localhost:8080/js/chunk-vendors.js"
+    }
+  },
+  "chunks": {
+    "app": [
+      "js/chunk-vendors.js",
+      "js/app.js"
+    ]
+  },
+  "publicPath": "http://localhost:8080/"
+}
