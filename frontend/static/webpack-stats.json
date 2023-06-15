@@ -1,0 +1,37 @@
+{
+  "status": "done",
+  "assets": {
+    "favicon.ico": {
+      "name": "favicon.ico",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\favicon.ico",
+      "publicPath": "http://localhost:8080/favicon.ico"
+    },
+    "index.html": {
+      "name": "index.html",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\index.html",
+      "publicPath": "http://localhost:8080/index.html"
+    },
+    "js/about.js": {
+      "name": "js/about.js",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\js\\about.js",
+      "publicPath": "http://localhost:8080/js/about.js"
+    },
+    "js/app.js": {
+      "name": "js/app.js",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\js\\app.js",
+      "publicPath": "http://localhost:8080/js/app.js"
+    },
+    "js/chunk-vendors.js": {
+      "name": "js/chunk-vendors.js",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\js\\chunk-vendors.js",
+      "publicPath": "http://localhost:8080/js/chunk-vendors.js"
+    }
+  },
+  "chunks": {
+    "app": [
+      "js/chunk-vendors.js",
+      "js/app.js"
+    ]
+  },
+  "publicPath": "http://localhost:8080/"
+}
