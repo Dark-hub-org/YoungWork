@@ -1,6 +1,16 @@
 @import "varibles";
 @import "mixin";
 
+//adding padding when showing modal
+
+.manual-overflow-padding {
+  padding-right: 17px;
+}
+
+.manual-overflow-padding .header {
+  padding-right: 17px;
+}
+
 //reset style start
 
 *, a {

@@ -36,8 +36,8 @@
       <!--      Делай на примере этой модалки-->
       <modal-window
 
-          @show="isModalWinReg = false"
-          :show="isModalWinReg">
+          @close="onCloseModalReg"
+          :isVisible="isModalWinReg">
 
         <div class="modal-reg-wrapper">
           <p class="modal-title">Регистрация</p>
@@ -45,7 +45,16 @@
             <div v-if="ModalWinRegCurrentStep === 0">
               <div class="modal-form-block">
                 <label class="modal-form-name">Имя</label>
-                <input v-model="name" type="text" class="modal-form__input">
+                <input
+                    v-model="name"
+                    @input="isEmptyName = false"
+                    type="text"
+                    class="modal-form__input">
+                  <label
+                      v-if="isEmptyName"
+                      class="modal-input-error">
+                    Пожалуйста, заполните поле
+                  </label>
               </div>
               <div class="modal-form-block">
                 <label class="modal-form-name">Электронная почта</label>
@@ -53,21 +62,20 @@
                   <input
                       v-model="email"
                       @blur="checkEmail"
+                      @input="isEmptyEmail = false"
                       @focus="isCheckEmail = true"
                       :class="{error: !isCheckEmail}"
                       type="text"
                       class="modal-form__input">
-                  <div
-                      class="icon-error"
-                      v-if="!isCheckEmail && email !== ''">
-                  </div>
+                  <template v-if="!isCheckEmail && email !== ''">
+                    <div class="icon-error">
+                    </div>
+                    <label class="modal-input-error">
+                      Неверный E-mail
+                    </label>
+                  </template>
                   <label
-                      v-if="!isCheckEmail && email !== ''"
-                      class="modal-input-error">
-                    Неверный E-mail
-                  </label>
-                  <label
-                      v-if="isEmptyField"
+                      v-if="isEmptyEmail"
                       class="modal-input-error">
                     Пожалуйста, заполните поле
                   </label>
@@ -78,23 +86,32 @@
                 <div class="modal-form__password-wrapper">
                   <input
                       v-model="password"
+                      ref="passwordInput"
                       @blur="checkPassword"
+                      @input="isEmptyPassword = false"
                       @focus="isCheckPassword = true"
                       :class="{error: !isCheckPassword}"
                       :type="passwordType"
                       class="modal-form__input">
-                  <div
-                      class="icon-error"
-                      v-if="!isCheckPassword && password !== ''">
-                  </div>
-                  <label
-                      v-if="!isCheckPassword && password !== ''"
-                      class="modal-input-error">
-                    Пароль должен быть минимум 6 символов
-                  </label>
+
+                  <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
+                    <template v-if="!isCheckPassword && password !== ''">
+<!--                      <div class="icon-error">-->
+<!--                      </div>-->
+                      <label class="modal-input-error">
+                        Пароль должен быть минимум 6 символов
+                      </label>
+                    </template>
+                    <template v-if="isEmptyPassword">
+                      <label
+                          v-if="isEmptyEmail"
+                          class="modal-input-error">
+                        Пожалуйста, заполните поле
+                      </label>
+                    </template>
+                  </template>
                   <button
-                      v-else
-                      @click="hidePasword"
+                      @click="hidePassword"
                       type="button"
                       class="modal-form__hide">
                   </button>
@@ -111,11 +128,11 @@
             </div>
             <!--функция для переключения шага-->
             <button
-                @click="cheakStep"
+                @click="checkRegFields"
                 class="modal-form__submit button-orange-another">Зарегистрироваться
             </button>
             <button
-                @click="isModalWinLog = true; isModalWinReg = false"
+                @click="openModalWinLog"
                 type="button"
                 class="modal-form-login">
               Войти
@@ -125,8 +142,8 @@
       </modal-window>
       <modal-window
 
-          @show="isModalWinLog = false"
-          :show="isModalWinLog">
+          @close="onCloseModalWin"
+          :isVisible="isModalWinLog">
 
         <div class="modal-reg-wrapper">
           <p class="modal-title modal-title-reg">Войти</p>
@@ -137,6 +154,7 @@
                 <input
                     v-model="email"
                     @blur="checkEmail"
+                    @input="isEmptyEmail = false"
                     @focus="isCheckEmail = true"
                     :class="{error: !isCheckEmail}"
                     type="text"
@@ -151,7 +169,7 @@
                   Неверный E-mail
                 </label>
                 <label
-                    v-if="isEmptyField"
+                    v-if="isEmptyEmail"
                     class="modal-input-error">
                   Пожалуйста, заполните поле
                 </label>
@@ -178,7 +196,7 @@
                 </label>
                 <button
                     v-else
-                    @click="hidePasword"
+                    @click="hidePassword"
                     type="button"
                     class="modal-form__hide">
                 </button>
@@ -201,8 +219,8 @@
         </div>
       </modal-window>
       <modal-window
-          @show="isModalWinResetPass = false"
-          :show="isModalWinResetPass">
+          @close="onCloseModalResetPass"
+          :isVisible="isModalWinResetPass">
         <div class="modal-reg-wrapper">
           <p class="modal-title modal-title-reg">Восстановление пароля</p>
           <form action="#" class="modal-form modal-form-reset">
@@ -264,6 +282,7 @@
 
 <script>
 import ModalWindow from "@/components/ui/modalWin.vue";
+import _ from 'lodash';
 
 export default {
   name: 'site-header',
@@ -275,21 +294,56 @@ export default {
       name: '',
       password: '',
       email: '',
-      isEmptyField: false,
+
       isCheckEmail: true,
       isCheckPassword: true,
+      isEmptyEmail: false,
+      isEmptyPassword: false,
+      isEmptyName: false,
+
       passwordType: 'password',
       resetPasswordCurrentStep: 0,
       ModalWinRegCurrentStep: 0,
+
       isModalWinReg: false,
       isModalWinLog: false,
-      isModalWinResetPassword: false,
       isModalWinResetPass: false,
+
       isMenuActive: false,
     }
   },
 
   methods: {
+    checkRegFields() {
+      this.isEmptyEmail = _.isEmpty(this.email);
+      this.isEmptyName = _.isEmpty(this.name);
+      this.isEmptyPassword = _.isEmpty(this.password);
+
+      if (this.isEmptyName || this.isEmptyPassword || this.isEmptyPassword) {
+        return;
+      }
+      this.ModalWinRegCurrentStep++
+    },
+    openModalWinLog() {
+      this.sModalWinLog = true;
+      this.isModalWinReg = false;
+    },
+    onCloseModalWin() {
+      this.isModalWinLog = false
+      this.clearModalData();
+    },
+    onCloseModalReg() {
+      this.isModalWinReg = false
+      this.clearModalData();
+    },
+    onCloseModalResetPass() {
+      this.isModalWinResetPass = false
+    },
+    clearModalData() {
+      this.email = '';
+      this.password = '';
+      this.name = '';
+    },
     checkEmail() {
       if (this.email === '') {
         return;
@@ -303,21 +357,12 @@ export default {
       }
       this.password.length < 6 ? this.isCheckPassword = false : this.isCheckPassword = true;
     },
-    // функция переключения шага (недоделанная)
-    cheakStep() {
-      if (!this.isCheckEmail || !this.isCheckPassword || this.email === '' || this.password === '' || this.name === '') {
-        if (this.email === '') {
-          this.isEmptyField = true;
-        }
-        return;
-      }
-      this.ModalWinRegCurrentStep++
-    },
+
     openItem() {
       this.isMenuActive = !this.isMenuActive;
       document.documentElement.style.overflow = 'hidden';
     },
-    hidePasword() {
+    hidePassword() {
       this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
     }
   },

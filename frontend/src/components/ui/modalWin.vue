@@ -1,6 +1,6 @@
 <template>
   <div
-      v-if="show"
+      v-if="isVisible"
       @click.stop="CloseModal"
       class="modal-wrapper" id="modal-wrapper">
     <div @click.stop class="modal-window">
@@ -17,27 +17,29 @@
 export default {
   name: 'modalWindow',
   props: {
-    show: {
+    isVisible: {
       type: Boolean,
       default: false,
     }
   },
   methods: {
     CloseModal() {
-      this.$emit('show', false)
+      this.$emit('close', false)
     }
   },
   watch: {
-    show: {
+    isVisible: {
       handler(val) {
         if (val) {
           document.body.style.overflow = 'hidden'
+          document.body.classList.add('manual-overflow-padding')
           return;
         }
         this.$nextTick(() => {
           let wrapper = document.getElementById('modal-wrapper')
           if (!wrapper) {
             document.body.style.overflow = ''
+            document.body.classList.remove('manual-overflow-padding')
           }
         })
       },
