@@ -19,23 +19,25 @@
                 @click="isModalWinLog = true"
                 type="button"
                 class="header-btn button-green">
-              Вход</button>
+              Вход
+            </button>
           </li>
           <li class="header-nav__list-item">
             <button
                 @click="isModalWinReg = true"
                 type="button"
                 class="header-btn button-green">
-              Регистрация</button>
+              Регистрация
+            </button>
           </li>
         </ul>
       </nav>
 
-<!--      Делай на примере этой модалки-->
+      <!--      Делай на примере этой модалки-->
       <modal-window
 
-        @show="isModalWinReg = false"
-        :show="isModalWinReg">
+          @show="isModalWinReg = false"
+          :show="isModalWinReg">
 
         <div class="modal-reg-wrapper">
           <p class="modal-title">Регистрация</p>
@@ -48,46 +50,46 @@
               <div class="modal-form-block">
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
-                <input
-                    v-model="email"
-                    @blur="checkEmail"
-                    @focus="isCheckEmail = true"
-                    :class="{error: !isCheckEmail}"
-                    type="text"
-                    class="modal-form__input">
-                <div
-                    class="icon-error"
-                    v-if="!isCheckEmail && email !== ''">
+                  <input
+                      v-model="email"
+                      @blur="checkEmail"
+                      @focus="isCheckEmail = true"
+                      :class="{error: !isCheckEmail}"
+                      type="text"
+                      class="modal-form__input">
+                  <div
+                      class="icon-error"
+                      v-if="!isCheckEmail && email !== ''">
+                  </div>
+                  <label
+                      v-if="!isCheckEmail && email !== ''"
+                      class="modal-input-error">
+                    Неверный E-mail
+                  </label>
+                  <label
+                      v-if="isEmptyField"
+                      class="modal-input-error">
+                    Пожалуйста, заполните поле
+                  </label>
                 </div>
-                <label
-                    v-if="!isCheckEmail && email !== ''"
-                    class="modal-input-error">
-                Неверный E-mail
-                </label>
-                <label
-                  v-if="isEmptyField"
-                  class="modal-input-error">
-                  Пожалуйста, заполните поле
-                </label>
-              </div>
               </div>
               <div class="modal-form-block">
                 <label class="modal-form-name">Придумайте пароль (минимум 6 символов)</label>
                 <div class="modal-form__password-wrapper">
                   <input
-                    v-model="password"
-                    @blur="checkPassword"
-                    @focus="isCheckPassword = true"
-                    :class="{error: !isCheckPassword}"
-                    :type="passwordType"
-                    class="modal-form__input">
+                      v-model="password"
+                      @blur="checkPassword"
+                      @focus="isCheckPassword = true"
+                      :class="{error: !isCheckPassword}"
+                      :type="passwordType"
+                      class="modal-form__input">
                   <div
-                    class="icon-error"
-                    v-if="!isCheckPassword && password !== ''">
+                      class="icon-error"
+                      v-if="!isCheckPassword && password !== ''">
                   </div>
                   <label
-                    v-if="!isCheckPassword && password !== ''"
-                    class="modal-input-error">
+                      v-if="!isCheckPassword && password !== ''"
+                      class="modal-input-error">
                     Пароль должен быть минимум 6 символов
                   </label>
                   <button
@@ -101,7 +103,8 @@
             </div>
             <div v-if="ModalWinRegCurrentStep === 1">
               <div class="modal-reg-step-two">
-                <label class="modal-form-label">Введите код для подтверждения почты (письмо с кодом отправлено на указанный вами E-mail)</label>
+                <label class="modal-form-label">Введите код для подтверждения почты (письмо с кодом отправлено на
+                  указанный вами E-mail)</label>
                 <input type="text" class="modal-form__input">
                 <label class="modal-form-label">Если письмо не пришло, проверьте спам</label>
               </div>
@@ -109,19 +112,21 @@
             <!--функция для переключения шага-->
             <button
                 @click="cheakStep"
-                class="modal-form__submit button-orange-another">Зарегистрироваться</button>
+                class="modal-form__submit button-orange-another">Зарегистрироваться
+            </button>
             <button
                 @click="isModalWinLog = true; isModalWinReg = false"
                 type="button"
                 class="modal-form-login">
-              Войти</button>
+              Войти
+            </button>
           </form>
         </div>
       </modal-window>
       <modal-window
 
-        @show="isModalWinLog = false"
-        :show="isModalWinLog">
+          @show="isModalWinLog = false"
+          :show="isModalWinLog">
 
         <div class="modal-reg-wrapper">
           <p class="modal-title modal-title-reg">Войти</p>
@@ -143,11 +148,11 @@
                 <label
                     v-if="!isCheckEmail && email !== ''"
                     class="modal-input-error">
-                Неверный E-mail
+                  Неверный E-mail
                 </label>
                 <label
-                  v-if="isEmptyField"
-                  class="modal-input-error">
+                    v-if="isEmptyField"
+                    class="modal-input-error">
                   Пожалуйста, заполните поле
                 </label>
               </div>
@@ -162,47 +167,52 @@
                     :class="{error: !isCheckPassword}"
                     :type="passwordType"
                     class="modal-form__input">
-                  <div
+                <div
                     class="icon-error"
                     v-if="!isCheckPassword && password !== ''">
-                  </div>
-                  <label
+                </div>
+                <label
                     v-if="!isCheckPassword && password !== ''"
                     class="modal-input-error">
-                    Пароль должен быть минимум 6 символов
-                  </label>
-                  <button
-                      v-else
-                      @click="hidePasword"
-                      type="button"
-                      class="modal-form__hide">
-                  </button>
+                  Пароль должен быть минимум 6 символов
+                </label>
+                <button
+                    v-else
+                    @click="hidePasword"
+                    type="button"
+                    class="modal-form__hide">
+                </button>
               </div>
             </div>
             <button
                 @click="isModalWinResetPass = true; isModalWinLog = false"
                 class="modal-form-password-reset">
-              Забыли пароль?</button>
+              Забыли пароль?
+            </button>
             <button class="modal-form__submit button-orange-another">Войти</button>
-<!--            На этой кнопки выдает ошибку-->
+            <!--            На этой кнопки выдает ошибку-->
             <button
                 @click="isModalWinReg = true; isModalWinLog = false"
                 type="button"
                 class="modal-form-login">
-              Зарегистрироваться</button>
+              Зарегистрироваться
+            </button>
           </form>
         </div>
       </modal-window>
-       <modal-window
-        @show="isModalWinResetPass = false"
-       :show="isModalWinResetPass">
+      <modal-window
+          @show="isModalWinResetPass = false"
+          :show="isModalWinResetPass">
         <div class="modal-reg-wrapper">
           <p class="modal-title modal-title-reg">Восстановление пароля</p>
           <form action="#" class="modal-form modal-form-reset">
             <div class="modal-form-block">
-              <label v-if="resetPasswordCurrentStep === 0" class="modal-form-name">Укажите E-mail, который вы использовали при регистрации</label>
-              <label v-if="resetPasswordCurrentStep === 1" class="modal-form-name">Введите код восстановления пароля<br> (письмо с кодом отправлено на указанный E-mail)</label>
-              <label v-if="resetPasswordCurrentStep === 2" class="modal-form-name">Придумайте новый пароль (минимум 6 символов)</label>
+              <label v-if="resetPasswordCurrentStep === 0" class="modal-form-name">Укажите E-mail, который вы
+                использовали при регистрации</label>
+              <label v-if="resetPasswordCurrentStep === 1" class="modal-form-name">Введите код восстановления пароля<br>
+                (письмо с кодом отправлено на указанный E-mail)</label>
+              <label v-if="resetPasswordCurrentStep === 2" class="modal-form-name">Придумайте новый пароль (минимум 6
+                символов)</label>
               <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1" class="modal-wrapper-input">
                 <input
                     v-model="email"
@@ -218,7 +228,7 @@
                 <label
                     v-if="!isCheckEmail && email !== ''"
                     class="modal-input-error">
-                Неверный E-mail
+                  Неверный E-mail
                 </label>
               </div>
               <div v-if="resetPasswordCurrentStep === 2" class="modal-wrapper-input">
@@ -230,14 +240,16 @@
                 </div>
                 <label
                     class="modal-input-error">
-                Неверный E-mail
+                  Неверный E-mail
                 </label>
               </div>
             </div>
-            <button type="button" @click.stop="resetPasswordCurrentStep++" class="modal-form__submit button-orange-another">Далее</button>
+            <button type="button" @click.stop="resetPasswordCurrentStep++"
+                    class="modal-form__submit button-orange-another">Далее
+            </button>
           </form>
         </div>
-       </modal-window>
+      </modal-window>
       <button
           @click="openItem"
           :class="{active: isMenuActive}"
@@ -293,8 +305,8 @@ export default {
     },
     // функция переключения шага (недоделанная)
     cheakStep() {
-      if(!this.isCheckEmail || !this.isCheckPassword || this.email  === '' || this.password === '' || this.name === '') {
-        if(this.email  === '') {
+      if (!this.isCheckEmail || !this.isCheckPassword || this.email === '' || this.password === '' || this.name === '') {
+        if (this.email === '') {
           this.isEmptyField = true;
         }
         return;
@@ -303,15 +315,15 @@ export default {
     },
     openItem() {
       this.isMenuActive = !this.isMenuActive;
-        document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     },
     hidePasword() {
       this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
     }
   },
   watch: {
-    isMenuActive: function() {
-      if(this.isMenuActive){
+    isMenuActive: function () {
+      if (this.isMenuActive) {
         document.documentElement.style.overflow = 'hidden'
         return
       }

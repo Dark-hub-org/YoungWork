@@ -1,15 +1,15 @@
 <template>
   <div class="vacancy-card">
-    <p class="vacancy-card__title">{{vacancy.title}}</p>
+    <p class="vacancy-card__title">{{ vacancy.title }}</p>
     <ul class="vacancy-card__list">
       <li class="vacancy-card-list__item">
-         <span>Требования:</span>{{vacancy.requirements}}
+        <span>Требования:</span>{{ vacancy.requirements }}
       </li>
       <li class="vacancy-card-list__item">
-          <span>Задачи:</span>{{vacancy.tasks}}
+        <span>Задачи:</span>{{ vacancy.tasks }}
       </li>
       <li class="vacancy-card-list__item">
-          <span>Оплата:</span> {{vacancy.salary}}
+        <span>Оплата:</span> {{ vacancy.salary }}
       </li>
     </ul>
     <div class="vacancy-btns">
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-name: 'vacancy-item',
+  name: 'vacancy-item',
   props: {
     vacancy: {
       type: Object,

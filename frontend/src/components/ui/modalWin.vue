@@ -1,21 +1,21 @@
 <template>
-      <div
+  <div
       v-if="show"
       @click.stop="CloseModal"
       class="modal-wrapper">
-        <div @click.stop class="modal-window">
-          <button
-              @click="CloseModal"
-              class="modal-window-close">
-          </button>
-             <slot></slot>
-        </div>
-      </div>
+    <div @click.stop class="modal-window">
+      <button
+          @click="CloseModal"
+          class="modal-window-close">
+      </button>
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-name: 'modalWindow',
+  name: 'modalWindow',
   props: {
     show: {
       type: Boolean,
@@ -24,12 +24,12 @@ name: 'modalWindow',
   },
   methods: {
     CloseModal() {
-        this.$emit('show', false)
+      this.$emit('show', false)
     }
   },
   watch: {
-    show: function() {
-      if(this.show == true){
+    show: function () {
+      if (this.show == true) {
         document.documentElement.style.overflow = 'hidden'
         return;
       }
