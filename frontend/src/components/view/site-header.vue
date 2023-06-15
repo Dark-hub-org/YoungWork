@@ -373,7 +373,10 @@ export default {
         return
       }
       document.documentElement.style.overflow = 'auto'
-    }
+    },
+  },
+  computed: {
+
   }
 }
 </script>
