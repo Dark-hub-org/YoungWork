@@ -2,7 +2,7 @@
   <div
       v-if="show"
       @click.stop="CloseModal"
-      class="modal-wrapper">
+      class="modal-wrapper" id="modal-wrapper">
     <div @click.stop class="modal-window">
       <button
           @click="CloseModal"
@@ -28,12 +28,20 @@ export default {
     }
   },
   watch: {
-    show: function () {
-      if (this.show == true) {
-        document.documentElement.style.overflow = 'hidden'
-        return;
-      }
-      document.documentElement.style.overflow = ''
+    show: {
+      handler(val) {
+        if (val) {
+          document.body.style.overflow = 'hidden'
+          return;
+        }
+        this.$nextTick(() => {
+          let wrapper = document.getElementById('modal-wrapper')
+          if (!wrapper) {
+            document.body.style.overflow = ''
+          }
+        })
+      },
+      immediate: true,
     }
   }
 }
