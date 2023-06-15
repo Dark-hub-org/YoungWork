@@ -8,7 +8,7 @@
               @click="CloseModal"
               class="modal-window-close">
           </button>
-             <slot></slot>
+            <slot></slot>
         </div>
       </div>
 </template>

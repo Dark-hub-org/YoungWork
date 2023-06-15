@@ -43,33 +43,55 @@
             <div v-if="ModalWinRegCurrentStep === 0">
               <div class="modal-form-block">
                 <label class="modal-form-name">Имя</label>
-                <input v-model="name" type="text" class="modal-form__input">
+                <div class="modal-wrapper-input">
+                  <input
+                    v-model="name"
+                    @blur="cheakName(); validName()"
+                    @focus="isCheckName = true"
+                    :class="{error: !isCheckName}"
+                    type="text"
+                    class="modal-form__input">
+                  <div
+                      class="icon-error"
+                      v-if="!isCheckName && name !== ''">
+                  </div>
+                  <label
+                    v-if="!isCheckName && name !== ''"
+                    class="modal-input-error">
+                    Имя должно состоять только из букв
+                  </label>
+                  <label
+                      v-if="isEmptyField"
+                      class="modal-input-error">
+                    Пожалуйста, заполните поле
+                  </label>
+                </div>
               </div>
               <div class="modal-form-block">
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
-                <input
-                    v-model="email"
-                    @blur="checkEmail"
-                    @focus="isCheckEmail = true"
-                    :class="{error: !isCheckEmail}"
-                    type="text"
-                    class="modal-form__input">
-                <div
-                    class="icon-error"
-                    v-if="!isCheckEmail && email !== ''">
+                  <input
+                      v-model="email"
+                      @blur="checkEmail"
+                      @focus="isCheckEmail = true"
+                      :class="{error: !isCheckEmail}"
+                      type="text"
+                      class="modal-form__input">
+                  <div
+                      class="icon-error"
+                      v-if="!isCheckEmail && email !== ''">
+                  </div>
+                  <label
+                      v-if="!isCheckEmail && email !== ''"
+                      class="modal-input-error">
+                  Неверный E-mail
+                  </label>
+                  <label
+                      v-if="isEmptyField"
+                      class="modal-input-error">
+                    Пожалуйста, заполните поле
+                  </label>
                 </div>
-                <label
-                    v-if="!isCheckEmail && email !== ''"
-                    class="modal-input-error">
-                Неверный E-mail
-                </label>
-                <label
-                  v-if="isEmptyField"
-                  class="modal-input-error">
-                  Пожалуйста, заполните поле
-                </label>
-              </div>
               </div>
               <div class="modal-form-block">
                 <label class="modal-form-name">Придумайте пароль (минимум 6 символов)</label>
@@ -264,6 +286,7 @@ export default {
       password: '',
       email: '',
       isEmptyField: false,
+      isCheckName: true,
       isCheckEmail: true,
       isCheckPassword: true,
       passwordType: 'password',
@@ -278,6 +301,9 @@ export default {
   },
 
   methods: {
+    cheakName() {
+      this.isCheckName = /^[а-яА-Я]*$/g.test(this.name);
+    },
     checkEmail() {
       if (this.email === '') {
         return;
@@ -307,6 +333,9 @@ export default {
     },
     hidePasword() {
       this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+    },
+    validName() {
+      this.name = this.name[0].toUpperCase() + this.name.slice(1).toLowerCase();
     }
   },
   watch: {
@@ -316,7 +345,10 @@ export default {
         return
       }
       document.documentElement.style.overflow = 'auto'
-    }
+    },
+  },
+  computed: {
+
   }
 }
 </script>
