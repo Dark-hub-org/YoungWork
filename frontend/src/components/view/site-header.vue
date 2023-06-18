@@ -49,12 +49,13 @@
                     v-model="name"
                     @input="isEmptyName = false"
                     type="text"
+                    autocomplete="new-password"
                     class="modal-form__input">
-                  <label
-                      v-if="isEmptyName"
-                      class="modal-input-error">
-                    Пожалуйста, заполните поле
-                  </label>
+                <label
+                    v-if="isEmptyName"
+                    class="modal-input-error">
+                  Пожалуйста, заполните поле
+                </label>
               </div>
               <div class="modal-form-block">
                 <label class="modal-form-name">Электронная почта</label>
@@ -62,6 +63,7 @@
                   <input
                       v-model="email"
                       @blur="checkEmail"
+                      autocomplete="new-password"
                       @input="isEmptyEmail = false"
                       @focus="isCheckEmail = true"
                       :class="{error: !isCheckEmail}"
@@ -90,14 +92,15 @@
                       @blur="checkPassword"
                       @input="isEmptyPassword = false"
                       @focus="isCheckPassword = true"
+                      autocomplete="new-password"
                       :class="{error: !isCheckPassword}"
-                      :type="passwordType"
+                      :type="isHidePassword ? 'password' : 'text'"
                       class="modal-form__input">
 
                   <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
                     <template v-if="!isCheckPassword && password !== ''">
-<!--                      <div class="icon-error">-->
-<!--                      </div>-->
+                      <!--                      <div class="icon-error">-->
+                      <!--                      </div>-->
                       <label class="modal-input-error">
                         Пароль должен быть минимум 6 символов
                       </label>
@@ -110,11 +113,9 @@
                       </label>
                     </template>
                   </template>
-                  <button
-                      @click="hidePassword"
-                      type="button"
-                      class="modal-form__hide">
-                  </button>
+
+                  <i v-if="isHidePassword" @click="isHidePassword = false;" class="bx bx-hide modal-form__hide"></i>
+                  <i v-else @click="isHidePassword = true" class="bx bx-show modal-form__hide"></i>
                 </div>
               </div>
             </div>
@@ -122,13 +123,13 @@
               <div class="modal-reg-step-two">
                 <label class="modal-form-label">Введите код для подтверждения почты (письмо с кодом отправлено на
                   указанный вами E-mail)</label>
-                <input type="text" class="modal-form__input">
+                <input type="text" class="modal-form__input" autocomplete="new-password">
                 <label class="modal-form-label">Если письмо не пришло, проверьте спам</label>
               </div>
             </div>
             <!--функция для переключения шага-->
             <button
-                @click="checkRegFields"
+                @click="openNextStep"
                 class="modal-form__submit button-orange-another">Зарегистрироваться
             </button>
             <button
@@ -156,6 +157,7 @@
                     @blur="checkEmail"
                     @input="isEmptyEmail = false"
                     @focus="isCheckEmail = true"
+                    autocomplete="new-password"
                     :class="{error: !isCheckEmail}"
                     type="text"
                     class="modal-form__input">
@@ -182,35 +184,45 @@
                     v-model="password"
                     @blur="checkPassword"
                     @focus="isCheckPassword = true"
+                    @input="isEmptyPassword = false"
+                    autocomplete="new-password"
                     :class="{error: !isCheckPassword}"
-                    :type="passwordType"
+                    :type="isHidePassword ? 'password' : 'text'"
                     class="modal-form__input">
-                <div
-                    class="icon-error"
-                    v-if="!isCheckPassword && password !== ''">
-                </div>
-                <label
-                    v-if="!isCheckPassword && password !== ''"
-                    class="modal-input-error">
-                  Пароль должен быть минимум 6 символов
-                </label>
-                <button
-                    v-else
-                    @click="hidePassword"
-                    type="button"
-                    class="modal-form__hide">
-                </button>
+                <!--                <div-->
+                <!--                    class="icon-error"-->
+                <!--                    v-if="!isCheckPassword && password !== ''">-->
+                <!--                </div>-->
+                <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
+                  <template v-if="!isCheckPassword && password !== ''">
+                    <!--                      <div class="icon-error">-->
+                    <!--                      </div>-->
+                    <label class="modal-input-error">
+                      Пароль должен быть минимум 6 символов
+                    </label>
+                  </template>
+                  <template v-if="isEmptyPassword">
+                    <label
+                        v-if="isEmptyEmail"
+                        class="modal-input-error">
+                      Пожалуйста, заполните поле
+                    </label>
+                  </template>
+                </template>
+
+                <i v-if="isHidePassword" @click="isHidePassword = false;" class="bx bx-hide modal-form__hide"></i>
+                <i v-else @click="isHidePassword = true" class="bx bx-show modal-form__hide"></i>
               </div>
             </div>
             <button
-                @click="isModalWinResetPass = true; isModalWinLog = false"
+                @click="openModalWinReset"
                 class="modal-form-password-reset">
               Забыли пароль?
             </button>
-            <button class="modal-form__submit button-orange-another">Войти</button>
+            <button @click="logIn" class="modal-form__submit button-orange-another">Войти</button>
             <!--            На этой кнопки выдает ошибку-->
             <button
-                @click="isModalWinReg = true; isModalWinLog = false"
+                @click="openModalWinReg"
                 type="button"
                 class="modal-form-login">
               Зарегистрироваться
@@ -231,27 +243,34 @@
                 (письмо с кодом отправлено на указанный E-mail)</label>
               <label v-if="resetPasswordCurrentStep === 2" class="modal-form-name">Придумайте новый пароль (минимум 6
                 символов)</label>
+
               <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1" class="modal-wrapper-input">
                 <input
                     v-model="email"
                     @blur="checkEmail"
+                    autocomplete="new-password"
+                    @input="isEmptyEmail = false"
                     @focus="isCheckEmail = true"
                     :class="{error: !isCheckEmail}"
                     type="text"
                     class="modal-form__input">
-                <div
-                    class="icon-error"
-                    v-if="!isCheckEmail && email !== ''">
-                </div>
+                <template v-if="!isCheckEmail && email !== ''">
+                  <div class="icon-error">
+                  </div>
+                  <label class="modal-input-error">
+                    Неверный E-mail
+                  </label>
+                </template>
                 <label
-                    v-if="!isCheckEmail && email !== ''"
+                    v-if="isEmptyEmail"
                     class="modal-input-error">
-                  Неверный E-mail
+                  Пожалуйста, заполните поле
                 </label>
               </div>
               <div v-if="resetPasswordCurrentStep === 2" class="modal-wrapper-input">
                 <input
                     type="text"
+                    autocomplete="new-password"
                     class="modal-form__input">
                 <div
                     class="icon-error">
@@ -301,7 +320,7 @@ export default {
       isEmptyPassword: false,
       isEmptyName: false,
 
-      passwordType: 'password',
+      isHidePassword: true,
       resetPasswordCurrentStep: 0,
       ModalWinRegCurrentStep: 0,
 
@@ -314,19 +333,39 @@ export default {
   },
 
   methods: {
+    logIn() {
+      this.checkRegFields();
+      if (this.isEmptyName || this.isEmptyPassword || !this.isCheckPassword || !this.isCheckEmail) {
+        return;
+      }
+    },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
       this.isEmptyName = _.isEmpty(this.name);
       this.isEmptyPassword = _.isEmpty(this.password);
+    },
+    openNextStep() {
+      this.checkRegFields();
 
-      if (this.isEmptyName || this.isEmptyPassword || this.isEmptyPassword) {
+      if (this.isEmptyName || this.isEmptyPassword || this.isEmptyName || !this.isCheckPassword || !this.isCheckEmail) {
         return;
       }
       this.ModalWinRegCurrentStep++
     },
     openModalWinLog() {
-      this.sModalWinLog = true;
+      this.clearModalData();
+      this.isModalWinLog = true;
       this.isModalWinReg = false;
+    },
+    openModalWinReg() {
+      this.clearModalData();
+      this.isModalWinReg = true;
+      this.isModalWinLog = false
+    },
+    openModalWinReset() {
+      this.clearModalData();
+      this.isModalWinResetPass = true;
+      this.isModalWinLog = false
     },
     onCloseModalWin() {
       this.isModalWinLog = false
@@ -343,6 +382,12 @@ export default {
       this.email = '';
       this.password = '';
       this.name = '';
+      this.isHidePassword = true;
+      this.isCheckEmail = true;
+      this.isCheckPassword = true;
+      this.isEmptyEmail = false;
+      this.isEmptyPassword = false;
+      this.isEmptyName = false;
     },
     checkEmail() {
       if (this.email === '') {
@@ -362,9 +407,6 @@ export default {
       this.isMenuActive = !this.isMenuActive;
       document.documentElement.style.overflow = 'hidden';
     },
-    hidePassword() {
-      this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
-    }
   },
   watch: {
     isMenuActive: function () {
@@ -375,9 +417,7 @@ export default {
       document.documentElement.style.overflow = 'auto'
     },
   },
-  computed: {
-
-  }
+  computed: {}
 }
 </script>
 

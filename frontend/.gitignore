@@ -23,4 +23,5 @@ pnpm-debug.log*
 *.sw?
 /node_modules
 /package-lock.json
-/static
+static/webpack-stats.json
+
