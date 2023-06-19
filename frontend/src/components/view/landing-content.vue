@@ -39,11 +39,7 @@
       <div class="wrapper">
         <h2 class="section-title reviews-title">Отзывы</h2>
         <div class="reviews-slider">
-          <slider-item
-              v-for="review in reviews"
-              :review="review"
-              :key="review.id"
-          ></slider-item>
+          <SliderComponent :data="reviews"></SliderComponent>
         </div>
         <a href="#" class="reviews-more">Смотреть все</a>
       </div>
@@ -65,14 +61,14 @@
 </template>
 
 <script>
-import SliderItem from "@/components/ui/sliderItem.vue";
 import VacancyItem from "@/components/ui/vacancyItem.vue";
+import SliderComponent from '../../components/ui/the-slider'
 
 export default {
   name: "landing-content",
   components: {
     VacancyItem,
-    SliderItem,
+    SliderComponent,
   },
   data() {
     return {
