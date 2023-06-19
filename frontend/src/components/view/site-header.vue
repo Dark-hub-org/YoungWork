@@ -36,12 +36,13 @@
       <!--      Делай на примере этой модалки-->
       <modal-window
 
+
           @close="onCloseModalReg"
           :isVisible="isModalWinReg">
 
         <div class="modal-reg-wrapper">
           <p class="modal-title">Регистрация</p>
-          <form action="#" class="modal-form">
+          <form @submit.prevent="openNextStep" class="modal-form">
             <div v-if="ModalWinRegCurrentStep === 0">
               <div class="modal-form-block">
                 <label class="modal-form-name">Имя</label>
@@ -49,7 +50,6 @@
                     v-model="name"
                     @input="isEmptyName = false"
                     type="text"
-                    autocomplete="new-password"
                     class="modal-form__input">
                 <label
                     v-if="isEmptyName"
@@ -63,7 +63,6 @@
                   <input
                       v-model="email"
                       @blur="checkEmail"
-                      autocomplete="new-password"
                       @input="isEmptyEmail = false"
                       @focus="isCheckEmail = true"
                       :class="{error: !isCheckEmail}"
@@ -92,7 +91,6 @@
                       @blur="checkPassword"
                       @input="isEmptyPassword = false"
                       @focus="isCheckPassword = true"
-                      autocomplete="new-password"
                       :class="{error: !isCheckPassword}"
                       :type="isHidePassword ? 'password' : 'text'"
                       class="modal-form__input">
@@ -123,13 +121,13 @@
               <div class="modal-reg-step-two">
                 <label class="modal-form-label">Введите код для подтверждения почты (письмо с кодом отправлено на
                   указанный вами E-mail)</label>
-                <input type="text" class="modal-form__input" autocomplete="new-password">
+                <input type="text" class="modal-form__input">
                 <label class="modal-form-label">Если письмо не пришло, проверьте спам</label>
               </div>
             </div>
             <!--функция для переключения шага-->
+<!--            @click="openNextStep"-->
             <button
-                @click="openNextStep"
                 class="modal-form__submit button-orange-another">Зарегистрироваться
             </button>
             <button
@@ -157,7 +155,6 @@
                     @blur="checkEmail"
                     @input="isEmptyEmail = false"
                     @focus="isCheckEmail = true"
-                    autocomplete="new-password"
                     :class="{error: !isCheckEmail}"
                     type="text"
                     class="modal-form__input">
@@ -185,7 +182,6 @@
                     @blur="checkPassword"
                     @focus="isCheckPassword = true"
                     @input="isEmptyPassword = false"
-                    autocomplete="new-password"
                     :class="{error: !isCheckPassword}"
                     :type="isHidePassword ? 'password' : 'text'"
                     class="modal-form__input">
@@ -248,7 +244,6 @@
                 <input
                     v-model="email"
                     @blur="checkEmail"
-                    autocomplete="new-password"
                     @input="isEmptyEmail = false"
                     @focus="isCheckEmail = true"
                     :class="{error: !isCheckEmail}"
@@ -270,7 +265,6 @@
               <div v-if="resetPasswordCurrentStep === 2" class="modal-wrapper-input">
                 <input
                     type="text"
-                    autocomplete="new-password"
                     class="modal-form__input">
                 <div
                     class="icon-error">

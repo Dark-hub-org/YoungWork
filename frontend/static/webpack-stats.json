@@ -1,410 +1,87 @@
 {
   "status": "done",
   "assets": {
-    "app.02498084ed06475d.hot-update.js": {
-      "name": "app.02498084ed06475d.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.02498084ed06475d.hot-update.js",
-      "publicPath": "http://localhost:8080/app.02498084ed06475d.hot-update.js"
-    },
-    "app.02498084ed06475d.hot-update.json": {
-      "name": "app.02498084ed06475d.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.02498084ed06475d.hot-update.json",
-      "publicPath": "http://localhost:8080/app.02498084ed06475d.hot-update.json"
-    },
-    "app.02b9393f88798f32.hot-update.js": {
-      "name": "app.02b9393f88798f32.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.02b9393f88798f32.hot-update.js",
-      "publicPath": "http://localhost:8080/app.02b9393f88798f32.hot-update.js"
-    },
-    "app.02b9393f88798f32.hot-update.json": {
-      "name": "app.02b9393f88798f32.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.02b9393f88798f32.hot-update.json",
-      "publicPath": "http://localhost:8080/app.02b9393f88798f32.hot-update.json"
-    },
-    "app.03f37e2f62838ea2.hot-update.js": {
-      "name": "app.03f37e2f62838ea2.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.03f37e2f62838ea2.hot-update.js",
-      "publicPath": "http://localhost:8080/app.03f37e2f62838ea2.hot-update.js"
-    },
-    "app.03f37e2f62838ea2.hot-update.json": {
-      "name": "app.03f37e2f62838ea2.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.03f37e2f62838ea2.hot-update.json",
-      "publicPath": "http://localhost:8080/app.03f37e2f62838ea2.hot-update.json"
-    },
-    "app.126284570b4fb2de.hot-update.js": {
-      "name": "app.126284570b4fb2de.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.126284570b4fb2de.hot-update.js",
-      "publicPath": "http://localhost:8080/app.126284570b4fb2de.hot-update.js"
-    },
-    "app.126284570b4fb2de.hot-update.json": {
-      "name": "app.126284570b4fb2de.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.126284570b4fb2de.hot-update.json",
-      "publicPath": "http://localhost:8080/app.126284570b4fb2de.hot-update.json"
-    },
-    "app.196017836ccf2738.hot-update.js": {
-      "name": "app.196017836ccf2738.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.196017836ccf2738.hot-update.js",
-      "publicPath": "http://localhost:8080/app.196017836ccf2738.hot-update.js"
-    },
-    "app.196017836ccf2738.hot-update.json": {
-      "name": "app.196017836ccf2738.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.196017836ccf2738.hot-update.json",
-      "publicPath": "http://localhost:8080/app.196017836ccf2738.hot-update.json"
-    },
-    "app.26c2f5f6f6704e4e.hot-update.js": {
-      "name": "app.26c2f5f6f6704e4e.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.26c2f5f6f6704e4e.hot-update.js",
-      "publicPath": "http://localhost:8080/app.26c2f5f6f6704e4e.hot-update.js"
-    },
-    "app.26c2f5f6f6704e4e.hot-update.json": {
-      "name": "app.26c2f5f6f6704e4e.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.26c2f5f6f6704e4e.hot-update.json",
-      "publicPath": "http://localhost:8080/app.26c2f5f6f6704e4e.hot-update.json"
-    },
-    "app.2fc93e3babe81a15.hot-update.js": {
-      "name": "app.2fc93e3babe81a15.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.2fc93e3babe81a15.hot-update.js",
-      "publicPath": "http://localhost:8080/app.2fc93e3babe81a15.hot-update.js"
-    },
-    "app.2fc93e3babe81a15.hot-update.json": {
-      "name": "app.2fc93e3babe81a15.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.2fc93e3babe81a15.hot-update.json",
-      "publicPath": "http://localhost:8080/app.2fc93e3babe81a15.hot-update.json"
-    },
-    "app.30f6a195aae822f2.hot-update.js": {
-      "name": "app.30f6a195aae822f2.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.30f6a195aae822f2.hot-update.js",
-      "publicPath": "http://localhost:8080/app.30f6a195aae822f2.hot-update.js"
-    },
-    "app.30f6a195aae822f2.hot-update.json": {
-      "name": "app.30f6a195aae822f2.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.30f6a195aae822f2.hot-update.json",
-      "publicPath": "http://localhost:8080/app.30f6a195aae822f2.hot-update.json"
-    },
-    "app.3349a2800355a161.hot-update.js": {
-      "name": "app.3349a2800355a161.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.3349a2800355a161.hot-update.js",
-      "publicPath": "http://localhost:8080/app.3349a2800355a161.hot-update.js"
-    },
-    "app.3349a2800355a161.hot-update.json": {
-      "name": "app.3349a2800355a161.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.3349a2800355a161.hot-update.json",
-      "publicPath": "http://localhost:8080/app.3349a2800355a161.hot-update.json"
-    },
-    "app.34c9b5d5cbeb508a.hot-update.js": {
-      "name": "app.34c9b5d5cbeb508a.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.34c9b5d5cbeb508a.hot-update.js",
-      "publicPath": "http://localhost:8080/app.34c9b5d5cbeb508a.hot-update.js"
-    },
-    "app.34c9b5d5cbeb508a.hot-update.json": {
-      "name": "app.34c9b5d5cbeb508a.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.34c9b5d5cbeb508a.hot-update.json",
-      "publicPath": "http://localhost:8080/app.34c9b5d5cbeb508a.hot-update.json"
-    },
-    "app.3c54dde8c9fc3717.hot-update.js": {
-      "name": "app.3c54dde8c9fc3717.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.3c54dde8c9fc3717.hot-update.js",
-      "publicPath": "http://localhost:8080/app.3c54dde8c9fc3717.hot-update.js"
-    },
-    "app.3c54dde8c9fc3717.hot-update.json": {
-      "name": "app.3c54dde8c9fc3717.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.3c54dde8c9fc3717.hot-update.json",
-      "publicPath": "http://localhost:8080/app.3c54dde8c9fc3717.hot-update.json"
-    },
-    "app.42540790bbb9edcb.hot-update.js": {
-      "name": "app.42540790bbb9edcb.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.42540790bbb9edcb.hot-update.js",
-      "publicPath": "http://localhost:8080/app.42540790bbb9edcb.hot-update.js"
-    },
-    "app.42540790bbb9edcb.hot-update.json": {
-      "name": "app.42540790bbb9edcb.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.42540790bbb9edcb.hot-update.json",
-      "publicPath": "http://localhost:8080/app.42540790bbb9edcb.hot-update.json"
-    },
-    "app.56f585be25be1650.hot-update.js": {
-      "name": "app.56f585be25be1650.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.56f585be25be1650.hot-update.js",
-      "publicPath": "http://localhost:8080/app.56f585be25be1650.hot-update.js"
-    },
-    "app.56f585be25be1650.hot-update.json": {
-      "name": "app.56f585be25be1650.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.56f585be25be1650.hot-update.json",
-      "publicPath": "http://localhost:8080/app.56f585be25be1650.hot-update.json"
-    },
-    "app.5a9df052f0268dad.hot-update.js": {
-      "name": "app.5a9df052f0268dad.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.5a9df052f0268dad.hot-update.js",
-      "publicPath": "http://localhost:8080/app.5a9df052f0268dad.hot-update.js"
-    },
-    "app.5a9df052f0268dad.hot-update.json": {
-      "name": "app.5a9df052f0268dad.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.5a9df052f0268dad.hot-update.json",
-      "publicPath": "http://localhost:8080/app.5a9df052f0268dad.hot-update.json"
-    },
-    "app.5c13e70f5a2c4104.hot-update.js": {
-      "name": "app.5c13e70f5a2c4104.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.5c13e70f5a2c4104.hot-update.js",
-      "publicPath": "http://localhost:8080/app.5c13e70f5a2c4104.hot-update.js"
-    },
-    "app.5c13e70f5a2c4104.hot-update.json": {
-      "name": "app.5c13e70f5a2c4104.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.5c13e70f5a2c4104.hot-update.json",
-      "publicPath": "http://localhost:8080/app.5c13e70f5a2c4104.hot-update.json"
-    },
-    "app.72ee6f315dd317fe.hot-update.js": {
-      "name": "app.72ee6f315dd317fe.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.72ee6f315dd317fe.hot-update.js",
-      "publicPath": "http://localhost:8080/app.72ee6f315dd317fe.hot-update.js"
-    },
-    "app.72ee6f315dd317fe.hot-update.json": {
-      "name": "app.72ee6f315dd317fe.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.72ee6f315dd317fe.hot-update.json",
-      "publicPath": "http://localhost:8080/app.72ee6f315dd317fe.hot-update.json"
-    },
-    "app.7bea5ca3375c3b6a.hot-update.js": {
-      "name": "app.7bea5ca3375c3b6a.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.7bea5ca3375c3b6a.hot-update.js",
-      "publicPath": "http://localhost:8080/app.7bea5ca3375c3b6a.hot-update.js"
-    },
-    "app.7bea5ca3375c3b6a.hot-update.json": {
-      "name": "app.7bea5ca3375c3b6a.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.7bea5ca3375c3b6a.hot-update.json",
-      "publicPath": "http://localhost:8080/app.7bea5ca3375c3b6a.hot-update.json"
-    },
-    "app.88a8f731c5354703.hot-update.js": {
-      "name": "app.88a8f731c5354703.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.88a8f731c5354703.hot-update.js",
-      "publicPath": "http://localhost:8080/app.88a8f731c5354703.hot-update.js"
-    },
-    "app.88a8f731c5354703.hot-update.json": {
-      "name": "app.88a8f731c5354703.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.88a8f731c5354703.hot-update.json",
-      "publicPath": "http://localhost:8080/app.88a8f731c5354703.hot-update.json"
-    },
-    "app.8d4374c14d543c84.hot-update.js": {
-      "name": "app.8d4374c14d543c84.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.8d4374c14d543c84.hot-update.js",
-      "publicPath": "http://localhost:8080/app.8d4374c14d543c84.hot-update.js"
-    },
-    "app.8d4374c14d543c84.hot-update.json": {
-      "name": "app.8d4374c14d543c84.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.8d4374c14d543c84.hot-update.json",
-      "publicPath": "http://localhost:8080/app.8d4374c14d543c84.hot-update.json"
-    },
-    "app.9735d53bbf61bd0d.hot-update.js": {
-      "name": "app.9735d53bbf61bd0d.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.9735d53bbf61bd0d.hot-update.js",
-      "publicPath": "http://localhost:8080/app.9735d53bbf61bd0d.hot-update.js"
-    },
-    "app.9735d53bbf61bd0d.hot-update.json": {
-      "name": "app.9735d53bbf61bd0d.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.9735d53bbf61bd0d.hot-update.json",
-      "publicPath": "http://localhost:8080/app.9735d53bbf61bd0d.hot-update.json"
-    },
-    "app.a51f9a77ac895d65.hot-update.js": {
-      "name": "app.a51f9a77ac895d65.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.a51f9a77ac895d65.hot-update.js",
-      "publicPath": "http://localhost:8080/app.a51f9a77ac895d65.hot-update.js"
-    },
-    "app.a51f9a77ac895d65.hot-update.json": {
-      "name": "app.a51f9a77ac895d65.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.a51f9a77ac895d65.hot-update.json",
-      "publicPath": "http://localhost:8080/app.a51f9a77ac895d65.hot-update.json"
-    },
-    "app.aa74f052d7c7864d.hot-update.js": {
-      "name": "app.aa74f052d7c7864d.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.aa74f052d7c7864d.hot-update.js",
-      "publicPath": "http://localhost:8080/app.aa74f052d7c7864d.hot-update.js"
-    },
-    "app.aa74f052d7c7864d.hot-update.json": {
-      "name": "app.aa74f052d7c7864d.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.aa74f052d7c7864d.hot-update.json",
-      "publicPath": "http://localhost:8080/app.aa74f052d7c7864d.hot-update.json"
-    },
-    "app.ac9ad0a46b767534.hot-update.js": {
-      "name": "app.ac9ad0a46b767534.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.ac9ad0a46b767534.hot-update.js",
-      "publicPath": "http://localhost:8080/app.ac9ad0a46b767534.hot-update.js"
-    },
-    "app.ac9ad0a46b767534.hot-update.json": {
-      "name": "app.ac9ad0a46b767534.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.ac9ad0a46b767534.hot-update.json",
-      "publicPath": "http://localhost:8080/app.ac9ad0a46b767534.hot-update.json"
-    },
-    "app.b7dad48970659626.hot-update.js": {
-      "name": "app.b7dad48970659626.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.b7dad48970659626.hot-update.js",
-      "publicPath": "http://localhost:8080/app.b7dad48970659626.hot-update.js"
-    },
-    "app.b7dad48970659626.hot-update.json": {
-      "name": "app.b7dad48970659626.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.b7dad48970659626.hot-update.json",
-      "publicPath": "http://localhost:8080/app.b7dad48970659626.hot-update.json"
-    },
-    "app.d4e9db7e03cbc356.hot-update.js": {
-      "name": "app.d4e9db7e03cbc356.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.d4e9db7e03cbc356.hot-update.js",
-      "publicPath": "http://localhost:8080/app.d4e9db7e03cbc356.hot-update.js"
-    },
-    "app.d4e9db7e03cbc356.hot-update.json": {
-      "name": "app.d4e9db7e03cbc356.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.d4e9db7e03cbc356.hot-update.json",
-      "publicPath": "http://localhost:8080/app.d4e9db7e03cbc356.hot-update.json"
-    },
-    "app.da04f40532636895.hot-update.js": {
-      "name": "app.da04f40532636895.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.da04f40532636895.hot-update.js",
-      "publicPath": "http://localhost:8080/app.da04f40532636895.hot-update.js"
-    },
-    "app.da04f40532636895.hot-update.json": {
-      "name": "app.da04f40532636895.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.da04f40532636895.hot-update.json",
-      "publicPath": "http://localhost:8080/app.da04f40532636895.hot-update.json"
-    },
-    "app.e5d25b6c5488adc6.hot-update.js": {
-      "name": "app.e5d25b6c5488adc6.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.e5d25b6c5488adc6.hot-update.js",
-      "publicPath": "http://localhost:8080/app.e5d25b6c5488adc6.hot-update.js"
-    },
-    "app.e5d25b6c5488adc6.hot-update.json": {
-      "name": "app.e5d25b6c5488adc6.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.e5d25b6c5488adc6.hot-update.json",
-      "publicPath": "http://localhost:8080/app.e5d25b6c5488adc6.hot-update.json"
-    },
-    "app.e9aa13929753191a.hot-update.js": {
-      "name": "app.e9aa13929753191a.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.e9aa13929753191a.hot-update.js",
-      "publicPath": "http://localhost:8080/app.e9aa13929753191a.hot-update.js"
-    },
-    "app.e9aa13929753191a.hot-update.json": {
-      "name": "app.e9aa13929753191a.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.e9aa13929753191a.hot-update.json",
-      "publicPath": "http://localhost:8080/app.e9aa13929753191a.hot-update.json"
-    },
-    "app.eb6f925457362f92.hot-update.js": {
-      "name": "app.eb6f925457362f92.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.eb6f925457362f92.hot-update.js",
-      "publicPath": "http://localhost:8080/app.eb6f925457362f92.hot-update.js"
-    },
-    "app.eb6f925457362f92.hot-update.json": {
-      "name": "app.eb6f925457362f92.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.eb6f925457362f92.hot-update.json",
-      "publicPath": "http://localhost:8080/app.eb6f925457362f92.hot-update.json"
-    },
-    "app.f069a28ef54b4454.hot-update.js": {
-      "name": "app.f069a28ef54b4454.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.f069a28ef54b4454.hot-update.js",
-      "publicPath": "http://localhost:8080/app.f069a28ef54b4454.hot-update.js"
-    },
-    "app.f069a28ef54b4454.hot-update.json": {
-      "name": "app.f069a28ef54b4454.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.f069a28ef54b4454.hot-update.json",
-      "publicPath": "http://localhost:8080/app.f069a28ef54b4454.hot-update.json"
-    },
-    "app.f1facfc2a9ea7ef0.hot-update.js": {
-      "name": "app.f1facfc2a9ea7ef0.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.f1facfc2a9ea7ef0.hot-update.js",
-      "publicPath": "http://localhost:8080/app.f1facfc2a9ea7ef0.hot-update.js"
-    },
-    "app.f1facfc2a9ea7ef0.hot-update.json": {
-      "name": "app.f1facfc2a9ea7ef0.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.f1facfc2a9ea7ef0.hot-update.json",
-      "publicPath": "http://localhost:8080/app.f1facfc2a9ea7ef0.hot-update.json"
-    },
-    "app.f245c20a97771156.hot-update.js": {
-      "name": "app.f245c20a97771156.hot-update.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.f245c20a97771156.hot-update.js",
-      "publicPath": "http://localhost:8080/app.f245c20a97771156.hot-update.js"
-    },
-    "app.f245c20a97771156.hot-update.json": {
-      "name": "app.f245c20a97771156.hot-update.json",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\app.f245c20a97771156.hot-update.json",
-      "publicPath": "http://localhost:8080/app.f245c20a97771156.hot-update.json"
-    },
     "favicon.ico": {
       "name": "favicon.ico",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\favicon.ico",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\favicon.ico",
       "publicPath": "http://localhost:8080/favicon.ico"
     },
     "img/close-icon.805bf63a.svg": {
       "name": "img/close-icon.805bf63a.svg",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\close-icon.805bf63a.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\close-icon.805bf63a.svg",
       "publicPath": "http://localhost:8080/img/close-icon.805bf63a.svg"
     },
     "img/error-icon.f9e395a0.svg": {
       "name": "img/error-icon.f9e395a0.svg",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\error-icon.f9e395a0.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\error-icon.f9e395a0.svg",
       "publicPath": "http://localhost:8080/img/error-icon.f9e395a0.svg"
     },
     "img/info-1.70ecb817.png": {
       "name": "img/info-1.70ecb817.png",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\info-1.70ecb817.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\info-1.70ecb817.png",
       "publicPath": "http://localhost:8080/img/info-1.70ecb817.png"
     },
     "img/info-2.1592b2ce.png": {
       "name": "img/info-2.1592b2ce.png",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\info-2.1592b2ce.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\info-2.1592b2ce.png",
       "publicPath": "http://localhost:8080/img/info-2.1592b2ce.png"
     },
     "img/info-3__1024.eeddb5a0.png": {
       "name": "img/info-3__1024.eeddb5a0.png",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\info-3__1024.eeddb5a0.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\info-3__1024.eeddb5a0.png",
       "publicPath": "http://localhost:8080/img/info-3__1024.eeddb5a0.png"
     },
     "img/info-3.54361fbe.png": {
       "name": "img/info-3.54361fbe.png",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\info-3.54361fbe.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\info-3.54361fbe.png",
       "publicPath": "http://localhost:8080/img/info-3.54361fbe.png"
     },
     "img/logo.9832d087.svg": {
       "name": "img/logo.9832d087.svg",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\logo.9832d087.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\logo.9832d087.svg",
       "publicPath": "http://localhost:8080/img/logo.9832d087.svg"
     },
     "img/person-2.5990a123.png": {
       "name": "img/person-2.5990a123.png",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\person-2.5990a123.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\person-2.5990a123.png",
       "publicPath": "http://localhost:8080/img/person-2.5990a123.png"
     },
     "img/person-3.7739c2ff.png": {
       "name": "img/person-3.7739c2ff.png",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\person-3.7739c2ff.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\person-3.7739c2ff.png",
       "publicPath": "http://localhost:8080/img/person-3.7739c2ff.png"
     },
     "img/person-4.84a132ca.png": {
       "name": "img/person-4.84a132ca.png",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\person-4.84a132ca.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\person-4.84a132ca.png",
       "publicPath": "http://localhost:8080/img/person-4.84a132ca.png"
     },
     "img/search-icon.f8a4cec3.svg": {
       "name": "img/search-icon.f8a4cec3.svg",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\img\\search-icon.f8a4cec3.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\search-icon.f8a4cec3.svg",
       "publicPath": "http://localhost:8080/img/search-icon.f8a4cec3.svg"
     },
     "index.html": {
       "name": "index.html",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\index.html",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\index.html",
       "publicPath": "http://localhost:8080/index.html"
     },
     "js/app.js": {
       "name": "js/app.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\js\\app.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\js\\app.js",
       "publicPath": "http://localhost:8080/js/app.js"
     },
     "js/chunk-vendors.js": {
       "name": "js/chunk-vendors.js",
-      "path": "D:\\Программирование\\Проекты GitLab\\YoungWork\\frontend\\static\\js\\chunk-vendors.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\js\\chunk-vendors.js",
       "publicPath": "http://localhost:8080/js/chunk-vendors.js"
     }
   },
   "chunks": {
     "app": [
       "js/chunk-vendors.js",
-      "js/app.js",
-      "app.72ee6f315dd317fe.hot-update.js"
+      "js/app.js"
     ]
   },
-  "publicPath": "http://localhost:8080/",
-  "error": "ModuleError",
-  "message": "Module Error (from ./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js):\n(Emitted value instead of an instance of Error) \n\n  Errors compiling template:\n\n  duplicate attribute: @touchstart\n\n  1  |  \n  2  |  <div @touchstart=\"onTouchStart\" @touchstart=\"onTouchEnd\" class=\"\">\n     |                                  ^^^^^^^^^^^^^^^^^^^^^^^^\n  3  |    <span @click=\"goPrev\">Prev</span>\n  4  |    <slider-item\n"
+  "publicPath": "http://localhost:8080/"
 }
