@@ -1,31 +1,20 @@
 <template>
   <div @mousedown="onMouseDown" @mouseup="onMouseUp" @touchstart="onTouchStart" @touchend="onTouchEnd" class="noselect">
     <span @click="goPrev">Prev</span>
-    <slider-item
-        v-for="(review) in computedData"
-        :review="review"
-        :key="review.id"
-    ></slider-item>
+    <slot></slot>
     <span @click="goNext">Next</span>
   </div>
 </template>
 
 <script>
-import _ from 'lodash'
-import SliderItem from "@/components/ui/sliderItem.vue";
 
 export default {
   name: "the-slider",
   props: {
-    data: {
-      type: Array,
-      default() {
-        return []
-      }
+    limit: {
+      type: Number,
+      default: 0,
     }
-  },
-  components: {
-    SliderItem,
   },
   data() {
     return {
@@ -35,20 +24,22 @@ export default {
     }
   },
   methods: {
-    goNext () {
-      if (this.currentStep + 1 !== this.data.length) {
+    goNext() {
+      if (this.currentStep + 1 !== this.limit) {
         this.currentStep++;
+        this.$emit('changedStep', this.currentStep)
       }
     },
-    goPrev () {
+    goPrev() {
       if (this.currentStep > 0) {
         this.currentStep--;
+        this.$emit('changedStep', this.currentStep)
       }
     },
-    onTouchStart (e) {
+    onTouchStart(e) {
       this.touchstartX = e.changedTouches[0].screenX;
     },
-    onTouchEnd (e) {
+    onTouchEnd(e) {
       this.touchendX = e.changedTouches[0].screenX;
       this.swipeSlider();
     },
@@ -69,13 +60,7 @@ export default {
     }
 
   },
-  computed: {
-    computedData () {
-      return _.filter(this.data, (itm, ind) => {
-        return Number(ind) === Number(this.currentStep);
-      })
-    }
-  }
+  computed: {}
 }
 </script>
 

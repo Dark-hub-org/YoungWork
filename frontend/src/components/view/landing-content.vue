@@ -39,7 +39,13 @@
       <div class="wrapper">
         <h2 class="section-title reviews-title">Отзывы</h2>
         <div class="reviews-slider">
-          <SliderComponent :data="reviews"></SliderComponent>
+          <SliderComponent @changedStep="value => currentSliderStep = value" :limit="reviews.length">
+            <slider-item
+                v-for="(review) in computedData"
+                :review="review"
+                :key="review.id"
+            ></slider-item>
+          </SliderComponent>
         </div>
         <a href="#" class="reviews-more">Смотреть все</a>
       </div>
@@ -63,15 +69,19 @@
 <script>
 import VacancyItem from "@/components/ui/vacancyItem.vue";
 import SliderComponent from '../../components/ui/the-slider'
+import SliderItem from '@/components/ui/sliderItem';
+import _ from 'lodash'
 
 export default {
   name: "landing-content",
   components: {
     VacancyItem,
     SliderComponent,
+    SliderItem
   },
   data() {
     return {
+      currentSliderStep: 0,
       reviews: [
         {
           title: 'Нужно оформить презентацию перед запуском продукта',
@@ -160,6 +170,11 @@ export default {
         return this.vacancys.slice(0, 8)
       }
       return this.vacancys.slice(0, 6)
+    },
+    computedData () {
+      return _.filter(this.reviews, (itm, ind) => {
+        return Number(ind) === Number(this.currentSliderStep);
+      })
     }
   }
 }
