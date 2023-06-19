@@ -41,7 +41,7 @@
         <div class="reviews-slider">
           <SliderComponent @changedStep="value => currentSliderStep = value" :limit="reviews.length">
             <slider-item
-                v-for="(review) in computedData"
+                v-for="review in computedData"
                 :review="review"
                 :key="review.id"
             ></slider-item>
