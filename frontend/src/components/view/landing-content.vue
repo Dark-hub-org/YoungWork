@@ -1,5 +1,5 @@
 <template>
-  <main class="main">
+  <div>
     <section class="inner">
       <div class="wrapper inner-wrapper">
         <h1 class="inner-title">Сервис по поиску работы для подростков </h1>
@@ -63,7 +63,7 @@
         <a href="#" class="reviews-more">Смотреть все</a>
       </div>
     </section>
-  </main>
+  </div>
 </template>
 
 <script>
