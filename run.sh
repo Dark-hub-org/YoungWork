@@ -1,5 +1,4 @@
 #!/bin/bash
-# pipenv shell
 case $1 in
   dev)
     python manage.py runserver --settings=backend.settings.dev
