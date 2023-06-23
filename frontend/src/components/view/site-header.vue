@@ -14,22 +14,51 @@
           <li class="header-nav__list-item">
             <button type="button" class="header-btn button-orange">Работа</button>
           </li>
-          <li class="header-nav__list-item">
-            <button
-                @click="isModalWinLog = true"
-                type="button"
-                class="header-btn button-green">
-              Вход
-            </button>
-          </li>
-          <li class="header-nav__list-item">
-            <button
+          <template v-if="!isAutoRization">
+            <li class="header-nav__list-item">
+              <button
+                  @click="isModalWinLog = true"
+                  type="button"
+                  class="header-btn button-green">
+                Вход
+              </button>
+            </li>
+            <li class="header-nav__list-item">
+              <button
                 @click="isModalWinReg = true"
                 type="button"
                 class="header-btn button-green">
               Регистрация
-            </button>
-          </li>
+              </button>
+            </li>
+          </template>
+          <template v-else>
+          <div class="header-supernova">
+            <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
+            <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
+              <span class="supernova-wrapper__name">Александра Андреева</span>
+              <ul class="supernova-wrapper-list">
+                <router-link to="#" tag="li" class="supernova-wrapper-item">
+                  <a href="#" class="supernova-wrapper-link">Работа</a>
+                </router-link>
+                <li class="supernova-wrapper-item">
+                  <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
+                    <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
+                    <router-link to="#" tag="li">
+                      <a href="#" class="supernova-sublist-title">Найти задание</a>
+                    </router-link>
+                    <router-link to="#" tag="li">
+                      <a href="#" class="supernova-sublist-title">Создать задание</a>
+                    </router-link>
+                  </ul>
+                </li>
+                <li class="supernova-wrapper-item">
+                  <button class="supernova-exits-btn">Выход</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </template>
         </ul>
       </nav>
 
@@ -323,6 +352,10 @@ export default {
       isModalWinResetPass: false,
 
       isMenuActive: false,
+
+      isAutoRization: false,
+      isSupernovaMenuActive: false,
+      isSubMenu: false,
     }
   },
 
@@ -401,6 +434,12 @@ export default {
       this.isMenuActive = !this.isMenuActive;
       document.documentElement.style.overflow = 'hidden';
     },
+    openSupernovaMenu() {
+      this.isSupernovaMenuActive = !this.isSupernovaMenuActive;
+    },
+    openSubMenu() {
+      this.isSubMenu = !this.isSubMenu;
+    }
   },
   watch: {
     isMenuActive: function () {
@@ -416,7 +455,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../style/header";
-@import "../../style/main";
+@import "@/style/header";
 
 </style>

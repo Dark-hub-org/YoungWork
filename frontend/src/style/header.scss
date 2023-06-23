@@ -84,6 +84,105 @@
 
 }
 
+.header-supernova{
+  position: relative;
+  max-width: 257px;
+
+  .supernova__btn {
+    width: 50px;
+    height: 50px;
+    background-image: url('@/assets/header/anonim-logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .supernova-wrapper {
+    @include displayFlex;
+    flex-direction: column;
+    align-items: start;
+    position: absolute;
+    right: 0;
+    width: 257px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: $colorWhite;
+
+    .supernova-wrapper__name {
+      margin-bottom: 20px;
+      font-family: $fontMont;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.28px;
+    }
+
+    .supernova-wrapper-list {
+
+      .supernova-wrapper-item {
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.28px;
+        color: $colorBlack;
+
+        &:first-child {
+          margin-bottom: 8px;
+        }
+
+         &:last-child {
+          margin-top: 15px;
+        }
+      }
+
+      .supernova-wrapper-sublist {
+        height: 24px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all .3s linear;
+      }
+
+      .supernova-wrapper-sublist.active {
+        height: 70px;
+        overflow: visible;
+      }
+
+      .supernova-wrapper-title {
+        @include displayFlex;
+        display: inline-flex;
+        position: relative;
+
+        &:after {
+          content: '';
+          position: absolute;
+          right: -18px;
+          width: 18px;
+          height: 18px;
+          background-image: url("@/assets/header/arrow-icon.svg");
+          background-position: center;
+          background-repeat: no-repeat;
+          transition: all .3s ease-in-out;
+        }
+      }
+
+      .supernova-wrapper-title.active:after {
+        transform: rotate(180deg);
+      }
+
+      .supernova-sublist-title {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .supernova-exits-btn {
+    font-family: $fontMont;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.28px;
+    color: $colorError;
+  }
+}
+
+
+
 @media(max-width: 744px) {
   .header-nav {
     z-index: 100;

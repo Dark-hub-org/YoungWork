@@ -1,10 +1,140 @@
 {
   "status": "done",
   "assets": {
+    "app.18cc57e469757bcb.hot-update.js": {
+      "name": "app.18cc57e469757bcb.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.18cc57e469757bcb.hot-update.js",
+      "publicPath": "http://localhost:8080/app.18cc57e469757bcb.hot-update.js"
+    },
+    "app.18cc57e469757bcb.hot-update.json": {
+      "name": "app.18cc57e469757bcb.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.18cc57e469757bcb.hot-update.json",
+      "publicPath": "http://localhost:8080/app.18cc57e469757bcb.hot-update.json"
+    },
+    "app.20b3781c306e7b4d.hot-update.js": {
+      "name": "app.20b3781c306e7b4d.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.20b3781c306e7b4d.hot-update.js",
+      "publicPath": "http://localhost:8080/app.20b3781c306e7b4d.hot-update.js"
+    },
+    "app.20b3781c306e7b4d.hot-update.json": {
+      "name": "app.20b3781c306e7b4d.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.20b3781c306e7b4d.hot-update.json",
+      "publicPath": "http://localhost:8080/app.20b3781c306e7b4d.hot-update.json"
+    },
+    "app.27e001fe53bacb42.hot-update.js": {
+      "name": "app.27e001fe53bacb42.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.27e001fe53bacb42.hot-update.js",
+      "publicPath": "http://localhost:8080/app.27e001fe53bacb42.hot-update.js"
+    },
+    "app.27e001fe53bacb42.hot-update.json": {
+      "name": "app.27e001fe53bacb42.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.27e001fe53bacb42.hot-update.json",
+      "publicPath": "http://localhost:8080/app.27e001fe53bacb42.hot-update.json"
+    },
+    "app.2ebf25625d36f9af.hot-update.js": {
+      "name": "app.2ebf25625d36f9af.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.2ebf25625d36f9af.hot-update.js",
+      "publicPath": "http://localhost:8080/app.2ebf25625d36f9af.hot-update.js"
+    },
+    "app.2ebf25625d36f9af.hot-update.json": {
+      "name": "app.2ebf25625d36f9af.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.2ebf25625d36f9af.hot-update.json",
+      "publicPath": "http://localhost:8080/app.2ebf25625d36f9af.hot-update.json"
+    },
+    "app.33ffd991feeebac7.hot-update.js": {
+      "name": "app.33ffd991feeebac7.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.33ffd991feeebac7.hot-update.js",
+      "publicPath": "http://localhost:8080/app.33ffd991feeebac7.hot-update.js"
+    },
+    "app.33ffd991feeebac7.hot-update.json": {
+      "name": "app.33ffd991feeebac7.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.33ffd991feeebac7.hot-update.json",
+      "publicPath": "http://localhost:8080/app.33ffd991feeebac7.hot-update.json"
+    },
+    "app.6b5b53b56e1c9110.hot-update.js": {
+      "name": "app.6b5b53b56e1c9110.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.6b5b53b56e1c9110.hot-update.js",
+      "publicPath": "http://localhost:8080/app.6b5b53b56e1c9110.hot-update.js"
+    },
+    "app.6b5b53b56e1c9110.hot-update.json": {
+      "name": "app.6b5b53b56e1c9110.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.6b5b53b56e1c9110.hot-update.json",
+      "publicPath": "http://localhost:8080/app.6b5b53b56e1c9110.hot-update.json"
+    },
+    "app.6e560aeb7fd2cf24.hot-update.js": {
+      "name": "app.6e560aeb7fd2cf24.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.6e560aeb7fd2cf24.hot-update.js",
+      "publicPath": "http://localhost:8080/app.6e560aeb7fd2cf24.hot-update.js"
+    },
+    "app.6e560aeb7fd2cf24.hot-update.json": {
+      "name": "app.6e560aeb7fd2cf24.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.6e560aeb7fd2cf24.hot-update.json",
+      "publicPath": "http://localhost:8080/app.6e560aeb7fd2cf24.hot-update.json"
+    },
+    "app.e5508fb4002caa7d.hot-update.js": {
+      "name": "app.e5508fb4002caa7d.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.e5508fb4002caa7d.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e5508fb4002caa7d.hot-update.js"
+    },
+    "app.e5508fb4002caa7d.hot-update.json": {
+      "name": "app.e5508fb4002caa7d.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.e5508fb4002caa7d.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e5508fb4002caa7d.hot-update.json"
+    },
+    "app.e6c81a6c2d2de295.hot-update.js": {
+      "name": "app.e6c81a6c2d2de295.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.e6c81a6c2d2de295.hot-update.js",
+      "publicPath": "http://localhost:8080/app.e6c81a6c2d2de295.hot-update.js"
+    },
+    "app.e6c81a6c2d2de295.hot-update.json": {
+      "name": "app.e6c81a6c2d2de295.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.e6c81a6c2d2de295.hot-update.json",
+      "publicPath": "http://localhost:8080/app.e6c81a6c2d2de295.hot-update.json"
+    },
+    "app.ef688a7a3f37e1ba.hot-update.js": {
+      "name": "app.ef688a7a3f37e1ba.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.ef688a7a3f37e1ba.hot-update.js",
+      "publicPath": "http://localhost:8080/app.ef688a7a3f37e1ba.hot-update.js"
+    },
+    "app.ef688a7a3f37e1ba.hot-update.json": {
+      "name": "app.ef688a7a3f37e1ba.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.ef688a7a3f37e1ba.hot-update.json",
+      "publicPath": "http://localhost:8080/app.ef688a7a3f37e1ba.hot-update.json"
+    },
+    "app.f05fa740e9b95ba8.hot-update.js": {
+      "name": "app.f05fa740e9b95ba8.hot-update.js",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.f05fa740e9b95ba8.hot-update.js",
+      "publicPath": "http://localhost:8080/app.f05fa740e9b95ba8.hot-update.js"
+    },
+    "app.f05fa740e9b95ba8.hot-update.json": {
+      "name": "app.f05fa740e9b95ba8.hot-update.json",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\app.f05fa740e9b95ba8.hot-update.json",
+      "publicPath": "http://localhost:8080/app.f05fa740e9b95ba8.hot-update.json"
+    },
     "favicon.ico": {
       "name": "favicon.ico",
       "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\favicon.ico",
       "publicPath": "http://localhost:8080/favicon.ico"
+    },
+    "img/anonim-logo.7fed975a.svg": {
+      "name": "img/anonim-logo.7fed975a.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\anonim-logo.7fed975a.svg",
+      "publicPath": "http://localhost:8080/img/anonim-logo.7fed975a.svg"
+    },
+    "img/arrow-icon.3a6d0705.svg": {
+      "name": "img/arrow-icon.3a6d0705.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\arrow-icon.3a6d0705.svg",
+      "publicPath": "http://localhost:8080/img/arrow-icon.3a6d0705.svg"
+    },
+    "img/cheack-active.064bbde9.svg": {
+      "name": "img/cheack-active.064bbde9.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\cheack-active.064bbde9.svg",
+      "publicPath": "http://localhost:8080/img/cheack-active.064bbde9.svg"
+    },
+    "img/cheack.94154631.svg": {
+      "name": "img/cheack.94154631.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\cheack.94154631.svg",
+      "publicPath": "http://localhost:8080/img/cheack.94154631.svg"
     },
     "img/close-icon.805bf63a.svg": {
       "name": "img/close-icon.805bf63a.svg",
@@ -56,10 +186,35 @@
       "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\person-4.84a132ca.png",
       "publicPath": "http://localhost:8080/img/person-4.84a132ca.png"
     },
+    "img/radio-active.eebc367a.svg": {
+      "name": "img/radio-active.eebc367a.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\radio-active.eebc367a.svg",
+      "publicPath": "http://localhost:8080/img/radio-active.eebc367a.svg"
+    },
+    "img/radio.53a249ee.svg": {
+      "name": "img/radio.53a249ee.svg",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\radio.53a249ee.svg",
+      "publicPath": "http://localhost:8080/img/radio.53a249ee.svg"
+    },
     "img/search-icon.f8a4cec3.svg": {
       "name": "img/search-icon.f8a4cec3.svg",
       "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\search-icon.f8a4cec3.svg",
       "publicPath": "http://localhost:8080/img/search-icon.f8a4cec3.svg"
+    },
+    "img/vacancy-1.27bc9328.png": {
+      "name": "img/vacancy-1.27bc9328.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\vacancy-1.27bc9328.png",
+      "publicPath": "http://localhost:8080/img/vacancy-1.27bc9328.png"
+    },
+    "img/vacancy-2.96748223.png": {
+      "name": "img/vacancy-2.96748223.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\vacancy-2.96748223.png",
+      "publicPath": "http://localhost:8080/img/vacancy-2.96748223.png"
+    },
+    "img/vacancy-3.8d286702.png": {
+      "name": "img/vacancy-3.8d286702.png",
+      "path": "C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\static\\img\\vacancy-3.8d286702.png",
+      "publicPath": "http://localhost:8080/img/vacancy-3.8d286702.png"
     },
     "index.html": {
       "name": "index.html",
@@ -80,8 +235,11 @@
   "chunks": {
     "app": [
       "js/chunk-vendors.js",
-      "js/app.js"
+      "js/app.js",
+      "app.2ebf25625d36f9af.hot-update.js"
     ]
   },
-  "publicPath": "http://localhost:8080/"
+  "publicPath": "http://localhost:8080/",
+  "error": "ModuleBuildError",
+  "message": "Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\src\\components\\view\\site-header.vue: Unexpected token, expected \",\" (116:4)\n\n  114 |       this.isSupernovaMenuActive = !this.isSupernovaMenuActive;\n  115 |     }\n> 116 |     openSubMenu() {\n      |     ^\n  117 |       this.isSubMenu = !this.isSubMenu;\n  118 |     }\n  119 |   },\n    at instantiate (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:63:32)\n    at constructor (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:358:12)\n    at JSXParserMixin.raise (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:3255:19)\n    at JSXParserMixin.unexpected (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:3285:16)\n    at JSXParserMixin.expect (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:3627:28)\n    at JSXParserMixin.parseObjectLike (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11662:14)\n    at JSXParserMixin.parseExprAtom (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11182:23)\n    at JSXParserMixin.parseExprAtom (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:6974:20)\n    at JSXParserMixin.parseExprSubscripts (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10890:23)\n    at JSXParserMixin.parseUpdate (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10873:21)\n    at JSXParserMixin.parseMaybeUnary (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10849:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10687:61)\n    at JSXParserMixin.parseExprOps (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10692:23)\n    at JSXParserMixin.parseMaybeConditional (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10669:23)\n    at JSXParserMixin.parseMaybeAssign (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10630:21)\n    at C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10600:39\n    at JSXParserMixin.allowInAnd (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12280:12)\n    at JSXParserMixin.parseMaybeAssignAllowIn (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10600:17)\n    at JSXParserMixin.parseObjectProperty (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11796:83)\n    at JSXParserMixin.parseObjPropValue (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11823:100)\n    at JSXParserMixin.parsePropertyDefinition (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11757:17)\n    at JSXParserMixin.parseObjectLike (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11672:21)\n    at JSXParserMixin.parseExprAtom (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11182:23)\n    at JSXParserMixin.parseExprAtom (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:6974:20)\n    at JSXParserMixin.parseExprSubscripts (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10890:23)\n    at JSXParserMixin.parseUpdate (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10873:21)\n    at JSXParserMixin.parseMaybeUnary (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10849:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10687:61)\n    at JSXParserMixin.parseExprOps (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10692:23)\n    at JSXParserMixin.parseMaybeConditional (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10669:23)\n    at JSXParserMixin.parseMaybeAssign (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10630:21)\n    at C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10600:39\n    at JSXParserMixin.allowInAnd (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12275:16)\n    at JSXParserMixin.parseMaybeAssignAllowIn (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:10600:17)\n    at JSXParserMixin.parseExportDefaultExpression (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:13824:22)\n    at JSXParserMixin.parseExport (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:13728:25)\n    at JSXParserMixin.parseStatementContent (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12711:27)\n    at JSXParserMixin.parseStatementLike (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12584:17)\n    at JSXParserMixin.parseModuleItem (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12561:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:13185:36)\n    at JSXParserMixin.parseBlockBody (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:13178:10)\n    at JSXParserMixin.parseProgram (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12460:10)\n    at JSXParserMixin.parseTopLevel (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12450:25)\n    at JSXParserMixin.parse (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:14347:10)\n    at parse (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:14367:26)\n    at parser (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\core\\lib\\parser\\index.js:41:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:64:38)\n    at normalizeFile.next (<anonymous>)\n    at run (C:\\Users\\mackk\\Desktop\\project\\YoungWork\\frontend\\node_modules\\@babel\\core\\lib\\transformation\\index.js:21:50)"
 }
