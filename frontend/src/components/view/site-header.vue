@@ -71,7 +71,7 @@
 
         <div class="modal-reg-wrapper">
           <p class="modal-title">Регистрация</p>
-          <form @submit.prevent="openNextStep" class="modal-form">
+          <form @submit.prevent="submitForm" class="modal-form">
             <div v-if="ModalWinRegCurrentStep === 0">
               <div class="modal-form-block">
                 <label class="modal-form-name">Имя</label>
@@ -157,6 +157,7 @@
             <!--функция для переключения шага-->
 <!--            @click="openNextStep"-->
             <button
+                type="submit"
                 class="modal-form__submit button-orange-another">Зарегистрироваться
             </button>
             <button
@@ -325,6 +326,8 @@
 <script>
 import ModalWindow from "@/components/ui/modalWin.vue";
 import _ from 'lodash';
+import axios from "axios";
+// import axios from 'axios';
 
 export default {
   name: 'site-header',
@@ -360,6 +363,22 @@ export default {
   },
 
   methods: {
+    submitForm() {
+      let presentUser = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      };
+      axios.post('/api/your-endpoint', presentUser)
+        .then(response => {
+          // Обработка успешного ответа
+          alert(response.data);
+        })
+        .catch(error => {
+          // Обработка ошибки
+          alert(error);
+      });
+    },
     logIn() {
       this.checkRegFields();
       if (this.isEmptyName || this.isEmptyPassword || !this.isCheckPassword || !this.isCheckEmail) {
