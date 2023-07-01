@@ -6,7 +6,7 @@ ALLOWED_HOSTS = ['*']
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': '',
-        'STATS_FILE': os.path.join(BASE_DIR, 'frontend/webpack-stats-prod.json'),
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend/dist/webpack-stats-prod.json'),
     }
 }
 

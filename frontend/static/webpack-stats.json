@@ -1,6 +1,16 @@
 {
   "status": "done",
   "assets": {
+    "app.0c7c448e76e95fc0.hot-update.js": {
+      "name": "app.0c7c448e76e95fc0.hot-update.js",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\app.0c7c448e76e95fc0.hot-update.js",
+      "publicPath": "http://localhost:8080/app.0c7c448e76e95fc0.hot-update.js"
+    },
+    "app.0c7c448e76e95fc0.hot-update.json": {
+      "name": "app.0c7c448e76e95fc0.hot-update.json",
+      "path": "C:\\Git_project\\YoungWork\\frontend\\static\\app.0c7c448e76e95fc0.hot-update.json",
+      "publicPath": "http://localhost:8080/app.0c7c448e76e95fc0.hot-update.json"
+    },
     "favicon.ico": {
       "name": "favicon.ico",
       "path": "C:\\Git_project\\YoungWork\\frontend\\static\\favicon.ico",
@@ -85,7 +95,8 @@
   "chunks": {
     "app": [
       "js/chunk-vendors.js",
-      "js/app.js"
+      "js/app.js",
+      "app.0c7c448e76e95fc0.hot-update.js"
     ]
   },
   "publicPath": "http://localhost:8080/"
