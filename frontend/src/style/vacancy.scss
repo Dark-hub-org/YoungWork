@@ -76,6 +76,10 @@
 // inner end
 //vacancy start
 
+.vacancy-filter-and-list {
+  display: flex;
+}
+
 .vacancy-quantity {
   margin-bottom: 64px;
   font-size: 40px;
@@ -187,12 +191,81 @@
 }
 
 
-.vacancy-btn-more {
+.vacancy-list {
+  width: 1251px;
+}
+
+.vacancy-item {
+  max-width: 1251px;
+  padding: 40px;
+  color: $colorGrey;
+
+  &:not(:last-child) {
+    margin-bottom: 32px;
+  }
+}
+
+.vacancy-item__header {
+  @include displayFlex;
+}
+
+.vacancy-item__block {
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 32px;
+  }
+}
+
+.vacancy-item__title {
+  margin-bottom: 16px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 98.023%;
+  letter-spacing: -1.6px;
+}
+
+.vacancy-item__salary {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 98.023%;
+  letter-spacing: -1.6px;
+}
+
+.vacancy-item__text {
   font-size: 20px;
   font-weight: 500;
-  line-height: 24px;
-  color: $colorOrangeM;
+  line-height: 98.023%;
+  letter-spacing: -1px;
+
+  &:first-child {
+    margin-bottom: 16px;
+  }
 }
+
+.vacancy-item__company {
+  margin-bottom: 8px !important;
+}
+
+.vacancy-item__experince {
+  display: inline-block;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: $colorBlueBg;
+}
+
+.vacancy-item__subtitle {
+  color: $colorOrangeM
+}
+
+.vacancy-item__btns {
+  @include displayFlex;
+  max-width: 358px;
+  gap: 14px;
+}
+
+
+
 //vacancy end
 
 
