@@ -326,19 +326,18 @@
 <script>
 import ModalWindow from "@/components/ui/modalWin.vue";
 import _ from 'lodash';
-import axios from "axios";
-// import axios from 'axios';
+import axios from "axios"
 
 export default {
-  name: 'site-header',
+  name: 'SiteHeader',
   components: {
     ModalWindow
   },
   data() {
     return {
+      email: '',
       name: '',
       password: '',
-      email: '',
 
       isCheckEmail: true,
       isCheckPassword: true,
@@ -364,19 +363,19 @@ export default {
 
   methods: {
     submitForm() {
-      let presentUser = {
-        name: this.name,
+      const presentUser = {
         email: this.email,
+        name: this.name,
         password: this.password,
       };
-      axios.post('/api/your-endpoint', presentUser)
+      axios
+        .post('/api/v1/users/', presentUser)
         .then(response => {
-          // Обработка успешного ответа
-          alert(response.data);
+          console.log(response)
+          this.$router.push('/')
         })
         .catch(error => {
-          // Обработка ошибки
-          alert(error);
+          console.log(error)
       });
     },
     logIn() {
