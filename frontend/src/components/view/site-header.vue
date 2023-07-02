@@ -76,7 +76,7 @@
               <div class="modal-form-block">
                 <label class="modal-form-name">Имя</label>
                 <input
-                    v-model="name"
+                    v-model="username"
                     @input="isEmptyName = false"
                     type="text"
                     class="modal-form__input">
@@ -336,7 +336,7 @@ export default {
   data() {
     return {
       email: '',
-      name: '',
+      username: '',
       password: '',
 
       isCheckEmail: true,
@@ -360,22 +360,20 @@ export default {
       isSubMenu: false,
     }
   },
-
   methods: {
     submitForm() {
-      const presentUser = {
+      let presentUser = {
         email: this.email,
-        name: this.name,
+        username: this.username,
         password: this.password,
       };
-      axios
-        .post('/api/v1/users/', presentUser)
+      axios.post('/api/v1/users/', presentUser)
         .then(response => {
           console.log(response)
           this.$router.push('/')
         })
         .catch(error => {
-          console.log(error)
+          console.log(error);
       });
     },
     logIn() {
