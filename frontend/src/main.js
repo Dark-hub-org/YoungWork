@@ -5,7 +5,7 @@ import store from './store'
 import './style/main.scss'
 import axios from 'axios'
 
-axios.defaults.baseUrl = 'http://127.0.0.1:8080'
+axios.defaults.baseUrl = "http://127.0.0.1:8080/"
 
 Vue.config.productionTip = false
 

@@ -76,7 +76,7 @@
               <div class="modal-form-block">
                 <label class="modal-form-name">Имя</label>
                 <input
-                    v-model="name"
+                    v-model="username"
                     @input="isEmptyName = false"
                     type="text"
                     class="modal-form__input">
@@ -178,10 +178,10 @@
           <p class="modal-title modal-title-reg">Войти</p>
           <form action="#" class="modal-form modal-form-log">
             <div class="modal-form-block">
-              <label class="modal-form-name">электронная почта</label>
+              <label class="modal-form-name">Имя</label>
               <div class="modal-wrapper-input">
                 <input
-                    v-model="email"
+                    v-model="username"
                     @blur="checkEmail"
                     @input="isEmptyEmail = false"
                     @focus="isCheckEmail = true"
@@ -336,7 +336,7 @@ export default {
   data() {
     return {
       email: '',
-      name: '',
+      username: '',
       password: '',
 
       isCheckEmail: true,
@@ -360,29 +360,43 @@ export default {
       isSubMenu: false,
     }
   },
-
   methods: {
     submitForm() {
       const presentUser = {
         email: this.email,
-        name: this.name,
+        username: this.username,
         password: this.password,
       };
-      axios
-        .post('/api/v1/users/', presentUser)
+      axios.post('/api/v1/users/', presentUser)
         .then(response => {
           console.log(response)
           this.$router.push('/')
         })
         .catch(error => {
-          console.log(error)
+          console.log(error);
       });
     },
     logIn() {
-      this.checkRegFields();
-      if (this.isEmptyName || this.isEmptyPassword || !this.isCheckPassword || !this.isCheckEmail) {
-        return;
+      axios.defaults.headers.common['Authorization'] = ''
+      localStorage.removeItem('access')
+
+      const formData = {
+        username: this.username,
+        password: this.password,
       }
+
+      axios.post('/api/v1/jwt/create/', formData)
+        .then(response => {
+            console.log(response)
+            const access = response.data.access
+            this.$store.commit('serAccess', access)
+            axios.defaults.headers.common['Authorization'] = 'JWT ' + access
+            localStorage.setItem('access', access)
+            this.$router.push('/')
+        })
+        .catch(error => {
+            console.log(error)
+        })
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);

@@ -3,7 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import LandingContent from '@/components/view/landing-content'
-import VacancyContent from "@/components/view/vacancy-content.vue";
+import VacancyContent from "@/components/view/vacancy-content.vue"
 
 Vue.use(VueRouter);
 
