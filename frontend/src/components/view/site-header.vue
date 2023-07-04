@@ -112,7 +112,7 @@
                 </div>
               </div>
               <div class="modal-form-block">
-                <label class="modal-form-name">Придумайте пароль (минимум 6 символов)</label>
+                <label class="modal-form-name">Придумайте пароль (минимум 8 символов)</label>
                 <div class="modal-form__password-wrapper">
                   <input
                       v-model="password"
@@ -129,7 +129,7 @@
                       <!--                      <div class="icon-error">-->
                       <!--                      </div>-->
                       <label class="modal-input-error">
-                        Пароль должен быть минимум 6 символов
+                        Пароль должен быть минимум 8 символов
                       </label>
                     </template>
                     <template v-if="isEmptyPassword">
@@ -224,7 +224,7 @@
                     <!--                      <div class="icon-error">-->
                     <!--                      </div>-->
                     <label class="modal-input-error">
-                      Пароль должен быть минимум 6 символов
+                      Пароль должен быть минимум 8 символов
                     </label>
                   </template>
                   <template v-if="isEmptyPassword">
@@ -267,7 +267,7 @@
                 использовали при регистрации</label>
               <label v-if="resetPasswordCurrentStep === 1" class="modal-form-name">Введите код восстановления пароля<br>
                 (письмо с кодом отправлено на указанный E-mail)</label>
-              <label v-if="resetPasswordCurrentStep === 2" class="modal-form-name">Придумайте новый пароль (минимум 6
+              <label v-if="resetPasswordCurrentStep === 2" class="modal-form-name">Придумайте новый пароль (минимум 8
                 символов)</label>
 
               <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1" class="modal-wrapper-input">
@@ -445,7 +445,7 @@ export default {
       if (this.password === '') {
         return;
       }
-      this.password.length < 6 ? this.isCheckPassword = false : this.isCheckPassword = true;
+      this.password.length < 8 ? this.isCheckPassword = false : this.isCheckPassword = true;
     },
 
     openItem() {
