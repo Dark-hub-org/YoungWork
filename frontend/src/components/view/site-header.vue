@@ -389,10 +389,12 @@ export default {
         .then(response => {
             console.log(response)
             const access = response.data.access
-            this.$store.commit('serAccess', access)
+            const refresh = response.data.refresh
+            this.$store.commit('setAccess', access)
+            this.$store.commit('setRefresh', refresh)
             axios.defaults.headers.common['Authorization'] = 'JWT ' + access
             localStorage.setItem('access', access)
-            this.$router.push('/')
+            localStorage.setItem('refresh', refresh)
         })
         .catch(error => {
             console.log(error)
