@@ -40,6 +40,12 @@
   }
 }
 
+.inner-search {
+  @include displayFlex;
+  gap: 24px;
+  max-width: 831px;
+}
+
 .inner-search__wrapper {
   position: relative;
   width: 682px;
@@ -73,6 +79,17 @@
 
 }
 
+.inner-filter-btn {
+  width: 147px;
+  height: 72px;
+  border-radius: 40px;
+  background-color: $colorGreenM;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.36px;
+  color: $colorWhite;
+}
+
 // inner end
 //vacancy start
 
@@ -88,9 +105,29 @@
 }
 
 .vacancy-falters {
+  z-index: 3;
   max-width: 333px;
   margin-right: 64px;
   padding: 40px;
+}
+
+.vacancy-falters.active {
+  display: block;
+  position: absolute;
+  top: 117px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 40px;
+  background-color: $colorWhite;
+}
+
+.vacancy-apply {
+  margin-top: 64px;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 .vacancy-filter__wrapper {
@@ -190,8 +227,30 @@
   }
 }
 
+.vacancy-filter__top {
+  @include displayFlex;
+  margin-bottom: 40px;
+
+  .vacancy-title {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 98.023%;
+    letter-spacing: -2px;
+    color: $colorGrey;
+  }
+
+  .filter-close-btn {
+    width: 30px;
+    height: 30px;
+    background-image: url(../assets/close-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
 
 .vacancy-list {
+  display: flex;
+  flex-direction: column;
   width: 1251px;
 }
 
@@ -202,6 +261,20 @@
 
   &:not(:last-child) {
     margin-bottom: 32px;
+  }
+}
+
+.vacancy-list__pagination {
+  @include displayFlex;
+  padding: 0 40px;
+
+  .vacancy-list__page {
+    padding: 8px;
+    border-radius: 10px;
+    border: 3px solid $colorOrangeM;
+    font-size: 20px;
+    font-weight: 600;
+    color: $colorBlack;
   }
 }
 
@@ -264,8 +337,35 @@
   gap: 14px;
 }
 
-
-
 //vacancy end
 
+
+@media(max-width: 1024px) {
+
+}
+
+@media(max-width: 1024px) {
+
+  .vacancy-falters {
+    display: none;
+  }
+
+}
+
+@media(max-width: 450px) {
+
+  .inner-filter-btn {
+    width: 46px;
+    height: 24px;
+    background-color: transparent;
+    background-image: url(../assets/vacancy/Filter-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+
+    .text {
+      display: none;
+    }
+  }
+
+}
 
