@@ -248,7 +248,7 @@
               Забыли пароль?
             </button>
             <button
-            type="submit"
+            type="button"
             @click="logIn(); onCloseModalWin()"
             class="modal-form__submit button-orange-another">
             Войти</button>
@@ -366,9 +366,10 @@ export default {
       isSubMenu: false,
     }
   },
-  beforeMounted(){
-    this.getMe()
-    this.logIn()
+  mounted(){
+    this.getMe();
+    this.logIn();
+    this.isAutoRization = localStorage.getItem('isAutoRization');
   },
   methods: {
     submitFormReg() {
@@ -406,7 +407,7 @@ export default {
             localStorage.setItem('access', access)
             localStorage.setItem('refresh', refresh)
             this.isAutoRization = true;
-            localStorage.setItem('isAutoRization', true);
+            localStorage.setItem('isAutoRization', this.isAutoRization);
         })
         .catch(error => {
             console.log(error)
