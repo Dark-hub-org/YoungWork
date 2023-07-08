@@ -53,7 +53,9 @@
                   </ul>
                 </li>
                 <li class="supernova-wrapper-item">
-                  <button class="supernova-exits-btn">Выход</button>
+                  <button @click="logOut" class="supernova-exits-btn">
+                  Выход
+                  </button>
                 </li>
               </ul>
             </div>
@@ -366,15 +368,9 @@ export default {
       isSubMenu: false,
     }
   },
-<<<<<<< HEAD
-  mounted() {
-    this.getMe()
-=======
   mounted(){
     this.getMe();
-    this.logIn();
     this.isAutoRization = localStorage.getItem('isAutoRization');
->>>>>>> 1b8af7abe7e96e8059e9510346580a5c8a2137dc
   },
   methods: {
     submitFormReg() {
@@ -413,6 +409,7 @@ export default {
             localStorage.setItem('refresh', refresh)
             this.isAutoRization = true;
             localStorage.setItem('isAutoRization', this.isAutoRization);
+
         })
         .catch(error => {
             console.log(error)
@@ -427,6 +424,12 @@ export default {
         .catch(error =>{
             console.log(error)
         })
+    },
+    logOut() {
+        localStorage.removeItem('access')
+        localStorage.removeItem('refresh')
+        localStorage.removeItem('isAutoRization')
+        location.reload()
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
