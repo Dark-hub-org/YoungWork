@@ -71,7 +71,7 @@
 
         <div class="modal-reg-wrapper">
           <p class="modal-title">Регистрация</p>
-          <form @submit.prevent="submitForm" class="modal-form">
+          <form @submit.prevent="submitFormReg" class="modal-form">
             <div v-if="ModalWinRegCurrentStep === 0">
               <div class="modal-form-block">
                 <label class="modal-form-name">Имя</label>
@@ -93,22 +93,22 @@
                       v-model="email"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
-                      @focus="isCheckEmail = true"
-                      :class="{error: !isCheckEmail}"
+                      @focus="isCheckEmail = true; isEmptyEmail = false"
+                      :class="{error: !isCheckEmail || isEmptyEmail}"
                       type="text"
                       class="modal-form__input">
-                  <template v-if="!isCheckEmail && email !== ''">
+                  <template v-if="!isCheckEmail && email !== '' || isEmptyEmail">
                     <div class="icon-error">
                     </div>
-                    <label class="modal-input-error">
+                    <label v-if="!isCheckEmail" class="modal-input-error">
                       Неверный E-mail
                     </label>
-                  </template>
-                  <label
+                    <label
                       v-if="isEmptyEmail"
                       class="modal-input-error">
                     Пожалуйста, заполните поле
                   </label>
+                  </template>
                 </div>
               </div>
               <div class="modal-form-block">
@@ -119,15 +119,15 @@
                       ref="passwordInput"
                       @blur="checkPassword"
                       @input="isEmptyPassword = false"
-                      @focus="isCheckPassword = true"
-                      :class="{error: !isCheckPassword}"
+                      @focus="isCheckPassword = true; isEmptyPassword = false"
+                      :class="{error: !isCheckPassword || isEmptyPassword}"
                       :type="isHidePassword ? 'password' : 'text'"
                       class="modal-form__input">
 
                   <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
                     <template v-if="!isCheckPassword && password !== ''">
-                                            <div class="icon-error">
-                                            </div>
+                    <!-- <div class="icon-error">
+                    </div> -->
                       <label class="modal-input-error">
                         Пароль должен быть минимум 8 символов
                       </label>
@@ -158,7 +158,8 @@
             @click="openNextStep" -->
             <button
                 type="submit"
-                class="modal-form__submit button-orange-another">Зарегистрироваться
+                class="modal-form__submit button-orange-another"
+                @click="checkRegFields">Зарегистрироваться
             </button>
             <button
                 @click="openModalWinLog"
@@ -212,7 +213,7 @@
                     @blur="checkPassword"
                     @focus="isCheckPassword = true"
                     @input="isEmptyPassword = false"
-                    :class="{error: !isCheckPassword}"
+                    :class="{error: !isCheckPassword || isEmptyName}"
                     :type="isHidePassword ? 'password' : 'text'"
                     class="modal-form__input">
                     <!-- <div
@@ -365,7 +366,7 @@ export default {
     }
   },
   methods: {
-    submitForm() {
+    submitFormReg() {
       const presentUser = {
         email: this.email,
         username: this.username,
@@ -435,7 +436,7 @@ export default {
       this.isModalWinLog = false
     },
     onCloseModalWin() {
-      this.isModalWinLog = false
+      // this.isModalWinLog = false
       this.clearModalData();
     },
     onCloseModalReg() {
