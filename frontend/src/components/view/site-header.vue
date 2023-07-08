@@ -366,8 +366,15 @@ export default {
       isSubMenu: false,
     }
   },
+<<<<<<< HEAD
   mounted() {
     this.getMe()
+=======
+  mounted(){
+    this.getMe();
+    this.logIn();
+    this.isAutoRization = localStorage.getItem('isAutoRization');
+>>>>>>> 1b8af7abe7e96e8059e9510346580a5c8a2137dc
   },
   methods: {
     submitFormReg() {
@@ -405,7 +412,7 @@ export default {
             localStorage.setItem('access', access)
             localStorage.setItem('refresh', refresh)
             this.isAutoRization = true;
-            localStorage.setItem('isAutoRization', true);
+            localStorage.setItem('isAutoRization', this.isAutoRization);
         })
         .catch(error => {
             console.log(error)
