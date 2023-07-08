@@ -1,9 +1,15 @@
 <template>
   <header class="header">
     <div class="wrapper wrapper-header">
-      <a href="#" class="header-logo-link">
+      <router-link
+      to="/"
+      tag="a"
+      class="header-logo-link">
         <img src="@/assets/logo.svg" alt="логотип" class="header-logo">
-      </a>
+      </router-link>
+      <!-- <a href="#" class="header-logo-link">
+        <img src="@/assets/logo.svg" alt="логотип" class="header-logo">
+      </a> -->
       <nav
           :class="{active: isMenuActive}"
           class="header-nav">
