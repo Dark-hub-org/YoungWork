@@ -410,7 +410,6 @@ export default {
             localStorage.setItem('access', access)
             localStorage.setItem('refresh', refresh)
             localStorage.setItem('isAutoRization', this.isAutoRization);
-
         })
         .catch(error => {
             console.log(error)
@@ -421,7 +420,6 @@ export default {
         .then(response => {
             console.log(response)
             this.user_data = response.data.username
-            
         })
         .catch(error =>{
             console.log(error)
