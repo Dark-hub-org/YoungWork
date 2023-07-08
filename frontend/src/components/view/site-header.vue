@@ -36,7 +36,7 @@
           <div class="header-supernova">
             <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
             <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
-              <span class="supernova-wrapper__name">Александра Андреева</span>
+              <span class="supernova-wrapper__name" :src="user_data" >{{user_data}}</span>
               <ul class="supernova-wrapper-list">
                 <router-link to="#" tag="li" class="supernova-wrapper-item">
                   <a href="#" class="supernova-wrapper-link">Работа</a>
@@ -247,7 +247,7 @@
               Забыли пароль?
             </button>
             <button
-            type="button"
+            type="submit"
             @click="logIn(); onCloseModalWin()"
             class="modal-form__submit button-orange-another">
             Войти</button>
@@ -342,6 +342,7 @@ export default {
       email: '',
       username: '',
       password: '',
+      user_data: '',
 
       isCheckEmail: true,
       isCheckPassword: true,
@@ -363,6 +364,10 @@ export default {
       isSupernovaMenuActive: false,
       isSubMenu: false,
     }
+  },
+  beforeMounted(){
+    this.getMe()
+    this.logIn()
   },
   methods: {
     submitForm() {
@@ -399,8 +404,20 @@ export default {
             axios.defaults.headers.common['Authorization'] = 'JWT ' + access
             localStorage.setItem('access', access)
             localStorage.setItem('refresh', refresh)
+            this.isAutoRization = true;
+            localStorage.setItem('isAutoRization', true);
         })
         .catch(error => {
+            console.log(error)
+        })
+    },
+    getMe() {
+      axios.get('/api/v1/users/me')
+        .then(response => {
+            console.log(response)
+            this.user_data = response.data.username
+        })
+        .catch(error =>{
             console.log(error)
         })
     },
