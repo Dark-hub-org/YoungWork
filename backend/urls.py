@@ -6,10 +6,10 @@ from django.conf import settings
 from django.views.generic.base import RedirectView
 from django.views.static import serve
 
-favicon_view = RedirectView.as_view(url=os.path.join(settings.STATIC_URL, 'favicon.png'), permanent=True)
+favicon_view = RedirectView.as_view(url=os.path.join(settings.STATIC_URL, 'favicon.svg'), permanent=True)
 
 urlpatterns = [
-    path('favicon.png', favicon_view),
+    path('favicon.svg', favicon_view),
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')),
     path('api/v1/', include('djoser.urls')),
