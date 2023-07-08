@@ -15,8 +15,8 @@
         </li>
       </ul>
       <div class="footer-bottom">
-        <span class="footer-bottom__copy">© 2023 название сайта. Все права защищены.</span>
-        <span class="footer-bottom__developers">Сайт разработан КОМАНДА</span>
+        <span class="footer-bottom__copy">© 2023 YoungWork. Все права защищены.</span>
+        <span class="footer-bottom__developers">Сайт разработан Dark Hub</span>
       </div>
     </div>
   </footer>
