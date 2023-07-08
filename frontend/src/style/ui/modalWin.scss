@@ -99,6 +99,7 @@
   position: relative;
 
   .modal-form__hide {
+    z-index: 2;
     position: absolute;
     right: 16px;
     top: 16px;

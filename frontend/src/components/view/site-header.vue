@@ -83,22 +83,29 @@
             <div v-if="ModalWinRegCurrentStep === 0">
               <div class="modal-form-block">
                 <label class="modal-form-name">Имя</label>
-                <input
-                    v-model="username"
+                <div class="modal-wrapper-input">
+                  <input
+                    v-model.trim="formaterName"
                     @input="isEmptyName = false"
+                    @focus = "isEmptyName = false"
                     type="text"
-                    class="modal-form__input">
-                <label
-                    v-if="isEmptyName"
-                    class="modal-input-error">
-                  Пожалуйста, заполните поле
-                </label>
+                    class="modal-form__input"
+                    :class="{error: isEmptyName}">
+                  <template v-if="isEmptyName">
+                    <div class="icon-error">
+                    </div>
+                    <label
+                      class="modal-input-error">
+                    Пожалуйста, заполните поле
+                    </label>
+                  </template>
+                </div>
               </div>
               <div class="modal-form-block">
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
                   <input
-                      v-model="email"
+                      v-model.trim="email"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
                       @focus="isCheckEmail = true; isEmptyEmail = false"
@@ -123,7 +130,7 @@
                 <label class="modal-form-name">Придумайте пароль (минимум 8 символов)</label>
                 <div class="modal-form__password-wrapper">
                   <input
-                      v-model="password"
+                      v-model.trim="password"
                       ref="passwordInput"
                       @blur="checkPassword"
                       @input="isEmptyPassword = false"
@@ -142,7 +149,7 @@
                     </template>
                     <template v-if="isEmptyPassword">
                       <label
-                          v-if="isEmptyEmail"
+                          v-if="isEmptyPassword"
                           class="modal-input-error">
                         Пожалуйста, заполните поле
                       </label>
@@ -187,41 +194,35 @@
           <p class="modal-title modal-title-reg">Войти</p>
           <form class="modal-form modal-form-log">
             <div class="modal-form-block">
-              <label class="modal-form-name">Имя</label>
-              <div class="modal-wrapper-input">
-                <input
-                    v-model="username"
-                    @blur="checkEmail"
-                    @input="isEmptyEmail = false"
-                    @focus="isCheckEmail = true"
-                    :class="{error: !isCheckEmail}"
+                <label class="modal-form-name">Имя</label>
+                <div class="modal-wrapper-input">
+                  <input
+                    v-model.trim="username"
+                    @input="isEmptyName = false"
+                    @focus = 'isEmptyName = false'
                     type="text"
-                    class="modal-form__input">
-                <div
-                    class="icon-error"
-                    v-if="!isCheckEmail && email !== ''">
+                    class="modal-form__input"
+                    :class="{error: isEmptyName}">
+                  <template v-if="isEmptyName">
+                    <div class="icon-error">
+                    </div>
+                    <label
+                      v-if="isEmptyEmail"
+                      class="modal-input-error">
+                    Пожалуйста, заполните поле
+                    </label>
+                  </template>
                 </div>
-                <label
-                    v-if="!isCheckEmail && email !== ''"
-                    class="modal-input-error">
-                  Неверный E-mail
-                </label>
-                <label
-                    v-if="isEmptyEmail"
-                    class="modal-input-error">
-                  Пожалуйста, заполните поле
-                </label>
               </div>
-            </div>
             <div class="modal-form-block">
               <label class="modal-form-name">Пароль</label>
               <div class="modal-form__password-wrapper">
                 <input
-                    v-model="password"
+                    v-model.trim="password"
                     @blur="checkPassword"
                     @focus="isCheckPassword = true"
                     @input="isEmptyPassword = false"
-                    :class="{error: !isCheckPassword || isEmptyName}"
+                    :class="{error: !isCheckPassword || isEmptyPassword}"
                     :type="isHidePassword ? 'password' : 'text'"
                     class="modal-form__input">
                     <!-- <div
@@ -257,9 +258,11 @@
             </button>
             <button
             type="button"
-            @click="logIn(); onCloseModalWin()"
+            
+            @click="checkRegFields(); logIn()"
             class="modal-form__submit button-orange-another">
             Войти</button>
+            <!--  onCloseModalWin();  -->
             <button
                 @click="openModalWinReg"
                 type="button"
@@ -285,7 +288,7 @@
 
               <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1" class="modal-wrapper-input">
                 <input
-                    v-model="email"
+                    v-model.trim="email"
                     @blur="checkEmail"
                     @input="isEmptyEmail = false"
                     @focus="isCheckEmail = true"
@@ -380,6 +383,9 @@ export default {
   },
   methods: {
     submitFormReg() {
+      if(this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword || !this.isCheckPassword || !this.isCheckEmail) {
+        return
+      }
       const presentUser = {
         email: this.email,
         username: this.username,
@@ -393,8 +399,12 @@ export default {
         .catch(error => {
           console.log(error);
       });
+      this.onCloseModalReg();
     },
     logIn() {
+      if(!this.isCheckPassword || this.isEmptyName || this.isEmptyPassword) {
+        return;
+      }
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('access')
 
@@ -441,6 +451,9 @@ export default {
       this.isEmptyEmail = _.isEmpty(this.email);
       this.isEmptyName = _.isEmpty(this.username);
       this.isEmptyPassword = _.isEmpty(this.password);
+      if(this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword) {
+        return;
+      }
     },
     openNextStep() {
       this.checkRegFields();
@@ -512,7 +525,10 @@ export default {
     },
     openSubMenu() {
       this.isSubMenu = !this.isSubMenu;
-    }
+    },
+    // validName() {
+    //   this.username = this.username.charAt(0).toUpperCase() + this.username.slice(1).toLowerCase().replace(/\s/g, '');
+    // }
   },
   watch: {
     isMenuActive: function () {
@@ -523,7 +539,17 @@ export default {
       document.documentElement.style.overflow = 'auto'
     },
   },
-  computed: {}
+  computed: {
+    formaterName: {
+      get: function() {
+        return this.username
+      },
+      set: function(value) {
+        this.username = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().replace(/\s/g, '');
+      }
+      
+    }
+  }
 }
 </script>
 
