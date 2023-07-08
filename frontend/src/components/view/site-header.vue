@@ -53,7 +53,9 @@
                   </ul>
                 </li>
                 <li class="supernova-wrapper-item">
-                  <button class="supernova-exits-btn">Выход</button>
+                  <button @click="logOut" class="supernova-exits-btn">
+                  Выход
+                  </button>
                 </li>
               </ul>
             </div>
@@ -368,7 +370,6 @@ export default {
   },
   mounted(){
     this.getMe();
-    // this.logIn();
     this.isAutoRization = localStorage.getItem('isAutoRization');
   },
   methods: {
@@ -409,6 +410,7 @@ export default {
             localStorage.setItem('access', access)
             localStorage.setItem('refresh', refresh)
             localStorage.setItem('isAutoRization', this.isAutoRization);
+
         })
         .catch(error => {
             console.log(error)
@@ -424,6 +426,12 @@ export default {
         .catch(error =>{
             console.log(error)
         })
+    },
+    logOut() {
+        localStorage.removeItem('access')
+        localStorage.removeItem('refresh')
+        localStorage.removeItem('isAutoRization')
+        location.reload()
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
@@ -456,11 +464,11 @@ export default {
       this.isModalWinLog = false
     },
     onCloseModalWin() {
-      // this.isModalWinLog = false
+      this.isModalWinLog = false
       this.clearModalData();
     },
     onCloseModalReg() {
-      this.isModalWinReg = false
+      this.isModalWinReg = false;
       this.clearModalData();
     },
     onCloseModalResetPass() {

@@ -61,6 +61,6 @@ export default {
     name: 'vacancy-page',
 }
 </script>
-<style src="@/style/vacancy-page.scss" lang="scss">
+<style src="@/style/vacancy-page.scss" lang="scss" scoped>
     
 </style>
