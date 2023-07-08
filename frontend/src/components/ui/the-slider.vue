@@ -1,5 +1,5 @@
 <template>
-  <div @mousedown="onMouseDown" @mouseup="onMouseUp" @touchstart="onTouchStart" @touchend="onTouchEnd" class="noselect">
+  <div @mousedown="onMouseDown" @mouseup="onMouseUp" @touchstart="onTouchStart" @touchend="onTouchEnd" class="noselect slider-wrapper">
     <span @click="goPrev">Prev</span>
     <slot></slot>
     <span @click="goNext">Next</span>
@@ -64,6 +64,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style src="@/style/ui/sliderComponent.scss" lang="scss" scoped>
 
 </style>

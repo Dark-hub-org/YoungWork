@@ -62,7 +62,7 @@
         </ul>
       </nav>
 
-      <!--      Делай на примере этой модалки-->
+            <!-- Делай на примере этой модалки -->
       <modal-window
 
 
@@ -126,8 +126,8 @@
 
                   <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
                     <template v-if="!isCheckPassword && password !== ''">
-                      <!--                      <div class="icon-error">-->
-                      <!--                      </div>-->
+                                            <div class="icon-error">
+                                            </div>
                       <label class="modal-input-error">
                         Пароль должен быть минимум 8 символов
                       </label>
@@ -154,8 +154,8 @@
                 <label class="modal-form-label">Если письмо не пришло, проверьте спам</label>
               </div>
             </div>
-            <!--функция для переключения шага-->
-<!--            @click="openNextStep"-->
+            <!-- функция для переключения шага
+            @click="openNextStep" -->
             <button
                 type="submit"
                 class="modal-form__submit button-orange-another">Зарегистрироваться
@@ -176,7 +176,7 @@
 
         <div class="modal-reg-wrapper">
           <p class="modal-title modal-title-reg">Войти</p>
-          <form action="#" class="modal-form modal-form-log">
+          <form class="modal-form modal-form-log">
             <div class="modal-form-block">
               <label class="modal-form-name">Имя</label>
               <div class="modal-wrapper-input">
@@ -215,14 +215,14 @@
                     :class="{error: !isCheckPassword}"
                     :type="isHidePassword ? 'password' : 'text'"
                     class="modal-form__input">
-                <!--                <div-->
-                <!--                    class="icon-error"-->
-                <!--                    v-if="!isCheckPassword && password !== ''">-->
-                <!--                </div>-->
+                    <!-- <div
+                    class="icon-error"
+                    v-if="!isCheckPassword && password !== ''">
+                    </div> -->
                 <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
                   <template v-if="!isCheckPassword && password !== ''">
-                    <!--                      <div class="icon-error">-->
-                    <!--                      </div>-->
+                    <!-- <div class="icon-error">
+                    </div> -->
                     <label class="modal-input-error">
                       Пароль должен быть минимум 8 символов
                     </label>
@@ -241,12 +241,16 @@
               </div>
             </div>
             <button
+                type="button"
                 @click="openModalWinReset"
                 class="modal-form-password-reset">
               Забыли пароль?
             </button>
-            <button @click="logIn" class="modal-form__submit button-orange-another">Войти</button>
-            <!--            На этой кнопки выдает ошибку-->
+            <button
+            type="button"
+            @click="logIn(); onCloseModalWin()"
+            class="modal-form__submit button-orange-another">
+            Войти</button>
             <button
                 @click="openModalWinReg"
                 type="button"
@@ -402,7 +406,7 @@ export default {
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
-      this.isEmptyName = _.isEmpty(this.name);
+      this.isEmptyName = _.isEmpty(this.username);
       this.isEmptyPassword = _.isEmpty(this.password);
     },
     openNextStep() {
@@ -415,11 +419,13 @@ export default {
     },
     openModalWinLog() {
       this.clearModalData();
+      // 
       this.isModalWinLog = true;
       this.isModalWinReg = false;
     },
     openModalWinReg() {
       this.clearModalData();
+      // 
       this.isModalWinReg = true;
       this.isModalWinLog = false
     },
@@ -442,7 +448,7 @@ export default {
     clearModalData() {
       this.email = '';
       this.password = '';
-      this.name = '';
+      this.username = '';
       this.isHidePassword = true;
       this.isCheckEmail = true;
       this.isCheckPassword = true;
