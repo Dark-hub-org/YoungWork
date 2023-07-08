@@ -248,7 +248,7 @@
               Забыли пароль?
             </button>
             <button
-            type="submit"
+            type="button"
             @click="logIn(); onCloseModalWin()"
             class="modal-form__submit button-orange-another">
             Войти</button>
@@ -366,9 +366,8 @@ export default {
       isSubMenu: false,
     }
   },
-  beforeMounted(){
+  mounted() {
     this.getMe()
-    this.logIn()
   },
   methods: {
     submitFormReg() {
