@@ -36,7 +36,7 @@
           <div class="header-supernova">
             <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
             <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
-              <span class="supernova-wrapper__name" :src="user_data" >{{user_data}}</span>
+              <span class="supernova-wrapper__name" :src="user_data">{{user_data}}</span>
               <ul class="supernova-wrapper-list">
                 <router-link to="#" tag="li" class="supernova-wrapper-item">
                   <a href="#" class="supernova-wrapper-link">Работа</a>
@@ -368,7 +368,7 @@ export default {
   },
   mounted(){
     this.getMe();
-    this.logIn();
+    // this.logIn();
     this.isAutoRization = localStorage.getItem('isAutoRization');
   },
   methods: {
@@ -403,10 +403,11 @@ export default {
             const refresh = response.data.refresh
             this.$store.commit('setAccess', access)
             this.$store.commit('setRefresh', refresh)
+            this.isAutoRization = true;
+            this.isModalWinLog = false;
             axios.defaults.headers.common['Authorization'] = 'JWT ' + access
             localStorage.setItem('access', access)
             localStorage.setItem('refresh', refresh)
-            this.isAutoRization = true;
             localStorage.setItem('isAutoRization', this.isAutoRization);
         })
         .catch(error => {
@@ -418,6 +419,7 @@ export default {
         .then(response => {
             console.log(response)
             this.user_data = response.data.username
+            
         })
         .catch(error =>{
             console.log(error)
