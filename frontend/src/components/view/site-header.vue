@@ -393,13 +393,36 @@ export default {
       };
       axios.post('/api/v1/users/', presentUser)
         .then(response => {
-          console.log(response)
-          this.$router.push('/')
+            console.log(response)
+            this.regAfter(presentUser)
         })
         .catch(error => {
-          console.log(error);
+            console.log(error)
       });
       this.onCloseModalReg();
+    },
+    regAfter(presentUser) {
+      axios.defaults.headers.common['Authorization'] = ''
+      localStorage.removeItem('access')
+
+
+      axios.post('/api/v1/jwt/create/', presentUser)
+        .then(response => {
+            console.log(response)
+            const access = response.data.access
+            const refresh = response.data.refresh
+            this.$store.commit('setAccess', access)
+            this.$store.commit('setRefresh', refresh)
+            this.isAutoRization = true;
+            this.isModalWinLog = false;
+            axios.defaults.headers.common['Authorization'] = 'JWT ' + access
+            localStorage.setItem('access', access)
+            localStorage.setItem('refresh', refresh)
+            localStorage.setItem('isAutoRization', this.isAutoRization);
+        })
+        .catch(error => {
+            console.log(error)
+        })
     },
     logIn() {
       if(!this.isCheckPassword || this.isEmptyName || this.isEmptyPassword) {
@@ -408,12 +431,12 @@ export default {
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('access')
 
-      const formData = {
+      const presentUser = {
         username: this.username,
         password: this.password,
       }
 
-      axios.post('/api/v1/jwt/create/', formData)
+      axios.post('/api/v1/jwt/create/', presentUser)
         .then(response => {
             console.log(response)
             const access = response.data.access
