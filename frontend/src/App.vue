@@ -30,7 +30,6 @@ export default{
         } else {
             axios.defaults.headers.common['Authorization'] = ''
         }
-
     },
     mounted() {
         setInterval(() => {
