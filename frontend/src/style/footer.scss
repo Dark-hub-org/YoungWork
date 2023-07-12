@@ -71,6 +71,7 @@
 @media(max-width: 450px) {
   .footer-list {
     flex-direction: column;
+    margin-bottom: 40px;
 
     .footer-list__item {
 
@@ -79,7 +80,7 @@
       }
 
       .footer-list__item-link {
-        margin-bottom: 10px;
+        margin-bottom: 14px;
       }
     }
   }

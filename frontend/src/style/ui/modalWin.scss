@@ -99,6 +99,7 @@
   position: relative;
 
   .modal-form__hide {
+    z-index: 2;
     position: absolute;
     right: 16px;
     top: 16px;
@@ -184,7 +185,7 @@
 .modal-form__hide {
   width: 20px;
   height: 20px;
-  background-image: url(@/assets/header/hide-icon.svg);
+  color: #e55b1c;
   background-position: center;
   background-repeat: no-repeat;
 }

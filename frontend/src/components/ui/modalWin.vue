@@ -1,39 +1,49 @@
 <template>
-      <div
-      v-if="show"
+  <div
+      v-if="isVisible"
       @click.stop="CloseModal"
-      class="modal-wrapper">
-        <div @click.stop class="modal-window">
-          <button
-              @click="CloseModal"
-              class="modal-window-close">
-          </button>
-             <slot></slot>
-        </div>
-      </div>
+      class="modal-wrapper" id="modal-wrapper">
+    <div @click.stop class="modal-window">
+      <button
+          @click="CloseModal"
+          class="modal-window-close">
+      </button>
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-name: 'modalWindow',
+  name: 'modalWindow',
   props: {
-    show: {
+    isVisible: {
       type: Boolean,
       default: false,
     }
   },
   methods: {
     CloseModal() {
-        this.$emit('show', false)
+      this.$emit('close', false)
     }
   },
   watch: {
-    show: function() {
-      if(this.show == true){
-        document.documentElement.style.overflow = 'hidden'
-        return;
-      }
-      document.documentElement.style.overflow = ''
+    isVisible: {
+      handler(val) {
+        if (val) {
+          document.body.style.overflow = 'hidden'
+          document.body.classList.add('manual-overflow-padding')
+          return;
+        }
+        this.$nextTick(() => {
+          let wrapper = document.getElementById('modal-wrapper')
+          if (!wrapper) {
+            document.body.style.overflow = ''
+            document.body.classList.remove('manual-overflow-padding')
+          }
+        })
+      },
+      immediate: true,
     }
   }
 }

@@ -1,6 +1,27 @@
 @import "varibles";
 @import "mixin";
 
+//disable selection text
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+//adding padding when showing modal
+
+.manual-overflow-padding {
+  padding-right: 17px;
+}
+
+.manual-overflow-padding .header {
+  padding-right: 17px;
+}
+
 //reset style start
 
 *, a {
