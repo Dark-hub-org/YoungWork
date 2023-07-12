@@ -2,9 +2,9 @@
   <header class="header">
     <div class="wrapper wrapper-header">
       <router-link
-      to="/"
-      tag="a"
-      class="header-logo-link">
+          to="/"
+          tag="a"
+          class="header-logo-link">
         <img src="@/assets/logo.svg" alt="логотип" class="header-logo">
       </router-link>
       <!-- <a href="#" class="header-logo-link">
@@ -31,46 +31,46 @@
             </li>
             <li class="header-nav__list-item">
               <button
-                @click="isModalWinReg = true"
-                type="button"
-                class="header-btn button-green">
-              Регистрация
+                  @click="isModalWinReg = true"
+                  type="button"
+                  class="header-btn button-green">
+                Регистрация
               </button>
             </li>
           </template>
           <template v-else>
-          <div class="header-supernova">
-            <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
-            <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
-              <span class="supernova-wrapper__name" :src="user_data">{{user_data}}</span>
-              <ul class="supernova-wrapper-list">
-                <router-link to="#" tag="li" class="supernova-wrapper-item">
-                  <a href="#" class="supernova-wrapper-link">Работа</a>
-                </router-link>
-                <li class="supernova-wrapper-item">
-                  <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
-                    <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
-                    <router-link to="#" tag="li">
-                      <a href="#" class="supernova-sublist-title">Найти задание</a>
-                    </router-link>
-                    <router-link to="#" tag="li">
-                      <a href="#" class="supernova-sublist-title">Создать задание</a>
-                    </router-link>
-                  </ul>
-                </li>
-                <li class="supernova-wrapper-item">
-                  <button @click="logOut" class="supernova-exits-btn">
-                  Выход
-                  </button>
-                </li>
-              </ul>
+            <div class="header-supernova">
+              <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
+              <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
+                <span class="supernova-wrapper__name" :src="user_data">{{ user_data }}</span>
+                <ul class="supernova-wrapper-list">
+                  <router-link to="#" tag="li" class="supernova-wrapper-item">
+                    <a href="#" class="supernova-wrapper-link">Работа</a>
+                  </router-link>
+                  <li class="supernova-wrapper-item">
+                    <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
+                      <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
+                      <router-link to="#" tag="li">
+                        <a href="#" class="supernova-sublist-title">Найти задание</a>
+                      </router-link>
+                      <router-link to="#" tag="li">
+                        <a href="#" class="supernova-sublist-title">Создать задание</a>
+                      </router-link>
+                    </ul>
+                  </li>
+                  <li class="supernova-wrapper-item">
+                    <button @click="logOut" class="supernova-exits-btn">
+                      Выход
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </template>
+          </template>
         </ul>
       </nav>
 
-            <!-- Делай на примере этой модалки -->
+      <!-- Делай на примере этой модалки -->
       <modal-window
 
 
@@ -85,18 +85,18 @@
                 <label class="modal-form-name">Имя</label>
                 <div class="modal-wrapper-input">
                   <input
-                    v-model.trim="formaterName"
-                    @input="isEmptyName = false"
-                    @focus = "isEmptyName = false"
-                    type="text"
-                    class="modal-form__input"
-                    :class="{error: isEmptyName}">
+                      v-model.trim="formaterName"
+                      @input="isEmptyName = false"
+                      @focus="isEmptyName = false"
+                      type="text"
+                      class="modal-form__input"
+                      :class="{error: isEmptyName}">
                   <template v-if="isEmptyName">
                     <div class="icon-error">
                     </div>
                     <label
-                      class="modal-input-error">
-                    Пожалуйста, заполните поле
+                        class="modal-input-error">
+                      Пожалуйста, заполните поле
                     </label>
                   </template>
                 </div>
@@ -119,10 +119,10 @@
                       Неверный E-mail
                     </label>
                     <label
-                      v-if="isEmptyEmail"
-                      class="modal-input-error">
-                    Пожалуйста, заполните поле
-                  </label>
+                        v-if="isEmptyEmail"
+                        class="modal-input-error">
+                      Пожалуйста, заполните поле
+                    </label>
                   </template>
                 </div>
               </div>
@@ -141,8 +141,8 @@
 
                   <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
                     <template v-if="!isCheckPassword && password !== ''">
-                    <!-- <div class="icon-error">
-                    </div> -->
+                      <!-- <div class="icon-error">
+                      </div> -->
                       <label class="modal-input-error">
                         Пароль должен быть минимум 8 символов
                       </label>
@@ -194,26 +194,26 @@
           <p class="modal-title modal-title-reg">Войти</p>
           <form class="modal-form modal-form-log">
             <div class="modal-form-block">
-                <label class="modal-form-name">Имя</label>
-                <div class="modal-wrapper-input">
-                  <input
+              <label class="modal-form-name">Имя</label>
+              <div class="modal-wrapper-input">
+                <input
                     v-model.trim="username"
                     @input="isEmptyName = false"
-                    @focus = 'isEmptyName = false'
+                    @focus='isEmptyName = false'
                     type="text"
                     class="modal-form__input"
                     :class="{error: isEmptyName}">
-                  <template v-if="isEmptyName">
-                    <div class="icon-error">
-                    </div>
-                    <label
+                <template v-if="isEmptyName">
+                  <div class="icon-error">
+                  </div>
+                  <label
                       v-if="isEmptyEmail"
                       class="modal-input-error">
                     Пожалуйста, заполните поле
-                    </label>
-                  </template>
-                </div>
+                  </label>
+                </template>
               </div>
+            </div>
             <div class="modal-form-block">
               <label class="modal-form-name">Пароль</label>
               <div class="modal-form__password-wrapper">
@@ -225,10 +225,10 @@
                     :class="{error: !isCheckPassword || isEmptyPassword}"
                     :type="isHidePassword ? 'password' : 'text'"
                     class="modal-form__input">
-                    <!-- <div
-                    class="icon-error"
-                    v-if="!isCheckPassword && password !== ''">
-                    </div> -->
+                <!-- <div
+                class="icon-error"
+                v-if="!isCheckPassword && password !== ''">
+                </div> -->
                 <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
                   <template v-if="!isCheckPassword && password !== ''">
                     <!-- <div class="icon-error">
@@ -257,11 +257,12 @@
               Забыли пароль?
             </button>
             <button
-            type="button"
-            
-            @click="checkRegFields(); logIn()"
-            class="modal-form__submit button-orange-another">
-            Войти</button>
+                type="button"
+
+                @click="checkRegFields(); logIn()"
+                class="modal-form__submit button-orange-another">
+              Войти
+            </button>
             <!--  onCloseModalWin();  -->
             <button
                 @click="openModalWinReg"
@@ -377,13 +378,13 @@ export default {
       isSubMenu: false,
     }
   },
-  mounted(){
+  mounted() {
     this.getMe();
     this.isAutoRization = localStorage.getItem('isAutoRization');
   },
   methods: {
     submitFormReg() {
-      if(this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword || !this.isCheckPassword || !this.isCheckEmail) {
+      if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword || !this.isCheckPassword || !this.isCheckEmail) {
         return
       }
       const presentUser = {
@@ -392,13 +393,13 @@ export default {
         password: this.password,
       };
       axios.post('/api/v1/users/', presentUser)
-        .then(response => {
+          .then(response => {
             console.log(response)
             this.regAfter(presentUser)
-        })
-        .catch(error => {
+          })
+          .catch(error => {
             console.log(error)
-      });
+          });
       this.onCloseModalReg();
     },
     regAfter(presentUser) {
@@ -407,7 +408,7 @@ export default {
 
 
       axios.post('/api/v1/jwt/create/', presentUser)
-        .then(response => {
+          .then(response => {
             console.log(response)
             const access = response.data.access
             const refresh = response.data.refresh
@@ -419,13 +420,14 @@ export default {
             localStorage.setItem('access', access)
             localStorage.setItem('refresh', refresh)
             localStorage.setItem('isAutoRization', this.isAutoRization);
-        })
-        .catch(error => {
+            location.reload()
+          })
+          .catch(error => {
             console.log(error)
-        })
+          })
     },
     logIn() {
-      if(!this.isCheckPassword || this.isEmptyName || this.isEmptyPassword) {
+      if (!this.isCheckPassword || this.isEmptyName || this.isEmptyPassword) {
         return;
       }
       axios.defaults.headers.common['Authorization'] = ''
@@ -437,7 +439,7 @@ export default {
       }
 
       axios.post('/api/v1/jwt/create/', presentUser)
-        .then(response => {
+          .then(response => {
             console.log(response)
             const access = response.data.access
             const refresh = response.data.refresh
@@ -449,32 +451,33 @@ export default {
             localStorage.setItem('access', access)
             localStorage.setItem('refresh', refresh)
             localStorage.setItem('isAutoRization', this.isAutoRization);
-        })
-        .catch(error => {
+            location.reload()
+          })
+          .catch(error => {
             console.log(error)
-        })
+          })
     },
     getMe() {
       axios.get('/api/v1/users/me')
-        .then(response => {
+          .then(response => {
             console.log(response)
             this.user_data = response.data.username
-        })
-        .catch(error =>{
+          })
+          .catch(error => {
             console.log(error)
-        })
+          })
     },
     logOut() {
-        localStorage.removeItem('access')
-        localStorage.removeItem('refresh')
-        localStorage.removeItem('isAutoRization')
-        location.reload()
+      localStorage.removeItem('access')
+      localStorage.removeItem('refresh')
+      localStorage.removeItem('isAutoRization')
+      location.reload()
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
       this.isEmptyName = _.isEmpty(this.username);
       this.isEmptyPassword = _.isEmpty(this.password);
-      if(this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword) {
+      if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword) {
         return;
       }
     },
@@ -564,13 +567,13 @@ export default {
   },
   computed: {
     formaterName: {
-      get: function() {
+      get: function () {
         return this.username
       },
-      set: function(value) {
+      set: function (value) {
         this.username = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().replace(/\s/g, '');
       }
-      
+
     }
   }
 }
