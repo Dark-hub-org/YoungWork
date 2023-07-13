@@ -69,14 +69,9 @@
           </template>
         </ul>
       </nav>
-
-      <!-- Делай на примере этой модалки -->
       <modal-window
-
-
           @close="onCloseModalReg"
           :isVisible="isModalWinReg">
-
         <div class="modal-reg-wrapper">
           <p class="modal-title">Регистрация</p>
           <form @submit.prevent="submitFormReg" class="modal-form">
@@ -85,7 +80,7 @@
                 <label class="modal-form-name">Имя</label>
                 <div class="modal-wrapper-input">
                   <input
-                      v-model.trim="formaterName"
+                      v-model.trim="email"
                       @input="isEmptyName = false"
                       @focus="isEmptyName = false"
                       type="text"
@@ -105,7 +100,7 @@
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
                   <input
-                      v-model.trim="email"
+                      v-model.trim="username"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
                       @focus="isCheckEmail = true; isEmptyEmail = false"
@@ -186,15 +181,13 @@
         </div>
       </modal-window>
       <modal-window
-
           @close="onCloseModalWin"
           :isVisible="isModalWinLog">
-
         <div class="modal-reg-wrapper">
           <p class="modal-title modal-title-reg">Войти</p>
           <form class="modal-form modal-form-log">
             <div class="modal-form-block">
-              <label class="modal-form-name">Имя</label>
+              <label class="modal-form-name">Электронная почта</label>
               <div class="modal-wrapper-input">
                 <input
                     v-model.trim="username"
@@ -245,7 +238,6 @@
                     </label>
                   </template>
                 </template>
-
                 <i v-if="isHidePassword" @click="isHidePassword = false;" class="bx bx-hide modal-form__hide"></i>
                 <i v-else @click="isHidePassword = true" class="bx bx-show modal-form__hide"></i>
               </div>
@@ -258,7 +250,6 @@
             </button>
             <button
                 type="button"
-
                 @click="checkRegFields(); logIn()"
                 class="modal-form__submit button-orange-another">
               Войти
@@ -472,6 +463,9 @@ export default {
       localStorage.removeItem('refresh')
       localStorage.removeItem('isAutoRization')
       location.reload()
+    },
+    refreshPassword() {
+      //TODO
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
