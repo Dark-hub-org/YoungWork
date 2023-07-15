@@ -148,23 +148,23 @@
             <div class="vacancy-filter__wrapper">
               <p class="vacancy-filter__title">Тип занятости</p>
               <div class="vacancy-filter__block employ">
-                <input type="checkbox" class="vacancy-filter__input" id="employ-1">
+                <input type="checkbox" value="fullEmploy" class="vacancy-filter__input" id="employ-1">
                 <label for="employ-1" class="vacancy-filter-label check">Полная занятость</label>
               </div>
               <div class="vacancy-filter__block employ">
-                <input type="checkbox" class="vacancy-filter__input" id="employ-2">
+                <input type="checkbox"  value="partialEmploy" class="vacancy-filter__input" id="employ-2">
                 <label for="employ-2" class="vacancy-filter-label check">Частичная занятость</label>
               </div>
               <div class="vacancy-filter__block employ">
-                <input type="checkbox" class="vacancy-filter__input" id="employ-3">
+                <input type="checkbox" value="internship" class="vacancy-filter__input" id="employ-3">
                 <label for="employ-3" class="vacancy-filter-label check">Стажировка</label>
               </div>
               <div class="vacancy-filter__block employ">
-                <input type="checkbox" class="vacancy-filter__input" id="employ-3">
+                <input type="checkbox" value="projectWork" class="vacancy-filter__input" id="employ-3">
                 <label for="employ-4" class="vacancy-filter-label check">Проектная работа</label>
               </div>
               <div class="vacancy-filter__block employ">
-                <input type="checkbox" class="vacancy-filter__input" id="employ-3">
+                <input type="checkbox" value="volunteering" class="vacancy-filter__input" id="employ-3">
                 <label for="employ-5" class="vacancy-filter-label check">Волонтерство</label>
               </div>
             </div>

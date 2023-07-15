@@ -13,8 +13,4 @@ export default {
 <style lang="scss" scoped>
 @import "@/style/main";
 
-.main {
-  margin-bottom: 158px;
-}
-
 </style>

@@ -183,8 +183,4 @@ export default {
 <style lang="scss">
 @import "@/style/landing";
 
-.main {
-  margin-top: 158px;
-}
-
 </style>

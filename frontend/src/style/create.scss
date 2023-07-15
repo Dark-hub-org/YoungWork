@@ -1,0 +1,212 @@
+@import "varibles";
+@import "mixin";
+
+// constructor start
+
+.upload-image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 854px;
+    margin-bottom: 80px;
+    background-color: #202020;
+
+    .upload-image__wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .upload-image-title {
+        margin-bottom: 24px;
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 98.023%;
+        letter-spacing: -2px;
+        color: $colorWhite;
+    }
+
+    .upload-image-input {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.01;
+        cursor: pointer;
+    }
+
+    .upload-image__cross {
+        width: 64px;
+        height: 64px;
+        background-image: url("@/assets/create/cross-icon.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+            transform: scale(120%);
+        }
+    }
+}
+
+.constructor-title {
+    display: block;
+    text-align: center;
+    margin-bottom: 64px;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 39px;
+    letter-spacing: -2px;
+}
+
+.parameters-form {
+    //max-width: 1189px;
+}
+
+.parameters-form__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 64px;
+
+    .parameters-form__wrapper__name {
+        margin-bottom: 24px;
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 31px;
+        letter-spacing: -1.6px;
+    }
+
+    .parameters-form__wrapper__text {
+        max-width: 1189px;
+        height: 73px;
+        padding: 20px;
+        border: 2px solid $colorGreenM;
+        border-radius: 16px;
+
+        font-size: 24px;
+
+        &::placeholder {
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 29px;
+            letter-spacing: -1.2px;
+            color: #DFDFDF;
+        }
+    }
+
+    .parameters-form__wrapper__text.price {
+        max-width: 384px;
+    }
+
+    .parameters-form__wrapper__text.margin-bottom {
+        margin-bottom: 20px;
+    }
+}
+
+.radio-wrapper {
+
+    &:not(:last-child) {
+        margin-bottom: 16px;
+    }
+}
+
+.parameters-filter__input {
+    display: none;
+}
+
+.parameters-filter-label {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22px;
+    color: $colorBlack;
+}
+
+.parameters-filter-label.radio {
+
+    &:before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 16px;
+        border-radius: 50%;
+        background-image: url("@/assets/vacancy/radio.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+.parameters-filter__input:checked + .parameters-filter-label.radio:before {
+    background-image: url("@/assets/vacancy/radio-active.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.parameters-filter-label.check {
+
+    &:before {
+        content: '';
+        display: block;
+        min-width: 20px;
+        min-height: 20px;
+        margin-right: 16px;
+        border-radius: 2px;
+        background-image: url("@/assets/vacancy/cheack.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+.parameters-filter__input:checked + .parameters-filter-label.check:before {
+    background-image: url("@/assets/vacancy/cheack-active.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+@media(max-width: 744px) {
+    .upload-image {
+        height: 737px;
+    }
+}
+
+@media(max-width: 450px) {
+
+    .constructor-title {
+        font-size: 35px;
+    }
+
+    .parameters-form__wrapper {
+
+        .parameters-form__wrapper__name {
+            font-size: 25px;
+        }
+
+        .parameters-form__wrapper__text {
+            height: 60px;
+        }
+    }
+}
+
+@media(max-width: 360px) {
+    .upload-image {
+        height: 400px;
+
+        .upload-image-title {
+            font-size: 24px;
+            letter-spacing: -1.2px;
+        }
+
+        .upload-image__cross {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+    }
+}
+
+// constructor end
