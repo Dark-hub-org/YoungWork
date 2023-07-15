@@ -100,7 +100,7 @@
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
                   <input
-                      v-model.trim="username"
+                      v-model.trim="email"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
                       @focus="isCheckEmail = true"
@@ -378,8 +378,8 @@ export default {
     submitFormReg() {
       const presentUser = {
         name: this.name,
-        email: this.username,
-        username: this.username,
+        email: this.email,
+        username: this.email,
         password: this.password,
       };
       axios.post('/api/v1/users/', presentUser)
