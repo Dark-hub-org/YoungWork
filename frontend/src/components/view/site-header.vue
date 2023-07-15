@@ -80,7 +80,7 @@
                 <label class="modal-form-name">Имя</label>
                 <div class="modal-wrapper-input">
                   <input
-                      v-model.trim="email"
+                      v-model.trim="name"
                       @input="isEmptyName = false"
                       @focus="isEmptyName = false"
                       type="text"
@@ -103,7 +103,7 @@
                       v-model.trim="username"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
-                      @focus="isCheckEmail = true; isEmptyEmail = false"
+                      @focus="isCheckEmail = true"
                       :class="{error: !isCheckEmail || isEmptyEmail}"
                       type="text"
                       class="modal-form__input">
@@ -244,7 +244,7 @@
             </div>
             <button
                 type="button"
-                @click="openModalWinReset"
+                @click="openModalWinReset()"
                 class="modal-form-password-reset">
               Забыли пароль?
             </button>
@@ -347,6 +347,7 @@ export default {
       username: '',
       password: '',
       user_data: '',
+      name: '',
 
       isCheckEmail: true,
       isCheckPassword: true,
@@ -375,11 +376,9 @@ export default {
   },
   methods: {
     submitFormReg() {
-      if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword || !this.isCheckPassword || !this.isCheckEmail) {
-        return
-      }
       const presentUser = {
-        email: this.email,
+        name: this.name,
+        email: this.username,
         username: this.username,
         password: this.password,
       };
@@ -452,7 +451,7 @@ export default {
       axios.get('/api/v1/users/me')
           .then(response => {
             console.log(response)
-            this.user_data = response.data.username
+            this.user_data = response.data.name
           })
           .catch(error => {
             console.log(error)
@@ -465,7 +464,16 @@ export default {
       location.reload()
     },
     refreshPassword() {
-      //TODO
+      const presentUser = {
+        email: this.email
+      }
+      axios.post('/api/v1/users/reset_password/', presentUser)
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error)
+          });
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
