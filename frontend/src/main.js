@@ -4,14 +4,17 @@ import router from './router'
 import store from './store'
 import './style/main.scss'
 import axios from 'axios'
+import CKEditor from 'ckeditor4-vue';
 
 axios.defaults.baseUrl = "http://127.0.0.1:8080/"
 
 Vue.config.productionTip = false
 
+Vue.use( CKEditor );
+
 new Vue({
     router,
     store,
     axios,
-    render: h => h(App)
-}).$mount('#app')
+    render: h => h(App),
+}).$mount('#app');

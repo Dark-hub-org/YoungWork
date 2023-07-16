@@ -64,6 +64,7 @@
 }
 
 .parameters-form {
+    margin-bottom: 80px;
     //max-width: 1189px;
 }
 
@@ -167,6 +168,10 @@
     background-position: center;
 }
 
+.ckeditor-text {
+    max-width: 1189px;
+    margin-bottom: 64px;
+}
 
 @media(max-width: 744px) {
     .upload-image {
@@ -207,6 +212,11 @@
             border-radius: 50%;
         }
     }
+}
+
+.parameters-submit {
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 // constructor end

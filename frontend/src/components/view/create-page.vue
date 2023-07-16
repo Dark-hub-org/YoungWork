@@ -76,21 +76,27 @@
                   <label for="exp-5" class="parameters-filter-label radio">Более 6 лет</label>
                 </div>
             </div>
-            <div class="parameters-form__wrapper">
-                <span class="parameters-form__wrapper__name">Расскажите про вакансию:</span>
-                <span>Заголовок для раздела:</span>
-              <input type="text" class="parameters-form__wrapper__text margin-bottom" placeholder="Заголовок">
-              <textarea class=""></textarea>
-            </div>
+<!--            <div class="parameters-form__wrapper">-->
+<!--                <span class="parameters-form__wrapper__name">Расскажите про вакансию:</span>-->
+<!--                <span>Заголовок для раздела:</span>-->
+<!--              <input type="text" class="parameters-form__wrapper__text margin-bottom" placeholder="Заголовок">-->
+<!--              <textarea class=""></textarea>-->
+<!--            </div>-->
+            <ckeditor :config="editorConfig" v-model="editorData" class="ckeditor-text"></ckeditor>
+            <button class="button-orange-another parameters-submit">Опубликовать</button>
           </form>
         </div>
     </section>
 </template>
 <script>
+
 export default {
-    name: 'createPage',
     data() {
       return {
+        editorConfig: {
+          toolbar: [ [ 'Bold' ], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format'] ],
+        },
+        editorData: '',
         tiser: null,
         nameVacancy: '',
         levelSal: null,
@@ -99,7 +105,7 @@ export default {
         employ: 'fullEmploy',
         experience: '0',
       }
-    }
+    },
 }
 </script>
 <style src="@/style/create.scss" lang="scss" scoped>
