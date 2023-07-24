@@ -376,11 +376,10 @@ export default {
   },
   methods: {
     submitFormReg() {
-      if(this.isEmptyEmail ||  this.isEmptyName ||  this.isEmptyPassword ||  !this.isCheckPassword ||  !this.isCheckEmail) {
+      if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword || !this.isCheckPassword || !this.isCheckEmail) {
         return
       }
       const presentUser = {
-        name: this.name,
         email: this.email,
         username: this.email,
         password: this.password,
@@ -388,14 +387,14 @@ export default {
       axios.post('/api/v1/users/', presentUser)
           .then(response => {
             console.log(response)
-            this.regAfter(presentUser)
+            this.authentication(presentUser)
           })
           .catch(error => {
             console.log(error)
           });
       this.onCloseModalReg();
     },
-    regAfter(presentUser) {
+    authentication(presentUser) {
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('access')
 
@@ -454,7 +453,7 @@ export default {
       axios.get('/api/v1/users/me')
           .then(response => {
             console.log(response)
-            this.user_data = response.data.name
+            this.user_data = response.data.username
           })
           .catch(error => {
             console.log(error)
