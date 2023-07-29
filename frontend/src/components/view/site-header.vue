@@ -380,6 +380,7 @@ export default {
         return
       }
       const presentUser = {
+        name: this.name,
         email: this.email,
         username: this.email,
         password: this.password,
