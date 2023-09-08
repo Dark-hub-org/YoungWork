@@ -5,14 +5,16 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.views.generic.base import RedirectView
 from django.views.static import serve
+from vacancy.views import Site, VacancyListView
 
 favicon_view = RedirectView.as_view(url=os.path.join(settings.STATIC_URL, 'favicon.svg'), permanent=True)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('favicon.svg', favicon_view),
-    path('', TemplateView.as_view(template_name='index.html')),
-    path('vacancys', TemplateView.as_view(template_name='index.html')),
+    path('', Site.index),
+    path('vacancys', VacancyListView.as_view()),
+    path('create', TemplateView.as_view(template_name='index.html')),
     path('api/v1/', include('djoser.urls')),
     path('api/v1/', include('djoser.urls.jwt')),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
