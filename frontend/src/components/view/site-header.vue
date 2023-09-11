@@ -180,90 +180,92 @@
           </form>
         </div>
       </modal-window>
-      <modal-window
-          @close="onCloseModalWin"
-          :isVisible="isModalWinLog">
-        <div class="modal-reg-wrapper">
-          <p class="modal-title modal-title-reg">Войти</p>
-          <form class="modal-form modal-form-log">
-            <div class="modal-form-block">
-              <label class="modal-form-name">Электронная почта</label>
-              <div class="modal-wrapper-input">
-                <input
-                    v-model.trim="username"
-                    @input="isEmptyName = false"
-                    @focus='isEmptyName = false'
-                    type="text"
-                    class="modal-form__input"
-                    :class="{error: isEmptyName}">
-                <template v-if="isEmptyName">
-                  <div class="icon-error">
-                  </div>
-                  <label
-                      v-if="isEmptyEmail"
-                      class="modal-input-error">
-                    Пожалуйста, заполните поле
-                  </label>
-                </template>
-              </div>
-            </div>
-            <div class="modal-form-block">
-              <label class="modal-form-name">Пароль</label>
-              <div class="modal-form__password-wrapper">
-                <input
-                    v-model.trim="password"
-                    @blur="checkPassword"
-                    @focus="isCheckPassword = true"
-                    @input="isEmptyPassword = false"
-                    :class="{error: !isCheckPassword || isEmptyPassword}"
-                    :type="isHidePassword ? 'password' : 'text'"
-                    class="modal-form__input">
-                <!-- <div
-                class="icon-error"
-                v-if="!isCheckPassword && password !== ''">
-                </div> -->
-                <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
-                  <template v-if="!isCheckPassword && password !== ''">
-                    <!-- <div class="icon-error">
-                    </div> -->
-                    <label class="modal-input-error">
-                      Пароль должен быть минимум 8 символов
-                    </label>
-                  </template>
-                  <template v-if="isEmptyPassword">
+      <Transition name="sign-in-modal">
+        <modal-window
+            @close="onCloseModalWin"
+            :isVisible="isModalWinLog">
+          <div class="modal-reg-wrapper">
+            <p class="modal-title modal-title-reg">Войти</p>
+            <form class="modal-form modal-form-log">
+              <div class="modal-form-block">
+                <label class="modal-form-name">Электронная почта</label>
+                <div class="modal-wrapper-input">
+                  <input
+                      v-model.trim="username"
+                      @input="isEmptyName = false"
+                      @focus='isEmptyName = false'
+                      type="text"
+                      class="modal-form__input"
+                      :class="{error: isEmptyName}">
+                  <template v-if="isEmptyName">
+                    <div class="icon-error">
+                    </div>
                     <label
                         v-if="isEmptyEmail"
                         class="modal-input-error">
                       Пожалуйста, заполните поле
                     </label>
                   </template>
-                </template>
-                <i v-if="isHidePassword" @click="isHidePassword = false;" class="bx bx-hide modal-form__hide"></i>
-                <i v-else @click="isHidePassword = true" class="bx bx-show modal-form__hide"></i>
+                </div>
               </div>
-            </div>
-            <button
-                type="button"
-                @click="openModalWinReset()"
-                class="modal-form-password-reset">
-              Забыли пароль?
-            </button>
-            <button
-                type="button"
-                @click="checkRegFields(); logIn()"
-                class="modal-form__submit button-orange-another">
-              Войти
-            </button>
-            <!--  onCloseModalWin();  -->
-            <button
-                @click="openModalWinReg"
-                type="button"
-                class="modal-form-login">
-              Зарегистрироваться
-            </button>
-          </form>
-        </div>
-      </modal-window>
+              <div class="modal-form-block">
+                <label class="modal-form-name">Пароль</label>
+                <div class="modal-form__password-wrapper">
+                  <input
+                      v-model.trim="password"
+                      @blur="checkPassword"
+                      @focus="isCheckPassword = true"
+                      @input="isEmptyPassword = false"
+                      :class="{error: !isCheckPassword || isEmptyPassword}"
+                      :type="isHidePassword ? 'password' : 'text'"
+                      class="modal-form__input">
+                  <!-- <div
+                  class="icon-error"
+                  v-if="!isCheckPassword && password !== ''">
+                  </div> -->
+                  <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
+                    <template v-if="!isCheckPassword && password !== ''">
+                      <!-- <div class="icon-error">
+                      </div> -->
+                      <label class="modal-input-error">
+                        Пароль должен быть минимум 8 символов
+                      </label>
+                    </template>
+                    <template v-if="isEmptyPassword">
+                      <label
+                          v-if="isEmptyEmail"
+                          class="modal-input-error">
+                        Пожалуйста, заполните поле
+                      </label>
+                    </template>
+                  </template>
+                  <i v-if="isHidePassword" @click="isHidePassword = false;" class="bx bx-hide modal-form__hide"></i>
+                  <i v-else @click="isHidePassword = true" class="bx bx-show modal-form__hide"></i>
+                </div>
+              </div>
+              <button
+                  type="button"
+                  @click="openModalWinReset()"
+                  class="modal-form-password-reset">
+                Забыли пароль?
+              </button>
+              <button
+                  type="button"
+                  @click="checkRegFields(); logIn()"
+                  class="modal-form__submit button-orange-another">
+                Войти
+              </button>
+              <!--  onCloseModalWin();  -->
+              <button
+                  @click="openModalWinReg"
+                  type="button"
+                  class="modal-form-login">
+                Зарегистрироваться
+              </button>
+            </form>
+          </div>
+        </modal-window>
+      </Transition>
       <modal-window
           @close="onCloseModalResetPass"
           :isVisible="isModalWinResetPass">
@@ -496,13 +498,13 @@ export default {
     },
     openModalWinLog() {
       this.clearModalData();
-      // 
+      //
       this.isModalWinLog = true;
       this.isModalWinReg = false;
     },
     openModalWinReg() {
       this.clearModalData();
-      // 
+      //
       this.isModalWinReg = true;
       this.isModalWinLog = false
     },
@@ -587,4 +589,17 @@ export default {
 <style lang="scss">
 @import "@/style/header";
 
+</style>
+
+<style>
+.sign-in-modal-enter-active {
+  transition: all .3s ease;
+}
+.sign-in-modal-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.sign-in-modal-enter, .sign-in-modal-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
 </style>
