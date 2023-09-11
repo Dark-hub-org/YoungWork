@@ -96,6 +96,7 @@
         <!--            </div>-->
         <ckeditor :config="editorConfig" v-model="editorData" class="ckeditor-text"></ckeditor>
         <button class="button-orange-another parameters-submit">Опубликовать</button>
+        <!--        <span class="supernova-wrapper__name" :src="vacancys">{{ vacancys }}</span>-->
       </form>
     </div>
   </section>
@@ -119,7 +120,11 @@ export default {
       salaryTax_0: 'afterTax',
       employ: 'fullEmploy',
       experience: '0',
+      vacancys: '',
     }
+  },
+  mounted() {
+    this.getVacancys();
   },
   methods: {
     create_vacancy() {
@@ -136,7 +141,6 @@ export default {
           .catch(error => {
             console.log(error)
           });
-      this.onCloseModalReg();
     },
   },
 }
