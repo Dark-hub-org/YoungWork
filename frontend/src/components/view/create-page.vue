@@ -138,6 +138,7 @@
           </div>
         </div>
         <button class="button-orange-another parameters-submit">Опубликовать</button>
+        <!--        <span class="supernova-wrapper__name" :src="vacancys">{{ vacancys }}</span>-->
       </form>
     </div>
   </section>
@@ -202,7 +203,6 @@ export default {
           .catch(error => {
             console.log(error)
           });
-      this.onCloseModalReg();
     },
 
     validLengthVacancy() {
