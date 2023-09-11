@@ -1,36 +1,37 @@
 <template>
   <section class="constructor">
     <div class="wrapper">
-      <form class="upload-image">
-        <!--                <p class="upload-image-title">Загрузите тизер</p>-->
+      <div class="upload-image">
         <div class="upload-image__wrapper">
           <p class="upload-image-title">Загрузите тизер</p>
           <input type="file" name="image" class="upload-image-input">
           <div class="upload-image__cross"></div>
         </div>
-        <!--                <input type="file" name="image" class="upload-image-input">-->
-        <!--                <div class="upload-image__cross"></div>-->
-      </form>
+      </div>
       <form class="parameters-form">
         <h2 class="constructor-title">Создание вакансии</h2>
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Напишите название вакансии:</span>
-          <input v-model="nameVacancy" type="text" class="parameters-form__wrapper__text"
+          <input
+              v-model.trim="nameVacancy"
+              v-restrict-input-length="120"
+              type="text"
+              class="parameters-form__wrapper__text"
                  placeholder="ООО “Маршмеллоу”">
         </div>
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Уровень заработной платы:</span>
-          <input v-model="levelSal" type="text" class="parameters-form__wrapper__text price margin-bottom"
+          <input v-model.number="levelSalMin" type="number" class="parameters-form__wrapper__text small margin-bottom"
                  placeholder="От">
-          <input v-model="levelSalMar" type="text" class="parameters-form__wrapper__text price margin-bottom"
+          <input v-model.number="levelSalMax" type="number" class="parameters-form__wrapper__text small margin-bottom"
                  placeholder="До">
           <div class="radio-wrapper">
-            <input v-model="salaryTax" type="radio" name="salary" value="beforeTax" class="parameters-filter__input"
+            <input v-model="isSalaryTask" type="radio" value="beforeTax" name="salary" class="parameters-filter__input"
                    id="beforeDed" checked>
             <label for="beforeDed" class="parameters-filter-label radio">До вычета налогов</label>
           </div>
           <div class="radio-wrapper">
-            <input v-model="salaryTax_0" type="radio" name="salary" value="afterTax" class="parameters-filter__input"
+            <input v-model="isSalaryTask" type="radio" name="salary" value="afterTax" class="parameters-filter__input"
                    id="afterDed">
             <label for="afterDed" class="parameters-filter-label radio">На руки</label>
           </div>
@@ -88,13 +89,54 @@
             <label for="exp-5" class="parameters-filter-label radio">Более 6 лет</label>
           </div>
         </div>
-        <!--            <div class="parameters-form__wrapper">-->
-        <!--                <span class="parameters-form__wrapper__name">Расскажите про вакансию:</span>-->
-        <!--                <span>Заголовок для раздела:</span>-->
-        <!--              <input type="text" class="parameters-form__wrapper__text margin-bottom" placeholder="Заголовок">-->
-        <!--              <textarea class=""></textarea>-->
-        <!--            </div>-->
         <ckeditor :config="editorConfig" v-model="editorData" class="ckeditor-text"></ckeditor>
+        <div class="constructor-contact">
+          <h2 class="constructor-title">О вас</h2>
+          <div class="parameters-form__wrapper">
+            <span class="parameters-form__wrapper__name">Напишите название организации / ИП:</span>
+            <input
+                v-model.trim="companyName"
+                v-restrict-input-length="120"
+                type="text"
+                class="parameters-form__wrapper__text"
+                   placeholder="ООО “Маршмеллоу”">
+          </div>
+          <div class="parameters-form__wrapper">
+            <span class="parameters-form__wrapper__name">Как с вами можно связаться:</span>
+            <vue-masked-input
+                id="phone"
+                v-model.trim="companyTel"
+                mask="7 (###) ### ##-##"
+                class="parameters-form__wrapper__text small margin-bottom"
+                placeholder="Номер телефона"
+            ></vue-masked-input>
+            <input
+                v-model.trim="companyEmail"
+                v-restrict-input-length="100"
+                type="text"
+                class="parameters-form__wrapper__text small"
+                   placeholder="Адрес эл.почты">
+          </div>
+          <div class="parameters-form__wrapper">
+            <span class="parameters-form__wrapper__name">Ваша должность:</span>
+            <input v-model.trim="companyPost" v-restrict-input-length="120" type="text" class="parameters-form__wrapper__text"
+                   placeholder="HR">
+          </div>
+          <div class="parameters-form__wrapper">
+            <span class="parameters-form__wrapper__name">Как к вам обращаться:</span>
+            <input v-model.trim="companyPerson" v-restrict-input-length="120" type="text" class="parameters-form__wrapper__text"
+                   placeholder="ФИО">
+          </div>
+          <div class="parameters-form__wrapper">
+            <span class="parameters-form__wrapper__name">Добавьте логотип:</span>
+            <div class="upload-image small">
+              <div class="upload-image__wrapper">
+                <input type="file" class="upload-image-input">
+                <div class="upload-image__cross"></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <button class="button-orange-another parameters-submit">Опубликовать</button>
       </form>
     </div>
@@ -103,6 +145,18 @@
 <script>
 
 import axios from "axios";
+import Vue from 'vue';
+
+Vue.directive('restrict-input-length', {
+  bind(el, binding) {
+    el.addEventListener('input', (event) => {
+      const maxLength = binding.value;
+      if (event.target.value.length > maxLength) {
+        event.target.value = event.target.value.slice(0, maxLength);
+      }
+    });
+  }
+});
 
 export default {
   data() {
@@ -111,23 +165,35 @@ export default {
         toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
       },
       editorData: '',
-      tiser: null,
       nameVacancy: '',
-      levelSal: null,
-      levelSalMar: null,
-      salaryTax: 'beforeTax',
-      salaryTax_0: 'afterTax',
+      levelSalMin: null,
+      levelSalMax: null,
+      isSalaryTask: "beforeTax",
       employ: 'fullEmploy',
       experience: '0',
+
+      companyName: '',
+      companyTel: '',
+      companyEmail: '',
+      companyPost: '',
+      companyPerson: '',
     }
   },
   methods: {
     create_vacancy() {
       const vacancy = {
         vacancy_title: this.nameVacancy,
-        poster: this.tiser,
-        salary_min: this.salaryTax,
-        salary_max: this.salaryTax_0,
+        salary_min: this.levelSalMin,
+        salary_max: this.levelSalMax,
+        employ: this.employ,
+        experience: this. experience,
+
+        vacancyDescription: this.editorData,
+        companyName: this.companyName,
+        companyTel: this.companyTel,
+        companyEmail: this.companyEmail,
+        companyPost: this.companyPost,
+        companyPerson: this.companyPerson,
       };
       axios.post('', vacancy)
           .then(response => {
@@ -138,6 +204,9 @@ export default {
           });
       this.onCloseModalReg();
     },
+
+    validLengthVacancy() {
+    }
   },
 }
 </script>

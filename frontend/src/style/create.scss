@@ -13,6 +13,10 @@
     margin-bottom: 80px;
     background-color: #202020;
 
+    &:hover .upload-image__cross{
+        transform: scale(120%);
+    }
+
     .upload-image__wrapper {
         display: flex;
         flex-direction: column;
@@ -45,11 +49,19 @@
         background-image: url("@/assets/create/cross-icon.svg");
         background-position: center;
         background-repeat: no-repeat;
-        transition: all .3s ease-in-out;
+        transition: transform .15s ease-in-out;
+    }
+}
 
-        &:hover {
-            transform: scale(120%);
-        }
+.upload-image.small {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 0;
+    border-radius: 16px;
+
+    upload-image__cross.small {
+        width: 64px;
+        height: 64px;
     }
 }
 
@@ -89,6 +101,7 @@
         border-radius: 16px;
 
         font-size: 24px;
+        font-weight: 400;
 
         &::placeholder {
             font-size: 24px;
@@ -99,7 +112,7 @@
         }
     }
 
-    .parameters-form__wrapper__text.price {
+    .parameters-form__wrapper__text.small{
         max-width: 384px;
     }
 
@@ -170,7 +183,7 @@
 
 .ckeditor-text {
     max-width: 1189px;
-    margin-bottom: 64px;
+    margin-bottom: 136px;
 }
 
 @media(max-width: 744px) {
