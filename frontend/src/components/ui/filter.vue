@@ -95,11 +95,11 @@
         <label for="employ-3" class="vacancy-filter-label check">Стажировка</label>
       </div>
       <div class="vacancy-filter__block employ">
-        <input type="checkbox" value="projectWork" class="vacancy-filter__input" id="employ-3">
+        <input type="checkbox" value="projectWork" class="vacancy-filter__input" id="employ-4">
         <label for="employ-4" class="vacancy-filter-label check">Проектная работа</label>
       </div>
       <div class="vacancy-filter__block employ">
-        <input type="checkbox" value="volunteering" class="vacancy-filter__input" id="employ-3">
+        <input type="checkbox" value="volunteering" class="vacancy-filter__input" id="employ-5">
         <label for="employ-5" class="vacancy-filter-label check">Волонтерство</label>
       </div>
     </div>
