@@ -139,8 +139,10 @@
             </div>
           </div>
         </div>
-        <button class="button-orange-another parameters-submit">Опубликовать</button>
-        <!--        <span class="supernova-wrapper__name" :src="vacancys">{{ vacancys }}</span>-->
+        <button
+            @click="create_vacancy"
+            class="button-orange-another parameters-submit"
+            >Опубликовать</button>
       </form>
     </div>
   </section>
