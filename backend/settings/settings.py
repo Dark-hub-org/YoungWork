@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'djoser',
     'corsheaders',
     'vacancy',
+    'user_profile'
 ]
 
 MIDDLEWARE = [

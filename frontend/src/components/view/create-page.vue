@@ -17,7 +17,7 @@
               v-restrict-input-length="120"
               type="text"
               class="parameters-form__wrapper__text"
-                 placeholder="ООО “Маршмеллоу”">
+              placeholder="ООО “Маршмеллоу”">
         </div>
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Уровень заработной платы:</span>
@@ -99,7 +99,7 @@
                 v-restrict-input-length="120"
                 type="text"
                 class="parameters-form__wrapper__text"
-                   placeholder="ООО “Маршмеллоу”">
+                placeholder="ООО “Маршмеллоу”">
           </div>
           <div class="parameters-form__wrapper">
             <span class="parameters-form__wrapper__name">Как с вами можно связаться:</span>
@@ -115,16 +115,18 @@
                 v-restrict-input-length="100"
                 type="text"
                 class="parameters-form__wrapper__text small"
-                   placeholder="Адрес эл.почты">
+                placeholder="Адрес эл.почты">
           </div>
           <div class="parameters-form__wrapper">
             <span class="parameters-form__wrapper__name">Ваша должность:</span>
-            <input v-model.trim="companyPost" v-restrict-input-length="120" type="text" class="parameters-form__wrapper__text"
+            <input v-model.trim="companyPost" v-restrict-input-length="120" type="text"
+                   class="parameters-form__wrapper__text"
                    placeholder="HR">
           </div>
           <div class="parameters-form__wrapper">
             <span class="parameters-form__wrapper__name">Как к вам обращаться:</span>
-            <input v-model.trim="companyPerson" v-restrict-input-length="120" type="text" class="parameters-form__wrapper__text"
+            <input v-model.trim="companyPerson" v-restrict-input-length="120" type="text"
+                   class="parameters-form__wrapper__text"
                    placeholder="ФИО">
           </div>
           <div class="parameters-form__wrapper">
@@ -187,8 +189,7 @@ export default {
         salary_min: this.levelSalMin,
         salary_max: this.levelSalMax,
         employ: this.employ,
-        experience: this. experience,
-
+        experience: this.experience,
         vacancyDescription: this.editorData,
         companyName: this.companyName,
         companyTel: this.companyTel,
@@ -196,7 +197,7 @@ export default {
         companyPost: this.companyPost,
         companyPerson: this.companyPerson,
       };
-      axios.post('', vacancy)
+      axios.post('api/v1/create/', vacancy)
           .then(response => {
             console.log(response)
           })
