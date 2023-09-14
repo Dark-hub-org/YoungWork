@@ -77,25 +77,25 @@
         <div class="create-resume__wrapper">
           <p class="create-resume__name-filter">Укажите опыт работы:</p>
           <div class="create-resume__block">
-            <input type="radio" name="exp" value="0" class="create-resume__input" id="exp-1"
+            <input v-model="resumeExperience" type="radio" name="exp" value="0" class="create-resume__input" id="exp-1"
                    checked>
             <label for="exp-1" class="create-resume-filter-label radio">Не имеет значения</label>
           </div>
           <div class="create-resume__block">
-            <input type="radio" name="exp" value="1-3" class="create-resume__input" id="exp-2">
+            <input v-model="resumeExperience" type="radio" name="exp" value="1-3" class="create-resume__input" id="exp-2">
             <label for="exp-2" class="create-resume-filter-label radio">от 1 года до 3 лет</label>
           </div>
           <div class="create-resume__block">
-            <input type="radio" name="exp" value="3-6" class="create-resume__input" id="exp-3">
+            <input v-model="resumeExperience" type="radio" name="exp" value="3-6" class="create-resume__input" id="exp-3">
             <label for="exp-3" class="create-resume-filter-label radio">От 3 до 6 лет</label>
           </div>
           <div class="create-resume__block">
-            <input type="radio" name="exp" value="noExp" class="create-resume__input"
+            <input v-model="resumeExperience" type="radio" name="exp" value="noExp" class="create-resume__input"
                    id="exp-4">
             <label for="exp-4" class="create-resume-filter-label radio">Нет опыта</label>
           </div>
           <div class="create-resume__block">
-            <input type="radio" name="exp" value="<6" class="create-resume__input" id="exp-5">
+            <input v-model="resumeExperience" type="radio" name="exp" value="<6" class="create-resume__input" id="exp-5">
             <label for="exp-5" class="create-resume-filter-label radio">Более 6 лет</label>
           </div>
         </div>
@@ -106,45 +106,44 @@
                 src="@/assets/create-resume/phone-icon.svg"
                 alt="иконка телефона"
                 class="create-resume__connection__img">
-            <vue-masked-input
-                id="phone"
-                mask="7 (###) ### ##-##"
-                class="create-resume__input-text connect"
+            <input
+                v-mask="'+7 (###) ### ##-##'"
+                v-model="resumePhoneNumber"
                 placeholder="Номер телефона"
-            ></vue-masked-input>
+                class="create-resume__input-text connect"/>
           </div>
           <div class="create-resume-block__wrapper connection">
             <img
                 src="../../assets/create-resume/email-icon.svg"
                 alt="иконка e-mail"
                 class="create-resume__connection__img">
-            <input type="text" class="create-resume__input-text connect" placeholder="Адрес эл.почты">
+            <input v-model.trim="resumeEmail" type="text" class="create-resume__input-text connect" placeholder="Адрес эл.почты">
           </div>
           <div class="create-resume-block__wrapper connection">
             <img
                 src="../../assets/create-resume/telegram-icon.svg"
                 alt="иконка телеграмма"
                 class="create-resume__connection__img">
-            <input type="text" class="create-resume__input-text connect" placeholder="Telegram">
+            <input v-model.trim="resumeTelegram" type="text" class="create-resume__input-text connect" placeholder="Telegram">
           </div>
           <div class="create-resume-block__wrapper connection">
             <img
                 src="../../assets/create-resume/link-icon.svg"
                 alt="иконка ссылки"
                 class="create-resume__connection__img">
-            <input type="text" class="create-resume__input-text connect" placeholder="Личный сайт">
+            <input v-model.trim="resumeSite" type="text" class="create-resume__input-text connect" placeholder="Личный сайт">
           </div>
         </div>
-        <div class="create-resume-block__wrapper">
-          <p class="create-resume-block__title">Добавьте фото:</p>
-          <div class="upload-image">
-            <div class="upload-image__wrapper">
-              <input type="file" name="image" class="upload-image-input">
-              <div class="upload-image__cross"></div>
-            </div>
-          </div>
-          <p class="upload-image__description">Рекомендуемый размер 80х80</p>
-        </div>
+<!--        <div class="create-resume-block__wrapper">-->
+<!--          <p class="create-resume-block__title">Добавьте фото:</p>-->
+<!--          <div class="upload-image">-->
+<!--            <div class="upload-image__wrapper">-->
+<!--              <input type="file" name="image" class="upload-image-input">-->
+<!--              <div class="upload-image__cross"></div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <p class="upload-image__description">Рекомендуемый размер 80х80</p>-->
+<!--        </div>-->
         <button type="button" class="create-resume__submit">Опубликовать</button>
       </form>
     </div>
@@ -153,6 +152,8 @@
 
 <script>
 import Vue from "vue";
+import VueTheMask from 'vue-the-mask';
+Vue.use(VueTheMask);
 
 Vue.directive('restrict-input-length', {
   bind(el, binding) {
@@ -176,6 +177,11 @@ export default {
       resumeQuality: '',
       qualityTags: [],
       resumeAbout: '',
+      resumeExperience: '0',
+      resumePhoneNumber: '',
+      resumeEmail: '',
+      resumeTelegram: '',
+      resumeSite: '',
     }
   },
   methods: {
@@ -209,6 +215,8 @@ export default {
     deleteQulity(skill) {
       this.qualityTags = this.skillsTags.filter((item) => item !== skill)
     },
+  },
+  computed: {
   }
 }
 </script>
