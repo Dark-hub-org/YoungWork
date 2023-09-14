@@ -19,7 +19,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1)
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
 }
 
 INSTALLED_APPS = [
@@ -35,8 +35,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'djoser',
     'corsheaders',
-    'vacancy',
-    'user_profile'
+    'jobs_opening',
+    'user_profiles'
 ]
 
 MIDDLEWARE = [
