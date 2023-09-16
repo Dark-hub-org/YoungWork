@@ -29,7 +29,7 @@
   background-color: $colorGreenM;
   font-size: 20px;
   color: $colorWhite;
-  transition: all .2s linear;
+  transition: all .15s linear;
 
   &:hover {
     background-color: #00B3C9;
@@ -42,8 +42,8 @@
   background-color: $colorWhite;
   font-size: 20px;
   color: $colorGreenM;
-  outline: 2px solid $colorGreenM;
-  transition: all .2s linear;
+  border: 2px solid $colorGreenM;
+  transition: all .15s linear;
 
   &:hover {
   }

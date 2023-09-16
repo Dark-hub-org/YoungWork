@@ -18,19 +18,104 @@
         <div class="applicant-profile__line"></div>
         <div class="applicant-profile__main">
           <div class="applicant-profile__btns">
-            <button class="applicant-profile__btn">Обо мне</button>
-            <button class="applicant-profile__btn another">Личные данные</button>
+            <button @click="applicantStab = 1" class="applicant-profile__btn" :class="{active: applicantStab === 1}">Обо мне</button>
+            <button @click="applicantStab = 2" class="applicant-profile__btn" :class="{active: applicantStab === 2}">Личные данные</button>
           </div>
-          <div class="applicant-profile__block">
-            <h3 class="applicant-profile__subtitle">О вас:</h3>
-            <textarea
-                class="applicant-profile__about__text"
-                placeholder="Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя "
-            ></textarea>
-          </div>
-          <div class="applicant-profile__block">
-
-          </div>
+          <template v-if="applicantStab === 1">
+            <div class="applicant-profile__block">
+              <h3 class="applicant-profile__subtitle">О вас:</h3>
+              <textarea
+                  class="applicant-profile__about__text"
+                  placeholder="Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя "
+              ></textarea>
+            </div>
+            <div class="applicant-profile__block">
+              <h3 class="applicant-profile__subtitle">Примеры выполненных работ:</h3>
+              <div class="applicant-profile__portfolio"></div>
+            </div>
+          </template>
+          <template v-else>
+            <div class="applicant-profile__block data">
+              <div class="applicant-profile__field">
+                <p class="applicant-profile__field__name">Фамилия:</p>
+                <input type="text" class="applicant-profile__input">
+              </div>
+              <div class="applicant-profile__field">
+                <p class="applicant-profile__field__name">Имя:</p>
+                <input type="text" class="applicant-profile__input">
+              </div>
+              <div class="applicant-profile__field">
+                <p class="applicant-profile__field__name">Отчество:</p>
+                <input type="text" class="applicant-profile__input">
+              </div>
+            </div>
+            <div class="applicant-profile__block data">
+              <div class="applicant-profile__field">
+                <p class="applicant-profile__field__name">День рождения:</p>
+                <input type="text" class="applicant-profile__input" v-mask="'##/##/####'">
+              </div>
+            </div>
+            <div class="applicant-profile__block data">
+              <div class="applicant-profile__field">
+                <p class="applicant-profile__field__name">Пол:</p>
+                <div class="applicant-profile__radio-wrapper">
+                  <input type="radio" name="exp" value="0" class="applicant-profile__radio" id="men"
+                         checked>
+                  <label for="men" class="applicant-profile-filter-label">Мужской</label>
+                </div>
+                <div class="applicant-profile__radio-wrapper">
+                  <input type="radio" name="exp" value="1-3" class="applicant-profile__radio" id="women">
+                  <label for="women" class="applicant-profile-filter-label">Женщина</label>
+                </div>
+              </div>
+            </div>
+            <div class="applicant-profile__block data start">
+              <div class="applicant-profile__field">
+                <p class="applicant-profile__field__name">Регион:</p>
+                <input type="text" class="applicant-profile__input">
+              </div>
+              <div class="applicant-profile__field">
+                <p class="applicant-profile__field__name">Город проживания:</p>
+                <input type="text" class="applicant-profile__input">
+              </div>
+            </div>
+            <div class="applicant-profile__block">
+              <p class="applicant-profile__field__name">Контакты:</p>
+              <div class="applicant-profile__block grid">
+                <div class="applicant-profile__field contact">
+                  <img
+                      src="@/assets/phone-icon.svg"
+                      alt="иконка телефона"
+                      class="applicant-profile__connection__img">
+                  <input
+                      v-mask="'+7 (###) ### ##-##'"
+                      placeholder="Номер телефона"
+                      class="applicant-profile__input connect"/>
+                </div>
+                <div class="applicant-profile__field contact">
+                  <img
+                      src="@/assets/email-icon.svg"
+                      alt="иконка e-mail"
+                      class="applicant-profile__connection__img">
+                  <input type="text" class="applicant-profile__input connect" placeholder="Адрес эл.почты">
+                </div>
+                <div class="applicant-profile__field contact">
+                  <img
+                      src="@/assets/telegram-icon.svg"
+                      alt="иконка телеграмма"
+                      class="applicant-profile__connection__img">
+                  <input type="text" class="applicant-profile__input connect" placeholder="Telegram">
+                </div>
+                <div class="applicant-profile__field contact">
+                  <img
+                      src="@/assets/link-icon.svg"
+                      alt="иконка ссылки"
+                      class="applicant-profile__connection__img">
+                  <input type="text" class="applicant-profile__input connect" placeholder="Личный сайт">
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
       <aside class="applicant-profile__contacts">
@@ -58,11 +143,16 @@
 
 <script>
 import axios from "axios";
+import Vue from "vue";
+import VueTheMask from 'vue-the-mask';
+Vue.use(VueTheMask);
 
 export default {
 name: 'applicant-profile',
   data() {
     return {
+      applicantStab: 1,
+
       applicantPhoto: '',
       applicantFirstName: '',
       applicantLastName: '',
@@ -74,7 +164,6 @@ name: 'applicant-profile',
       applicantTelegram: '',
       applicantWebsite: '',
       applicantEmail: '',
-      name: '1212'
     }
   },
   methods: {

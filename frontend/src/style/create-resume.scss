@@ -104,6 +104,8 @@
     }
 
     .create-resume-filter-label.radio {
+      display: flex;
+      align-items: center;
 
       &:before {
         content: '';
@@ -125,6 +127,8 @@
     }
 
     .create-resume-filter-label.check {
+      display: flex;
+      align-items: center;
 
       &:before {
         content: '';

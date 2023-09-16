@@ -140,6 +140,8 @@
 }
 
 .parameters-filter-label.radio {
+    display: flex;
+    align-items: center;
 
     &:before {
         content: '';
@@ -161,6 +163,8 @@
 }
 
 .parameters-filter-label.check {
+    display: flex;
+    align-items: center;
 
     &:before {
         content: '';

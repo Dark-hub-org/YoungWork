@@ -14,8 +14,39 @@
 .applicant-profile__block {
   margin-bottom: 64px;
 }
+
+.applicant-profile__block.data {
+  @include displayFlex;
+}
+
+.applicant-profile__block.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(300px, 384px));
+  gap: 24px;
+}
+
+.applicant-profile__block.start {
+  justify-content: start;
+  gap: 24px;
+}
 //
 
+.applicant-profile__field.contact {
+  position: relative;
+
+  .applicant-profile__connection__img {
+    position: absolute;
+    left: 24px;
+    transform: translateY(60%);
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.applicant-profile__input.connect {
+  padding: 20px 24px 20px 72px !important;
+}
+//
 .applicant-profile__wrapper {
   @include displayFlex;
   align-items: flex-start;
@@ -74,14 +105,38 @@
   margin-bottom: 64px;
 
   .applicant-profile__btn {
-    @include buttonGreen;
-    padding: 15px 50px;
-  }
-
-  .applicant-profile__btn.another {
     @include buttonGreenAnother;
     padding: 15px 50px;
   }
+
+  .applicant-profile__btn.active {
+    background-color: $colorGreenM;
+    outline: none;
+    color: $colorWhite;
+  }
+}
+
+.applicant-profile__field {
+
+  .applicant-profile__input {
+    width: 100%;
+    max-width: 384px;
+    padding: 20px 24px;
+    border-radius: 16px;
+    border: 2px solid $colorGreenM;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.8px;
+    letter-spacing: -1.2px;
+  }
+}
+
+.applicant-profile__field__name {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 23.5px;
+  letter-spacing: -1.2px;
 }
 
 .applicant-profile__about__text {
@@ -100,6 +155,45 @@
       color: $colorGreyLight
     }
 }
+
+//
+.applicant-profile__radio-wrapper {
+  @include displayFlex;
+  justify-content: start;
+  max-width: 125px;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .applicant-profile__radio {
+    display: none;
+  }
+
+  .applicant-profile-filter-label {
+    display: flex;
+    align-items: center;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 16px;
+      border-radius: 50%;
+      background-image: url("@/assets/vacancy/radio.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  .applicant-profile__radio:checked + .applicant-profile-filter-label:before {
+    background-image: url("@/assets/vacancy/radio-active.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+//
 
 .applicant-profile__contacts {
   width: 404px;
