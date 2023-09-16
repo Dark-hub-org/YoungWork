@@ -36,6 +36,19 @@
   }
 }
 
+@mixin buttonGreenAnother {
+  padding: 15px 25px;
+  border-radius: 60px;
+  background-color: $colorWhite;
+  font-size: 20px;
+  color: $colorGreenM;
+  outline: 2px solid $colorGreenM;
+  transition: all .2s linear;
+
+  &:hover {
+  }
+}
+
 @mixin buttonOrangeAnother {
   // height: 57px;
   padding: 15px 25px;

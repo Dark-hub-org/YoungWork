@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="create-resume-block__wrapper">
-          <span class="create-resume-block__title">Ключевые навыки:</span>
+          <h3 class="create-resume-block__title">Ключевые навыки:</h3>
           <input
               v-restrict-input-length="120"
               type="text"
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="create-resume-block__wrapper">
-          <span class="create-resume-block__title">Ваши  качества:</span>
+          <h3 class="create-resume-block__title">Ваши  качества:</h3>
           <input
               v-restrict-input-length="120"
               type="text"
@@ -68,7 +68,7 @@
           </div>
         </div>
         <div class="create-resume-block__wrapper">
-          <span class="create-resume-block__title">О вас:</span>
+          <h3 class="create-resume-block__title">О вас:</h3>
           <textarea
               class="create-resume-about"
               placeholder="Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя "
@@ -100,10 +100,10 @@
           </div>
         </div>
         <div class="create-resume-block__wrapper">
-          <span class="create-resume-block__title">Как с вами можно связаться:</span>
+          <h3 class="create-resume-block__title">Как с вами можно связаться:</h3>
           <div class="create-resume-block__wrapper connection">
             <img
-                src="@/assets/create-resume/phone-icon.svg"
+                src="@/assets/phone-icon.svg"
                 alt="иконка телефона"
                 class="create-resume__connection__img">
             <input
@@ -114,21 +114,21 @@
           </div>
           <div class="create-resume-block__wrapper connection">
             <img
-                src="../../assets/create-resume/email-icon.svg"
+                src="@/assets/email-icon.svg"
                 alt="иконка e-mail"
                 class="create-resume__connection__img">
             <input v-model.trim="resumeEmail" type="text" class="create-resume__input-text connect" placeholder="Адрес эл.почты">
           </div>
           <div class="create-resume-block__wrapper connection">
             <img
-                src="../../assets/create-resume/telegram-icon.svg"
+                src="@/assets/telegram-icon.svg"
                 alt="иконка телеграмма"
                 class="create-resume__connection__img">
             <input v-model.trim="resumeTelegram" type="text" class="create-resume__input-text connect" placeholder="Telegram">
           </div>
           <div class="create-resume-block__wrapper connection">
             <img
-                src="../../assets/create-resume/link-icon.svg"
+                src="@/assets/link-icon.svg"
                 alt="иконка ссылки"
                 class="create-resume__connection__img">
             <input v-model.trim="resumeSite" type="text" class="create-resume__input-text connect" placeholder="Личный сайт">

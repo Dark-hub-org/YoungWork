@@ -1,11 +1,121 @@
 @import "main";
-
-
-.block-wrapper {
+.text-margin {
   margin-bottom: 20px;
+}
 
-  .input {
-    padding: 6px;
-    border: 1px solid black;
+.applicant-profile__subtitle {
+  margin-bottom: 24px;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.64px;
+}
+
+.applicant-profile__block {
+  margin-bottom: 64px;
+}
+//
+
+.applicant-profile__wrapper {
+  @include displayFlex;
+  align-items: flex-start;
+  max-width: 1650px;
+  margin: auto;
+}
+
+.applicant-profile__left {
+  width: 1234px;
+  max-width: 100%;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.57);
+}
+
+.applicant-profile__top {
+  @include displayFlex;
+  justify-content: start;
+  align-items: flex-start;
+  margin-bottom: 24px;
+
+  .applicant-profile__photo-wrapper {
+    margin-right: 80px;
   }
+}
+
+.applicant-profile__data__name {
+  font-size: 40px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.applicant-profile__data__age {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.applicant-profile__data__geo {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.applicant-profile__line {
+  width: 100%;
+  height: 2px;
+  margin-bottom: 24px;
+  background: rgb(229,91,28);
+  background: radial-gradient(circle, rgba(229,91,28,0.47494747899159666) 51%, rgba(255,255,255,0) 96%);
+}
+
+.applicant-profile__btns {
+  @include displayFlex;
+  max-width: 455px;
+  margin-bottom: 64px;
+
+  .applicant-profile__btn {
+    @include buttonGreen;
+    padding: 15px 50px;
+  }
+
+  .applicant-profile__btn.another {
+    @include buttonGreenAnother;
+    padding: 15px 50px;
+  }
+}
+
+.applicant-profile__about__text {
+    min-width: 100%;
+    max-width: 1190px;
+    min-height: 139px;
+    padding: 40px;
+    border-radius: 16px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: -1.2px;
+    border: 2px solid $colorGreenM;
+
+    &::placeholder {
+      color: $colorGreyLight
+    }
+}
+
+.applicant-profile__contacts {
+  width: 404px;
+  max-width: 404px;
+  padding: 40px 24px;
+  border-radius: 30px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.57);
+
+  .applicant-profile__contacts__block {
+    @include displayFlex;
+    justify-content: start;
+    margin-bottom: 13px;
+
+    .applicant-profile__contacts__img {
+      margin-right: 16px;
+    }
+  }
+
 }
