@@ -24,8 +24,8 @@
   bottom: 40px;
 
   .slider-item__link {
-  display: inline-block;
-  margin-bottom: 10px;
+    display: inline-block;
+    margin-bottom: 10px;
   }
 
   .inner-slider__title {
@@ -36,7 +36,7 @@
   }
 
   .inner-slider__title.white {
-      color: $colorWhite;
+    color: $colorWhite;
   }
 }
 
@@ -92,7 +92,7 @@
 }
 
 // inner end
-//vacancy start
+//jobs_opening start
 
 .vacancy-filter-and-list {
   display: flex;
@@ -197,7 +197,7 @@
   gap: 14px;
 }
 
-//vacancy end
+//jobs_opening end
 
 
 @media(max-width: 1024px) {

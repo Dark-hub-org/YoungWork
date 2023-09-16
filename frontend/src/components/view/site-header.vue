@@ -349,7 +349,7 @@ export default {
       username: '',
       password: '',
       user_data: '',
-      name: '',
+      first_name: '',
 
       isCheckEmail: true,
       isCheckPassword: true,
@@ -382,7 +382,7 @@ export default {
         return
       }
       const presentUser = {
-        name: this.name,
+        first_name: this.first_name,
         email: this.email,
         username: this.email,
         password: this.password,
@@ -595,9 +595,11 @@ export default {
 .sign-in-modal-enter-active {
   transition: all .3s ease;
 }
+
 .sign-in-modal-leave-active {
   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
+
 .sign-in-modal-enter, .sign-in-modal-leave-to {
   transform: translateX(10px);
   opacity: 0;

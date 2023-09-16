@@ -6,11 +6,6 @@ from .models import Vacancy
 from .serializer import VacancyListSerializer, VacancyDetailSerializer, VacancyCreateSerializer
 
 
-class Site(APIView):
-    def index(request):
-        return render(request, "index.html")
-
-
 class VacancyListView(APIView):
 
     def post(self, request):
