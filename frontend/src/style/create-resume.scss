@@ -1,5 +1,9 @@
 @import "main";
 
+.create-resume__error {
+  @include errorMessage;
+}
+
 .create-resume-wrapper {
   padding-left: 40px;
 }
@@ -18,6 +22,7 @@
 }
 
 .create-resume-block__wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   max-width: 1190px;
@@ -59,7 +64,7 @@
 }
 
 .create-resume__wrapper {
-  max-width: 239px;
+  max-width: 330px;
 
   &:not(:last-child) {
     margin-bottom: 40px;

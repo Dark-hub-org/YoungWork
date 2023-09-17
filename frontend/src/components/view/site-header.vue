@@ -80,9 +80,8 @@
                 <label class="modal-form-name">Имя</label>
                 <div class="modal-wrapper-input">
                   <input
-                      v-model.trim="name"
+                      v-model.trim="first_name"
                       @input="isEmptyName = false"
-                      @focus="isEmptyName = false"
                       type="text"
                       class="modal-form__input"
                       :class="{error: isEmptyName}">
@@ -100,14 +99,14 @@
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
                   <input
-                      v-model.trim="email"
+                      v-model.trim="username"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
                       @focus="isCheckEmail = true"
-                      :class="{error: !isCheckEmail || isEmptyEmail}"
                       type="text"
-                      class="modal-form__input">
-                  <template v-if="!isCheckEmail && email !== '' || isEmptyEmail">
+                      class="modal-form__input"
+                      :class="{error: !isCheckEmail || isEmptyEmail}">
+                  <template v-if="!isCheckEmail && username !== '' || isEmptyEmail">
                     <div class="icon-error">
                     </div>
                     <label v-if="!isCheckEmail" class="modal-input-error">
@@ -126,18 +125,14 @@
                 <div class="modal-form__password-wrapper">
                   <input
                       v-model.trim="password"
-                      ref="passwordInput"
                       @blur="checkPassword"
+                      @focus="isCheckPassword = true"
                       @input="isEmptyPassword = false"
-                      @focus="isCheckPassword = true; isEmptyPassword = false"
                       :class="{error: !isCheckPassword || isEmptyPassword}"
                       :type="isHidePassword ? 'password' : 'text'"
                       class="modal-form__input">
-
                   <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
                     <template v-if="!isCheckPassword && password !== ''">
-                      <!-- <div class="icon-error">
-                      </div> -->
                       <label class="modal-input-error">
                         Пароль должен быть минимум 8 символов
                       </label>
@@ -150,7 +145,6 @@
                       </label>
                     </template>
                   </template>
-
                   <i v-if="isHidePassword" @click="isHidePassword = false;" class="bx bx-hide modal-form__hide"></i>
                   <i v-else @click="isHidePassword = true" class="bx bx-show modal-form__hide"></i>
                 </div>
@@ -164,8 +158,6 @@
                 <label class="modal-form-label">Если письмо не пришло, проверьте спам</label>
               </div>
             </div>
-            <!-- функция для переключения шага
-            @click="openNextStep" -->
             <button
                 type="submit"
                 class="modal-form__submit button-orange-another"
@@ -192,14 +184,18 @@
                 <div class="modal-wrapper-input">
                   <input
                       v-model.trim="username"
-                      @input="isEmptyName = false"
-                      @focus='isEmptyName = false'
+                      @blur="checkEmail"
+                      @input="isEmptyEmail = false"
+                      @focus="isCheckEmail = true"
                       type="text"
                       class="modal-form__input"
-                      :class="{error: isEmptyName}">
-                  <template v-if="isEmptyName">
+                      :class="{error: !isCheckEmail || isEmptyEmail}">
+                  <template v-if="!isCheckEmail && username !== '' || isEmptyEmail">
                     <div class="icon-error">
                     </div>
+                    <label v-if="!isCheckEmail" class="modal-input-error">
+                      Неверный E-mail
+                    </label>
                     <label
                         v-if="isEmptyEmail"
                         class="modal-input-error">
@@ -219,21 +215,15 @@
                       :class="{error: !isCheckPassword || isEmptyPassword}"
                       :type="isHidePassword ? 'password' : 'text'"
                       class="modal-form__input">
-                  <!-- <div
-                  class="icon-error"
-                  v-if="!isCheckPassword && password !== ''">
-                  </div> -->
                   <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
                     <template v-if="!isCheckPassword && password !== ''">
-                      <!-- <div class="icon-error">
-                      </div> -->
                       <label class="modal-input-error">
                         Пароль должен быть минимум 8 символов
                       </label>
                     </template>
                     <template v-if="isEmptyPassword">
                       <label
-                          v-if="isEmptyEmail"
+                          v-if="isEmptyPassword"
                           class="modal-input-error">
                         Пожалуйста, заполните поле
                       </label>
@@ -378,13 +368,13 @@ export default {
   },
   methods: {
     submitFormReg() {
-      if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword || !this.isCheckPassword || !this.isCheckEmail) {
+      if (this.isEmptyEmail || !this.isCheckEmail || this.isEmptyPassword || !this.isCheckPassword || this.isEmptyName) {
         return
       }
       const presentUser = {
         first_name: this.first_name,
-        email: this.email,
-        username: this.email,
+        email: this.username,
+        username: this.username,
         password: this.password,
       };
       axios.post('/api/v1/users/', presentUser)
@@ -422,7 +412,7 @@ export default {
           })
     },
     logIn() {
-      if (!this.isCheckPassword || this.isEmptyName || this.isEmptyPassword) {
+      if (!this.isCheckPassword || this.isEmptyPassword || this.isEmptyEmail || !this.isCheckEmail) {
         return;
       }
       axios.defaults.headers.common['Authorization'] = ''
@@ -481,8 +471,8 @@ export default {
           });
     },
     checkRegFields() {
-      this.isEmptyEmail = _.isEmpty(this.email);
-      this.isEmptyName = _.isEmpty(this.username);
+      this.isEmptyEmail = _.isEmpty(this.username);
+      this.isEmptyName = _.isEmpty(this.first_name);
       this.isEmptyPassword = _.isEmpty(this.password);
       if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword) {
         return;
@@ -536,11 +526,11 @@ export default {
       this.isEmptyName = false;
     },
     checkEmail() {
-      if (this.email === '') {
+      if (this.username === '') {
         return;
       }
       let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      this.isCheckEmail = re.test(this.email);
+      this.isCheckEmail = re.test(this.username);
     },
     checkPassword() {
       if (this.password === '') {
@@ -548,7 +538,6 @@ export default {
       }
       this.password.length < 8 ? this.isCheckPassword = false : this.isCheckPassword = true;
     },
-
     openItem() {
       this.isMenuActive = !this.isMenuActive;
       document.documentElement.style.overflow = 'hidden';

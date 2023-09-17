@@ -1,3 +1,4 @@
+
 @mixin wrapper {
   max-width: 1650px;
   margin: auto;
@@ -72,4 +73,28 @@
   font-size: 64px;
   line-height: 63px;
   letter-spacing: -0.05em;
+}
+
+@mixin editButton {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-image: url('@/assets/edit-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all .15s ease-in-out;
+
+  &:hover {
+    transform: scale(120%);
+  }
+}
+
+@mixin errorMessage {
+  max-width: 330px;
+  margin-top: 15px;
+  padding: 15px 25px;
+  border-radius: 20px;
+  font-size: 20px;
+  color: $colorError;
+  background-color: $colorErrorBagk;
 }

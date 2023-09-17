@@ -10,7 +10,11 @@
               type="text"
               class="create-resume__input-text"
               placeholder="Разработчик java"
-              v-model.trim="resumeName">
+              v-model.trim="resumeName"
+              @focus="isErrorName = false">
+          <p v-if="isErrorName" class="create-resume__error">
+            Пожалуйста, заполните поле
+          </p>
         </div>
         <div class="create-resume__wrapper">
           <p class="create-resume__name-filter">Тип занятости</p>
@@ -34,6 +38,9 @@
             <input type="checkbox" value="volunteering" class="create-resume__input" id="employ-5" v-model="resumeEmploy">
             <label for="employ-5" class="create-resume-filter-label check">Волонтерство</label>
           </div>
+          <p class="create-resume__error">
+            Пожалуйста, заполните поле
+          </p>
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">Ключевые навыки:</h3>
@@ -50,6 +57,9 @@
               <button type="button" class="create-resume__tag-btn" @click="deleteSkill(item)"></button>
             </div>
           </div>
+          <p class="create-resume__error">
+            Пожалуйста, заполните поле
+          </p>
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">Ваши  качества:</h3>
@@ -66,6 +76,9 @@
               <button type="button" class="create-resume__tag-btn" @click="deleteQulity(item)"></button>
             </div>
           </div>
+          <p class="create-resume__error">
+            Пожалуйста, заполните поле
+          </p>
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">О вас:</h3>
@@ -73,13 +86,16 @@
               class="create-resume-about"
               placeholder="Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя "
               v-model="resumeAbout"></textarea>
+          <p class="create-resume__error">
+            Пожалуйста, заполните поле
+          </p>
         </div>
         <div class="create-resume__wrapper">
           <p class="create-resume__name-filter">Укажите опыт работы:</p>
           <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="0" class="create-resume__input" id="exp-1"
-                   checked>
-            <label for="exp-1" class="create-resume-filter-label radio">Не имеет значения</label>
+            <input v-model="resumeExperience" type="radio" name="exp" value="noExp" class="create-resume__input"
+                   id="exp-4" checked>
+            <label for="exp-4" class="create-resume-filter-label radio">Нет опыта</label>
           </div>
           <div class="create-resume__block">
             <input v-model="resumeExperience" type="radio" name="exp" value="1-3" class="create-resume__input" id="exp-2">
@@ -89,15 +105,9 @@
             <input v-model="resumeExperience" type="radio" name="exp" value="3-6" class="create-resume__input" id="exp-3">
             <label for="exp-3" class="create-resume-filter-label radio">От 3 до 6 лет</label>
           </div>
-          <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="noExp" class="create-resume__input"
-                   id="exp-4">
-            <label for="exp-4" class="create-resume-filter-label radio">Нет опыта</label>
-          </div>
-          <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="<6" class="create-resume__input" id="exp-5">
-            <label for="exp-5" class="create-resume-filter-label radio">Более 6 лет</label>
-          </div>
+          <p class="create-resume__error">
+            Пожалуйста, заполните поле
+          </p>
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">Как с вами можно связаться:</h3>
@@ -144,7 +154,7 @@
 <!--          </div>-->
 <!--          <p class="upload-image__description">Рекомендуемый размер 80х80</p>-->
 <!--        </div>-->
-        <button type="button" class="create-resume__submit">Опубликовать</button>
+        <button @click.prevent="submitForm" type="button" class="create-resume__submit">Опубликовать</button>
       </form>
     </div>
   </section>
@@ -171,13 +181,15 @@ export default {
   data() {
     return {
       resumeName: '',
+      isErrorName: false,
+
       resumeEmploy: [],
       resumeSkill: '',
       skillsTags: [],
       resumeQuality: '',
       qualityTags: [],
       resumeAbout: '',
-      resumeExperience: '0',
+      resumeExperience: 'noExp',
       resumePhoneNumber: '',
       resumeEmail: '',
       resumeTelegram: '',
@@ -185,6 +197,12 @@ export default {
     }
   },
   methods: {
+    submitForm() {
+      if(this.resumeName === '') {
+        this.isErrorName = true;
+        return;
+      }
+    },
     addTagsSkills() {
       if(this.resumeSkill === '') {
         return

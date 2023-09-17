@@ -4,10 +4,10 @@
       <div class="applicant-profile__left">
         <div class="applicant-profile__top">
           <div class="applicant-profile__photo-wrapper">
-            <img
-                src="@/assets/applicant-profile/applicant-photo.png"
-                alt="фото соискателя"
-                class="applicant-profile__photo">
+            <div
+                class="applicant-profile__photo" style="background: #DFDFDF">
+            </div>
+            <button type="button" class="applicant-profile__edit-btn"></button>
           </div>
           <div class="applicant-profile__data">
             <p class="applicant-profile__data__name text-margin">Александра Андреева</p>
@@ -28,6 +28,7 @@
                   class="applicant-profile__about__text"
                   placeholder="Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя "
               ></textarea>
+              <button type="button" class="applicant-profile__edit-btn field"></button>
             </div>
             <div class="applicant-profile__block">
               <h3 class="applicant-profile__subtitle">Примеры выполненных работ:</h3>
@@ -38,33 +39,34 @@
             <div class="applicant-profile__block data">
               <div class="applicant-profile__field">
                 <p class="applicant-profile__field__name">Фамилия:</p>
-                <input type="text" class="applicant-profile__input">
+                <input v-model="applicantLastName" type="text" class="applicant-profile__input">
               </div>
               <div class="applicant-profile__field">
                 <p class="applicant-profile__field__name">Имя:</p>
-                <input type="text" class="applicant-profile__input">
+                <input v-model.trim="applicantFirstName" type="text" class="applicant-profile__input">
               </div>
               <div class="applicant-profile__field">
                 <p class="applicant-profile__field__name">Отчество:</p>
-                <input type="text" class="applicant-profile__input">
+                <input v-model="applicantPatronymic" type="text" class="applicant-profile__input">
               </div>
+              <button type="button" class="applicant-profile__edit-btn field"></button>
             </div>
             <div class="applicant-profile__block data">
               <div class="applicant-profile__field">
                 <p class="applicant-profile__field__name">День рождения:</p>
-                <input type="text" class="applicant-profile__input" v-mask="'##/##/####'">
+                <input v-model="applicantBirthday" type="text" class="applicant-profile__input" v-mask="'##/##/####'">
               </div>
             </div>
             <div class="applicant-profile__block data">
               <div class="applicant-profile__field">
                 <p class="applicant-profile__field__name">Пол:</p>
                 <div class="applicant-profile__radio-wrapper">
-                  <input type="radio" name="exp" value="0" class="applicant-profile__radio" id="men"
+                  <input v-model="applicationSex" type="radio" name="exp" value="men" class="applicant-profile__radio" id="men"
                          checked>
                   <label for="men" class="applicant-profile-filter-label">Мужской</label>
                 </div>
                 <div class="applicant-profile__radio-wrapper">
-                  <input type="radio" name="exp" value="1-3" class="applicant-profile__radio" id="women">
+                  <input v-model="applicationSex" type="radio" name="exp" value="women" class="applicant-profile__radio" id="women">
                   <label for="women" class="applicant-profile-filter-label">Женщина</label>
                 </div>
               </div>
@@ -72,12 +74,13 @@
             <div class="applicant-profile__block data start">
               <div class="applicant-profile__field">
                 <p class="applicant-profile__field__name">Регион:</p>
-                <input type="text" class="applicant-profile__input">
+                <input v-model="applicantRegion" type="text" class="applicant-profile__input">
               </div>
               <div class="applicant-profile__field">
                 <p class="applicant-profile__field__name">Город проживания:</p>
-                <input type="text" class="applicant-profile__input">
+                <input v-model="applicantCity" type="text" class="applicant-profile__input">
               </div>
+              <button type="button" class="applicant-profile__edit-btn field"></button>
             </div>
             <div class="applicant-profile__block">
               <p class="applicant-profile__field__name">Контакты:</p>
@@ -90,30 +93,32 @@
                   <input
                       v-mask="'+7 (###) ### ##-##'"
                       placeholder="Номер телефона"
-                      class="applicant-profile__input connect"/>
+                      class="applicant-profile__input connect"
+                  v-model="applicantPhoneNumber"/>
                 </div>
                 <div class="applicant-profile__field contact">
                   <img
                       src="@/assets/email-icon.svg"
                       alt="иконка e-mail"
                       class="applicant-profile__connection__img">
-                  <input type="text" class="applicant-profile__input connect" placeholder="Адрес эл.почты">
+                  <input type="text" class="applicant-profile__input connect" placeholder="Адрес эл.почты" v-model.trim="applicantEmail">
                 </div>
                 <div class="applicant-profile__field contact">
                   <img
                       src="@/assets/telegram-icon.svg"
                       alt="иконка телеграмма"
                       class="applicant-profile__connection__img">
-                  <input type="text" class="applicant-profile__input connect" placeholder="Telegram">
+                  <input type="text" class="applicant-profile__input connect" placeholder="Telegram" v-model="applicantTelegram">
                 </div>
                 <div class="applicant-profile__field contact">
                   <img
                       src="@/assets/link-icon.svg"
                       alt="иконка ссылки"
                       class="applicant-profile__connection__img">
-                  <input type="text" class="applicant-profile__input connect" placeholder="Личный сайт">
+                  <input type="text" class="applicant-profile__input connect" placeholder="Личный сайт" v-model.trim="applicantWebsite">
                 </div>
               </div>
+              <button type="button" class="applicant-profile__edit-btn field "></button>
             </div>
           </template>
         </div>
@@ -164,6 +169,7 @@ name: 'applicant-profile',
       applicantTelegram: '',
       applicantWebsite: '',
       applicantEmail: '',
+      applicationSex: '',
     }
   },
   methods: {
