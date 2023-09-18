@@ -18,6 +18,7 @@
 
 .applicant-profile__block.data {
   @include displayFlex;
+  gap: 15px;
 }
 
 .applicant-profile__block.grid {

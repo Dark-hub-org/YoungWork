@@ -4,10 +4,6 @@
   @include errorMessage;
 }
 
-.create-resume-wrapper {
-  padding-left: 40px;
-}
-
 .create-resume__form {
   margin-bottom: 80px;
 }
@@ -52,6 +48,10 @@
       letter-spacing: -1.2px;
       color: #DFDFDF;
     }
+  }
+
+  .create-resume__input-text.error {
+    border-color: $colorError;
   }
 
   .create-resume__input.small{
@@ -106,6 +106,10 @@
       font-weight: 400;
       line-height: 22px;
       color: $colorBlack;
+    }
+
+    .create-resume-filter-label.error {
+      color: $colorError;
     }
 
     .create-resume-filter-label.radio {
@@ -217,6 +221,10 @@
   }
 }
 
+.create-resume-about.error {
+  border-color: $colorError;
+}
+
 .create-resume-block__wrapper.connection {
   position: relative;
 
@@ -315,8 +323,16 @@
     font-size: 32px;
   }
 
-  .create-resume-block__title {
-    font-size: 24px;
+  .create-resume-block__wrapper {
+    .create-resume-block__title {
+      font-size: 24px;
+    }
+  }
+}
+
+@media(max-width: 788px) {
+  .create-resume__error {
+    padding: 10px 20px;
   }
 }
 
@@ -332,11 +348,18 @@
     }
   }
 
-  .create-resume-block__title {
-    font-size: 20px;
+  .create-resume-block__wrapper {
+    .create-resume-block__title {
+      font-size: 20px;
+    }
   }
 
   .create-resume__tag-text {
     font-size: 20px;
   }
+
+  .create-resume__error {
+    font-size: 18px;
+  }
 }
+

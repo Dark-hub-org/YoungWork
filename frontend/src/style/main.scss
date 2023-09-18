@@ -97,9 +97,9 @@ body {
   @include sectionTitle;
 }
 
-@media(max-width: 1440px) {
+@media(max-width: 1650px) {
   .wrapper {
-    margin: 0 10px;
+    margin: 0 40px;
   }
 }
 
@@ -119,6 +119,10 @@ body {
 }
 
 @media(max-width: 360px) {
+
+  .wrapper {
+    margin: 0 20px;
+  }
 
   .button-orange-another {
     padding: 10px 14px;

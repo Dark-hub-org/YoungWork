@@ -1,6 +1,6 @@
 <template>
   <section class="create-resume">
-    <div class="create-resume-wrapper">
+    <div class="wrapper create-resume-wrapper">
       <h1 class="create-resume__title">Создание резюме</h1>
       <form class="create-resume__form">
         <div class="create-resume-block__wrapper">
@@ -9,6 +9,7 @@
               v-restrict-input-length="120"
               type="text"
               class="create-resume__input-text"
+              :class="{error: isErrorName}"
               placeholder="Разработчик java"
               v-model.trim="resumeName"
               @focus="isErrorName = false">
@@ -19,26 +20,73 @@
         <div class="create-resume__wrapper">
           <p class="create-resume__name-filter">Тип занятости</p>
           <div class="create-resume__block employ">
-            <input type="checkbox" value="fullEmploy" class="create-resume__input" id="employ-1" v-model="resumeEmploy">
-            <label for="employ-1" class="create-resume-filter-label check">Полная занятость</label>
+            <input
+                type="checkbox"
+                value="fullEmploy"
+                class="create-resume__input"
+                id="employ-1"
+                v-model="resumeEmploy"
+                @change="isErrorEmploy = false"
+                checked>
+            <label
+                for="employ-1"
+                class="create-resume-filter-label check"
+                :class="{'error': isErrorEmploy}">Полная занятость</label>
           </div>
           <div class="create-resume__block employ">
-            <input type="checkbox" value="partialEmploy" class="create-resume__input" id="employ-2" v-model="resumeEmploy">
-            <label for="employ-2" class="create-resume-filter-label check">Частичная занятость</label>
+            <input
+                type="checkbox"
+                value="partialEmploy"
+                class="create-resume__input"
+                id="employ-2"
+                v-model="resumeEmploy"
+                @change="isErrorEmploy = false"
+                >
+            <label
+                for="employ-2"
+                class="create-resume-filter-label check"
+                :class="{'error': isErrorEmploy}">Частичная занятость</label>
           </div>
           <div class="create-resume__block employ">
-            <input type="checkbox" value="internship" class="create-resume__input" id="employ-3" v-model="resumeEmploy">
-            <label for="employ-3" class="create-resume-filter-label check">Стажировка</label>
+            <input
+                type="checkbox"
+                value="internship"
+                class="create-resume__input"
+                id="employ-3"
+                v-model="resumeEmploy"
+                @change="isErrorEmploy = false">
+            <label
+                for="employ-3"
+                class="create-resume-filter-label check"
+                :class="{'error': isErrorEmploy}">Стажировка</label>
           </div>
           <div class="create-resume__block employ">
-            <input type="checkbox" value="projectWork" class="create-resume__input" id="employ-4" v-model="resumeEmploy">
-            <label for="employ-4" class="create-resume-filter-label check">Проектная работа</label>
+            <input
+                type="checkbox"
+                value="projectWork"
+                class="create-resume__input"
+                id="employ-4"
+                v-model="resumeEmploy"
+                @change="isErrorEmploy = false">
+            <label
+                for="employ-4"
+                class="create-resume-filter-label check"
+                :class="{'error': isErrorEmploy}">Проектная работа</label>
           </div>
           <div class="create-resume__block employ">
-            <input type="checkbox" value="volunteering" class="create-resume__input" id="employ-5" v-model="resumeEmploy">
-            <label for="employ-5" class="create-resume-filter-label check">Волонтерство</label>
+            <input
+                type="checkbox"
+                value="volunteering"
+                class="create-resume__input"
+                id="employ-5"
+                v-model="resumeEmploy"
+                @change="isErrorEmploy = false">
+            <label
+                for="employ-5"
+                class="create-resume-filter-label check"
+                :class="{'error': isErrorEmploy}">Волонтерство</label>
           </div>
-          <p class="create-resume__error">
+          <p v-if="isErrorEmploy" class="create-resume__error">
             Пожалуйста, заполните поле
           </p>
         </div>
@@ -54,15 +102,18 @@
           <div class="create-resume__tags-wrapper">
             <div class="create-resume__tag" v-for="item in skillsTags" :key="item">
               <span class="create-resume__tag-text">{{item}}</span>
-              <button type="button" class="create-resume__tag-btn" @click="deleteSkill(item)"></button>
+              <button
+                  type="button"
+                  class="create-resume__tag-btn"
+                  @click="deleteSkill(item)"></button>
             </div>
           </div>
-          <p class="create-resume__error">
-            Пожалуйста, заполните поле
-          </p>
+<!--          <p v-if="isErrorSkills" class="create-resume__error">-->
+<!--            Пожалуйста, заполните поле-->
+<!--          </p>-->
         </div>
         <div class="create-resume-block__wrapper">
-          <h3 class="create-resume-block__title">Ваши  качества:</h3>
+          <h3 class="create-resume-block__title">Ваши качества:</h3>
           <input
               v-restrict-input-length="120"
               type="text"
@@ -73,20 +124,27 @@
           <div class="create-resume__tags-wrapper">
             <div class="create-resume__tag" v-for="item in qualityTags" :key="item">
               <span class="create-resume__tag-text">{{item}}</span>
-              <button type="button" class="create-resume__tag-btn" @click="deleteQulity(item)"></button>
+              <button type="button" class="create-resume__tag-btn" @click="deleteQuality(item)"></button>
             </div>
           </div>
-          <p class="create-resume__error">
-            Пожалуйста, заполните поле
-          </p>
+<!--          <p v-if="isErrorQuality" class="create-resume__error">-->
+<!--            Пожалуйста, заполните поле-->
+<!--          </p>-->
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">О вас:</h3>
           <textarea
               class="create-resume-about"
+              :class="{error: isErrorAbout}"
               placeholder="Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя "
-              v-model="resumeAbout"></textarea>
-          <p class="create-resume__error">
+              v-model="resumeAbout"
+              @focus="isErrorAbout = false"></textarea>
+          <ckeditor
+              :config="editorConfig"
+              v-model="resumeAbout"
+              class="ckeditor-text">
+          </ckeditor>
+          <p v-if="isErrorAbout" class="create-resume__error">
             Пожалуйста, заполните поле
           </p>
         </div>
@@ -105,9 +163,6 @@
             <input v-model="resumeExperience" type="radio" name="exp" value="3-6" class="create-resume__input" id="exp-3">
             <label for="exp-3" class="create-resume-filter-label radio">От 3 до 6 лет</label>
           </div>
-          <p class="create-resume__error">
-            Пожалуйста, заполните поле
-          </p>
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">Как с вами можно связаться:</h3>
@@ -120,29 +175,50 @@
                 v-mask="'+7 (###) ### ##-##'"
                 v-model="resumePhoneNumber"
                 placeholder="Номер телефона"
-                class="create-resume__input-text connect"/>
+                class="create-resume__input-text connect"
+                :class="{'error': isErrorContact}"
+                @focus="isErrorContact = false"/>
           </div>
           <div class="create-resume-block__wrapper connection">
             <img
                 src="@/assets/email-icon.svg"
                 alt="иконка e-mail"
                 class="create-resume__connection__img">
-            <input v-model.trim="resumeEmail" type="text" class="create-resume__input-text connect" placeholder="Адрес эл.почты">
+            <input
+                v-model.trim="resumeEmail"
+                type="text"
+                class="create-resume__input-text connect"
+                :class="{'error': isErrorContact}"
+                placeholder="Адрес эл.почты"
+                @focus="isErrorContact = false">
           </div>
           <div class="create-resume-block__wrapper connection">
             <img
                 src="@/assets/telegram-icon.svg"
                 alt="иконка телеграмма"
                 class="create-resume__connection__img">
-            <input v-model.trim="resumeTelegram" type="text" class="create-resume__input-text connect" placeholder="Telegram">
+            <input
+                v-model.trim="resumeTelegram"
+                type="text"
+                class="create-resume__input-text connect"
+                :class="{'error': isErrorContact}"
+                placeholder="Telegram"
+                @focus="isErrorContact = false">
           </div>
           <div class="create-resume-block__wrapper connection">
             <img
                 src="@/assets/link-icon.svg"
                 alt="иконка ссылки"
                 class="create-resume__connection__img">
-            <input v-model.trim="resumeSite" type="text" class="create-resume__input-text connect" placeholder="Личный сайт">
+            <input
+                v-model.trim="resumeSite"
+                type="text"
+                class="create-resume__input-text connect"
+                :class="{'error': isErrorContact}"
+                placeholder="Личный сайт"
+                @focus="isErrorContact = false">
           </div>
+          <p v-if="isErrorContact" class="create-resume__error">Пожалуйста, заполните поле</p>
         </div>
 <!--        <div class="create-resume-block__wrapper">-->
 <!--          <p class="create-resume-block__title">Добавьте фото:</p>-->
@@ -183,24 +259,41 @@ export default {
       resumeName: '',
       isErrorName: false,
 
-      resumeEmploy: [],
+      resumeEmploy: ['fullEmploy'],
+      isErrorEmploy: false,
+
       resumeSkill: '',
       skillsTags: [],
+      isErrorSkills: false,
+
       resumeQuality: '',
       qualityTags: [],
+      isErrorQuality: false,
+
+      editorConfig: {
+        toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
+      },
       resumeAbout: '',
+      isErrorAbout: false,
+
       resumeExperience: 'noExp',
       resumePhoneNumber: '',
       resumeEmail: '',
       resumeTelegram: '',
       resumeSite: '',
+      isErrorContact: false,
     }
   },
   methods: {
     submitForm() {
       if(this.resumeName === '') {
         this.isErrorName = true;
-        return;
+      }
+      if(this.resumeEmploy.length === 0) {
+        this.isErrorEmploy = true
+      }
+      if(this.resumePhoneNumber.length === 0 && this.resumeEmail.length === 0 && this.resumeTelegram.length === 0 && this.resumeSite.length === 0) {
+        this.isErrorContact = true
       }
     },
     addTagsSkills() {
@@ -230,11 +323,14 @@ export default {
         this.resumeQuality = '';
       }
     },
-    deleteQulity(skill) {
+    deleteQuality(skill) {
       this.qualityTags = this.skillsTags.filter((item) => item !== skill)
     },
   },
   computed: {
+  },
+  watch: {
+
   }
 }
 </script>

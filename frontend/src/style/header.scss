@@ -181,7 +181,11 @@
   }
 }
 
-
+@media(max-width: 1650px) {
+  .wrapper-header {
+    margin: 0 40px;
+  }
+}
 
 @media(max-width: 744px) {
   .header-nav {
@@ -223,6 +227,12 @@
   }
   .menu-btn {
     display: flex;
+  }
+}
+
+@media (max-width: 360px) {
+  .wrapper-header {
+    margin: 0 20px;
   }
 }
 

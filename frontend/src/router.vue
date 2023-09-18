@@ -16,8 +16,8 @@ export default new VueRouter({
   base: __dirname,
   routes: [
     {path: '/', component: LandingContent},
-    {path: '/job-openings', component: VacancyContent},
-    {path: '/jobs_opening', component: vacancyPage},
+    {path: '/vacancy', component: VacancyContent},
+    {path: '/vacancy-page', component: vacancyPage},
     {path: '/create', component: createPage},
     {path: '/create-resume', component: createResume},
     {path: '/applicant', component: Applicant},

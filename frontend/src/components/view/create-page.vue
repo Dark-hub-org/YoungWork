@@ -1,6 +1,6 @@
 <template>
   <section class="constructor">
-    <div class="wrapper">
+    <div class="wrapper constructor-wrapper">
       <div class="upload-image">
         <div class="upload-image__wrapper">
           <p class="upload-image-title">Загрузите тизер</p>
@@ -129,7 +129,7 @@
                    class="parameters-form__wrapper__text"
                    placeholder="ФИО">
           </div>
-          <div class="parameters-form__wrapper">
+          <div class="parameters-form__wrapper logo">
             <span class="parameters-form__wrapper__name">Добавьте логотип:</span>
             <div class="upload-image small">
               <div class="upload-image__wrapper">
