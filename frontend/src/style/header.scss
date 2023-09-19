@@ -181,6 +181,10 @@
   }
 }
 
+.modal-form__hide {
+  cursor: pointer;
+}
+
 @media(max-width: 1650px) {
   .wrapper-header {
     margin: 0 40px;
