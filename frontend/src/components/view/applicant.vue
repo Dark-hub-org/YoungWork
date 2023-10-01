@@ -36,7 +36,7 @@
             </div>
           </template>
           <template v-else>
-            <div class="applicant-profile__block data">
+            <div class="applicant-profile__block data block__full-name">
               <div class="applicant-profile__field">
                 <p class="applicant-profile__field__name">Фамилия:</p>
                 <input v-model="applicantLastName" type="text" class="applicant-profile__input">

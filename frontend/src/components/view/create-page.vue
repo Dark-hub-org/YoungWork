@@ -92,31 +92,31 @@
         <ckeditor :config="editorConfig" v-model="editorData" class="ckeditor-text"></ckeditor>
         <div class="constructor-contact">
           <h2 class="constructor-title">О вас</h2>
-          <div class="parameters-form__wrapper">
-            <span class="parameters-form__wrapper__name">Напишите название организации / ИП:</span>
-            <input
-                v-model.trim="companyName"
-                v-restrict-input-length="120"
-                type="text"
-                class="parameters-form__wrapper__text"
-                placeholder="ООО “Маршмеллоу”">
-          </div>
-          <div class="parameters-form__wrapper">
-            <span class="parameters-form__wrapper__name">Как с вами можно связаться:</span>
-            <vue-masked-input
-                id="phone"
-                v-model.trim="companyTel"
-                mask="7 (###) ### ##-##"
-                class="parameters-form__wrapper__text small margin-bottom"
-                placeholder="Номер телефона"
-            ></vue-masked-input>
-            <input
-                v-model.trim="companyEmail"
-                v-restrict-input-length="100"
-                type="text"
-                class="parameters-form__wrapper__text small"
-                placeholder="Адрес эл.почты">
-          </div>
+<!--          <div class="parameters-form__wrapper">-->
+<!--            <span class="parameters-form__wrapper__name">Напишите название организации / ИП:</span>-->
+<!--            <input-->
+<!--                v-model.trim="companyName"-->
+<!--                v-restrict-input-length="120"-->
+<!--                type="text"-->
+<!--                class="parameters-form__wrapper__text"-->
+<!--                placeholder="ООО “Маршмеллоу”">-->
+<!--          </div>-->
+<!--          <div class="parameters-form__wrapper">-->
+<!--            <span class="parameters-form__wrapper__name">Как с вами можно связаться:</span>-->
+<!--            <vue-masked-input-->
+<!--                id="phone"-->
+<!--                v-model.trim="companyTel"-->
+<!--                mask="7 (###) ### ##-##"-->
+<!--                class="parameters-form__wrapper__text small margin-bottom"-->
+<!--                placeholder="Номер телефона"-->
+<!--            ></vue-masked-input>-->
+<!--            <input-->
+<!--                v-model.trim="companyEmail"-->
+<!--                v-restrict-input-length="100"-->
+<!--                type="text"-->
+<!--                class="parameters-form__wrapper__text small"-->
+<!--                placeholder="Адрес эл.почты">-->
+<!--          </div>-->
           <div class="parameters-form__wrapper">
             <span class="parameters-form__wrapper__name">Ваша должность:</span>
             <input v-model.trim="companyPost" v-restrict-input-length="120" type="text"
@@ -129,15 +129,15 @@
                    class="parameters-form__wrapper__text"
                    placeholder="ФИО">
           </div>
-          <div class="parameters-form__wrapper logo">
-            <span class="parameters-form__wrapper__name">Добавьте логотип:</span>
-            <div class="upload-image small">
-              <div class="upload-image__wrapper">
-                <input type="file" class="upload-image-input">
-                <div class="upload-image__cross"></div>
-              </div>
-            </div>
-          </div>
+<!--          <div class="parameters-form__wrapper logo">-->
+<!--            <span class="parameters-form__wrapper__name">Добавьте логотип:</span>-->
+<!--            <div class="upload-image small">-->
+<!--              <div class="upload-image__wrapper">-->
+<!--                <input type="file" class="upload-image-input">-->
+<!--                <div class="upload-image__cross"></div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
         <button
             @click="create_vacancy"

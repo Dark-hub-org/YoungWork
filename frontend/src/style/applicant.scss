@@ -45,6 +45,7 @@
 
 .applicant-profile__field.contact {
   position: relative;
+  width: 100%;
 
   .applicant-profile__connection__img {
     position: absolute;
@@ -69,6 +70,7 @@
 .applicant-profile__left {
   width: 1234px;
   max-width: 100%;
+  margin-right: 10px;
   padding: 20px;
   border-radius: 30px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.57);
@@ -79,17 +81,17 @@
   justify-content: start;
   align-items: flex-start;
   margin-bottom: 24px;
+}
 
-  .applicant-profile__photo-wrapper {
-    position: relative;
-    margin-right: 80px;
+.applicant-profile__photo-wrapper {
+  position: relative;
+  margin-right: 80px;
+}
 
-    .applicant-profile__photo {
-      width: 300px;
-      height: 300px;
-      border-radius: 30px;
-    }
-  }
+.applicant-profile__photo {
+  width: 300px;
+  height: 300px;
+  border-radius: 30px;
 }
 
 .applicant-profile__data__name {
@@ -230,6 +232,61 @@
     .applicant-profile__contacts__img {
       margin-right: 16px;
     }
+  }
+
+}
+
+@media(max-width: 1440px) {
+
+  .applicant-profile__block.block__full-name {
+    flex-wrap: wrap;
+    justify-content: start;
+  }
+
+}
+
+@media(max-width: 1024px) {
+
+  .applicant-profile__contacts {
+    display: none;
+  }
+
+}
+
+@media(max-width: 744px) {
+
+  .applicant-profile__top {
+    flex-direction: column;
+   align-items: center;
+  }
+
+  .applicant-profile__photo-wrapper {
+    margin: 0 0 40px 0;
+  }
+
+  .applicant-profile__data {
+    text-align: center;
+  }
+
+  .applicant-profile__block.data {
+    display: block;
+  }
+
+  .applicant-profile__field {
+
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+
+  }
+
+  .applicant-profile__block {
+    margin-bottom: 48px;
+  }
+
+  .applicant-profile__block.grid {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
 }
