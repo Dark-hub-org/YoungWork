@@ -1,4 +1,6 @@
 @import "main";
+
+
 .text-margin {
   margin-bottom: 20px;
 }
@@ -11,20 +13,68 @@
   letter-spacing: -0.64px;
 }
 
+.applicant-profile__portfolio {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.applicant-profile__portfolio__btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.applicant-profile__portfolio__block {
+  position: relative;
+  width: 270px;
+  height: 373px;
+  border-radius: 10px;
+  border: 1px solid var(--__, #DEE2E5);
+  background: #FFF1EB;
+}
+
+.portfolio__block--add {
+  cursor: pointer;
+
+  &:hover .applicant-profile__btn-edit.btn--add{
+    transform: scale(120%);
+  }
+}
+
+.applicant-profile__btn-edit.btn--work {
+  bottom: 20px;
+  right: 20px;
+}
+
+.applicant-profile__btn-edit.btn--add {
+  background-image: url("@/assets/btn-add.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .applicant-profile__block {
   position: relative;
+}
+
+.applicant-profile__block:not(:last-of-type) {
   margin-bottom: 64px;
 }
 
-.applicant-profile__block.data {
-  @include displayFlex;
-  gap: 15px;
-}
+// personal data start
 
-.applicant-profile__block.grid {
+.applicant-profile__block.data {
   display: inline-grid;
   grid-template-columns: repeat(2, minmax(300px, 384px));
+  align-items: end;
   gap: 24px;
+}
+
+.applicant-profile__block.block__full-name {
+  justify-content: flex-start;
 }
 
 .applicant-profile__block.start {
@@ -32,13 +82,13 @@
   gap: 24px;
 }
 
-.applicant-profile__edit-btn {
+.applicant-profile__btn-edit {
   @include editButton;
   right: -10px;
   bottom: -10px;
 }
 
-.applicant-profile__edit-btn.field {
+.applicant-profile__btn-edit.field {
   top: -20px;
 }
 //
@@ -46,25 +96,25 @@
 .applicant-profile__field.contact {
   position: relative;
   width: 100%;
+}
 
-  .applicant-profile__connection__img {
-    position: absolute;
-    left: 24px;
-    transform: translateY(60%);
-    width: 32px;
-    height: 32px;
-  }
+.applicant-profile__connection__img {
+  position: absolute;
+  left: 24px;
+  transform: translateY(60%);
+  width: 32px;
+  height: 32px;
 }
 
 .applicant-profile__input.connect {
-  padding: 20px 24px 20px 72px !important;
+  padding: 20px 24px 20px 72px;
 }
 //
 .applicant-profile__wrapper {
   @include displayFlex;
   align-items: flex-start;
   max-width: 1650px;
-  margin: auto;
+  margin-bottom: 80px;
 }
 
 .applicant-profile__left {
@@ -122,35 +172,36 @@
 
 .applicant-profile__btns {
   @include displayFlex;
+  column-gap: 10px;
   max-width: 455px;
   margin-bottom: 64px;
+}
 
-  .applicant-profile__btn {
-    @include buttonGreenAnother;
-    padding: 15px 50px;
-  }
+.applicant-profile__btn {
+  @include buttonGreenAnother;
+  padding: 15px 50px;
 
-  .applicant-profile__btn.active {
-    background-color: $colorGreenM;
-    outline: none;
-    color: $colorWhite;
-  }
+}
+
+.applicant-profile__btn.active {
+  background-color: $colorGreenM;
+  outline: none;
+  color: $colorWhite;
 }
 
 .applicant-profile__field {
-  width: 383px;
+  max-width: 383px;
+}
 
-  .applicant-profile__input {
-    width: 100%;
-    max-width: 384px;
-    padding: 20px 24px;
-    border-radius: 16px;
-    border: 2px solid $colorGreenM;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 28.8px;
-    letter-spacing: -1.2px;
-  }
+.applicant-profile__input {
+  width: 100%;
+  padding: 20px 24px;
+  border-radius: 16px;
+  border: 2px solid $colorGreenM;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28.8px;
+  letter-spacing: -1.2px;
 }
 
 .applicant-profile__field__name {
@@ -218,11 +269,10 @@
 //
 
 .applicant-profile__contacts {
-  width: 404px;
-  max-width: 404px;
+  min-width: 404px;
   padding: 40px 24px;
   border-radius: 30px;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.57);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.57);
 
   .applicant-profile__contacts__block {
     @include displayFlex;
@@ -232,15 +282,6 @@
     .applicant-profile__contacts__img {
       margin-right: 16px;
     }
-  }
-
-}
-
-@media(max-width: 1440px) {
-
-  .applicant-profile__block.block__full-name {
-    flex-wrap: wrap;
-    justify-content: start;
   }
 
 }
@@ -264,29 +305,64 @@
     margin: 0 0 40px 0;
   }
 
+  .applicant-profile__btns {
+    overflow: scroll;
+    margin: 0 auto 64px auto;
+  }
+
   .applicant-profile__data {
     text-align: center;
   }
 
   .applicant-profile__block.data {
-    display: block;
+    grid-template-columns: minmax(260px, 383px);
+    gap: 0;
   }
 
   .applicant-profile__field {
 
-    &:not(:last-child) {
+    &:not(:last-of-type) {
       margin-bottom: 24px;
     }
 
   }
 
-  .applicant-profile__block {
+  .applicant-profile__block:not(:last-of-type) {
     margin-bottom: 48px;
   }
-
-  .applicant-profile__block.grid {
-    grid-template-columns: 1fr;
-    gap: 0;
+}
+@media(max-width: 450px) {
+  .text-margin {
+    margin-bottom: 16px;
   }
 
+  .applicant-profile__photo {
+    width: 250px;
+    height: 250px;
+  }
+
+  .applicant-profile__data__name {
+    font-size: 24px;
+  }
+
+  .applicant-profile__data__age {
+    font-size: 24px;
+  }
+
+  .applicant-profile__data__geo {
+    font-size: 16px;
+  }
+
+  .applicant-profile__input {
+    padding: 15px 20px;
+    font-size: 20px;
+  }
+
+  .applicant-profile__input.connect {
+    padding: 15px 20px 15px 67px;
+  }
+
+  .applicant-profile__block:not(:last-of-type) {
+    margin-bottom: 48px;
+  }
 }
