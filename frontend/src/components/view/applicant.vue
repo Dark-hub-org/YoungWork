@@ -27,12 +27,33 @@
           </div>
           <template v-if="applicantStab === 1">
             <div class="applicant-profile__block">
+              <div class="applicant-profile__contacts contacts--mobile">
+                <h3 class="applicant-profile__subtitle">Контакты</h3>
+                <div class="applicant-profile__contacts__block">
+                  <img src="@/assets/telegram-icon.svg" alt="телеграмм иконка" class="applicant-profile__contacts__img">
+                  <a href="https://t.me" target="_blank" class="applicant-profile__contacts__link">@as8691_1</a>
+                </div>
+                <div class="applicant-profile__contacts__block">
+                  <img src="@/assets/email-icon.svg" alt="email иконка" class="applicant-profile__contacts__img">
+                  <a href="mailto:" class="applicant-profile__contacts__link">sasha-andreeva-1998@list.ru</a>
+                </div>
+                <div class="applicant-profile__contacts__block">
+                  <img src="@/assets/telegram-icon.svg" alt="иконка телефона" class="applicant-profile__contacts__img">
+                  <a href="tel: " class="applicant-profile__contacts__link">+7 999 888 77 66</a>
+                </div>
+                <div class="applicant-profile__contacts__block">
+                  <img src="@/assets/link-icon.svg" alt="иконка ссылки" class="applicant-profile__contacts__img">
+                  <a href="https://dprofile.ru/andreeva_design" target="_blank" class="applicant-profile__contacts__link">https://dprofile.ru/andreeva_design</a>
+                </div>
+              </div>
               <h3 class="applicant-profile__subtitle">О вас:</h3>
-              <textarea
-                  class="applicant-profile__about__text"
-                  placeholder="Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя "
-              ></textarea>
-              <button type="button" class="applicant-profile__btn-edit field"></button>
+              <div class="applicant-profile__about-wrapper">
+                <textarea
+                    class="applicant-profile__about__text"
+                    placeholder="Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя "
+                ></textarea>
+                <button type="button" class="applicant-profile__btn-edit field about"></button>
+              </div>
             </div>
             <div class="applicant-profile__block">
               <h3 class="applicant-profile__subtitle">Примеры выполненных работ:</h3>
@@ -191,7 +212,8 @@ export default {
       applicationSex: '',
       applicantPortfolio: [
         {id: 1, image: '../../assets/applicant-profile/image-1.png'},
-        {id: 2, image: '../../assets/applicant-profile/image-2.png'}
+        {id: 2, image: '../../assets/applicant-profile/image-2.png'},
+        {id: 3, image: '../../assets/applicant-profile/image-3.png'}
       ]
     }
   },
