@@ -64,6 +64,22 @@
   margin-bottom: 64px;
 }
 
+.applicant-profile__about {
+  min-width: 100%;
+  min-height: 109px;
+  max-width: 1190px;
+  padding: 40px;
+  border-radius: 16px;
+  border: 2px solid $colorGreenM;
+  font-size: 24px;
+  line-height: 120%;
+  letter-spacing: -1.2px;
+
+  &::placeholder {
+    color: $colorGreyLight;
+  }
+}
+
 // personal data start
 
 .applicant-profile__block.data {

@@ -47,6 +47,7 @@
                   <button class="applicant-profile__btn-edit btn--work btn--"></button>
                 </div>
               </div>
+              <textarea class="applicant-profile__about" placeholder="Описание выполненных работ"></textarea>
             </div>
           </template>
           <template v-else>
