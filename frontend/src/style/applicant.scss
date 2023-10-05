@@ -209,7 +209,8 @@
 }
 
 .applicant-profile__left {
-  max-width: 100%;
+  max-width: 1234px;
+  overflow-x: auto;
   margin-right: 10px;
   padding: 20px;
   border-radius: 30px;
@@ -359,7 +360,7 @@
 //
 
 .applicant-profile__contacts {
-  min-width: 404px;
+  width: 404px;
   padding: 40px 24px;
   border-radius: 30px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.57);
@@ -387,6 +388,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+@media(max-width: 1650px) {
+
 }
 
 @media(max-width: 1024px) {
