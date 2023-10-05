@@ -235,6 +235,19 @@
   border-radius: 30px;
 }
 
+.applicant-profile__btn-edit-wrapper {
+  @include editButton;
+  bottom: -10px;
+  right: -15px;
+}
+
+.applicant-profile__photo__btn {
+  width: 48px;
+  height: 48px;
+  opacity: 0.01;
+  cursor: pointer;
+}
+
 .applicant-profile__data__name {
   font-size: 40px;
   font-weight: 500;
@@ -320,7 +333,6 @@
   letter-spacing: -1.2px;
 }
 
-//
 .applicant-profile__radio-wrapper {
   @include displayFlex;
   justify-content: start;
@@ -357,50 +369,19 @@
     background-position: center;
   }
 }
-//
 
-.applicant-profile__contacts {
-  width: 404px;
-  padding: 40px 24px;
-  border-radius: 30px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.57);
-}
-
-.applicant-profile__contacts.contacts--mobile {
+.contact-mobile {
   display: none;
-  min-width: 100%;
-  overflow: hidden;
   margin-bottom: 48px;
-}
-
-.applicant-profile__contacts__block {
-  @include displayFlex;
-  justify-content: start;
-  margin-bottom: 13px;
-}
-
-.applicant-profile__contacts__img {
-  margin-right: 16px;
-}
-
-.applicant-profile__contacts__link {
-  width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-@media(max-width: 1650px) {
-
 }
 
 @media(max-width: 1024px) {
 
-  .applicant-profile__contacts {
+  .contact-desktop {
     display: none;
   }
 
-  .applicant-profile__contacts.contacts--mobile {
+  .contact-mobile {
     display: block;
   }
 

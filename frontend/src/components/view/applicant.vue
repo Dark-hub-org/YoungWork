@@ -7,7 +7,9 @@
             <div
                 class="applicant-profile__photo" style="background: #DFDFDF">
             </div>
-            <button type="button" class="applicant-profile__btn-edit"></button>
+            <div class="applicant-profile__btn-edit-wrapper">
+              <input type="file" class="applicant-profile__photo__btn">
+            </div>
           </div>
           <div class="applicant-profile__data">
             <p class="applicant-profile__data__name text-margin">Александра Андреева</p>
@@ -27,25 +29,9 @@
           </div>
           <template v-if="applicantStab === 1">
             <div class="applicant-profile__block">
-              <div class="applicant-profile__contacts contacts--mobile">
-                <h3 class="applicant-profile__subtitle">Контакты</h3>
-                <div class="applicant-profile__contacts__block">
-                  <img src="@/assets/telegram-icon.svg" alt="телеграмм иконка" class="applicant-profile__contacts__img">
-                  <a href="https://t.me" target="_blank" class="applicant-profile__contacts__link">@as8691_1</a>
-                </div>
-                <div class="applicant-profile__contacts__block">
-                  <img src="@/assets/email-icon.svg" alt="email иконка" class="applicant-profile__contacts__img">
-                  <a href="mailto:" class="applicant-profile__contacts__link">sasha-andreeva-1998@list.ru</a>
-                </div>
-                <div class="applicant-profile__contacts__block">
-                  <img src="@/assets/telegram-icon.svg" alt="иконка телефона" class="applicant-profile__contacts__img">
-                  <a href="tel: " class="applicant-profile__contacts__link">+7 999 888 77 66</a>
-                </div>
-                <div class="applicant-profile__contacts__block">
-                  <img src="@/assets/link-icon.svg" alt="иконка ссылки" class="applicant-profile__contacts__img">
-                  <a href="https://dprofile.ru/andreeva_design" target="_blank" class="applicant-profile__contacts__link">https://dprofile.ru/andreeva_design</a>
-                </div>
-              </div>
+              <user-contacts :userContact="userContact"  class="contact-mobile">
+
+              </user-contacts>
               <h3 class="applicant-profile__subtitle">О вас:</h3>
               <div class="applicant-profile__about-wrapper">
                 <textarea
@@ -162,25 +148,7 @@
           </template>
         </div>
       </div>
-      <aside class="applicant-profile__contacts">
-        <h3 class="applicant-profile__subtitle">Контакты</h3>
-        <div class="applicant-profile__contacts__block">
-          <img src="@/assets/telegram-icon.svg" alt="телеграмм иконка" class="applicant-profile__contacts__img">
-          <a href="https://t.me" target="_blank" class="applicant-profile__contacts__link">@as8691_1</a>
-        </div>
-        <div class="applicant-profile__contacts__block">
-          <img src="@/assets/email-icon.svg" alt="email иконка" class="applicant-profile__contacts__img">
-          <a href="mailto:" class="applicant-profile__contacts__link">sasha-andreeva-1998@list.ru</a>
-        </div>
-        <div class="applicant-profile__contacts__block">
-          <img src="@/assets/telegram-icon.svg" alt="иконка телефона" class="applicant-profile__contacts__img">
-          <a href="tel: " class="applicant-profile__contacts__link">+7 999 888 77 66</a>
-        </div>
-        <div class="applicant-profile__contacts__block">
-          <img src="@/assets/link-icon.svg" alt="иконка ссылки" class="applicant-profile__contacts__img">
-          <a href="https://dprofile.ru/andreeva_design" target="_blank" class="applicant-profile__contacts__link">https://dprofile.ru/andreeva_design</a>
-        </div>
-      </aside>
+      <user-contacts :userContact="userContact" class="contact-desktop"></user-contacts>
     </div>
   </section>
 </template>
@@ -189,11 +157,13 @@
 import axios from "axios";
 import Vue from "vue";
 import VueTheMask from 'vue-the-mask';
+import UserContacts from "@/components/ui/userContacts.vue";
 
 Vue.use(VueTheMask);
 
 export default {
   name: 'applicant-profile',
+  components: {UserContacts},
   data() {
     return {
       applicantStab: 1,
@@ -214,7 +184,13 @@ export default {
         {id: 1, image: '../../assets/applicant-profile/image-1.png'},
         {id: 2, image: '../../assets/applicant-profile/image-2.png'},
         {id: 3, image: '../../assets/applicant-profile/image-3.png'}
-      ]
+      ],
+      userContact: {
+        telegram: 'as8691_1',
+        email: 'sasha-andreeva-1998@list.ru',
+        telephone: '+7 999 888 77 66',
+        website: 'https://dprofile.ru/andreeva_design',
+      }
     }
   },
   methods: {
