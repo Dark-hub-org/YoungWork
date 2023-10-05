@@ -35,8 +35,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'djoser',
     'corsheaders',
-    'jobs_opening',
-    'user_profiles'
+    'profiles',
 ]
 
 MIDDLEWARE = [
@@ -73,7 +72,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'NAME': 'Young_work',
         'USER': 'postgres',
         'PASSWORD': 'root',
         'HOST': 'localhost',
