@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Applicant(models.Model):
@@ -6,7 +7,8 @@ class Applicant(models.Model):
         ('male', 'Мужчина'),
         ('female', 'Женщина')
     )
-    user_id = models.IntegerField(null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
+                                related_name='applicant_releted_user')
     bio = models.TextField(null=True, blank=True)
     date = models.DateField(null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True, upload_to='movies/applicant')
@@ -17,18 +19,24 @@ class Applicant(models.Model):
     email = models.EmailField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.user_id)
+        return str(self.user)
 
 
 class Employer(models.Model):
-    user_id = models.IntegerField(null=True, blank=True)
-    bio = models.TextField(null=True, blank=True)
+    sex_choice = (
+        ('male', 'Мужчина'),
+        ('female', 'Женщина')
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
+                                related_name='employee_releted_user')
+    about_us = models.TextField(null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True, upload_to='movies/employer')
-    male = models.BooleanField()
+    sex = models.CharField(choices=sex_choice, default='')
+    inn = models.CharField(max_length=50, null=True, blank=True)
     number = models.IntegerField(null=True, blank=True)
     telegram = models.CharField(max_length=50, null=True, blank=True)
     web = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.user_id)
+        return str(self.user)
