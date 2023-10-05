@@ -133,12 +133,6 @@
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">О вас:</h3>
-          <textarea
-              class="create-resume-about"
-              :class="{error: isErrorAbout}"
-              placeholder="Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя "
-              v-model="resumeAbout"
-              @focus="isErrorAbout = false"></textarea>
           <ckeditor
               :config="editorConfig"
               v-model="resumeAbout"

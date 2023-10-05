@@ -31,7 +31,7 @@
             </li>
             <li class="header-nav__list-item">
               <button
-                  @click="isModalWinReg = true"
+                  @click="isModalVisSwitch = true"
                   type="button"
                   class="header-btn button-green">
                 Регистрация
@@ -69,6 +69,19 @@
           </template>
         </ul>
       </nav>
+      <Transition name="modal">
+        <modal-window
+            @close="onCloseModalSwitch"
+            :isVisible="isModalVisSwitch">
+          <div class="modal-switch-wrapper">
+            <p class="modal-title">Что вы тут делаете?</p>
+            <div class="modal-switch__block">
+              <button class="modal-switch__btn" @click="openModalWinReg">Ищу работу</button>
+              <button class="modal-switch__btn btn--green" @click="openModalWinReg">Ищу сотрудника</button>
+            </div>
+          </div>
+        </modal-window>
+      </Transition>
       <Transition name="modal">
         <modal-window
             @close="onCloseModalReg"
@@ -355,6 +368,7 @@ export default {
       resetPasswordCurrentStep: 0,
       ModalWinRegCurrentStep: 0,
 
+      isModalVisSwitch: false,
       isModalWinReg: false,
       isModalWinLog: false,
       isModalWinResetPass: false,
@@ -499,6 +513,9 @@ export default {
     openModalWinReg() {
       this.clearModalData();
       //
+      if(this.isModalVisSwitch === true) {
+        this.isModalVisSwitch = false;
+      }
       this.isModalWinReg = true;
       this.isModalWinLog = false
     },
@@ -506,6 +523,9 @@ export default {
       this.clearModalData();
       this.isModalWinResetPass = true;
       this.isModalWinLog = false
+    },
+    onCloseModalSwitch() {
+      this.isModalVisSwitch = false
     },
     onCloseModalWin() {
       this.isModalWinLog = false
@@ -592,4 +612,5 @@ export default {
 .modal-enter, .modal-leave-to {
   opacity: 0;
 }
+
 </style>
