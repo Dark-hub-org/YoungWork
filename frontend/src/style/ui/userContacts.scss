@@ -1,13 +1,13 @@
 @import "../main";
 
-.applicant-profile__contacts {
-  min-width: 404px;
+.profile__contacts {
+  maxidth: 404px;
   padding: 40px 24px;
   border-radius: 30px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.57);
 }
 
-.applicant-profile__subtitle {
+.profile__subtitle {
   margin-bottom: 24px;
   font-size: 32px;
   font-weight: 500;
@@ -15,17 +15,17 @@
   letter-spacing: -0.64px;
 }
 
-.applicant-profile__contacts__block {
+.profile__contacts__block {
   @include displayFlex;
   justify-content: start;
   margin-bottom: 13px;
 }
 
-.applicant-profile__contacts__img {
+.profile__contacts__img {
   margin-right: 16px;
 }
 
-.applicant-profile__contacts__link {
+.profile__contacts__link {
   width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
