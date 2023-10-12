@@ -8,7 +8,7 @@ class Applicant(models.Model):
         ('female', 'Женщина')
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
-                                related_name='applicant_releted_user')
+                                related_name='applicant_user')
     bio = models.TextField(null=True, blank=True)
     date = models.DateField(null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True, upload_to='movies/applicant')
