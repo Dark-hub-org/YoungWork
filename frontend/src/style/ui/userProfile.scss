@@ -1,7 +1,7 @@
 @import "../main";
 
 .text-margin {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .profile__subtitle {
@@ -87,7 +87,7 @@
 }
 
 .profile__about__text {
-  min-width: 100%;
+  width: 100%;
   max-width: 1190px;
   min-height: 139px;
   padding: 40px;
@@ -198,6 +198,11 @@
   padding: 20px 24px 20px 72px;
 }
 
+.profile-side {
+  position: sticky;
+  top: 120px;
+}
+
 // personal data end
 
 // employer vacancy start
@@ -219,6 +224,7 @@
 }
 
 .profile__left {
+  width: 100%;
   max-width: 1234px;
   overflow-x: auto;
   margin-right: 10px;
@@ -276,6 +282,13 @@
   line-height: normal;
 }
 
+.profile__data-edit {
+  @include buttonOrange;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
 .profile__line {
   width: 100%;
   height: 2px;
@@ -311,7 +324,7 @@
 .profile__btn {
   @include buttonGreenAnother;
   padding: 15px 50px;
-
+  text-wrap: nowrap;
 }
 
 .profile__btn.active {
@@ -328,11 +341,20 @@
   width: 100%;
   padding: 20px 24px;
   border-radius: 16px;
-  border: 2px solid $colorGreenM;
+  border: 2px solid $colorInputBorder;
   font-size: 24px;
   font-weight: 400;
   line-height: 28.8px;
   letter-spacing: -1.2px;
+
+  &::placeholder {
+    color: $colorInputBorder;
+  }
+
+  &:focus {
+    border-color: $colorGreenM;
+    color: $colorGreenM
+  }
 }
 
 .profile__field__name {
@@ -381,18 +403,18 @@
   }
 }
 
-.contact-mobile {
+.profile__contact-mobile {
   display: none;
   margin-bottom: 48px;
 }
 
 @media(max-width: 1024px) {
 
-  .contact-desktop {
+  .profile-side {
     display: none;
   }
 
-  .contact-mobile {
+  .profile__contact-mobile {
     display: block;
   }
 
@@ -485,7 +507,7 @@
     font-size: 24px;
   }
 
-  .profile__data__age {
+  .profile__data__text {
     font-size: 24px;
   }
 

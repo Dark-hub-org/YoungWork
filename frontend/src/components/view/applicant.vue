@@ -1,5 +1,5 @@
 <template>
-  <user-profile :userData="applicantData" :buttonText="buttonText" :placeholders="placeholders">
+  <user-profile :userData="applicantData" :profileText="profileText">
     <template v-slot:twoTub>
       <div class="profile__block data block__full-name">
         <div class="profile__field">
@@ -10,7 +10,10 @@
           <p class="profile__field__name">Имя:</p>
           <input v-model.trim="applicantData.firstname" type="text" class="profile__input">
         </div>
-        <button type="button" class="profile__btn-edit field"></button>
+        <div class="profile__field">
+          <p class="profile__field__name">Отчество:</p>
+          <input v-model.trim="applicantData.patronymic" type="text" class="profile__input">
+        </div>
       </div>
       <div class="profile__block">
         <div class="profile__field">
@@ -36,6 +39,12 @@
       </div>
       <div class="profile__block data start">
         <div class="profile__field">
+          <p class="profile__field__name">Гражданство:</p>
+          <input v-model="applicantData.citizenship" type="text" class="profile__input">
+        </div>
+      </div>
+      <div class="profile__block data start">
+        <div class="profile__field">
           <p class="profile__field__name">Регион:</p>
           <input v-model="applicantData.region" type="text" class="profile__input">
         </div>
@@ -43,47 +52,44 @@
           <p class="profile__field__name">Город проживания:</p>
           <input v-model="applicantData.city" type="text" class="profile__input">
         </div>
-        <button type="button" class="profile__btn-edit field"></button>
       </div>
-      <div class="profile__block data">
-        <div class="profile__field contact">
-          <p class="profile__field__name">Контакты:</p>
-          <img
-              src="@/assets/phone-icon.svg"
-              alt="иконка телефона"
-              class="profile__connection__img">
-          <input
-              v-mask="'+7 (###) ### ##-##'"
-              placeholder="Номер телефона"
-              class="profile__input connect"
-              v-model="applicantData.contact.telephone"/>
-        </div>
-        <div class="profile__field contact">
-          <img
-              src="@/assets/email-icon.svg"
-              alt="иконка e-mail"
-              class="profile__connection__img">
-          <input type="text" class="profile__input connect" placeholder="Адрес эл.почты"
-                 v-model.trim="applicantData.contact.email">
-        </div>
-        <div class="profile__field contact">
-          <img
-              src="@/assets/telegram-icon.svg"
-              alt="иконка телеграмма"
-              class="profile__connection__img">
-          <input type="text" class="profile__input connect" placeholder="Telegram"
-                 v-model="applicantData.contact.telegram">
-        </div>
-        <div class="profile__field contact">
-          <img
-              src="@/assets/link-icon.svg"
-              alt="иконка ссылки"
-              class="profile__connection__img">
-          <input type="text" class="profile__input connect" placeholder="Личный сайт"
-                 v-model.trim="applicantData.contact.website">
-        </div>
-        <button type="button" class="profile__btn-edit field "></button>
-      </div>
+<!--      <div class="profile__block data">-->
+<!--        <div class="profile__field contact">-->
+<!--          <p class="profile__field__name">Контакты:</p>-->
+<!--          <img-->
+<!--              src="@/assets/phone-icon.svg"-->
+<!--              alt="иконка телефона"-->
+<!--              class="profile__connection__img">-->
+<!--          <input-->
+<!--              v-mask="'+7 (###) ### ##-##'"-->
+<!--              placeholder="Номер телефона"-->
+<!--              class="profile__input connect"-->
+<!--              v-model="applicantData.contact.telephone"/>-->
+<!--        </div>-->
+<!--        <div class="profile__field contact">-->
+<!--          <img-->
+<!--              src="@/assets/email-icon.svg"-->
+<!--              alt="иконка e-mail"-->
+<!--              class="profile__connection__img">-->
+<!--          <input type="text" class="profile__input connect" placeholder="Адрес эл.почты"-->
+<!--                 v-model.trim="applicantData.contact.email">-->
+<!--        </div>-->
+<!--        <div class="profile__field contact">-->
+<!--          <img-->
+<!--              src="@/assets/telegram-icon.svg"-->
+<!--              alt="иконка телеграмма"-->
+<!--              class="profile__connection__img">-->
+<!--          <input type="text" class="profile__input connect" placeholder="Telegram"-->
+<!--                 v-model="applicantData.contact.telegram">-->
+<!--        </div>-->
+<!--        <div class="profile__field contact">-->
+<!--          <img-->
+<!--              src="@/assets/link-icon.svg"-->
+<!--              alt="иконка ссылки"-->
+<!--              class="profile__connection__img">-->
+<!--          <input type="text" class="profile__input connect" placeholder="Личный сайт" v-model.trim="applicantData.contact.website">-->
+<!--        </div>-->
+<!--      </div>-->
     </template>
   </user-profile>
 </template>
@@ -100,20 +106,24 @@ export default {
   components: {UserProfile},
   data() {
     return {
-      buttonText: 'Личные данные',
-      placeholders: {
-        about: 'Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя',
-        aboutWork: 'Описание выполненных работ',
+      profileText: {
+        buttonText: 'Личные данные',
+        placeholders: {
+          about: 'Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя',
+          aboutWork: 'Описание выполненных работ',
+        },
+        portfolioTitle: 'Примеры выполненных работ:',
       },
       applicantData: {
         firstname: '',
         lastname: '',
+        patronymic: '',
         birthday: '',
         sex: '',
+        citizenship: '',
         region: '',
         city: '',
         photo: '',
-        patronymic: '',
         about: '',
         aboutWork: '',
         portfolio: [

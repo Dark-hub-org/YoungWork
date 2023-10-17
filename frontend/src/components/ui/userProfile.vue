@@ -12,36 +12,44 @@
             </div>
           </div>
           <div class="profile__data">
-            <p class="profile__data__name text-margin">Александра Андреева</p>
+            <p class="profile__data__name text-margin">{{userData.firstname}} {{userData.lastname}} {{userData.patronymic}}</p>
             <p class="profile__data__age text-margin">19 лет</p>
-            <p class="profile__data__geo">Алтайский край, Барнаул</p>
+            <p class="profile__data__geo text-margin">Гражданство:
+              <template v-if="userData.citizenship">{{userData.citizenship}}</template><template v-else>Не заполнено</template></p>
+            <p class="profile__data__geo">
+              <template v-if="userData.region">{{userData.region}}</template>
+              <template v-else>Регион не заполнен</template>,
+              <template v-if="userData.city">{{userData.city}}</template>
+              <template v-else>город не заполнен</template>
+            </p>
+            <button class="profile__data-edit">Редактировать профиль</button>
           </div>
         </div>
         <div class="profile__line"></div>
         <div class="profile__main">
+          <slot name="modal-window"></slot>
           <div class="profile__btns">
-            <button @click="switchingTabs" class="profile__btn" :class="{active: applicantStab === 1}">Обо мне
-            </button>
-            <button @click="switchingTabs" class="profile__btn" :class="{active: applicantStab === 2}">{{ buttonText }}
-            </button>
+            <button @click="switchingTabs" class="profile__btn" :class="{active: applicantStab === 1}">Обо мне</button>
+            <button @click="switchingTabs" class="profile__btn" :class="{active: applicantStab === 2}">{{ profileText.buttonText }}</button>
           </div>
-
           <template v-if="applicantStab === 1">
             <div class="profile__block">
-              <user-contacts :userContact="userData.contact" class="contact-mobile">
-              </user-contacts>
+              <div class="profile__contact-mobile">
+                <user-contacts :userContact="userData.contact" class="contact-mobile">
+                </user-contacts>
+                <slot name="verification"></slot>
+              </div>
               <h3 class="profile__subtitle">О вас:</h3>
               <div class="profile__about-wrapper">
                 <textarea
                     v-model="localUserData.about"
                     class="profile__about__text"
-                    :placeholder="placeholders.about"
+                    :placeholder="profileText.placeholders.about"
                 ></textarea>
-                <button type="button" class="profile__btn-edit field about"></button>
               </div>
             </div>
             <div class="profile__block">
-              <h3 class="profile__subtitle">Примеры выполненных работ:</h3>
+              <h3 class="profile__subtitle">{{profileText.portfolioTitle}}</h3>
               <div class="profile__portfolio">
                 <div class="profile__portfolio__block portfolio__block--add">
                   <button class="profile__btn-edit btn--work btn--add"></button>
@@ -53,7 +61,7 @@
                   <button class="profile__btn-edit btn--work btn--"></button>
                 </div>
               </div>
-              <textarea v-model="localUserData.aboutWork" class="profile__about" :placeholder="placeholders.aboutWork"></textarea>
+              <textarea v-model="localUserData.aboutWork" class="profile__about" :placeholder="profileText.placeholders.aboutWork"></textarea>
             </div>
           </template>
           <template v-else>
@@ -62,7 +70,10 @@
           </template>
         </div>
       </div>
-      <user-contacts :userContact="userData.contact" class="contact-desktop"></user-contacts>
+      <aside class="profile-side">
+        <user-contacts :userContact="userData.contact" class="contact-desktop"></user-contacts>
+        <slot name="verification"></slot>
+      </aside>
     </div>
   </section>
 </template>
@@ -71,32 +82,27 @@
 import UserContacts from "@/components/ui/userContacts.vue";
 import axios from "axios";
 
-
 export default {
   name: 'user-profile',
   components: {UserContacts},
   props: {
-    buttonText: {
-      type: String,
+    profileText: {
+      type: Object,
       required: true,
     },
     userData: {
       type: Object,
       required: true,
     },
-    placeholders: {
-      type: Object,
-      required: true,
-    }
   },
   data() {
     return {
       applicantStab: 1,
       localUserData: this.userData,
-      placeholder: '121212',
     }
   },
   methods: {
+
     switchingTabs() {
       if (this.applicantStab === 1) {
         this.applicantStab = 2;
@@ -120,7 +126,10 @@ export default {
           .catch(error => {
             console.log(error)
           });
-    }
+    },
+    onCloseModalWin() {
+      this.modalVisible = false
+    },
   },
   mounted() {
     for (let key in localStorage) {
