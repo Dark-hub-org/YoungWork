@@ -9,6 +9,7 @@ import createPage from '@/components/view/create-page.vue';
 import createResume from '@/components/view/create-resume.vue';
 import Applicant from '@/components/view/applicant.vue';
 import Employer from '@/components/view/employer.vue';
+import UserEdit from '@/components/ui/userEdit.vue';
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,7 @@ export default new VueRouter({
     {path: '/create-resume', component: createResume},
     {path: '/profile/applicant', component: Applicant},
     {path: '/profile/employer', component: Employer},
+    {path: '/profile/edit', component: UserEdit},
   ],
 });
 </script>

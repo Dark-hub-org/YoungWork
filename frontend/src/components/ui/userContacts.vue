@@ -1,5 +1,11 @@
 <template>
   <div class="profile__contacts">
+    <div class="profile__contacts__img-wrapper">
+      <div class="profile__contacts-img"></div>
+      <div class="profile__contacts-btn-wrapper">
+        <input type="file" class="profile__contacts-btn">
+      </div>
+    </div>
     <h3 class="profile__subtitle">Контакты</h3>
     <div class="profile__contacts__block">
       <img src="@/assets/telegram-icon.svg" alt="телеграмм иконка" class="profile__contacts__img">

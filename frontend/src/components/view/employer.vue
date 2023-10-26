@@ -1,5 +1,8 @@
 <template>
-  <user-profile :userData="employerData" :profileText="profileText">
+  <user-profile
+      :userData="employerData"
+      :profileText="profileText"
+      :userAge="userAge">
     <template v-slot:modal-window>
       <modal-window
           :isVisible="isModalVisible"
@@ -79,7 +82,7 @@ export default {
         firstname: '',
         lastname: '',
         patronymic: '',
-        birthday: '',
+        birthday: '10/02/2004',
         sex: '',
         region: '',
         city: '',
@@ -113,6 +116,7 @@ export default {
       this.isVerificationModal = false
     },
     handlerInput() {
+      console.log(new Date())
       if (this.userINN.length > 12) {
         this.userINN = this.userINN.slice(0, 12)
       } else {
@@ -129,7 +133,13 @@ export default {
       } else {
         this.isVerificationModal = true
       }
-
+    }
+  },
+  computed: {
+    userAge() {
+      const birthYear = new Date(this.employerData.birthday).getFullYear()
+      const nowYear = new Date().getFullYear()
+      return nowYear - birthYear
     }
   }
 }

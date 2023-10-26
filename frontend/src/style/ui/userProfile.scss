@@ -337,24 +337,19 @@
   max-width: 383px;
 }
 
-.profile__input {
+.profile__value {
   width: 100%;
+  height: 73px;
   padding: 20px 24px;
   border-radius: 16px;
-  border: 2px solid $colorInputBorder;
+  border: 2px solid $colorGreenM;
+}
+
+.profile__value-text {
   font-size: 24px;
   font-weight: 400;
   line-height: 28.8px;
   letter-spacing: -1.2px;
-
-  &::placeholder {
-    color: $colorInputBorder;
-  }
-
-  &:focus {
-    border-color: $colorGreenM;
-    color: $colorGreenM
-  }
 }
 
 .profile__field__name {
@@ -406,6 +401,37 @@
 .profile__contact-mobile {
   display: none;
   margin-bottom: 48px;
+}
+
+.profile-changes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 28px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.57);
+  border-radius: 30px;
+}
+
+.profile-changes__title {
+  margin-bottom: 32px;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.48px;
+  color: $colorOrangeM;
+}
+
+.profile-changes__save {
+  @include buttonGreen;
+  margin-bottom: 16px;
+}
+
+.profile-changes__cancel {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  color: $colorGreenM;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 @media(max-width: 1024px) {

@@ -420,8 +420,6 @@ export default {
             this.isAutoRization = true;
             this.isModalWinLog = false;
             axios.defaults.headers.common['Authorization'] = 'JWT ' + access
-            localStorage.setItem('access', access)
-            localStorage.setItem('refresh', refresh)
             localStorage.setItem('isAutoRization', this.isAutoRization);
             location.reload()
           })
@@ -451,8 +449,6 @@ export default {
             this.isAutoRization = true;
             this.isModalWinLog = false;
             axios.defaults.headers.common['Authorization'] = 'JWT ' + access
-            localStorage.setItem('access', access)
-            localStorage.setItem('refresh', refresh)
             localStorage.setItem('isAutoRization', this.isAutoRization);
             location.reload()
           })
