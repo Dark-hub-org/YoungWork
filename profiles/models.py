@@ -3,40 +3,33 @@ from django.contrib.auth.models import User
 
 
 class Applicant(models.Model):
-    sex_choice = (
-        ('male', 'Мужчина'),
-        ('female', 'Женщина')
-    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='applicant_user')
     bio = models.TextField(null=True, blank=True)
-    date = models.DateField(null=True, blank=True)
-    profile_pic = models.ImageField(null=True, blank=True, upload_to='movies/applicant')
-    sex = models.CharField(choices=sex_choice, default='')
-    number = models.IntegerField(null=True, blank=True)
-    telegram = models.CharField(max_length=50, null=True, blank=True)
-    web = models.CharField(max_length=50, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
+    portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
 
     def __str__(self):
         return str(self.user)
+
+    class Meta:
+        verbose_name = 'Соискатель'
+        verbose_name_plural = 'Соискатель'
 
 
 class Employer(models.Model):
-    sex_choice = (
-        ('male', 'Мужчина'),
-        ('female', 'Женщина')
-    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
-                                related_name='employee_releted_user')
-    about_us = models.TextField(null=True, blank=True)
-    profile_pic = models.ImageField(null=True, blank=True, upload_to='movies/employer')
-    sex = models.CharField(choices=sex_choice, default='')
-    inn = models.CharField(max_length=50, null=True, blank=True)
-    number = models.IntegerField(null=True, blank=True)
-    telegram = models.CharField(max_length=50, null=True, blank=True)
-    web = models.CharField(max_length=50, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
+                                related_name='employer_releted_user')
+    inn = models.CharField(max_length=100)
+    title_org = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    photo_org = models.ImageField(null=True, blank=True, upload_to='movies/employer')
+    job_title = models.CharField(max_length=100)
+    status_validatio = models.CharField(max_length=100)
+    job_example = models.ImageField(null=True, blank=True, upload_to='movies/employer')
 
     def __str__(self):
         return str(self.user)
+
+    class Meta:
+        verbose_name = 'Заказчик'
+        verbose_name_plural = 'Заказчик'
