@@ -18,12 +18,12 @@ export default new VueRouter({
   base: __dirname,
   routes: [
     {path: '/', component: LandingContent},
-    {path: '/vacancy', component: VacancyContent},
+    {path: '/vacancies', component: VacancyContent},
     {path: '/vacancy-page', component: vacancyPage},
-    {path: '/create', component: createPage},
+    {path: '/create-vacancy', component: createPage},
     {path: '/create-resume', component: createResume},
-    {path: '/profile/applicant', component: Applicant},
-    {path: '/profile/employer', component: Employer},
+    {path: '/profile/applicant/', component: Applicant},
+    {path: '/profile/employer/', component: Employer},
     {path: '/profile/edit', component: UserEdit},
   ],
 });

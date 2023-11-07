@@ -42,7 +42,9 @@
             <div class="header-supernova">
               <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
               <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
-                <span class="supernova-wrapper__name" :src="user_data">{{ user_data }}</span>
+                <router-link to="/profile/applicant" tag="li" class="supernova-wrapper-item">
+                  <span class="supernova-wrapper__name" :src="user_data">{{ user_data }}</span>
+                </router-link>
                 <ul class="supernova-wrapper-list">
                   <router-link to="#" tag="li" class="supernova-wrapper-item">
                     <a href="#" class="supernova-wrapper-link">Работа</a>
@@ -281,12 +283,14 @@
               <div class="modal-form-block">
                 <label v-if="resetPasswordCurrentStep === 0" class="modal-form-name">Укажите E-mail, который вы
                   использовали при регистрации</label>
-                <label v-if="resetPasswordCurrentStep === 1" class="modal-form-name">Введите код восстановления пароля<br>
+                <label v-if="resetPasswordCurrentStep === 1" class="modal-form-name">Введите код восстановления
+                  пароля<br>
                   (письмо с кодом отправлено на указанный E-mail)</label>
                 <label v-if="resetPasswordCurrentStep === 2" class="modal-form-name">Придумайте новый пароль (минимум 8
                   символов)</label>
 
-                <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1" class="modal-wrapper-input">
+                <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1"
+                     class="modal-wrapper-input">
                   <input
                       v-model.trim="email"
                       @blur="checkEmail"
@@ -509,7 +513,7 @@ export default {
     openModalWinReg() {
       this.clearModalData();
       //
-      if(this.isModalVisSwitch === true) {
+      if (this.isModalVisSwitch === true) {
         this.isModalVisSwitch = false;
       }
       this.isModalWinReg = true;
@@ -605,6 +609,7 @@ export default {
 .modal-enter-active, .modal-leave-active {
   transition: opacity .3s;
 }
+
 .modal-enter, .modal-leave-to {
   opacity: 0;
 }
