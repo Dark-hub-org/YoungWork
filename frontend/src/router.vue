@@ -17,13 +17,13 @@ export default new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-    {path: '/', component: LandingContent},
-    {path: '/vacancies', component: VacancyContent},
-    {path: '/vacancy-page', component: vacancyPage},
-    {path: '/create-vacancy', component: createPage},
-    {path: '/create-resume', component: createResume},
-    {path: '/profile/applicant/', component: Applicant},
-    {path: '/profile/employer/', component: Employer},
+    {path: '/', component: LandingContent},//Основа
+    {path: '/vacancies', component: VacancyContent},//Все вакансии
+    {path: '/vacancy-page', component: vacancyPage},//Полный лист вакансии
+    {path: '/create-vacancy', component: createPage},//Создание вакансии
+    {path: '/create-resume', component: createResume},//Создать резюме
+    {path: '/profile/applicant/', component: Applicant},//Профиль соискателя
+    {path: '/profile/employer/', component: Employer},//Профиль работодателя
     {path: '/profile/edit', component: UserEdit},
   ],
 });

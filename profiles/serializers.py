@@ -19,3 +19,9 @@ class EmployerDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer
         fields = "__all__"
+
+
+class EmployerDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employer
+        fields = "__all__"

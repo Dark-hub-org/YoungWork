@@ -46,17 +46,17 @@
                   <span class="supernova-wrapper__name" :src="user_data">{{ user_data }}</span>
                 </router-link>
                 <ul class="supernova-wrapper-list">
-                  <router-link to="#" tag="li" class="supernova-wrapper-item">
-                    <a href="#" class="supernova-wrapper-link">Работа</a>
+                  <router-link to="/vacancies" tag="li" class="supernova-wrapper-item">
+                    <a href="/vacancies" class="supernova-wrapper-link">Работа</a>
                   </router-link>
                   <li class="supernova-wrapper-item">
                     <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
                       <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
-                      <router-link to="#" tag="li">
-                        <a href="#" class="supernova-sublist-title">Найти задание</a>
+                      <router-link to="/vacancies" tag="li">
+                        <a href="/vacancies" class="supernova-sublist-title">Найти задание</a>
                       </router-link>
-                      <router-link to="#" tag="li">
-                        <a href="#" class="supernova-sublist-title">Создать задание</a>
+                      <router-link to="/create-vacancy" tag="li">
+                        <a href="/create-vacancy" class="supernova-sublist-title">Создать задание</a>
                       </router-link>
                     </ul>
                   </li>
