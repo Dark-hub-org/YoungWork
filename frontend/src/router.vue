@@ -19,7 +19,7 @@ export default new VueRouter({
     {path: '/', component: LandingContent},
     {path: '/vacancy', component: VacancyContent},
     {path: '/vacancy-page', component: vacancyPage},
-    {path: '/create', component: createPage},
+    {path: '/create-vacancy', component: createPage},
     {path: '/create-resume', component: createResume},
     {path: '/profile/applicant', component: Applicant},
     {path: '/profile/employer', component: Employer},

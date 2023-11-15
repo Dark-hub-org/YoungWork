@@ -47,32 +47,32 @@
   display: flex;
   flex-direction: column;
   width: 319px;
+}
 
-  .modal-form-block {
-    display: flex;
-    flex-direction: column;
+.modal-form-block {
+  display: flex;
+  flex-direction: column;
+}
 
-    .modal-form-name {
-      margin-bottom: 5px;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 20px;
-    }
-  }
+.modal-form-name {
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
 
-  .modal-form-block:not(:last-of-type) {
-    margin-bottom: 20px;
-  }
+.modal-form-block:not(:last-of-type) {
+  margin-bottom: 20px;
+}
 
-  .modal-form__submit {
-    margin: 40px 0;
-  }
+.modal-form__submit {
+  margin: 40px 0;
+}
 
-  .modal-form-login {
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 22px;
-  }
+.modal-form-login {
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 .modal-form__input {
@@ -97,17 +97,17 @@
 
 .modal-form__password-wrapper {
   position: relative;
+}
 
-  .modal-form__hide {
-    z-index: 2;
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    transition: transform .2s ease-in-out;
+.modal-form__hide {
+  z-index: 2;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  transition: transform .2s ease-in-out;
 
-    &:hover {
-      transform: scale(1.2);
-    }
+  &:hover {
+    transform: scale(1.2);
   }
 }
 
@@ -149,16 +149,16 @@
 .modal-reg-step-two {
   display: flex;
   flex-direction: column;
+}
 
-  .modal-form-label {
-    text-align: center;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 20px;
+.modal-form-label {
+  text-align: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
 
-    &:first-child {
-      margin-bottom: 5px;
-    }
+  &:first-child {
+    margin-bottom: 5px;
   }
 }
 

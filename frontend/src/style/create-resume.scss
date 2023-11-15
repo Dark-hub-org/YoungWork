@@ -36,17 +36,23 @@
     max-width: 1189px;
     height: 73px;
     padding: 20px;
-    border: 2px solid $colorGreenM;
+    border: 2px solid $colorInputBorder;
     border-radius: 16px;
     font-size: 24px;
     font-weight: 400;
+    color: $colorGrey;
 
     &::placeholder {
       font-size: 24px;
       font-weight: 400;
       line-height: 29px;
       letter-spacing: -1.2px;
-      color: #DFDFDF;
+      color: $colorInputBorder;
+    }
+
+    &:focus {
+      border-color: $colorGreenM;
+      color:  $colorGreenM;
     }
   }
 

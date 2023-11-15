@@ -41,7 +41,7 @@
                 id="employ-2"
                 v-model="resumeEmploy"
                 @change="isErrorEmploy = false"
-                >
+            >
             <label
                 for="employ-2"
                 class="create-resume-filter-label check"
@@ -90,6 +90,89 @@
             Пожалуйста, заполните поле
           </p>
         </div>
+        <div class="create-resume__wrapper">
+          <p class="create-resume__name-filter">Укажите опыт работы:</p>
+          <div class="create-resume__block">
+            <input v-model="resumeExperience" type="radio" name="exp" value="noExp" class="create-resume__input"
+                   id="exp-4" checked>
+            <label for="exp-4" class="create-resume-filter-label radio">Нет опыта</label>
+          </div>
+          <div class="create-resume__block">
+            <input v-model="resumeExperience" type="radio" name="exp" value="1-3" class="create-resume__input"
+                   id="exp-2">
+            <label for="exp-2" class="create-resume-filter-label radio">от 1 года до 3 лет</label>
+          </div>
+          <div class="create-resume__block">
+            <input v-model="resumeExperience" type="radio" name="exp" value="3-6" class="create-resume__input"
+                   id="exp-3">
+            <label for="exp-3" class="create-resume-filter-label radio">От 3 до 6 лет</label>
+          </div>
+        </div>
+        <div class="create-resume__wrapper">
+          <p class="create-resume__name-filter">Тип занятости</p>
+          <div class="create-resume__block">
+            <input
+                type="checkbox"
+                value="FullDay"
+                class="create-resume__input"
+                id="graph-1"
+                v-model="resumeGraph"
+                checked>
+            <label
+                for="graph-1"
+                class="create-resume-filter-label check"
+                >Полный день</label>
+          </div>
+          <div class="create-resume__block">
+            <input
+                type="checkbox"
+                value="distantWork"
+                class="create-resume__input"
+                id="graph-2"
+                v-model="resumeGraph"
+            >
+            <label
+                for="graph-2"
+                class="create-resume-filter-label check"
+                >Удаленная работа</label>
+          </div>
+          <div class="create-resume__block">
+            <input
+                type="checkbox"
+                value="ShiftSchedule"
+                class="create-resume__input"
+                id="graph-3"
+                v-model="resumeGraph">
+            <label
+                for="graph-3"
+                class="create-resume-filter-label check"
+                >Сменный график</label>
+          </div>
+          <div class="create-resume__block">
+            <input
+                type="checkbox"
+                value="FlexibleSchedule"
+                class="create-resume__input"
+                id="graph-4"
+                v-model="resumeGraph">
+            <label
+                for="graph-4"
+                class="create-resume-filter-label check"
+                >Гибкий график</label>
+          </div>
+          <div class="create-resume__block">
+            <input
+                type="checkbox"
+                value="ShiftMethod"
+                class="create-resume__input"
+                id="graph-5"
+                v-model="resumeGraph">
+            <label
+                for="graph-5"
+                class="create-resume-filter-label check"
+                >Вахтовый метод</label>
+          </div>
+        </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">Ключевые навыки:</h3>
           <input
@@ -101,16 +184,13 @@
               @keyup.enter="addTagsSkills">
           <div class="create-resume__tags-wrapper">
             <div class="create-resume__tag" v-for="item in skillsTags" :key="item">
-              <span class="create-resume__tag-text">{{item}}</span>
+              <span class="create-resume__tag-text">{{ item }}</span>
               <button
                   type="button"
                   class="create-resume__tag-btn"
                   @click="deleteSkill(item)"></button>
             </div>
           </div>
-<!--          <p v-if="isErrorSkills" class="create-resume__error">-->
-<!--            Пожалуйста, заполните поле-->
-<!--          </p>-->
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">Ваши качества:</h3>
@@ -123,13 +203,10 @@
               @keyup.enter="addTagsQuality">
           <div class="create-resume__tags-wrapper">
             <div class="create-resume__tag" v-for="item in qualityTags" :key="item">
-              <span class="create-resume__tag-text">{{item}}</span>
+              <span class="create-resume__tag-text">{{ item }}</span>
               <button type="button" class="create-resume__tag-btn" @click="deleteQuality(item)"></button>
             </div>
           </div>
-<!--          <p v-if="isErrorQuality" class="create-resume__error">-->
-<!--            Пожалуйста, заполните поле-->
-<!--          </p>-->
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">О вас:</h3>
@@ -141,22 +218,6 @@
           <p v-if="isErrorAbout" class="create-resume__error">
             Пожалуйста, заполните поле
           </p>
-        </div>
-        <div class="create-resume__wrapper">
-          <p class="create-resume__name-filter">Укажите опыт работы:</p>
-          <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="noExp" class="create-resume__input"
-                   id="exp-4" checked>
-            <label for="exp-4" class="create-resume-filter-label radio">Нет опыта</label>
-          </div>
-          <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="1-3" class="create-resume__input" id="exp-2">
-            <label for="exp-2" class="create-resume-filter-label radio">от 1 года до 3 лет</label>
-          </div>
-          <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="3-6" class="create-resume__input" id="exp-3">
-            <label for="exp-3" class="create-resume-filter-label radio">От 3 до 6 лет</label>
-          </div>
         </div>
         <div class="create-resume-block__wrapper">
           <h3 class="create-resume-block__title">Как с вами можно связаться:</h3>
@@ -214,16 +275,6 @@
           </div>
           <p v-if="isErrorContact" class="create-resume__error">Пожалуйста, заполните поле</p>
         </div>
-<!--        <div class="create-resume-block__wrapper">-->
-<!--          <p class="create-resume-block__title">Добавьте фото:</p>-->
-<!--          <div class="upload-image">-->
-<!--            <div class="upload-image__wrapper">-->
-<!--              <input type="file" name="image" class="upload-image-input">-->
-<!--              <div class="upload-image__cross"></div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <p class="upload-image__description">Рекомендуемый размер 80х80</p>-->
-<!--        </div>-->
         <button @click.prevent="submitForm" type="button" class="create-resume__submit">Опубликовать</button>
       </form>
     </div>
@@ -233,6 +284,7 @@
 <script>
 import Vue from "vue";
 import VueTheMask from 'vue-the-mask';
+
 Vue.use(VueTheMask);
 
 Vue.directive('restrict-input-length', {
@@ -255,6 +307,8 @@ export default {
 
       resumeEmploy: ['fullEmploy'],
       isErrorEmploy: false,
+
+      resumeGraph: [],
 
       resumeSkill: '',
       skillsTags: [],
@@ -280,24 +334,22 @@ export default {
   },
   methods: {
     submitForm() {
-      if(this.resumeName === '') {
+      if (this.resumeName === '') {
         this.isErrorName = true;
       }
-      if(this.resumeEmploy.length === 0) {
+      if (this.resumeEmploy.length === 0) {
         this.isErrorEmploy = true
       }
-      if(this.resumePhoneNumber.length === 0 && this.resumeEmail.length === 0 && this.resumeTelegram.length === 0 && this.resumeSite.length === 0) {
+      if (this.resumePhoneNumber.length === 0 && this.resumeEmail.length === 0 && this.resumeTelegram.length === 0 && this.resumeSite.length === 0) {
         this.isErrorContact = true
       }
     },
     addTagsSkills() {
-      if(this.resumeSkill === '') {
+      if (this.resumeSkill === '') {
         return
-      }
-      else if(this.skillsTags.includes(this.resumeSkill.toLowerCase())){
+      } else if (this.skillsTags.includes(this.resumeSkill.toLowerCase())) {
         return
-      }
-      else {
+      } else {
         this.skillsTags.push(this.resumeSkill.toLowerCase())
         this.resumeSkill = '';
       }
@@ -306,13 +358,11 @@ export default {
       this.skillsTags = this.skillsTags.filter((item) => item !== skill)
     },
     addTagsQuality() {
-      if(this.resumeQuality === '') {
+      if (this.resumeQuality === '') {
         return
-      }
-      else if(this.qualityTags.includes(this.resumeQuality.toLowerCase())){
+      } else if (this.qualityTags.includes(this.resumeQuality.toLowerCase())) {
         return
-      }
-      else {
+      } else {
         this.qualityTags.push(this.resumeQuality.toLowerCase())
         this.resumeQuality = '';
       }
@@ -321,11 +371,8 @@ export default {
       this.qualityTags = this.skillsTags.filter((item) => item !== skill)
     },
   },
-  computed: {
-  },
-  watch: {
-
-  }
+  computed: {},
+  watch: {}
 }
 </script>
 
