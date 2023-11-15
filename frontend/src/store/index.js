@@ -21,9 +21,11 @@ export default new Vuex.Store({
         },
         setAccess(state, access){
             state.access = access
+            localStorage.setItem('access', access)
         },
         setRefresh(state, refresh){
             state.refresh = refresh
+            localStorage.setItem('refresh', refresh)
         }
     },
     actions: {},

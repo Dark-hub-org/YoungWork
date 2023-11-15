@@ -1,88 +1,96 @@
 <template>
-  <user-profile :userData="applicantData" :buttonText="buttonText" :placeholders="placeholders">
+  <user-profile :userData="applicantData" :profileText="profileText" :userAge="userAge">
     <template v-slot:twoTub>
       <div class="profile__block data block__full-name">
         <div class="profile__field">
           <p class="profile__field__name">Фамилия:</p>
-          <input v-model="applicantData.lastname" type="text" class="profile__input">
+          <div class="profile__value">
+            <p class="profile__value-text">{{applicantData.lastname}}</p>
+          </div>
+<!--          <input v-model="applicantData.lastname" type="text" class="profile__data">-->
         </div>
         <div class="profile__field">
           <p class="profile__field__name">Имя:</p>
-          <input v-model.trim="applicantData.firstname" type="text" class="profile__input">
+          <div class="profile__value">
+            <p class="profile__value-text">{{applicantData.firstname}}</p>
+          </div>
+<!--          <input v-model.trim="applicantData.firstname" type="text" class="profile__data">-->
         </div>
-        <button type="button" class="profile__btn-edit field"></button>
+        <div class="profile__field">
+          <p class="profile__field__name">Отчество:</p>
+          <div class="profile__value">
+            <p class="profile__value-text">{{applicantData.patronymic}}</p>
+          </div>
+<!--          <input v-model.trim="applicantData.patronymic" type="text" class="profile__data">-->
+        </div>
       </div>
       <div class="profile__block">
         <div class="profile__field">
           <p class="profile__field__name">Дата рождения:</p>
-          <input v-model="applicantData.birthday" type="text" class="profile__input" v-mask="'##/##/####'">
+          <div class="profile__value">
+            <p class="profile__value-text" v-mask="'##/##/####'">{{applicantData.birthday}}</p>
+          </div>
+<!--          <input v-model="applicantData.birthday" type="text" class="profile__data" v-mask="'##/##/####'">-->
         </div>
       </div>
       <div class="profile__block">
         <div class="profile__field">
           <p class="profile__field__name">Пол:</p>
-          <div class="profile__radio-wrapper">
-            <input v-model="applicantData.sex" type="radio" name="exp" value="men" class="profile__radio"
-                   id="men"
-                   checked>
-            <label for="men" class="profile-filter-label">Мужской</label>
+          <div class="profile__value">
+            <p class="profile__value-text">
+              <template v-if="applicantData.sex === 'men'">
+                Мужской
+              </template>
+              <template v-else-if="applicantData.sex === 'women'">
+                Женский
+              </template>
+              <template v-else>
+                Не заданно
+              </template>
+            </p>
           </div>
-          <div class="profile__radio-wrapper">
-            <input v-model="applicantData.sex" type="radio" name="exp" value="women" class="profile__radio"
-                   id="women">
-            <label for="women" class="profile-filter-label">Женщина</label>
+        </div>
+      </div>
+<!--      <div class="profile__block">-->
+<!--        <div class="profile__field">-->
+<!--          <p class="profile__field__name">Пол:</p>-->
+<!--          <div class="profile__radio-wrapper">-->
+<!--            <input v-model="applicantData.sex" type="radio" name="exp" value="men" class="profile__radio"-->
+<!--                   id="men"-->
+<!--                   checked>-->
+<!--            <label for="men" class="profile-filter-label">Мужской</label>-->
+<!--          </div>-->
+<!--          <div class="profile__radio-wrapper">-->
+<!--            <input v-model="applicantData.sex" type="radio" name="exp" value="women" class="profile__radio"-->
+<!--                   id="women">-->
+<!--            <label for="women" class="profile-filter-label">Женщина</label>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="profile__block data start">
+        <div class="profile__field">
+          <p class="profile__field__name">Гражданство:</p>
+          <div class="profile__value">
+            <p class="profile__value-text">{{applicantData.citizenship}}</p>
           </div>
+<!--          <input v-model="applicantData.citizenship" type="text" class="profile__data">-->
         </div>
       </div>
       <div class="profile__block data start">
         <div class="profile__field">
           <p class="profile__field__name">Регион:</p>
-          <input v-model="applicantData.region" type="text" class="profile__input">
+          <div class="profile__value">
+            <p class="profile__value-text">{{applicantData.region}}</p>
+          </div>
+<!--          <input v-model="applicantData.region" type="text" class="profile__data">-->
         </div>
         <div class="profile__field">
           <p class="profile__field__name">Город проживания:</p>
-          <input v-model="applicantData.city" type="text" class="profile__input">
+          <div class="profile__value">
+            <p class="profile__value-text">{{applicantData.city}}</p>
+          </div>
+<!--          <input v-model="applicantData.city" type="text" class="profile__data">-->
         </div>
-        <button type="button" class="profile__btn-edit field"></button>
-      </div>
-      <div class="profile__block data">
-        <div class="profile__field contact">
-          <p class="profile__field__name">Контакты:</p>
-          <img
-              src="@/assets/phone-icon.svg"
-              alt="иконка телефона"
-              class="profile__connection__img">
-          <input
-              v-mask="'+7 (###) ### ##-##'"
-              placeholder="Номер телефона"
-              class="profile__input connect"
-              v-model="applicantData.contact.telephone"/>
-        </div>
-        <div class="profile__field contact">
-          <img
-              src="@/assets/email-icon.svg"
-              alt="иконка e-mail"
-              class="profile__connection__img">
-          <input type="text" class="profile__input connect" placeholder="Адрес эл.почты"
-                 v-model.trim="applicantData.contact.email">
-        </div>
-        <div class="profile__field contact">
-          <img
-              src="@/assets/telegram-icon.svg"
-              alt="иконка телеграмма"
-              class="profile__connection__img">
-          <input type="text" class="profile__input connect" placeholder="Telegram"
-                 v-model="applicantData.contact.telegram">
-        </div>
-        <div class="profile__field contact">
-          <img
-              src="@/assets/link-icon.svg"
-              alt="иконка ссылки"
-              class="profile__connection__img">
-          <input type="text" class="profile__input connect" placeholder="Личный сайт"
-                 v-model.trim="applicantData.contact.website">
-        </div>
-        <button type="button" class="profile__btn-edit field "></button>
       </div>
     </template>
   </user-profile>
@@ -100,20 +108,24 @@ export default {
   components: {UserProfile},
   data() {
     return {
-      buttonText: 'Личные данные',
-      placeholders: {
-        about: 'Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя',
-        aboutWork: 'Описание выполненных работ',
+      profileText: {
+        buttonText: 'Личные данные',
+        placeholders: {
+          about: 'Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя',
+          aboutWork: 'Описание выполненных работ',
+        },
+        portfolioTitle: 'Примеры выполненных работ:',
       },
       applicantData: {
-        firstname: '',
-        lastname: '',
-        birthday: '',
+        firstname: 'Максим',
+        lastname: 'Кирюшин',
+        patronymic: 'Евгеньвич',
+        birthday: '10/04/2004',
         sex: '',
+        citizenship: '',
         region: '',
         city: '',
         photo: '',
-        patronymic: '',
         about: '',
         aboutWork: '',
         portfolio: [
@@ -128,6 +140,13 @@ export default {
           website: 'https://dprofile.ru/andreeva_design',
         }
       },
+    }
+  },
+  computed: {
+    userAge() {
+      const birthYear = new Date(this.applicantData.birthday).getFullYear()
+      const nowYear = new Date().getFullYear()
+      return nowYear - birthYear
     }
   }
 }

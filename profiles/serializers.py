@@ -9,7 +9,19 @@ class ApplicantDataSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ApplicantDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Applicant
+        fields = "__all__"
+
+
 class EmployerDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employer
+        fields = "__all__"
+
+
+class EmployerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer
         fields = "__all__"

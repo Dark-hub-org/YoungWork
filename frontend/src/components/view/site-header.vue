@@ -42,19 +42,21 @@
             <div class="header-supernova">
               <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
               <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
-                <span class="supernova-wrapper__name" :src="user_data">{{ user_data }}</span>
+                <router-link to="/profile/applicant" tag="li" class="supernova-wrapper-item">
+                  <span class="supernova-wrapper__name" :src="user_data">{{ user_data }}</span>
+                </router-link>
                 <ul class="supernova-wrapper-list">
-                  <router-link to="#" tag="li" class="supernova-wrapper-item">
-                    <a href="#" class="supernova-wrapper-link">Работа</a>
+                  <router-link to="/vacancies" tag="li" class="supernova-wrapper-item">
+                    <a href="/vacancies" class="supernova-wrapper-link">Работа</a>
                   </router-link>
                   <li class="supernova-wrapper-item">
                     <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
                       <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
-                      <router-link to="#" tag="li">
-                        <a href="#" class="supernova-sublist-title">Найти задание</a>
+                      <router-link to="/vacancies" tag="li">
+                        <a href="/vacancies" class="supernova-sublist-title">Найти задание</a>
                       </router-link>
-                      <router-link to="#" tag="li">
-                        <a href="#" class="supernova-sublist-title">Создать задание</a>
+                      <router-link to="/create-vacancy" tag="li">
+                        <a href="/create-vacancy" class="supernova-sublist-title">Создать задание</a>
                       </router-link>
                     </ul>
                   </li>
@@ -281,12 +283,14 @@
               <div class="modal-form-block">
                 <label v-if="resetPasswordCurrentStep === 0" class="modal-form-name">Укажите E-mail, который вы
                   использовали при регистрации</label>
-                <label v-if="resetPasswordCurrentStep === 1" class="modal-form-name">Введите код восстановления пароля<br>
+                <label v-if="resetPasswordCurrentStep === 1" class="modal-form-name">Введите код восстановления
+                  пароля<br>
                   (письмо с кодом отправлено на указанный E-mail)</label>
                 <label v-if="resetPasswordCurrentStep === 2" class="modal-form-name">Придумайте новый пароль (минимум 8
                   символов)</label>
 
-                <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1" class="modal-wrapper-input">
+                <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1"
+                     class="modal-wrapper-input">
                   <input
                       v-model.trim="email"
                       @blur="checkEmail"
@@ -420,8 +424,6 @@ export default {
             this.isAutoRization = true;
             this.isModalWinLog = false;
             axios.defaults.headers.common['Authorization'] = 'JWT ' + access
-            localStorage.setItem('access', access)
-            localStorage.setItem('refresh', refresh)
             localStorage.setItem('isAutoRization', this.isAutoRization);
             location.reload()
           })
@@ -451,8 +453,6 @@ export default {
             this.isAutoRization = true;
             this.isModalWinLog = false;
             axios.defaults.headers.common['Authorization'] = 'JWT ' + access
-            localStorage.setItem('access', access)
-            localStorage.setItem('refresh', refresh)
             localStorage.setItem('isAutoRization', this.isAutoRization);
             location.reload()
           })
@@ -513,7 +513,7 @@ export default {
     openModalWinReg() {
       this.clearModalData();
       //
-      if(this.isModalVisSwitch === true) {
+      if (this.isModalVisSwitch === true) {
         this.isModalVisSwitch = false;
       }
       this.isModalWinReg = true;
@@ -609,6 +609,7 @@ export default {
 .modal-enter-active, .modal-leave-active {
   transition: opacity .3s;
 }
+
 .modal-enter, .modal-leave-to {
   opacity: 0;
 }
