@@ -477,6 +477,7 @@ export default {
       localStorage.removeItem('access')
       localStorage.removeItem('refresh')
       localStorage.removeItem('isAutoRization')
+      this.$router.push('/')
       location.reload()
     },
     refreshPassword() {

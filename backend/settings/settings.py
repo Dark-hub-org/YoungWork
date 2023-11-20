@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'profiles',
     'jobs',
     'summary',
+    'damp',
 ]
 
 MIDDLEWARE = [
