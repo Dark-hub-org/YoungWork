@@ -128,9 +128,7 @@ export default {
       this.isFilterVisible = false
     },
   },
-  computed: {
-
-  },
+  computed: {},
 }
 
 </script>

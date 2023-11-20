@@ -17,5 +17,10 @@ urlpatterns = [
                   path('api/v1/', include('djoser.urls.jwt')),
                   path('', include('profiles.urls')),
                   path('', include('jobs.urls')),
-                  path('', include('summary.urls'))
+                  path('', include('summary.urls')),
+                  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'media')}),
+                  re_path(r'^img/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'img')}),
+                  re_path(r'^js/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'js')}),
+                  re_path(r'^css/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'css')}),
+                  re_path(r'^fonts/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'fonts')}),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_URL)

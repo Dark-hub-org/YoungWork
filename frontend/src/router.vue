@@ -15,7 +15,7 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
   mode: 'history',
-  base: __dirname,
+  base: process.env.BASE_URL,
   routes: [
     {path: '/', component: LandingContent},//Основа
     {path: '/vacancies', component: VacancyContent},//Все вакансии
@@ -24,7 +24,7 @@ export default new VueRouter({
     {path: '/create-resume', component: createResume},//Создать резюме
     {path: '/profile/applicant/', component: Applicant},//Профиль соискателя
     {path: '/profile/employer/', component: Employer},//Профиль работодателя
-    {path: '/profile/edit', component: UserEdit},
+    {path: '/profile/edit', component: UserEdit},//Редактирование профиля
   ],
 });
 </script>
