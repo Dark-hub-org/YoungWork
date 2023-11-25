@@ -14,9 +14,6 @@
           :class="{active: isMenuActive}"
           class="header-nav">
         <ul class="header-nav__list">
-          <li class="header-nav__list-item" v-for="breadcrumb in breadcrumbs" :key="breadcrumb.url">
-            <a :src="breadcrumbs">{{ breadcrumb.title }}</a>
-          </li>
           <li class="header-nav__list-item">
             <button type="button" class="header-btn button-orange">Услуги</button>
           </li>
@@ -328,7 +325,7 @@
                   </label>
                 </div>
               </div>
-              <button type="button" @click.stop="resetPasswordCurrentStep++"
+              <button type="button" @click.stop="refreshPassword()"
                       class="modal-form__submit button-orange-another">Далее
               </button>
             </form>
@@ -477,8 +474,8 @@ export default {
       localStorage.removeItem('access')
       localStorage.removeItem('refresh')
       localStorage.removeItem('isAutoRization')
-      this.$router.push('/')
       location.reload()
+      this.$router.push('/')
     },
     refreshPassword() {
       const presentUser = {
