@@ -2,7 +2,7 @@
   <section class="profile">
     <div class="profile__wrapper wrapper">
       <div class="profile__left">
-        <template v-if="!isProfileEdit">
+        <template v-if="!this.$store.state.isProfileEdit">
           <div class="profile__top">
             <div class="profile__photo-wrapper">
               <div
@@ -23,7 +23,7 @@
                 <template v-if="userData.city">{{userData.city}}</template>
                 <template v-else>город не заполнен</template>
               </p>
-              <button @click="isProfileEdit = true" class="profile__data-edit">Редактировать профиль</button>
+              <button @click="openEditProfile" class="profile__data-edit">Редактировать профиль</button>
             </div>
           </div>
           <div class="profile__line"></div>
@@ -73,12 +73,11 @@
         </template>
         <template v-else>
           <user-edit>
-
           </user-edit>
         </template>
       </div>
       <aside class="profile-side">
-        <template v-if="!isProfileEdit">
+        <template v-if="!this.$store.state.isProfileEdit">
           <user-contacts :userContact="userData.contact" class="contact-desktop"></user-contacts>
           <slot name="verification"></slot>
         </template>
@@ -86,7 +85,7 @@
           <div class="profile-changes">
             <p class="profile-changes__title">Вы в режиме редактирования</p>
             <button class="profile-changes__save">Сохранить </button>
-            <button class="profile-changes__cancel">Отменить изменения</button>
+            <button @click="closeEditProfile" class="profile-changes__cancel">Отменить изменения</button>
           </div>
         </template>
       </aside>
@@ -120,7 +119,6 @@ export default {
     return {
       applicantStab: 1,
       localUserData: this.userData,
-      isProfileEdit: false,
     }
   },
   methods: {
@@ -152,6 +150,12 @@ export default {
     onCloseModalWin() {
       this.modalVisible = false
     },
+    openEditProfile() {
+      this.$store.commit('editISProfileEdit', true)
+    },
+    closeEditProfile() {
+      this.$store.commit('editISProfileEdit', false)
+    }
   },
   mounted() {
     for (let key in localStorage) {

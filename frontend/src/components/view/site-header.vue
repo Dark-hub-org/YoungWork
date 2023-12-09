@@ -14,9 +14,6 @@
           :class="{active: isMenuActive}"
           class="header-nav">
         <ul class="header-nav__list">
-          <li class="header-nav__list-item" v-for="breadcrumb in breadcrumbs" :key="breadcrumb.url">
-            <a :src="breadcrumbs">{{ breadcrumb.title }}</a>
-          </li>
           <li class="header-nav__list-item">
             <button type="button" class="header-btn button-orange">Услуги</button>
           </li>
