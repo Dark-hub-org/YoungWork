@@ -3,7 +3,7 @@ from datetime import timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-SECRET_KEY = 'django-insecure-7&3ue(5x^c@nf#i=asdfasdfasdfasdfqwerweqgxZDfasergxcvbwl#i3'
+SECRET_KEY = 'django-insecure-7&3ue(5x^c@nf#i=asasdfasdf234-908ijhs-9weh84h56tnb-dsz9[ugbn3q4-58fasergxcvbwl#i3'
 
 DEBUG = True
 

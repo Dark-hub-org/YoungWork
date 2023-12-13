@@ -92,25 +92,25 @@
             <p class="modal-title">Регистрация</p>
             <form @submit.prevent="submitFormReg" class="modal-form">
               <div v-if="ModalWinRegCurrentStep === 0">
-                <div class="modal-form-block">
-                  <label class="modal-form-name">Имя</label>
-                  <div class="modal-wrapper-input">
-                    <input
-                        v-model.trim="first_name"
-                        @input="isEmptyName = false"
-                        type="text"
-                        class="modal-form__input"
-                        :class="{error: isEmptyName}">
-                    <template v-if="isEmptyName">
-                      <div class="icon-error">
-                      </div>
-                      <label
-                          class="modal-input-error">
-                        Пожалуйста, заполните поле
-                      </label>
-                    </template>
-                  </div>
-                </div>
+<!--                <div class="modal-form-block">-->
+<!--                  <label class="modal-form-name">Имя</label>-->
+<!--                  <div class="modal-wrapper-input">-->
+<!--                    <input-->
+<!--                        v-model.trim="first_name"-->
+<!--                        @input="isEmptyName = false"-->
+<!--                        type="text"-->
+<!--                        class="modal-form__input"-->
+<!--                        :class="{error: isEmptyName}">-->
+<!--                    <template v-if="isEmptyName">-->
+<!--                      <div class="icon-error">-->
+<!--                      </div>-->
+<!--                      <label-->
+<!--                          class="modal-input-error">-->
+<!--                        Пожалуйста, заполните поле-->
+<!--                      </label>-->
+<!--                    </template>-->
+<!--                  </div>-->
+<!--                </div>-->
                 <div class="modal-form-block">
                   <label class="modal-form-name">Электронная почта</label>
                   <div class="modal-wrapper-input">
@@ -360,7 +360,7 @@ export default {
       username: '',
       password: '',
       user_data: '',
-      first_name: '',
+      // first_name: '',
 
       isCheckEmail: true,
       isCheckPassword: true,
@@ -390,11 +390,10 @@ export default {
   },
   methods: {
     submitFormReg() {
-      if (this.isEmptyEmail || !this.isCheckEmail || this.isEmptyPassword || !this.isCheckPassword || this.isEmptyName) {
+      if (this.isEmptyEmail || !this.isCheckEmail || this.isEmptyPassword || !this.isCheckPassword) {
         return
       }
       const presentUser = {
-        first_name: this.first_name,
         email: this.username,
         username: this.username,
         password: this.password,
