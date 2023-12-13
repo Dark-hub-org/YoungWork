@@ -7,6 +7,7 @@ export default new Vuex.Store({
     state: {
         access: '',
         refresh: '',
+        isProfileEdit: false,
     },
     getters: {},
     mutations: {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
         setRefresh(state, refresh){
             state.refresh = refresh
             localStorage.setItem('refresh', refresh)
+        },
+        editISProfileEdit(state, newVal) {
+            state.isProfileEdit = newVal
         }
     },
     actions: {},
