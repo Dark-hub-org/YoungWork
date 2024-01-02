@@ -1,9 +1,8 @@
 from rest_framework.response import Response
-from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import DampUser
 from rest_framework import status
-from .serializers import *
+from .serializers import DampUserDataSerializer, DampUserDetailSerializer
 
 
 class DRFDampUserDataView(APIView):
@@ -15,9 +14,12 @@ class DRFDampUserDataView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
-        applicant = DampUser.objects.all()
-        serializer = DampUserDataSerializer(applicant, many=True)
-        return Response(serializer.data)
+        damp = DampUser.objects.all()
+        serializer = DampUserDataSerializer(damp, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class DRFDampUserDetailView(APIView):

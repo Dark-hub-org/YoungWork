@@ -8,7 +8,6 @@ SECRET_KEY = 'django-insecure-7&3ue(5x^c@nf#i=asasdfasdf234-908ijhs-9weh84h56tnb
 DEBUG = True
 
 ALLOWED_HOSTS = []
-REDIS_HOST = 'localhost'
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://127.0.0.1:8000']
 
@@ -112,5 +111,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-REDIS_PORT = 6379

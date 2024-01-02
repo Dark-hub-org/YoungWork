@@ -14,7 +14,14 @@ class DampUser(models.Model):
     last_name = models.CharField(max_length=20, default='')
     surname = models.CharField(max_length=20, default='')
     gender = models.CharField(choices=gender, default='')
-    birthday = models.DateField(default='2009-02-11')
+    birthday = models.DateField(default='1999-01-01')
     citizenship = models.CharField(max_length=20, default='')
     region = models.CharField(max_length=20, default='')
     city = models.CharField(max_length=20, default='')
+
+    def __str__(self):
+        return str(self.user_id)
+
+    class Meta:
+        verbose_name = 'Пользователи'
+        verbose_name_plural = 'Пользователи'
