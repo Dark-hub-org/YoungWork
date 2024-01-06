@@ -20,21 +20,18 @@ class Vacancies(models.Model):
         ('3to6', 'от 3 до 6 лут'),
         ('6up', 'Более 6 лет'),
     )
-    user_id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
-                                   related_name='vacancies_user')
-    job_title = models.CharField(max_length=100, default='')
-    description = models.CharField(max_length=100, default='')
-    salary_min = models.CharField(max_length=100, default='')
-    salary_max = models.CharField(max_length=100, default='')
-    tax = models.CharField(choices=tax_choice, default='')
-    type = models.CharField(choices=type_choice, default='')
+    job_title = models.CharField(blank=True, max_length=100, default='')
+    description = models.CharField(blank=True, max_length=100, default='')
+    salary_min = models.CharField(blank=True, max_length=100, default='')
+    salary_max = models.CharField(blank=True, max_length=100, default='')
+    tax = models.CharField(blank=True, choices=tax_choice, default='')
+    type = models.CharField(blank=True, choices=type_choice, default='')
     logo = models.ImageField(null=True, blank=True, upload_to='movies/vacancies')
-    required_experience = models.CharField(choices=required_experience, default='')
-    requirements = models.CharField(max_length=100, default='')
-    employer_id = models.ForeignKey(Employer, on_delete=models.CASCADE, default='')
+    required_experience = models.CharField(blank=True, choices=required_experience, default='')
+    requirements = models.CharField(blank=True, max_length=100, default='')
 
     def __str__(self):
-        return str(self.user_id)
+        return str(self.job_title)
 
     class Meta:
         verbose_name = 'Вакансия'
