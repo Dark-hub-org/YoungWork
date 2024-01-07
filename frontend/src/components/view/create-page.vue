@@ -13,7 +13,7 @@
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Напишите название вакансии:</span>
           <input
-              v-model.trim="nameVacancy"
+              v-model.trim="vacancy_title"
               v-restrict-input-length="120"
               type="text"
               class="parameters-form__wrapper__text"
@@ -21,9 +21,9 @@
         </div>
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Уровень заработной платы:</span>
-          <input v-model.number="levelSalMin" type="number" class="parameters-form__wrapper__text small margin-bottom"
+          <input v-model.number="salary_min" type="number" class="parameters-form__wrapper__text small margin-bottom"
                  placeholder="От">
-          <input v-model.number="levelSalMax" type="number" class="parameters-form__wrapper__text small margin-bottom"
+          <input v-model.number="salary_max" type="number" class="parameters-form__wrapper__text small margin-bottom"
                  placeholder="До">
           <div class="parameters-filter__block">
             <input v-model="isSalaryTask" type="radio" value="beforeTax" name="salary" class="parameters-filter__input"
@@ -104,7 +104,8 @@
             <label for="graph-3" class="parameters-filter-label check">Сменный график</label>
           </div>
           <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-4" value="FlexibleSchedule">
+            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-4"
+                   value="FlexibleSchedule">
             <label for="graph-4" class="parameters-filter-label check">Гибкий график</label>
           </div>
           <div class="parameters-filter__block employ">
@@ -147,9 +148,6 @@ export default {
         toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
       },
       editorData: '',
-      nameVacancy: '',
-      levelSalMin: null,
-      levelSalMax: null,
       isSalaryTask: "beforeTax",
       employ: 'fullEmploy',
       experience: '0',
@@ -161,24 +159,25 @@ export default {
       companyPost: '',
       companyPerson: '',
 
+      vacancy_title: '',
+      salary_min: '',
+      salary_max: '',
+      type: '',
+      logo: '',
     }
   },
   methods: {
     create_vacancy() {
       const vacancy = {
-        vacancy_title: this.nameVacancy,
-        salary_min: this.levelSalMin,
-        salary_max: this.levelSalMax,
-        employ: this.employ,
-        experience: this.experience,
-        vacancyDescription: this.editorData,
-        companyName: this.companyName,
-        companyTel: this.companyTel,
-        companyEmail: this.companyEmail,
-        companyPost: this.companyPost,
-        companyPerson: this.companyPerson,
+        job_title: this.vacancy_title,
+        salary_min: this.salary_min,
+        salary_max: this.salary_max,
+        description: this.editorData,
+        tax: this.isSalaryTask,
+        type: this.employ,
+        required_experience: this.experience,
       };
-      axios.post('api/v1/create/', vacancy)
+      axios.post('', vacancy)
           .then(response => {
             console.log(response)
           })
