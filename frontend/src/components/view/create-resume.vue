@@ -121,7 +121,7 @@
             <label
                 for="graph-1"
                 class="create-resume-filter-label check"
-                >Полный день</label>
+            >Полный день</label>
           </div>
           <div class="create-resume__block">
             <input
@@ -134,7 +134,7 @@
             <label
                 for="graph-2"
                 class="create-resume-filter-label check"
-                >Удаленная работа</label>
+            >Удаленная работа</label>
           </div>
           <div class="create-resume__block">
             <input
@@ -146,7 +146,7 @@
             <label
                 for="graph-3"
                 class="create-resume-filter-label check"
-                >Сменный график</label>
+            >Сменный график</label>
           </div>
           <div class="create-resume__block">
             <input
@@ -158,7 +158,7 @@
             <label
                 for="graph-4"
                 class="create-resume-filter-label check"
-                >Гибкий график</label>
+            >Гибкий график</label>
           </div>
           <div class="create-resume__block">
             <input
@@ -170,7 +170,7 @@
             <label
                 for="graph-5"
                 class="create-resume-filter-label check"
-                >Вахтовый метод</label>
+            >Вахтовый метод</label>
           </div>
         </div>
         <div class="create-resume-block__wrapper">
@@ -284,6 +284,7 @@
 <script>
 import Vue from "vue";
 import VueTheMask from 'vue-the-mask';
+import axios from "axios";
 
 Vue.use(VueTheMask);
 
@@ -330,6 +331,7 @@ export default {
       resumeTelegram: '',
       resumeSite: '',
       isErrorContact: false,
+      type: '',
     }
   },
   methods: {
@@ -343,6 +345,25 @@ export default {
       if (this.resumePhoneNumber.length === 0 && this.resumeEmail.length === 0 && this.resumeTelegram.length === 0 && this.resumeSite.length === 0) {
         this.isErrorContact = true
       }
+      const resume = {
+        summary_title: this.resumeName,
+        type: this.type,
+        skill: this.resumeSkill,
+        quality: this.resumeQuality,
+        experience: this.resumeExperience,
+        about_us: this.resumeAbout,
+        phone_number: this.resumePhoneNumber,
+        email: this.resumeEmail,
+        tm: this.resumeTelegram,
+        website: this.resumeSite,
+      };
+      axios.post('', resume)
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error)
+          });
     },
     addTagsSkills() {
       if (this.resumeSkill === '') {
