@@ -10,7 +10,7 @@ class VacanciesDataView(APIView):
     def get(self, request):
         vacancies = Vacancies.objects.all()
         serializer = VacanciesDataSerializer(vacancies, many=True)
-        return render(request, "index.html", {"vacancies": serializer})
+        return render(request, "index.html", {"vacancies": serializer.data})
 
 
 class VacanciesCreateDataView(APIView):

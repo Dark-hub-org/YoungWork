@@ -71,8 +71,8 @@
             <div class="vacancy-item">
               <div class="vacancy-item__header">
                 <div class="vacancy-item__block">
-                  <p class="vacancy-item__title">Дизайнер интерфейсов</p>
-                  <p class="vacancy-item__salary">35 000 рублей</p>
+                  <p class="vacancy-item__title" :src="job_title">{{ job_title }}</p>
+                  <p class="vacancy-item__salary" :src="salary_max">{{ salary_max }} рублей</p>
                 </div>
                 <img src="@/assets/vacancy/company-logo.svg" alt="логотип компании">
               </div>
@@ -83,11 +83,13 @@
                 </div>
                 <div class="vacancy-item__block">
                   <p class="vacancy-item__text">Опыт работы: не имеет значения</p>
-                  <p class="vacancy-item__text vacancy-item__experince">Частичная занятость</p>
+                  <p class="vacancy-item__text vacancy-item__experince" :src="type">{{ type }}</p>
                 </div>
                 <div class="vacancy-item__block">
-                  <p class="vacancy-item__text"><span class="vacancy-item__subtitle">Задачи:</span> разработка макетов и
-                    адаптивов, упаковка готовых решений в презентации.</p>
+                  <p class="vacancy-item__text"><span class="vacancy-item__subtitle" :src="description">Задачи:</span>
+                    {{
+                      description
+                    }}</p>
                   <p class="vacancy-item__text"><span class="vacancy-item__subtitle">Требования:</span> хорошее
                     понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.</p>
                 </div>
@@ -110,6 +112,7 @@
 <script>
 
 import TheFilters from "@/components/ui/filter.vue";
+import axios from "axios";
 
 export default {
   name: 'vacancy-content',
@@ -118,7 +121,18 @@ export default {
   data() {
     return {
       isFilterVisible: false,
+      job_title: '',
+      salary_min: '',
+      salary_max: '',
+      type: '',
+      logo: '',
+      description: '',
+      tax: '',
+      required_experience: '',
     }
+  },
+  mounted() {
+    this.getdate();
   },
   methods: {
     openFilters() {
@@ -126,6 +140,20 @@ export default {
     },
     closeFilters() {
       this.isFilterVisible = false
+    },
+    getdate() {
+      axios.get('/vacancies/21')
+          .then(response => {
+            console.log(response)
+            this.job_title = response.data.job_title
+            this.salary_max = response.data.salary_max
+            this.type = response.data.type
+            this.description = response.data.description
+            this.required_experience = response.data.required_experience
+          })
+          .catch(error => {
+            console.log(error)
+          })
     },
   },
   computed: {},
