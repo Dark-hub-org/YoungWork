@@ -14,8 +14,7 @@ class Vacancies(models.Model):
     type = models.CharField(blank=True, max_length=100, default='')
     logo = models.ImageField(null=True, blank=True, upload_to='movies/vacancies')  # swap to JSON
     required_experience = models.CharField(blank=True, max_length=100, default='')
-    graph = models.CharField(blank=True, max_length=100, default='')  # swap to List
-    timestamp = models.DateTimeField(null=True, blank=True, default=datetime.datetime.now())
+    graph = models.CharField(blank=True, max_length=100, default='')
 
     def __str__(self):
         return f"{self.job_title} {self.description} {self.salary_min} {self.salary_max}"

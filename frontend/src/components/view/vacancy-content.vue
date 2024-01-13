@@ -142,7 +142,7 @@ export default {
       this.isFilterVisible = false
     },
     getdate() {
-      axios.get('/vacancies/22')
+      axios.get('/vacancies/32')
           .then(response => {
             console.log(response)
             this.job_title = response.data.job_title
