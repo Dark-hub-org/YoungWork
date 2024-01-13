@@ -360,6 +360,7 @@ export default {
       axios.post('', resume)
           .then(response => {
             console.log(response)
+            window.location.reload();
           })
           .catch(error => {
             console.log(error)

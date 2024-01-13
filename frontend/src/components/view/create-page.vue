@@ -117,7 +117,7 @@
         <div class="constructor-contact">
         </div>
         <button
-            @click="create_vacancy"
+            @click.prevent="create_vacancy"
             class="button-orange-another parameters-submit"
         >Опубликовать
         </button>
@@ -180,6 +180,7 @@ export default {
       axios.post('', vacancy)
           .then(response => {
             console.log(response)
+            window.location.reload();
           })
           .catch(error => {
             console.log(error)
