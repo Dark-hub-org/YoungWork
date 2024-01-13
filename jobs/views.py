@@ -13,6 +13,13 @@ class VacanciesDataView(APIView):
         return render(request, "index.html", {"vacancies": serializer.data})
 
 
+class VacanciesData(APIView):
+    def get(self, request):
+        vacancies = Vacancies.objects.all()
+        serializer = VacanciesDataSerializer(vacancies, many=True)
+        return Response(serializer.data)
+
+
 class VacanciesCreateDataView(APIView):
     def post(self, request, format=None):
         serializer = VacanciesDataSerializer(data=request.data)

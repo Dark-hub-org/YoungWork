@@ -5,7 +5,6 @@ from profiles.models import Employer
 
 
 class Vacancies(models.Model):
-    #  id = models.UUIDField()
     job_title = models.CharField(max_length=100, default='')
     description = models.TextField(blank=True, default='')
     salary_min = models.CharField(blank=True, max_length=100, default='')

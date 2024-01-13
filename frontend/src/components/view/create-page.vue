@@ -181,7 +181,6 @@ export default {
         salary_min: this.salaryMin,
         salary_max: this.salaryMax,
         description: this.editorData,
-        graph: JSON.stringify(this.graph),
         tax: this.isSalaryTask,
         type: this.employ,
         required_experience: this.experience,

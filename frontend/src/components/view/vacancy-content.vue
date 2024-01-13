@@ -139,7 +139,7 @@ export default {
       this.isFilterVisible = false
     },
     getdate() {
-      axios.get('/vacancies/32')
+      axios.get('/api/v1/vac')
           .then(response => {
             console.log(response)
             this.job_title = response.data.job_title
@@ -152,10 +152,10 @@ export default {
             console.log(error)
           })
     },
-    mounted() {
-      this.getdate();
-    },
-  }
+  },
+  mounted() {
+    this.getdate();
+  },
 }
 
 </script>
