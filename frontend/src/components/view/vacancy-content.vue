@@ -131,9 +131,6 @@ export default {
       required_experience: '',
     }
   },
-  mounted() {
-    this.getdate();
-  },
   methods: {
     openFilters() {
       this.isFilterVisible = true
@@ -142,7 +139,7 @@ export default {
       this.isFilterVisible = false
     },
     getdate() {
-      axios.get('/vacancies/21')
+      axios.get('/vacancies/22')
           .then(response => {
             console.log(response)
             this.job_title = response.data.job_title
@@ -157,6 +154,9 @@ export default {
     },
   },
   computed: {},
+  mounted() {
+    this.getdate();
+  },
 }
 
 </script>

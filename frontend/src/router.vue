@@ -19,7 +19,7 @@ export default new VueRouter({
   routes: [
     {path: '/', component: LandingContent},//Основа
     {path: '/vacancies', component: VacancyContent},//Все вакансии
-    {path: '/vacancy-page', component: vacancyPage},//Полный лист вакансии
+    {path: '/vacancy', component: vacancyPage},// Детальная вакансия
     {path: '/create-vacancy', component: createPage},//Создание вакансии
     {path: '/create-resume', component: createResume},//Создать резюме
     {path: '/profile/applicant/', component: Applicant},//Профиль соискателя
