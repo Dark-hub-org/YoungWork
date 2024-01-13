@@ -1,8 +1,9 @@
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Vacancies, Events
-from rest_framework import status
+from rest_framework import status, generics
 from .serializers import VacanciesDataSerializer, EventsDataSerializer, VacanciesDetailSerializer
 
 
@@ -13,11 +14,16 @@ class VacanciesDataView(APIView):
         return render(request, "index.html", {"vacancies": serializer.data})
 
 
-class VacanciesData(APIView):
-    def get(self, request):
-        vacancies = Vacancies.objects.all()
-        serializer = VacanciesDataSerializer(vacancies, many=True)
-        return Response(serializer.data)
+class VacancyPaginationView(PageNumberPagination):
+    page_size = 2
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
+class VacanciesData(generics.ListAPIView):
+    queryset = Vacancies.objects.all()
+    serializer_class = VacanciesDataSerializer
+    pagination_class = VacancyPaginationView
 
 
 class VacanciesCreateDataView(APIView):
