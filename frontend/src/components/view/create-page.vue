@@ -156,9 +156,9 @@ export default {
         toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
       },
       editorData: '',
-      isSalaryTask: "beforeTax",
-      employ: 'fullEmploy',
-      experience: '0',
+      isSalaryTask: "До вычета налогов",
+      employ: 'Полная занятость',
+      experience: 'Не имеет значения',
       graph: [],
 
       companyName: '',

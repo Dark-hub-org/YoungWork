@@ -131,9 +131,6 @@ export default {
       required_experience: '',
     }
   },
-  mounted() {
-    this.getdate();
-  },
   methods: {
     openFilters() {
       this.isFilterVisible = true
@@ -155,7 +152,10 @@ export default {
             console.log(error)
           })
     },
-  }, computed: {},
+    mounted() {
+      this.getdate();
+    },
+  }
 }
 
 </script>
