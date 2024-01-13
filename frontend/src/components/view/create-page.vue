@@ -26,7 +26,8 @@
           <input v-model.number="salaryMax" type="number" class="parameters-form__wrapper__text small margin-bottom"
                  placeholder="До">
           <div class="parameters-filter__block">
-            <input v-model="isSalaryTask" type="radio" value="До вычета налогов" name="salary" class="parameters-filter__input"
+            <input v-model="isSalaryTask" type="radio" value="До вычета налогов" name="salary"
+                   class="parameters-filter__input"
                    id="beforeDed" checked>
             <label for="beforeDed" class="parameters-filter-label radio">До вычета налогов</label>
           </div>
@@ -44,7 +45,8 @@
             <label for="fullEmploy" class="parameters-filter-label radio">Полная занятость</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="Частичная занятость" class="parameters-filter__input"
+            <input v-model="employ" type="radio" name="employ" value="Частичная занятость"
+                   class="parameters-filter__input"
                    id="partialEmploy">
             <label for="partialEmploy" class="parameters-filter-label radio">Частичная занятость</label>
           </div>
@@ -67,16 +69,19 @@
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Укажите требуемый опыт работы:</span>
           <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="Не имеет значения" class="parameters-filter__input" id="exp-1"
+            <input v-model="experience" type="radio" name="exp" value="Не имеет значения"
+                   class="parameters-filter__input" id="exp-1"
                    checked>
             <label for="exp-1" class="parameters-filter-label radio">Не имеет значения</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="от 1 года до 3 лет" class="parameters-filter__input" id="exp-2">
+            <input v-model="experience" type="radio" name="exp" value="от 1 года до 3 лет"
+                   class="parameters-filter__input" id="exp-2">
             <label for="exp-2" class="parameters-filter-label radio">от 1 года до 3 лет</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="От 3 до 6 лет" class="parameters-filter__input" id="exp-3">
+            <input v-model="experience" type="radio" name="exp" value="От 3 до 6 лет" class="parameters-filter__input"
+                   id="exp-3">
             <label for="exp-3" class="parameters-filter-label radio">От 3 до 6 лет</label>
           </div>
           <div class="parameters-filter__block">
@@ -85,7 +90,8 @@
             <label for="exp-4" class="parameters-filter-label radio">Нет опыта</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="Более 6 лет" class="parameters-filter__input" id="exp-5">
+            <input v-model="experience" type="radio" name="exp" value="Более 6 лет" class="parameters-filter__input"
+                   id="exp-5">
             <label for="exp-5" class="parameters-filter-label radio">Более 6 лет</label>
           </div>
         </div>
@@ -96,7 +102,8 @@
             <label for="graph-1" class="parameters-filter-label check">Полный день</label>
           </div>
           <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-2" value="Удаленная работа">
+            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-2"
+                   value="Удаленная работа">
             <label for="graph-2" class="parameters-filter-label check">Удаленная работа</label>
           </div>
           <div class="parameters-filter__block employ">

@@ -390,7 +390,8 @@ export default {
   },
   methods: {
     submitFormReg() {
-      if (this.isEmptyEmail || !this.isCheckEmail || this.isEmptyPassword || !this.isCheckPassword) {
+      if (this.isEmptyEmail || !this.isCheckEmail || this.isEmptyPassword
+          || !this.isCheckPassword) {
         return
       }
       const presentUser = {

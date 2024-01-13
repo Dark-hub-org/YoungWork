@@ -152,11 +152,10 @@ export default {
             console.log(error)
           })
     },
-  },
-  computed: {},
-  mounted() {
-    this.getdate();
-  },
+    mounted() {
+      this.getdate();
+    },
+  }
 }
 
 </script>
