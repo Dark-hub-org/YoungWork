@@ -22,7 +22,7 @@
           <div class="create-resume__block employ">
             <input
                 type="checkbox"
-                value="fullEmploy"
+                value="Полная занятость"
                 class="create-resume__input"
                 id="employ-1"
                 v-model="resumeEmploy"
@@ -36,7 +36,7 @@
           <div class="create-resume__block employ">
             <input
                 type="checkbox"
-                value="partialEmploy"
+                value="Частичная занятость"
                 class="create-resume__input"
                 id="employ-2"
                 v-model="resumeEmploy"
@@ -50,7 +50,7 @@
           <div class="create-resume__block employ">
             <input
                 type="checkbox"
-                value="internship"
+                value="Стажировка"
                 class="create-resume__input"
                 id="employ-3"
                 v-model="resumeEmploy"
@@ -63,7 +63,7 @@
           <div class="create-resume__block employ">
             <input
                 type="checkbox"
-                value="projectWork"
+                value="Проектная работа"
                 class="create-resume__input"
                 id="employ-4"
                 v-model="resumeEmploy"
@@ -76,7 +76,7 @@
           <div class="create-resume__block employ">
             <input
                 type="checkbox"
-                value="volunteering"
+                value="Волонтерство"
                 class="create-resume__input"
                 id="employ-5"
                 v-model="resumeEmploy"
@@ -93,84 +93,19 @@
         <div class="create-resume__wrapper">
           <p class="create-resume__name-filter">Укажите опыт работы:</p>
           <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="noExp" class="create-resume__input"
+            <input v-model="resumeExperience" type="radio" name="exp" value="Нет опыта" class="create-resume__input"
                    id="exp-4" checked>
             <label for="exp-4" class="create-resume-filter-label radio">Нет опыта</label>
           </div>
           <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="1-3" class="create-resume__input"
+            <input v-model="resumeExperience" type="radio" name="exp" value="От 1 года до 3 лет" class="create-resume__input"
                    id="exp-2">
-            <label for="exp-2" class="create-resume-filter-label radio">от 1 года до 3 лет</label>
+            <label for="exp-2" class="create-resume-filter-label radio">От 1 года до 3 лет</label>
           </div>
           <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="3-6" class="create-resume__input"
+            <input v-model="resumeExperience" type="radio" name="exp" value="От 3 до 6 лет" class="create-resume__input"
                    id="exp-3">
             <label for="exp-3" class="create-resume-filter-label radio">От 3 до 6 лет</label>
-          </div>
-        </div>
-        <div class="create-resume__wrapper">
-          <p class="create-resume__name-filter">Тип занятости</p>
-          <div class="create-resume__block">
-            <input
-                type="checkbox"
-                value="FullDay"
-                class="create-resume__input"
-                id="graph-1"
-                v-model="resumeGraph"
-                checked>
-            <label
-                for="graph-1"
-                class="create-resume-filter-label check"
-            >Полный день</label>
-          </div>
-          <div class="create-resume__block">
-            <input
-                type="checkbox"
-                value="distantWork"
-                class="create-resume__input"
-                id="graph-2"
-                v-model="resumeGraph"
-            >
-            <label
-                for="graph-2"
-                class="create-resume-filter-label check"
-            >Удаленная работа</label>
-          </div>
-          <div class="create-resume__block">
-            <input
-                type="checkbox"
-                value="ShiftSchedule"
-                class="create-resume__input"
-                id="graph-3"
-                v-model="resumeGraph">
-            <label
-                for="graph-3"
-                class="create-resume-filter-label check"
-            >Сменный график</label>
-          </div>
-          <div class="create-resume__block">
-            <input
-                type="checkbox"
-                value="FlexibleSchedule"
-                class="create-resume__input"
-                id="graph-4"
-                v-model="resumeGraph">
-            <label
-                for="graph-4"
-                class="create-resume-filter-label check"
-            >Гибкий график</label>
-          </div>
-          <div class="create-resume__block">
-            <input
-                type="checkbox"
-                value="ShiftMethod"
-                class="create-resume__input"
-                id="graph-5"
-                v-model="resumeGraph">
-            <label
-                for="graph-5"
-                class="create-resume-filter-label check"
-            >Вахтовый метод</label>
           </div>
         </div>
         <div class="create-resume-block__wrapper">
@@ -275,7 +210,7 @@
           </div>
           <p v-if="isErrorContact" class="create-resume__error">Пожалуйста, заполните поле</p>
         </div>
-        <button @click.prevent="submitForm" type="button" class="create-resume__submit">Опубликовать</button>
+        <button @click.prevent="submitForm" type="submit" class="create-resume__submit">Опубликовать</button>
       </form>
     </div>
   </section>
@@ -360,6 +295,7 @@ export default {
       axios.post('', resume)
           .then(response => {
             console.log(response)
+            window.location.reload();
           })
           .catch(error => {
             console.log(error)
