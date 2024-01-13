@@ -13,25 +13,26 @@
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Напишите название вакансии:</span>
           <input
-              v-model.trim="vacancy_title"
+              v-model.trim="vacancyTitle"
               v-restrict-input-length="120"
               type="text"
               class="parameters-form__wrapper__text"
-              placeholder="ООО “Маршмеллоу”">
+              placeholder="Дизайнер">
         </div>
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Уровень заработной платы:</span>
-          <input v-model.number="salary_min" type="number" class="parameters-form__wrapper__text small margin-bottom"
+          <input v-model.number="salaryMin" type="number" class="parameters-form__wrapper__text small margin-bottom"
                  placeholder="От">
-          <input v-model.number="salary_max" type="number" class="parameters-form__wrapper__text small margin-bottom"
+          <input v-model.number="salaryMax" type="number" class="parameters-form__wrapper__text small margin-bottom"
                  placeholder="До">
           <div class="parameters-filter__block">
-            <input v-model="isSalaryTask" type="radio" value="beforeTax" name="salary" class="parameters-filter__input"
+            <input v-model="isSalaryTask" type="radio" value="До вычета налогов" name="salary"
+                   class="parameters-filter__input"
                    id="beforeDed" checked>
             <label for="beforeDed" class="parameters-filter-label radio">До вычета налогов</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="isSalaryTask" type="radio" name="salary" value="afterTax" class="parameters-filter__input"
+            <input v-model="isSalaryTask" type="radio" name="salary" value="На руки" class="parameters-filter__input"
                    id="afterDed">
             <label for="afterDed" class="parameters-filter-label radio">На руки</label>
           </div>
@@ -39,27 +40,28 @@
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Укажите тип занятости:</span>
           <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="fullEmploy" class="parameters-filter__input"
+            <input v-model="employ" type="radio" name="employ" value="Полная занятость" class="parameters-filter__input"
                    id="fullEmploy" checked>
             <label for="fullEmploy" class="parameters-filter-label radio">Полная занятость</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="partialEmploy" class="parameters-filter__input"
+            <input v-model="employ" type="radio" name="employ" value="Частичная занятость"
+                   class="parameters-filter__input"
                    id="partialEmploy">
             <label for="partialEmploy" class="parameters-filter-label radio">Частичная занятость</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="internship" class="parameters-filter__input"
+            <input v-model="employ" type="radio" name="employ" value="Стажировка" class="parameters-filter__input"
                    id="internship">
             <label for="internship" class="parameters-filter-label radio">Стажировка</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="projectWork" class="parameters-filter__input"
+            <input v-model="employ" type="radio" name="employ" value="Проектная работа" class="parameters-filter__input"
                    id="projectWork">
             <label for="projectWork" class="parameters-filter-label radio">Проектная работа</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="volunteering" class="parameters-filter__input"
+            <input v-model="employ" type="radio" name="employ" value="Волонтерство" class="parameters-filter__input"
                    id="volunteering">
             <label for="volunteering" class="parameters-filter-label radio">Волонтерство</label>
           </div>
@@ -67,49 +69,54 @@
         <div class="parameters-form__wrapper">
           <span class="parameters-form__wrapper__name">Укажите требуемый опыт работы:</span>
           <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="0" class="parameters-filter__input" id="exp-1"
+            <input v-model="experience" type="radio" name="exp" value="Не имеет значения"
+                   class="parameters-filter__input" id="exp-1"
                    checked>
             <label for="exp-1" class="parameters-filter-label radio">Не имеет значения</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="1-3" class="parameters-filter__input" id="exp-2">
+            <input v-model="experience" type="radio" name="exp" value="от 1 года до 3 лет"
+                   class="parameters-filter__input" id="exp-2">
             <label for="exp-2" class="parameters-filter-label radio">от 1 года до 3 лет</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="3-6" class="parameters-filter__input" id="exp-3">
+            <input v-model="experience" type="radio" name="exp" value="От 3 до 6 лет" class="parameters-filter__input"
+                   id="exp-3">
             <label for="exp-3" class="parameters-filter-label radio">От 3 до 6 лет</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="noExp" class="parameters-filter__input"
+            <input v-model="experience" type="radio" name="exp" value="Нет опыта" class="parameters-filter__input"
                    id="exp-4">
             <label for="exp-4" class="parameters-filter-label radio">Нет опыта</label>
           </div>
           <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="<6" class="parameters-filter__input" id="exp-5">
+            <input v-model="experience" type="radio" name="exp" value="Более 6 лет" class="parameters-filter__input"
+                   id="exp-5">
             <label for="exp-5" class="parameters-filter-label radio">Более 6 лет</label>
           </div>
         </div>
         <div class="parameters-form__wrapper">
           <p class="parameters-form__wrapper__name">График работы</p>
           <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-1" value="FullDay">
+            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-1" value="Полный день">
             <label for="graph-1" class="parameters-filter-label check">Полный день</label>
           </div>
           <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-2" value="distantWork">
+            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-2"
+                   value="Удаленная работа">
             <label for="graph-2" class="parameters-filter-label check">Удаленная работа</label>
           </div>
           <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-3" value="ShiftSchedule">
+            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-3" value="Сменный график">
             <label for="graph-3" class="parameters-filter-label check">Сменный график</label>
           </div>
           <div class="parameters-filter__block employ">
             <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-4"
-                   value="FlexibleSchedule">
+                   value="Гибкий график">
             <label for="graph-4" class="parameters-filter-label check">Гибкий график</label>
           </div>
           <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-5" value="ShiftMethod">
+            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-5" value="Вахтовый метод">
             <label for="graph-5" class="parameters-filter-label check">Вахтовый метод</label>
           </div>
         </div>
@@ -117,7 +124,8 @@
         <div class="constructor-contact">
         </div>
         <button
-            @click.prevent="create_vacancy"
+            type="submit"
+            @click.prevent="createVacancy"
             class="button-orange-another parameters-submit"
         >Опубликовать
         </button>
@@ -159,20 +167,21 @@ export default {
       companyPost: '',
       companyPerson: '',
 
-      vacancy_title: '',
-      salary_min: '',
-      salary_max: '',
+      vacancyTitle: '',
+      salaryMin: '',
+      salaryMax: '',
       type: '',
       logo: '',
     }
   },
   methods: {
-    create_vacancy() {
+    createVacancy() {
       const vacancy = {
-        job_title: this.vacancy_title,
-        salary_min: this.salary_min,
-        salary_max: this.salary_max,
+        job_title: this.vacancyTitle,
+        salary_min: this.salaryMin,
+        salary_max: this.salaryMax,
         description: this.editorData,
+        graph: JSON.stringify(this.graph),
         tax: this.isSalaryTask,
         type: this.employ,
         required_experience: this.experience,
@@ -186,9 +195,6 @@ export default {
             console.log(error)
           });
     },
-    handlerGraph() {
-
-    }
   },
 }
 </script>
