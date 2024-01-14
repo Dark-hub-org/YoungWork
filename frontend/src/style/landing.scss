@@ -22,19 +22,22 @@
   max-width: 1025px;
   margin-bottom: 89px;
 
+  &:hover {
+    .inner-form__search {
+      border-color: transparent;
+    }
+  }
+
   .inner-form__search {
     width: 100%;
-    height: 90px;
+    height: 80px;
     padding: 0 20px;
     border-radius: 40px;
-    border: none;
+    border: 2px solid $colorGreenM;
     background-color: #D8E2E6;
     font-size: 25px;
     font-weight: 700;
-
-    &:focus{
-      outline: none;
-    }
+    transition: all .15s ease;
 
     &::placeholder {
       font-size: 25px;
@@ -44,10 +47,10 @@
   .inner-form__button {
     position: absolute;
     right: 22px;
-    top: 42px;
-    width: 21px;
-    height: 21px;
-    transform: translateY(-25%);
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    transform: translateY(-50%);
     background-image: url("@/assets/inner/search-icon.svg");
     background-repeat: no-repeat;
     background-position: center;

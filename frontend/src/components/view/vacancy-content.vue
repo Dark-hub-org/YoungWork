@@ -61,7 +61,7 @@
     <section class="vacancy">
       <div class="wrapper vacancy-wrapper">
         <h3 class="vacancy-quantity">
-          {{quantityVacancies}} вакансии “Дизайнер интерфейсов”
+          {{quantityVacancies}} вакансий <template v-if="requestValue !== ''">“{{requestValue}}”</template>
         </h3>
         <div class="vacancy-filter-and-list">
           <the-filters
@@ -142,6 +142,7 @@ export default {
       quantityVacancies: 0,
       currentPage: 1,
       pageQuantityMax: 0,
+      requestValue: '',
     }
   },
   methods: {
@@ -165,12 +166,9 @@ export default {
     },
   },
   computed: {
-    vacanciesList() {
-      return this.$store.getters.getVacanciesList
-    },
-    totalPage() {
-      return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
-    },
+    // totalPage() {
+    //   return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
+    // },
   },
   mounted() {
     this.getVacanciesPage(this.currentPage);
