@@ -60,7 +60,9 @@
     </section>
     <section class="vacancy">
       <div class="wrapper vacancy-wrapper">
-        <h3 class="vacancy-quantity">32 вакансии “Дизайнер интерфейсов”</h3>
+        <h3 class="vacancy-quantity">
+          {{vacanciesQuantity}} вакансии “Дизайнер интерфейсов”
+        </h3>
         <div class="vacancy-filter-and-list">
           <the-filters
               :class="{active: isFilterVisible}"
@@ -68,11 +70,21 @@
               @closeFilters="closeFilters">
           </the-filters>
           <div class="vacancy-list">
-            <div class="vacancy-item">
+            <div class="vacancy-item"
+                 v-for="vacancy in vacanciesList"
+                 :key="vacancy.id">
               <div class="vacancy-item__header">
                 <div class="vacancy-item__block">
-                  <p class="vacancy-item__title" :src="job_title">{{ job_title }}</p>
-                  <p class="vacancy-item__salary" :src="salary_max">{{ salary_max }} рублей</p>
+                  <p class="vacancy-item__title" >{{ vacancy.job_title }}</p>
+                  <p class="vacancy-item__salary" >
+                    <template
+                        v-if="vacancy.salary_min && vacancy.salary_max">
+                        от {{ vacancy.salary_min }} до {{vacancy.salary_max}}
+                    </template>
+                    <template v-else-if="vacancy.salary_min">от {{ vacancy.salary_min }}</template>
+                    <template v-else>до {{vacancy.salary_max}}</template>
+                     рублей
+                  </p>
                 </div>
                 <img src="@/assets/vacancy/company-logo.svg" alt="логотип компании">
               </div>
@@ -82,14 +94,14 @@
                   <p class="vacancy-item-text">Владивосток</p>
                 </div>
                 <div class="vacancy-item__block">
-                  <p class="vacancy-item__text">Опыт работы: не имеет значения</p>
-                  <p class="vacancy-item__text vacancy-item__experince" :src="type">{{ type }}</p>
+                  <p class="vacancy-item__text">Опыт работы: {{vacancy.required_experience}}</p>
+                  <p class="vacancy-item__text vacancy-item__experince">{{ vacancy.type }}</p>
                 </div>
                 <div class="vacancy-item__block">
-                  <p class="vacancy-item__text"><span class="vacancy-item__subtitle" :src="description">Задачи:</span>
-                    {{
-                      description
-                    }}</p>
+                  <p class="vacancy-item__text">
+                    <pre class="vacancy-item__subtitle">Задачи: </pre>
+                    <span class="vacancy-item__subtitle-text" v-html="vacancy.description"> </span>
+                  </p>
                   <p class="vacancy-item__text"><span class="vacancy-item__subtitle">Требования:</span> хорошее
                     понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.</p>
                 </div>
@@ -112,7 +124,6 @@
 <script>
 
 import TheFilters from "@/components/ui/filter.vue";
-import axios from "axios";
 
 export default {
   name: 'vacancy-content',
@@ -121,14 +132,6 @@ export default {
   data() {
     return {
       isFilterVisible: false,
-      job_title: '',
-      salary_min: '',
-      salary_max: '',
-      type: '',
-      logo: '',
-      description: '',
-      tax: '',
-      required_experience: '',
     }
   },
   methods: {
@@ -138,23 +141,20 @@ export default {
     closeFilters() {
       this.isFilterVisible = false
     },
-    getdate() {
-      axios.get('/api/v1/vac')
-          .then(response => {
-            console.log(response)
-            this.job_title = response.data.job_title
-            this.salary_max = response.data.salary_max
-            this.type = response.data.type
-            this.description = response.data.description
-            this.required_experience = response.data.required_experience
-          })
-          .catch(error => {
-            console.log(error)
-          })
+    fetchVacancies() {
+      this.$store.dispatch('getVacancies');
+    }
+  },
+  computed: {
+    vacanciesList() {
+      return this.$store.getters.getVacanciesList
+    },
+    vacanciesQuantity() {
+      return this.vacanciesList.length
     },
   },
   mounted() {
-    this.getdate();
+    this.fetchVacancies();
   },
 }
 

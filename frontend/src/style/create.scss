@@ -3,259 +3,289 @@
 
 // constructor start
 
-.upload-image {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 854px;
-    margin-bottom: 80px;
-    background-color: #202020;
+.constructor {
+    &__banner {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 854px;
+        margin-bottom: 80px;
+        background-color: #202020;
+        &:hover {
+            .constructor__banner-cross{
+                transform: scale(120%);
+            }
+        }
+        &.small {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 0;
+            border-radius: 16px;
+        }
+        &-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
 
-    &:hover .upload-image__cross{
-        transform: scale(120%);
+        &-title {
+            margin-bottom: 24px;
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 98.023%;
+            letter-spacing: -2px;
+            color: $colorWhite;
+        }
+
+        &-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.01;
+            cursor: pointer;
+        }
+
+        &-cross {
+            width: 64px;
+            height: 64px;
+            background-image: url("@/assets/create/cross-icon.svg");
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            transition: transform .15s ease-in-out;
+
+            &.small {
+                width: 64px;
+                height: 64px;
+            }
+        }
     }
-}
-
-.upload-image__wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-.upload-image-title {
-    margin-bottom: 24px;
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 98.023%;
-    letter-spacing: -2px;
-    color: $colorWhite;
-}
-
-.upload-image-input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0.01;
-    cursor: pointer;
-}
-
-.upload-image__cross {
-    width: 64px;
-    height: 64px;
-    background-image: url("@/assets/create/cross-icon.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    transition: transform .15s ease-in-out;
-}
-
-.upload-image.small {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 0;
-    border-radius: 16px;
-
-    .upload-image__cross.small {
-        width: 64px;
-        height: 64px;
-    }
-}
-
-.constructor-title {
-    display: block;
-    text-align: center;
-    margin-bottom: 64px;
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 39px;
-    letter-spacing: -2px;
-}
-
-.parameters-form {
-    margin-bottom: 80px;
-    //max-width: 1189px;
-}
-
-.parameters-form__wrapper {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 64px;
-}
-
-.parameters-form__wrapper__name {
-    margin-bottom: 24px;
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 31px;
-    letter-spacing: -1.6px;
-}
-
-.parameters-form__wrapper__text {
-    max-width: 1189px;
-    height: 73px;
-    padding: 20px;
-    border: 2px solid $colorInputBorder;
-    border-radius: 16px;
-    font-size: 24px;
-    font-weight: 400;
-    color: $colorGrey;
-
-    &::placeholder {
-        font-size: 24px;
-        font-weight: 400;
-        line-height: 29px;
-        letter-spacing: -1.2px;
-        color: $colorInputBorder;
-    }
-
-    &:focus {
-        border-color: $colorGreenM;
-       color:  $colorGreenM;
-    }
-}
-
-.parameters-form__wrapper__text.small{
-    max-width: 384px;
-}
-
-.parameters-form__wrapper__text.margin-bottom {
-    margin-bottom: 20px;
-}
-
-.parameters-filter__block {
-
-    &:not(:last-child) {
-        margin-bottom: 16px;
-    }
-}
-
-.parameters-filter__input {
-    display: none;
-}
-
-.parameters-filter-label {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 22px;
-    color: $colorBlack;
-}
-
-.parameters-filter-label.radio {
-    display: flex;
-    align-items: center;
-
-    &:before {
-        content: '';
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        margin-right: 16px;
-        border-radius: 50%;
-        background-image: url("@/assets/vacancy/radio.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-}
-
-.parameters-filter__input:checked + .parameters-filter-label.radio:before {
-    background-image: url("@/assets/vacancy/radio-active.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.parameters-filter-label.check {
-    display: flex;
-    align-items: center;
-
-    &:before {
-        content: '';
+    &__title {
         display: block;
-        min-width: 20px;
-        min-height: 20px;
-        margin-right: 16px;
-        border-radius: 2px;
-        background-image: url("@/assets/vacancy/cheack.svg");
-        background-repeat: no-repeat;
-        background-position: center;
+        text-align: center;
+        margin-bottom: 64px;
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 39px;
+        letter-spacing: -2px;
     }
-}
 
-.parameters-filter__input:checked + .parameters-filter-label.check:before {
-    background-image: url("@/assets/vacancy/cheack-active.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-}
+    &__form {
+        margin-bottom: 80px;
+        &-block {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 64px;
 
-.ckeditor-text {
-    max-width: 1189px;
-    margin-bottom: 64px;
-}
+            &__name {
+                margin-bottom: 24px;
+                font-size: 32px;
+                font-weight: 600;
+                line-height: 31px;
+                letter-spacing: -1.6px;
+            }
 
-.parameters-submit {
-    margin-left: 50%;
-    transform: translateX(-50%);
+            &__input {
+                max-width: 1189px;
+                height: 73px;
+                margin-bottom: 20px;
+                padding: 20px;
+                border: 2px solid $colorInputBorder;
+                border-radius: 16px;
+                font-size: 24px;
+                font-weight: 400;
+                color: $colorGrey;
+                transition: all .3s ease;
+
+                &::placeholder {
+                    font-size: 24px;
+                    font-weight: 400;
+                    line-height: 29px;
+                    letter-spacing: -1.2px;
+                    color: $colorInputBorder;
+                }
+
+                &:focus {
+                    border-color: $colorGreenM;
+                    color:  $colorGreenM;
+                }
+
+                &.error {
+                    margin: 0;
+                    border-color: $colorError;
+                }
+
+                &.small {
+                    max-width: 384px;
+                }
+
+                &.not-margin {
+                    margin: 0;
+                }
+            }
+
+            &__error {
+                display: none;
+                width: fit-content;
+                margin: 10px 0;
+                padding: 8px 12px;
+                border-radius: 10px;
+                font-size: 18px;
+                color: $colorError;
+                background-color: $colorErrorBagk;
+
+                &.active {
+                    display: block;
+                }
+            }
+        }
+
+        &-parameter {
+            &:not(:last-child) {
+                margin-bottom: 16px;
+            }
+
+            &__input {
+                display: none;
+
+                &:checked + .constructor__form-parameter__label.radio:before {
+                    background-image: url("@/assets/vacancy/radio-active.svg");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+
+                &:checked + .constructor__form-parameter__label.check:before {
+                    background-image: url("@/assets/vacancy/cheack-active.svg");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+            }
+
+            &__label {
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 22px;
+                color: $colorBlack;
+
+                &.error {
+                    color: $colorError;
+                }
+
+                &.radio {
+                    display: flex;
+                    align-items: center;
+                    &:before {
+                        content: '';
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        margin-right: 16px;
+                        border-radius: 50%;
+                        background-image: url("@/assets/vacancy/radio.svg");
+                        background-repeat: no-repeat;
+                        background-position: center;
+                    }
+                }
+
+                &.check {
+                    display: flex;
+                    align-items: center;
+
+                    &:before {
+                        content: '';
+                        display: block;
+                        min-width: 20px;
+                        min-height: 20px;
+                        margin-right: 16px;
+                        border-radius: 2px;
+                        background-image: url("@/assets/vacancy/cheack.svg");
+                        background-repeat: no-repeat;
+                        background-position: center;
+                    }
+                }
+            }
+        }
+        &-ckeditor {
+            border: 1px solid transparent;
+
+            &.error {
+                border-color: $colorError;
+            }
+
+            &-wrapper {
+                max-width: 1189px;
+                margin-bottom: 64px;
+            }
+        }
+
+        &-submit {
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+    }
 }
 
 @media(max-width: 1024px) {
-    .ckeditor-text {
+    .constructor__form-ckeditor-wrapper {
         margin-bottom: 48px;
     }
 }
 
 @media(max-width: 744px) {
-    .upload-image {
+    .constructor__banner {
         height: 737px;
     }
 }
 
 @media(max-width: 450px) {
 
-    .constructor-title {
-        font-size: 35px;
-    }
-
-    .parameters-form__wrapper {
-
-        .parameters-form__wrapper__name {
-            font-size: 25px;
+    .constructor {
+        &__title {
+            font-size: 35px;
         }
 
-        .parameters-form__wrapper__text {
-            height: 60px;
+        &__banner {
+            &-title {
+                font-size: 24px;
+                letter-spacing: -1.2px;
+            }
+        }
+
+        &__block {
+            &__name {
+                font-size: 25px;
+            }
+            &__input {
+                height: 60px;
+            }
         }
     }
 }
 
 @media(max-width: 360px) {
-    .parameters-form__wrapper.logo {
-        flex-direction: column;
-        align-items: center;
-    }
 
-    .upload-image {
-        height: 400px;
+    .constructor {
+        &__banner {
+            height: 400px;
 
-        .upload-image-title {
-            font-size: 24px;
-            letter-spacing: -1.2px;
+            &-cross {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+            }
         }
 
-        .upload-image__cross {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
+        &__form {
+            &-ckeditor {
+                margin-bottom: 48px;
+            }
         }
-    }
-
-    .ckeditor-text {
-        margin-bottom: 48px;
     }
 }
-
 
 // constructor end

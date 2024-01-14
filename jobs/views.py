@@ -14,16 +14,9 @@ class VacanciesDataView(APIView):
         return render(request, "index.html", {"vacancies": serializer.data})
 
 
-class VacancyPaginationView(PageNumberPagination):
-    page_size = 2
-    page_size_query_param = 'page_size'
-    max_page_size = 100
-
-
 class VacanciesData(generics.ListAPIView):
     queryset = Vacancies.objects.all()
     serializer_class = VacanciesDataSerializer
-    pagination_class = VacancyPaginationView
 
 
 class VacanciesCreateDataView(APIView):
