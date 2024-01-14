@@ -47,7 +47,6 @@ export default {
             const access = response.data.access
             localStorage.setItem("access", access)
             this.$store.commit('setAccess', access)
-            //this.getMe()
           })
           .catch(error => {
             console.log(error)
