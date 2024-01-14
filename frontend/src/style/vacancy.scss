@@ -125,8 +125,10 @@
 }
 
 .vacancy-list__pagination {
-  @include displayFlex;
-  padding: 0 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
 
   .vacancy-list__page {
     padding: 8px;
@@ -135,6 +137,17 @@
     font-size: 20px;
     font-weight: 600;
     color: $colorBlack;
+    transition: all .3s ease;
+
+    &:hover {
+      background-color: $colorOrangeM;
+      color: $colorWhite;
+    }
+
+    &.active {
+      background-color: $colorOrangeM;
+      color: $colorWhite;
+    }
   }
 }
 
@@ -188,6 +201,7 @@
 }
 
 .vacancy-item__subtitle {
+  font-family: inherit;
   color: $colorOrangeM
 }
 

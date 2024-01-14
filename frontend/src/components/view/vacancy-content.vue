@@ -61,7 +61,7 @@
     <section class="vacancy">
       <div class="wrapper vacancy-wrapper">
         <h3 class="vacancy-quantity">
-          {{vacanciesQuantity}} вакансии “Дизайнер интерфейсов”
+          {{quantityVacancies}} вакансии “Дизайнер интерфейсов”
         </h3>
         <div class="vacancy-filter-and-list">
           <the-filters
@@ -71,7 +71,7 @@
           </the-filters>
           <div class="vacancy-list">
             <div class="vacancy-item"
-                 v-for="vacancy in vacanciesList"
+                 v-for="vacancy in vacancies"
                  :key="vacancy.id">
               <div class="vacancy-item__header">
                 <div class="vacancy-item__block">
@@ -112,7 +112,12 @@
               </div>
             </div>
             <div class="vacancy-list__pagination">
-              <button class="vacancy-list__page">1</button>
+              <button
+                  v-for="pageNumber in totalPage"
+                  :key="pageNumber"
+                  @click="getVacanciesPage(pageNumber)"
+                  :class="{active: pageNumber === Number(currentPage)}"
+                  class="vacancy-list__page">{{pageNumber}}</button>
             </div>
           </div>
         </div>
@@ -124,6 +129,7 @@
 <script>
 
 import TheFilters from "@/components/ui/filter.vue";
+import axios from "axios";
 
 export default {
   name: 'vacancy-content',
@@ -132,6 +138,10 @@ export default {
   data() {
     return {
       isFilterVisible: false,
+      vacancies: [],
+      quantityVacancies: 0,
+      currentPage: 1,
+      pageQuantityMax: 0,
     }
   },
   methods: {
@@ -141,20 +151,29 @@ export default {
     closeFilters() {
       this.isFilterVisible = false
     },
-    fetchVacancies() {
-      this.$store.dispatch('getVacancies');
-    }
+    getVacanciesPage(page) {
+      axios.get(`/api/v1/vac?page=${page}`)
+          .then(response => {
+            this.vacancies = response.data.results
+            this.quantityVacancies = response.data.count
+            this.pageQuantityMax = response.data.results.length
+            this.currentPage = page
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
   },
   computed: {
     vacanciesList() {
       return this.$store.getters.getVacanciesList
     },
-    vacanciesQuantity() {
-      return this.vacanciesList.length
+    totalPage() {
+      return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
     },
   },
   mounted() {
-    this.fetchVacancies();
+    this.getVacanciesPage(this.currentPage);
   },
 }
 

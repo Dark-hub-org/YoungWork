@@ -289,9 +289,6 @@ export default {
     return {
       editorConfig: {
         toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
-        stylesSet: [
-          { name: 'Red Paragraph', element: 'p', styles: { 'color': 'red', 'font-size': '16px' } }
-        ],
       },
       description: "" +
           "<p><strong>О компании / заказчике:</strong></p" +
