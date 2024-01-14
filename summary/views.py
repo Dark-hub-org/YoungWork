@@ -23,6 +23,6 @@ class SummaryDataView(APIView):
 class SummaryDetailView(APIView):
 
     def get(self, request, pk):
-        summary_detail = Summary.objects.get(user_id=pk)
+        summary_detail = Summary.objects.get()
         serializer = SummaryDataSerializer(summary_detail)
         return render(request, "index.html", {"summary_detail": serializer})

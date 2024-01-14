@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Vacancies, Events
-from rest_framework import status, generics
+from rest_framework import generics
 from .serializers import VacanciesDataSerializer, EventsDataSerializer, VacanciesDetailSerializer
 
 
@@ -14,9 +14,16 @@ class VacanciesDataView(APIView):
         return render(request, "index.html", {"vacancies": serializer.data})
 
 
+class LargeResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 10
+
+
 class VacanciesData(generics.ListAPIView):
     queryset = Vacancies.objects.all()
     serializer_class = VacanciesDataSerializer
+    pagination_class = LargeResultsSetPagination
 
 
 class VacanciesCreateDataView(APIView):
@@ -24,19 +31,19 @@ class VacanciesCreateDataView(APIView):
         serializer = VacanciesDataSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
     def get(self, request):
         return render(request, "index.html")
 
 
-class VacancyDetailView(APIView):
+class VacancyDetailView(generics.UpdateAPIView):
 
     def get(self, request, pk):
-        vacancy_detail = Vacancies.objects.get(id=pk)
+        vacancy_detail = Vacancies.objects.get(pk)
         serializer = VacanciesDetailSerializer(vacancy_detail)
-        return Response(serializer.data)
+        return render(request, "index.html")
 
 
 class EventsDataView(APIView):
@@ -44,8 +51,8 @@ class EventsDataView(APIView):
         serializer = EventsDataSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
     def get(self, request):
         event = Events.objects.create(request.body)

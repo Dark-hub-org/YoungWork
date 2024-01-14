@@ -22,6 +22,6 @@ class DRFDampUserDataView(APIView):
 class DRFDampUserDetailView(APIView):
 
     def get(self, request, pk):
-        applicant_detail = DampUser.objects.get(user_id=pk)
+        applicant_detail = DampUser.objects.get()
         serializer = DampUserDetailSerializer(applicant_detail)
         return Response(serializer.data)

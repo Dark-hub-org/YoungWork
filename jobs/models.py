@@ -11,12 +11,12 @@ class Vacancies(models.Model):
     salary_max = models.CharField(blank=True, max_length=100, default='')
     tax = models.CharField(blank=True, max_length=100, default='')
     type = models.CharField(blank=True, max_length=100, default='')
-    logo = models.ImageField(null=True, blank=True, upload_to='movies/vacancies')  # swap to JSON
+    logo = models.ImageField(null=True, blank=True, upload_to='movies/vacancies')
     required_experience = models.CharField(blank=True, max_length=100, default='')
     graph = models.CharField(blank=True, max_length=100, default='')
 
     def __str__(self):
-        return f"{self.job_title} {self.description} {self.salary_min} {self.salary_max}"
+        return f"{self.job_title} {self.salary_min} {self.salary_max}"
 
     class Meta:
         verbose_name = 'Вакансия'

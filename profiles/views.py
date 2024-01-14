@@ -32,7 +32,7 @@ class ApplicantDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, pk):
-        applicant_detail = Applicant.objects.get(user_id=pk)
+        applicant_detail = Applicant.objects.get()
         serializer = ApplicantDetailSerializer(applicant_detail)
         return render(request, "index.html", {"summary": serializer})
 
@@ -54,7 +54,7 @@ class DRFApplicantDataView(APIView):
 class DRFApplicantDetailView(APIView):
 
     def get(self, request, pk):
-        applicant_detail = Applicant.objects.get(user_id=pk)
+        applicant_detail = Applicant.objects.get()
         serializer = ApplicantDetailSerializer(applicant_detail)
         return Response(serializer.data)
 
@@ -76,7 +76,7 @@ class EmployerDataView(APIView):
 class EmployerDetailView(APIView):
 
     def get(self, request, pk):
-        employer_detail = Employer.objects.get(user_id=pk)
+        employer_detail = Employer.objects.get()
         serializer = ApplicantDetailSerializer(employer_detail)
         return render(request, "index.html", {"employer": serializer})
 
@@ -106,6 +106,6 @@ class DRFEmployerDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, pk):
-        employer_detail = Employer.objects.get(user_id=pk)
+        employer_detail = Employer.objects.get()
         serializer = EmployerDataSerializer(employer_detail)
         return Response(serializer.data)
