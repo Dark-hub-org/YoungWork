@@ -1,132 +1,267 @@
 <template>
   <section class="constructor">
     <div class="wrapper constructor-wrapper">
-      <div class="upload-image">
-        <div class="upload-image__wrapper">
-          <p class="upload-image-title">Загрузите тизер</p>
-          <input type="file" name="image" class="upload-image-input">
-          <div class="upload-image__cross"></div>
+      <div class="constructor__banner">
+        <div class="constructor__banner-wrapper">
+          <p class="constructor__banner-title">Загрузите тизер</p>
+          <input type="file" name="image" class="constructor__banner-input">
+          <div class="constructor__banner-cross"></div>
         </div>
       </div>
-      <form class="parameters-form">
-        <h2 class="constructor-title">Создание вакансии</h2>
-        <div class="parameters-form__wrapper">
-          <span class="parameters-form__wrapper__name">Напишите название вакансии:</span>
+      <h2 class="constructor__title">Создание вакансии</h2>
+      <form class="constructor__form">
+        <div class="constructor__form-block">
+          <p class="constructor__form-block__name">Напишите название вакансии:</p>
           <input
               v-model.trim="vacancyTitle"
               v-restrict-input-length="120"
+              :class="{ error: errorFields.vacancyTitle }"
+              @input="errorFields.vacancyTitle = false"
               type="text"
-              class="parameters-form__wrapper__text"
+              class="constructor__form-block__input not-margin"
               placeholder="Дизайнер">
+          <span
+              class="constructor__form-block__error"
+              :class="{ active: errorFields.vacancyTitle }">Заполните поле</span>
         </div>
-        <div class="parameters-form__wrapper">
-          <span class="parameters-form__wrapper__name">Уровень заработной платы:</span>
-          <input v-model.number="salaryMin" type="number" class="parameters-form__wrapper__text small margin-bottom"
-                 placeholder="От">
-          <input v-model.number="salaryMax" type="number" class="parameters-form__wrapper__text small margin-bottom"
-                 placeholder="До">
-          <div class="parameters-filter__block">
-            <input v-model="isSalaryTask" type="radio" value="До вычета налогов" name="salary"
-                   class="parameters-filter__input"
-                   id="beforeDed" checked>
-            <label for="beforeDed" class="parameters-filter-label radio">До вычета налогов</label>
+        <div class="constructor__form-block">
+          <p class="constructor__form-block__name">Уровень заработной платы:</p>
+          <input
+              v-model.number="salaryMin"
+              :class="{ error: errorFields.salary }"
+              @input="errorFields.salary = false"
+              type="number"
+              class="constructor__form-block__input small"
+              placeholder="От">
+          <span
+              class="constructor__form-block__error"
+              :class="{ active: errorFields.salary }">Заполните поле</span>
+          <input
+              v-model.number="salaryMax"
+              :class="{ error: errorFields.salary }"
+              @input="errorFields.salary = false"
+              type="number"
+              class="constructor__form-block__input small"
+              placeholder="До">
+          <span
+              class="constructor__form-block__error"
+              :class="{ active: errorFields.salary }">Заполните поле</span>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="isSalaryTask"
+                type="radio"
+                value="До вычета налогов"
+                name="salary"
+                class="constructor__form-parameter__input"
+                id="beforeDed" checked>
+            <label for="beforeDed" class="constructor__form-parameter__label radio">До вычета налогов</label>
           </div>
-          <div class="parameters-filter__block">
-            <input v-model="isSalaryTask" type="radio" name="salary" value="На руки" class="parameters-filter__input"
-                   id="afterDed">
-            <label for="afterDed" class="parameters-filter-label radio">На руки</label>
-          </div>
-        </div>
-        <div class="parameters-form__wrapper">
-          <span class="parameters-form__wrapper__name">Укажите тип занятости:</span>
-          <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="Полная занятость" class="parameters-filter__input"
-                   id="fullEmploy" checked>
-            <label for="fullEmploy" class="parameters-filter-label radio">Полная занятость</label>
-          </div>
-          <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="Частичная занятость"
-                   class="parameters-filter__input"
-                   id="partialEmploy">
-            <label for="partialEmploy" class="parameters-filter-label radio">Частичная занятость</label>
-          </div>
-          <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="Стажировка" class="parameters-filter__input"
-                   id="internship">
-            <label for="internship" class="parameters-filter-label radio">Стажировка</label>
-          </div>
-          <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="Проектная работа" class="parameters-filter__input"
-                   id="projectWork">
-            <label for="projectWork" class="parameters-filter-label radio">Проектная работа</label>
-          </div>
-          <div class="parameters-filter__block">
-            <input v-model="employ" type="radio" name="employ" value="Волонтерство" class="parameters-filter__input"
-                   id="volunteering">
-            <label for="volunteering" class="parameters-filter-label radio">Волонтерство</label>
-          </div>
-        </div>
-        <div class="parameters-form__wrapper">
-          <span class="parameters-form__wrapper__name">Укажите требуемый опыт работы:</span>
-          <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="Не имеет значения"
-                   class="parameters-filter__input" id="exp-1"
-                   checked>
-            <label for="exp-1" class="parameters-filter-label radio">Не имеет значения</label>
-          </div>
-          <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="от 1 года до 3 лет"
-                   class="parameters-filter__input" id="exp-2">
-            <label for="exp-2" class="parameters-filter-label radio">от 1 года до 3 лет</label>
-          </div>
-          <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="От 3 до 6 лет" class="parameters-filter__input"
-                   id="exp-3">
-            <label for="exp-3" class="parameters-filter-label radio">От 3 до 6 лет</label>
-          </div>
-          <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="Нет опыта" class="parameters-filter__input"
-                   id="exp-4">
-            <label for="exp-4" class="parameters-filter-label radio">Нет опыта</label>
-          </div>
-          <div class="parameters-filter__block">
-            <input v-model="experience" type="radio" name="exp" value="Более 6 лет" class="parameters-filter__input"
-                   id="exp-5">
-            <label for="exp-5" class="parameters-filter-label radio">Более 6 лет</label>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="isSalaryTask"
+                type="radio"
+                name="salary"
+                value="На руки"
+                class="constructor__form-parameter__input"
+                id="afterDed">
+            <label for="afterDed" class="constructor__form-parameter__label radio">На руки</label>
           </div>
         </div>
-        <div class="parameters-form__wrapper">
-          <p class="parameters-form__wrapper__name">График работы</p>
-          <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-1" value="Полный день">
-            <label for="graph-1" class="parameters-filter-label check">Полный день</label>
+        <div class="constructor__form-block">
+          <p class="constructor__form-block__name">Укажите тип занятости:</p>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="employ"
+                type="radio"
+                name="employ"
+                value="Полная занятость"
+                class="constructor__form-parameter__input"
+                id="fullEmploy"
+                checked>
+            <label for="fullEmploy" class="constructor__form-parameter__label radio">Полная занятость</label>
           </div>
-          <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-2"
-                   value="Удаленная работа">
-            <label for="graph-2" class="parameters-filter-label check">Удаленная работа</label>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="employ"
+                type="radio"
+                name="employ"
+                value="Частичная занятость"
+                class="constructor__form-parameter__input"
+                id="partialEmploy">
+            <label for="partialEmploy" class="constructor__form-parameter__label radio">Частичная занятость</label>
           </div>
-          <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-3" value="Сменный график">
-            <label for="graph-3" class="parameters-filter-label check">Сменный график</label>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="employ"
+                type="radio"
+                name="employ"
+                value="Стажировка"
+                class="constructor__form-parameter__input"
+                id="internship">
+            <label for="internship" class="constructor__form-parameter__label radio">Стажировка</label>
           </div>
-          <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-4"
-                   value="Гибкий график">
-            <label for="graph-4" class="parameters-filter-label check">Гибкий график</label>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="employ"
+                type="radio"
+                name="employ"
+                value="Проектная работа"
+                class="constructor__form-parameter__input"
+                id="projectWork">
+            <label for="projectWork" class="constructor__form-parameter__label radio">Проектная работа</label>
           </div>
-          <div class="parameters-filter__block employ">
-            <input v-model="graph" type="checkbox" class="parameters-filter__input" id="graph-5" value="Вахтовый метод">
-            <label for="graph-5" class="parameters-filter-label check">Вахтовый метод</label>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="employ"
+                type="radio"
+                name="employ"
+                value="Волонтерство"
+                class="constructor__form-parameter__input"
+                id="volunteering">
+            <label for="volunteering" class="constructor__form-parameter__label radio">Волонтерство</label>
           </div>
         </div>
-        <ckeditor :config="editorConfig" v-model="editorData" class="ckeditor-text"></ckeditor>
+        <div class="constructor__form-block">
+          <p class="constructor__form-block__name">Укажите требуемый опыт работы:</p>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="experience"
+                type="radio"
+                name="exp"
+                value="Не имеет значения"
+                class="constructor__form-parameter__input" id="exp-1"
+                checked>
+            <label for="exp-1" class="constructor__form-parameter__label radio">Не имеет значения</label>
+          </div>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="experience"
+                type="radio"
+                name="exp"
+                value="от 1 года до 3 лет"
+                class="constructor__form-parameter__input" id="exp-2">
+            <label for="exp-2" class="constructor__form-parameter__label radio">от 1 года до 3 лет</label>
+          </div>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="experience"
+                type="radio"
+                name="exp"
+                value="От 3 до 6 лет"
+                class="constructor__form-parameter__input"
+                id="exp-3">
+            <label for="exp-3" class="constructor__form-parameter__label radio">От 3 до 6 лет</label>
+          </div>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="experience"
+                type="radio"
+                name="exp"
+                value="Нет опыта"
+                class="constructor__form-parameter__input"
+                id="exp-4">
+            <label for="exp-4" class="constructor__form-parameter__label radio">Нет опыта</label>
+          </div>
+          <div class="constructor__form-parameter">
+            <input
+                v-model="experience"
+                type="radio"
+                name="exp"
+                value="Более 6 лет"
+                class="constructor__form-parameter__input"
+                id="exp-5">
+            <label for="exp-5" class="constructor__form-parameter__label radio">Более 6 лет</label>
+          </div>
+        </div>
+        <div class="constructor__form-block">
+          <p class="constructor__form-block__name">График работы</p>
+          <div class="constructor__form-parameter employ">
+            <input
+                v-model="graph"
+                @change="errorFields.graph = false"
+                type="checkbox"
+                class="constructor__form-parameter__input"
+                id="graph-1"
+                value="Полный день">
+            <label
+                for="graph-1"
+                class="constructor__form-parameter__label check"
+                :class="{error: errorFields.graph }">Полный день</label>
+          </div>
+          <div class="constructor__form-parameter employ">
+            <input
+                v-model="graph"
+                @change="errorFields.graph = false"
+                type="checkbox"
+                class="constructor__form-parameter__input"
+                id="graph-2"
+                value="Удаленная работа">
+            <label
+                for="graph-2"
+                class="constructor__form-parameter__label check"
+                :class="{error: errorFields.graph }">Удаленная работа</label>
+          </div>
+          <div class="constructor__form-parameter employ">
+            <input
+                v-model="graph"
+                @change="errorFields.graph = false"
+                type="checkbox"
+                class="constructor__form-parameter__input"
+                id="graph-3"
+                value="Сменный график">
+            <label
+                for="graph-3"
+                class="constructor__form-parameter__label check"
+                :class="{ error: errorFields.graph }">Сменный график</label>
+          </div>
+          <div class="constructor__form-parameter employ">
+            <input
+                v-model="graph"
+                @change="errorFields.graph = false"
+                type="checkbox"
+                class="constructor__form-parameter__input"
+                id="graph-4"
+                value="Гибкий график">
+            <label
+                for="graph-4"
+                class="constructor__form-parameter__label check"
+                :class="{error: errorFields.graph }">Гибкий график</label>
+          </div>
+          <div class="constructor__form-parameter employ">
+            <input
+                v-model="graph"
+                @change="errorFields.graph = false"
+                type="checkbox"
+                class="constructor__form-parameter__input"
+                id="graph-5"
+                value="Вахтовый метод">
+            <label
+                for="graph-5"
+                class="constructor__form-parameter__label check"
+                :class="{error: errorFields.graph }">Вахтовый метод</label>
+          </div>
+          <span
+              class="constructor__form-block__error"
+              :class="{ active: errorFields.graph }">Заполните поле</span>
+        </div>
+        <div
+            class="constructor__form-ckeditor-wrapper">
+          <ckeditor
+              :config="editorConfig"
+              v-model="description"
+              @input="errorFields.description = false"
+              :class="{error: errorFields.description}"
+              class="constructor__form-ckeditor"></ckeditor>
+          <span
+              class="constructor__form-block__error"
+              :class="{ active: errorFields.description }">Заполните поле</span>
+        </div>
         <div class="constructor-contact">
         </div>
         <button
             type="submit"
             @click.prevent="createVacancy"
-            class="button-orange-another parameters-submit"
+            class="button-orange-another constructor__form-submit"
         >Опубликовать
         </button>
       </form>
@@ -154,24 +289,43 @@ export default {
     return {
       editorConfig: {
         toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
+        stylesSet: [
+          { name: 'Red Paragraph', element: 'p', styles: { 'color': 'red', 'font-size': '16px' } }
+        ],
       },
-      editorData: '',
+      description: "" +
+          "<p><strong>О компании / заказчике:</strong></p" +
+          "<ul><li></li></ul>" +
+          "<p><strong>Обязанности:</strong></p>" +
+          "<ul><li></li></ul>" +
+          "<p><strong>Требования:</strong></p>" +
+          "<ul><li></li></ul>" +
+          "<p><strong>Условия:</strong></p>" +
+          "<ul><li></li></ul>",
       isSalaryTask: "До вычета налогов",
       employ: 'Полная занятость',
       experience: 'Не имеет значения',
-      graph: [],
+      graph: ["Полный день",],
 
-      companyName: '',
-      companyTel: '',
-      companyEmail: '',
-      companyPost: '',
-      companyPerson: '',
+      // companyName: '',
+      // companyTel: '',
+      // companyEmail: '',
+      // companyPost: '',
+      // companyPerson: '',
 
       vacancyTitle: '',
       salaryMin: '',
       salaryMax: '',
       type: '',
       logo: '',
+      errorFields: {
+        vacancyTitle: false,
+        salary: false,
+        salaryMin: false,
+        salaryMax: false,
+        graph: false,
+        description: false,
+      }
     }
   },
   methods: {
@@ -180,19 +334,31 @@ export default {
         job_title: this.vacancyTitle,
         salary_min: this.salaryMin,
         salary_max: this.salaryMax,
-        description: this.editorData,
+        description: this.description,
         tax: this.isSalaryTask,
         type: this.employ,
         required_experience: this.experience,
       };
-      axios.post('', vacancy)
-          .then(response => {
-            console.log(response)
-            window.location.reload();
-          })
-          .catch(error => {
-            console.log(error)
-          });
+      this.validateFormVacancy()
+      if (Object.values(this.errorFields).every((error) => !error)) {
+        axios.post('', vacancy)
+            .then(response => {
+              console.log(response)
+              window.location.reload();
+            })
+            .catch(error => {
+              console.log(error)
+            });
+      }
+    },
+    validateField(value) {
+      return value.length === 0;
+    },
+    validateFormVacancy() {
+      this.errorFields.vacancyTitle = this.validateField(this.vacancyTitle)
+      this.errorFields.salary = this.validateField(this.salaryMin) && this.validateField(this.salaryMax)
+      this.errorFields.graph = this.validateField(this.graph)
+      this.errorFields.description = this.validateField(this.description)
     },
   },
 }

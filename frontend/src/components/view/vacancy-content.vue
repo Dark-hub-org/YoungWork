@@ -76,7 +76,15 @@
               <div class="vacancy-item__header">
                 <div class="vacancy-item__block">
                   <p class="vacancy-item__title" >{{ vacancy.job_title }}</p>
-                  <p class="vacancy-item__salary" >{{ vacancy.salary_max }} рублей</p>
+                  <p class="vacancy-item__salary" >
+                    <template
+                        v-if="vacancy.salary_min && vacancy.salary_max">
+                        от {{ vacancy.salary_min }} до {{vacancy.salary_max}}
+                    </template>
+                    <template v-else-if="vacancy.salary_min">от {{ vacancy.salary_min }}</template>
+                    <template v-else>до {{vacancy.salary_max}}</template>
+                     рублей
+                  </p>
                 </div>
                 <img src="@/assets/vacancy/company-logo.svg" alt="логотип компании">
               </div>
@@ -86,7 +94,7 @@
                   <p class="vacancy-item-text">Владивосток</p>
                 </div>
                 <div class="vacancy-item__block">
-                  <p class="vacancy-item__text">Опыт работы: не имеет значения</p>
+                  <p class="vacancy-item__text">Опыт работы: {{vacancy.required_experience}}</p>
                   <p class="vacancy-item__text vacancy-item__experince">{{ vacancy.type }}</p>
                 </div>
                 <div class="vacancy-item__block">

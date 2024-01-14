@@ -42,7 +42,7 @@ export default new Vuex.Store({
             axios.get('/api/v1/vac')
                 .then(response => {
                     console.log(response.data.results)
-                    commit('setVacanciesList', response.data.results)
+                    commit('setVacanciesList', response.data)
                 })
                 .catch(error => {
                     console.log(error)
