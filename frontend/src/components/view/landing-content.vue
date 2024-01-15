@@ -1,35 +1,35 @@
 <template>
   <div>
     <section class="inner">
-      <div class="wrapper inner-wrapper">
-        <h1 class="inner-title">Сервис по поиску работы для подростков </h1>
-        <form class="inner-form">
-          <input type="text" class="inner-form__search" placeholder="найти вакансию">
-          <button type="button" class="inner-form__button"></button>
+      <div class="wrapper inner__wrapper">
+        <h1 class="inner__title">Сервис по поиску работы для подростков </h1>
+        <form class="inner__form">
+          <input type="text" class="inner__form-search" placeholder="найти вакансию">
+          <button type="button" class="inner__form-button"></button>
         </form>
-        <div class="inner-info">
-          <div class="inner-info__card">
-            <img src="@/assets/inner/info-1.png" alt="девушка с папкой" class="inner-info-image">
-            <div class="info__card-block">
-              <a href="#" class="button-orange-another info__card-block__link">Перейти</a>
-              <h4 class="info__card-block__title">Отзывы об исполнителях и работодателях</h4>
+        <div class="inner__info">
+          <div class="inner__info-card">
+            <img src="@/assets/inner/info-1.png" alt="девушка с папкой" class="inner__info-image">
+            <div class="inner__info-block">
+              <a href="#" class="button-orange-another inner__info-block__link">Перейти</a>
+              <h4 class="inner__info-block__title">Отзывы об исполнителях и работодателях</h4>
             </div>
           </div>
-          <div class="inner-info__card">
-            <img src="@/assets/inner/info-2.png" alt="сужчина с табличкой" class="inner-info-image">
-            <div class="info__card-block">
-              <a href="#" class="button-orange-another info__card-block__link">Перейти</a>
-              <h4 class="info__card-block__title white">Топ вакансий на этом сервисе</h4>
+          <div class="inner__info-card">
+            <img src="@/assets/inner/info-2.png" alt="сужчина с табличкой" class="inner__info-image">
+            <div class="inner__info-block">
+              <a href="#" class="button-orange-another inner__info-block__link">Перейти</a>
+              <h4 class="inner__info-block__title white">Топ вакансий на этом сервисе</h4>
             </div>
           </div>
-          <div class="inner-info__card">
+          <div class="inner__info-card small">
             <picture>
               <source media="(max-width: 1024px)" srcset="@/assets/inner/info-3__1024.png">
-              <img src="@/assets/inner/info-3.png" alt="рукопожатие" class="inner-info-image">
+              <img src="@/assets/inner/info-3.png" alt="рукопожатие" class="inner__info-image">
             </picture>
-            <div class="info__card-block">
-              <a href="#" class="button-orange-another info__card-block__link">Перейти</a>
-              <h4 class="info__card-block__title">Узнать подробнее о сервисе</h4>
+            <div class="inner__info-block">
+              <a href="#" class="button-orange-another inner__info-block__link">Перейти</a>
+              <h4 class="inner__info-block__title">Узнать подробнее о сервисе</h4>
             </div>
           </div>
         </div>
@@ -37,30 +37,46 @@
     </section>
     <section class="reviews">
       <div class="wrapper">
-        <h2 class="section-title reviews-title">Отзывы</h2>
-        <div class="reviews-slider">
-          <SliderComponent @changedStep="value => currentSliderStep = value" :limit="reviews.length">
-            <slider-item
-                v-for="review in computedData"
-                :review="review"
-                :key="review.id"
-            ></slider-item>
-          </SliderComponent>
-        </div>
-        <a href="#" class="reviews-more">Смотреть все</a>
+        <h2 class="section-title reviews__title">Отзывы</h2>
+        <swiper
+            :slides-per-view="1"
+            :space-between="16"
+            :breakpoints="breakpoints"
+            :loop="false"
+            :navigation="true"
+            class="reviews__slider"
+        >
+          <swiper-slide
+              v-for="review in reviewsList"
+              :key="review.id"
+              class="reviews__slider-item">
+            <p class="reviews__slider-title">{{review.title}}</p>
+            <p class="reviews__slider-text">{{review.text}}</p>
+            <div class="reviews__slider-author">
+              <img :src="require(`../../assets/reviews/${review.src}`)" alt="" class="reviews__slider-author__img">
+              <div class="reviews__slider-author__info">
+                <p class="reviews__slider-author__name">{{review.name}}</p>
+                <p class="reviews__slider-author__post">{{review.post}}</p>
+              </div>
+
+            </div>
+          </swiper-slide>
+        </swiper>
+        <a href="#" class="reviews__more">Смотреть все</a>
       </div>
     </section>
     <section class="recommendation">
       <div class="wrapper">
         <h2 class="section-title">Рекомендуем вам</h2>
-        <div class="recommendation-block">
+        <div class="recommendation__list">
           <vacancy-item
               v-for="vacancy in ListLength"
               :vacancy="vacancy"
               :key="vacancy.id"
+              class="recommendation__list-card"
           ></vacancy-item>
         </div>
-        <a href="#" class="reviews-more">Смотреть все</a>
+        <a href="#" class="reviews__more">Смотреть все</a>
       </div>
     </section>
   </div>
@@ -68,19 +84,32 @@
 
 <script>
 import VacancyItem from "@/components/ui/vacancyItem.vue";
-import SliderComponent from '../../components/ui/the-slider'
-import SliderItem from '@/components/ui/sliderItem';
-import _ from 'lodash'
 
+import { Navigation} from 'swiper'
+import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
+SwiperCore.use([Navigation])
+
+import 'swiper/swiper-bundle.css'
 export default {
   name: "landing-content",
   components: {
     VacancyItem,
-    SliderComponent,
-    SliderItem
+    Swiper,
+    SwiperSlide
   },
   data() {
     return {
+      breakpoints: {
+        1440: {
+          slidesPerView: 4
+        },
+        1100: {
+          slidesPerView: 3
+        },
+        850: {
+          slidesPerView: 2
+        }
+      },
       currentSliderStep: 0,
       reviews: [
         {
@@ -110,6 +139,13 @@ export default {
           src: 'person-4.png',
           name: 'Сергей Андреев',
           post: 'ИП, Строительная компания'
+        },
+        {
+          title: 'Нужно оформить презентацию перед запуском продукта',
+          text: 'Нашла исполнителя за 1 час, который проявил исключительные навыки и профессионализм при оформлении презентации. Было произведено глубокое понимание нашего бизнеса. Был внимателен к деталям и учел все наши требования и пожелания.',
+          src: 'person-1.png',
+          name: 'Алена Игнатова',
+          post: 'HR, Компания Юла'
         },
       ],
       vacancys: [
@@ -149,33 +185,32 @@ export default {
           tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
           salary: '35 000 рублей'
         },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-      ]
+      ],
     }
+  },
+  methods: {
   },
   computed: {
     ListLength() {
-      if (window.innerWidth > 1024) {
-        return this.vacancys.slice(0, 8)
+      if (window.innerWidth > 1440) {
+        return this.vacancys.slice(0, 6)
       }
-      return this.vacancys.slice(0, 6)
+      return this.vacancys.slice(0, 4)
     },
-    computedData () {
-      return _.filter(this.reviews, (itm, ind) => {
-        return Number(ind) === Number(this.currentSliderStep);
-      })
-    }
+    reviewsList() {
+      return this.reviews.map(review => {
+        if (review.text.length > 250) {
+          return {
+            ...review,
+            text: review.text.slice(0, 247) + '...'
+          };
+        }
+        return review;
+      });
+    },
+  },
+  mounted() {
+
   }
 }
 </script>

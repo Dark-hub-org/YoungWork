@@ -65,8 +65,8 @@
       &:before {
         content: '';
         display: inline-block;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         margin-right: 16px;
         border-radius: 50%;
         background-image: url("@/assets/vacancy/radio.svg");
@@ -86,8 +86,8 @@
       &:before {
         content: '';
         display: block;
-        min-width: 20px;
-        min-height: 20px;
+        min-width: 24px;
+        min-height: 24px;
         margin-right: 16px;
         border-radius: 2px;
         background-image: url("@/assets/vacancy/cheack.svg");
