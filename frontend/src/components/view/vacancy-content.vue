@@ -96,7 +96,7 @@
                 </div>
                 <div class="vacancy__item-block">
                   <p class="vacancy__item-text">Опыт работы: {{vacancy.required_experience}}</p>
-                  <p class="vacancy__item-text vacancy__item-experience">{{ vacancy.type }}</p>
+                  <p class="vacancy__item-text vacancy__item-text--type">{{ vacancy.type }}</p>
                 </div>
                 <div class="vacancy__item-block">
                   <p class="vacancy__item-text">
