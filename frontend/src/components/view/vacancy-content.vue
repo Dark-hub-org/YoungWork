@@ -72,9 +72,10 @@
           </the-filters>
           <div class="vacancy__list" :class="{hidden: isFilterVisible}">
             <div v-if="vacancies === []" class="vacancy__preloader"></div>
-            <div v-else class="vacancy__item"
-                 v-for="vacancy in vacancies"
-                 :key="vacancy.id">
+            <div
+                v-else class="vacancy__item"
+                v-for="vacancy in vacancies"
+                :key="vacancy.id">
               <div class="vacancy__item-header">
                 <div class="vacancy__item-content">
                   <router-link
@@ -165,9 +166,9 @@ export default {
         this.vacancies = response.data.results;
         this.quantityVacancies = response.data.count;
         this.currentPage = page;
-
         const route = page === 1 ? '/vacancy' : `/vacancy/?page=${this.currentPage}`;
         this.$router.push(route);
+        window.scrollTo(0, 0);
       } catch (error) {
         console.error(error);
       }
