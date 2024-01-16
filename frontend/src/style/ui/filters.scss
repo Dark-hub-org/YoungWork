@@ -1,133 +1,21 @@
 @import "../main";
-@import "../mixin";
+//@import "../mixin";
 
-
-.vacancy-falters {
+.filters {
   z-index: 3;
   max-width: 333px;
+  width: 100%;
   height: fit-content;
-  margin-right: 64px;
   padding: 40px;
   border-radius: 30px;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
-}
 
-.vacancy-falters.active {
-  display: block;
-  max-width: 100%;
-  margin: 0;
-  background-color: $colorWhite;
-}
-
-.vacancy-apply {
-  margin-top: 64px;
-  margin-left: 50%;
-  transform: translateX(-50%);
-}
-
-.vacancy-filter__wrapper {
-  max-width: 239px;
-
-  &:not(:last-child) {
+  &__top {
+    display: none;
     margin-bottom: 40px;
   }
 
-  .vacancy-filter__title {
-    margin-bottom: 24px;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 22px;
-  }
-
-  .vacancy-filter__block {
-    @include displayFlex;
-    justify-content: start;
-    max-width: 192px;
-
-    &:not(:last-child) {
-      margin-bottom: 16px;
-    }
-
-    .vacancy-filter__input {
-      display: none;
-    }
-
-    .vacancy-filter-label {
-      @include displayFlex;
-      font-size: 20px;
-      font-weight: 400;
-      line-height: 22px;
-      color: $colorBlack;
-    }
-
-    .vacancy-filter-label.radio {
-
-      &:before {
-        content: '';
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        margin-right: 16px;
-        border-radius: 50%;
-        background-image: url("@/assets/vacancy/radio.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-    }
-
-    .vacancy-filter__input:checked + .vacancy-filter-label.radio:before {
-      background-image: url("@/assets/vacancy/radio-active.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    .vacancy-filter-label.check {
-
-      &:before {
-        content: '';
-        display: block;
-        min-width: 24px;
-        min-height: 24px;
-        margin-right: 16px;
-        border-radius: 2px;
-        background-image: url("@/assets/vacancy/cheack.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-    }
-
-    .vacancy-filter__input:checked + .vacancy-filter-label.check:before {
-      background-image: url("@/assets/vacancy/cheack-active.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-  }
-
-  .vacancy-filter__block.exp {
-    max-width: 220px;
-  }
-
-  .vacancy-filter__block.employ{
-    max-width: 238px;
-  }
-
-  .vacancy-filter__input {
-    max-width: 192px;
-    height: 59px;
-    padding: 18px 16px;
-    border-radius: 8px;
-    border: 1px solid #DFDFDF;
-    margin-bottom: 16px;
-    font-size: 20px;
-    font-weight: 400;
-  }
-}
-
-.vacancy-filter__top {
-  @include displayFlex;
-  margin-bottom: 40px;
-
-  .vacancy-title {
+  &__title {
     font-size: 40px;
     font-weight: 600;
     line-height: 98.023%;
@@ -135,11 +23,130 @@
     color: $colorGrey;
   }
 
-  .filter-close-btn {
+  &__close-btn {
     width: 30px;
     height: 30px;
     background-image: url('@/assets/close-icon.svg');
     background-position: center;
     background-repeat: no-repeat;
   }
+
+  &__block {
+    max-width: 239px;
+
+    &:not(:last-child) {
+      margin-bottom: 40px;
+    }
+
+    &-title {
+      margin-bottom: 24px;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 22px;
+    }
+  }
+
+  &__item {
+    @include displayFlex;
+    justify-content: start;
+    max-width: 238px;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    &-input {
+      display: none;
+
+      &.salary {
+        display: block;
+        max-width: 192px;
+        height: 59px;
+        margin-bottom: 16px;
+        padding: 18px 16px;
+        border-radius: 8px;
+        border: 2px solid $colorInputBorder;
+        font-size: 20px;
+        line-height: 112.523%;
+        letter-spacing: -1px;
+        color: $colorInputBorder;
+        transition: all .3s ease;
+        &::placeholder {
+          font-size: 20px;
+          line-height: 112.523%;
+          letter-spacing: -1px;
+          color: $colorInputBorder;
+        }
+        &:focus{
+          border-color: $colorGrey;
+          color: $colorGrey;
+        }
+      }
+
+      &:checked + .filters__item-label.radio:before {
+        background-image: url("@/assets/vacancy/radio-active.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      &:checked + .filters__item-label.check:before {
+        background-image: url("@/assets/vacancy/cheack-active.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+
+    &-label {
+      @include displayFlex;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 22px;
+      color: $colorBlack;
+
+      &.radio {
+        &:before {
+          content: '';
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          margin-right: 16px;
+          border-radius: 50%;
+          background-image: url("@/assets/vacancy/radio.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+
+      &.check {
+        &:before {
+          content: '';
+          display: block;
+          min-width: 24px;
+          min-height: 24px;
+          margin-right: 16px;
+          border-radius: 2px;
+          background-image: url("@/assets/vacancy/cheack.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+    }
+  }
+
+  &__apply {
+    display: none;
+    margin-top: 64px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .filters__top {
+    @include displayFlex;
+  }
+  .filters__apply {
+    display: block;
+  }
+
 }

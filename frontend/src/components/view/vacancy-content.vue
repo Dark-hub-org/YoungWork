@@ -68,15 +68,22 @@
               :class="{active: isFilterVisible}"
               @click="openFilters"
               @closeFilters="closeFilters"
-              class="vacancy__filter">
+              class="vacancy__filters">
           </the-filters>
-          <div class="vacancy__list">
-            <div class="vacancy__item"
+          <div class="vacancy__list" :class="{hidden: isFilterVisible}">
+            <div v-if="vacancies === []" class="vacancy__preloader"></div>
+            <div v-else class="vacancy__item"
                  v-for="vacancy in vacancies"
                  :key="vacancy.id">
               <div class="vacancy__item-header">
                 <div class="vacancy__item-content">
-                  <p class="vacancy__item-title" >{{ vacancy.job_title }}</p>
+                  <router-link
+                      :to="'/vacancy/' + vacancy.id"
+                      tag="a"
+                      target="_blank"
+                      class="vacancy__item-title">
+                    {{ vacancy.job_title }}
+                  </router-link>
                   <p class="vacancy__item-salary" >
                     <template
                         v-if="vacancy.salary_min && vacancy.salary_max">
@@ -98,7 +105,7 @@
                   <p class="vacancy__item-text">Опыт работы: {{vacancy.required_experience}}</p>
                   <p class="vacancy__item-text vacancy__item-text--type">{{ vacancy.type }}</p>
                 </div>
-                <div class="vacancy__item-block">
+                <div class="vacancy__item-block vacancy__item-block--description">
                   <p class="vacancy__item-text">
                     <pre class="vacancy__item-subtitle">Задачи: </pre>
                     <span class="vacancy__item-subtitle-text" v-html="vacancy.description"> </span>
@@ -107,15 +114,15 @@
                 </div>
               </div>
               <div class="vacancy__item-btns">
-                <button class="button-orange-another">Откликнуться</button>
-                <button class="button-orange">В избранное</button>
+                <button class="button-orange-another vacancy__item-btn">Откликнуться</button>
+                <button class="button-orange vacancy__item-btn">В избранное</button>
               </div>
             </div>
             <div class="vacancy__list-pagination">
               <button
                   v-for="pageNumber in totalPage"
                   :key="pageNumber"
-                  @click="getVacanciesPage(pageNumber)"
+                  @click="getVacancies(pageNumber)"
                   :class="{active: pageNumber === Number(currentPage)}"
                   class="vacancy__list-page">{{pageNumber}}</button>
             </div>
@@ -141,7 +148,7 @@ export default {
       vacancies: [],
       quantityVacancies: 0,
       currentPage: 1,
-      pageQuantityMax: 0,
+      pageQuantityMax: 10,
       requestValue: '',
     }
   },
@@ -152,26 +159,27 @@ export default {
     closeFilters() {
       this.isFilterVisible = false
     },
-    getVacanciesPage(page) {
-      axios.get(`/api/v1/vac?page=${page}`)
-          .then(response => {
-            this.vacancies = response.data.results
-            this.quantityVacancies = response.data.count
-            this.pageQuantityMax = response.data.results.length
-            this.currentPage = page
-          })
-          .catch(error => {
-            console.log(error)
-          })
+    async getVacancies(page) {
+      try {
+        const response = await axios.get(`/api/v1/vac?page=${page}`);
+        this.vacancies = response.data.results;
+        this.quantityVacancies = response.data.count;
+        this.currentPage = page;
+
+        const route = page === 1 ? '/vacancy' : `/vacancy/?page=${this.currentPage}`;
+        this.$router.push(route);
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
   computed: {
-    // totalPage() {
-    //   return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
-    // },
+    totalPage() {
+      return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
+    },
   },
   mounted() {
-    this.getVacanciesPage(this.currentPage);
+    this.getVacancies(this.currentPage);
   },
 }
 

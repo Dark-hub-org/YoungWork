@@ -1,88 +1,101 @@
-@import "varibles";
-@import "mixin";
+//@import "varibles";
+//@import "mixin";
 @import "main";
 
 .header {
   z-index: 999;
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   right: 0;
   background-color: $colorWhite;
-}
 
-.wrapper-header {
-  @include displayFlex;
-  padding: 40px 0 20px 0;
-}
-
-.header-logo {
-  width: 50px;
-  height: 50px;
-}
-
-.header-nav {
-  width: 562px;
-
-  .header-nav__list {
+  &__wrapper {
     @include displayFlex;
+    padding: 40px 0 20px 0;
   }
-}
 
-.menu-btn {
-  position: relative;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-
-  .menu-btn__line {
-    position: absolute;
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background-color: $colorOrangeM;
-
-    &:nth-child(1) {
-      top: 6px;
-      transition: top .15s .2s, transform .2s;
-    }
-
-    &:nth-child(2) {
-      bottom: 6px;
-      transition: bottom .15s .2s, transform .2s;
-    }
-
-    &:nth-child(3) {
-      transition: opacity .05s .15s;
-    }
+  &__logo {
+    width: 50px;
+    height: 50px;
   }
-}
 
-.menu-btn.active {
+  &__nav {
+    width: 562px;
 
-  .menu-btn__line {
+    &.active {
+      visibility: visible;
+      height: 100vh;
 
-    &:nth-child(1) {
-      top: 14px;
-      transform: rotate(45deg);
-      transition: top .15s, transform .2s .15s;
+      .header__nav-list {
+        opacity: 1;
+      }
     }
 
-    &:nth-child(2) {
-      bottom: 14px;
-      transform: rotate(-45deg);
-      transition: bottom .15s, transform .2s .15s;
+    &-list {
+      @include displayFlex;
     }
 
-    &:nth-child(3) {
-      opacity: 0;
+    &-item {
+
     }
   }
 
+  &__menu-btn {
+    position: relative;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+
+    &.active {
+      .header__menu-btn__line {
+        &:nth-child(1) {
+          top: 14px;
+          transform: rotate(45deg);
+          transition: top .15s, transform .2s .15s;
+        }
+
+        &:nth-child(2) {
+          bottom: 14px;
+          transform: rotate(-45deg);
+          transition: bottom .15s, transform .2s .15s;
+        }
+
+        &:nth-child(3) {
+          opacity: 0;
+        }
+      }
+    }
+
+    &__line {
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background-color: $colorOrangeM;
+
+      &:nth-child(1) {
+        top: 6px;
+        transition: top .15s .2s, transform .2s;
+      }
+
+      &:nth-child(2) {
+        bottom: 6px;
+        transition: bottom .15s .2s, transform .2s;
+      }
+
+      &:nth-child(3) {
+        transition: opacity .05s .15s;
+      }
+    }
+  }
 }
+
+
+
 
 .header-supernova{
   position: relative;
@@ -212,56 +225,53 @@
 }
 
 @media(max-width: 1650px) {
-  .wrapper-header {
+  .header__wrapper {
     margin: 0 40px;
   }
 }
 
-@media(max-width: 744px) {
-  .header-nav {
-    z-index: 100;
-    position: absolute;
-    display: block;
-    visibility: hidden;
-    top: 110px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 0;
-    padding-top: 20px;
-    background-color: $colorWhite;
-    border-top: 2px solid $colorOrangeM;
-    transition: all .3s ease-in-out;
+@media(max-width: 768px) {
 
-    .header-nav__list {
-      flex-direction: column;
-      gap: 40px;
-      opacity: 0;
-      transition: all .3s ease-in-out;
+  .header {
+    &__nav {
+      z-index: 100;
+      position: absolute;
+      display: block;
+      visibility: hidden;
+      top: 110px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 0;
+      padding-top: 20px;
+      background-color: $colorWhite;
+      border-top: 2px solid $colorOrangeM;
+      transition: all .3s ease;
 
-      .header-btn {
-        padding: 20px 30px;
-        font-size: 25px !important;
+      &-list {
+        flex-direction: column;
+        gap: 40px;
+        opacity: 0;
+        transition: all .3s ease-in-out;
       }
-    }
-  }
 
-  .header-nav.active {
-    visibility: visible;
-    height: 100vh;
+      .header__nav-button {
+        height: 52px;
+        padding: 15px 25px;
+        font-size: 20px;
+      }
 
-    .header-nav__list {
-      opacity: 1;
     }
-  }
-  .menu-btn {
-    display: flex;
+
+    &__menu-btn {
+      display: flex;
+    }
   }
 }
 
 @media (max-width: 360px) {
-  .wrapper-header {
+  .header__wrapper {
     margin: 0 20px;
   }
 }

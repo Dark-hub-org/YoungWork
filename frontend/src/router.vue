@@ -13,13 +13,19 @@ import UserEdit from '@/components/ui/userEdit.vue';
 
 Vue.use(VueRouter);
 
+// const router = new VueRouter({
+//   routes,
+//   mode: 'history',
+// })
+
 export default new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {path: '/', component: LandingContent},//Основа
-    {path: '/vacancies', component: VacancyContent},//Все вакансии
-    {path: '/vacancy', component: vacancyPage},// Детальная вакансия
+    {path: '/vacancy', name: "vacancies", component: VacancyContent},// вакансии
+    {path: '/vacancy/:page',  name: "vacancies-page", component: VacancyContent}, // вакансии хабовая
+    {path: '/vacancy/:id', name: "vacancy", component: vacancyPage},// Детальная вакансия
     {path: '/create-vacancy', component: createPage},//Создание вакансии
     {path: '/create-resume', component: createResume},//Создать резюме
     {path: '/profile/applicant/', component: Applicant},//Профиль соискателя

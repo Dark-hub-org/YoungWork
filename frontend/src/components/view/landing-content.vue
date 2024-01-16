@@ -11,14 +11,14 @@
           <div class="inner__info-card">
             <img src="@/assets/inner/info-1.png" alt="девушка с папкой" class="inner__info-image">
             <div class="inner__info-block">
-              <a href="#" class="button-orange-another inner__info-block__link">Перейти</a>
+              <a href="/vacancy" class="button-orange-another inner__info-block__link">Перейти</a>
               <h4 class="inner__info-block__title">Отзывы об исполнителях и работодателях</h4>
             </div>
           </div>
           <div class="inner__info-card">
             <img src="@/assets/inner/info-2.png" alt="сужчина с табличкой" class="inner__info-image">
             <div class="inner__info-block">
-              <a href="#" class="button-orange-another inner__info-block__link">Перейти</a>
+              <a href="/vacancy" class="button-orange-another inner__info-block__link">Перейти</a>
               <h4 class="inner__info-block__title white">Топ вакансий на этом сервисе</h4>
             </div>
           </div>
@@ -28,7 +28,7 @@
               <img src="@/assets/inner/info-3.png" alt="рукопожатие" class="inner__info-image">
             </picture>
             <div class="inner__info-block">
-              <a href="#" class="button-orange-another inner__info-block__link">Перейти</a>
+              <a href="/vacancy" class="button-orange-another inner__info-block__link">Перейти</a>
               <h4 class="inner__info-block__title">Узнать подробнее о сервисе</h4>
             </div>
           </div>

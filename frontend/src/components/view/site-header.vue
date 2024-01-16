@@ -1,39 +1,36 @@
 <template>
   <header class="header">
-    <div class="wrapper wrapper-header">
+    <div class="wrapper header__wrapper">
       <router-link
           to="/"
           tag="a"
           class="header-logo-link">
-        <img src="@/assets/logo.svg" alt="логотип" class="header-logo">
+        <img src="@/assets/logo.svg" alt="логотип" class="header__logo">
       </router-link>
-      <!-- <a href="#" class="header-logo-link">
-        <img src="@/assets/logo.svg" alt="логотип" class="header-logo">
-      </a> -->
       <nav
           :class="{active: isMenuActive}"
-          class="header-nav">
-        <ul class="header-nav__list">
-          <li class="header-nav__list-item">
-            <button type="button" class="header-btn button-orange">Услуги</button>
+          class="header__nav">
+        <ul class="header__nav-list">
+          <li class="header__nav-item">
+            <button type="button" class="button-orange header__nav-button">Услуги</button>
           </li>
-          <li class="header-nav__list-item">
-            <button type="button" class="header-btn button-orange">Работа</button>
+          <li class="header__nav-item">
+            <button type="button" class="button-orange header__nav-button">Работа</button>
           </li>
           <template v-if="!isAutoRization">
-            <li class="header-nav__list-item">
+            <li class="header__nav-item">
               <button
                   @click="isModalWinLog = true"
                   type="button"
-                  class="header-btn button-green">
+                  class="button-green header__nav-button">
                 Вход
               </button>
             </li>
-            <li class="header-nav__list-item">
+            <li class="header__nav-item">
               <button
                   @click="isModalVisSwitch = true"
                   type="button"
-                  class="header-btn button-green">
+                  class="button-green header__nav-button">
                 Регистрация
               </button>
             </li>
@@ -335,10 +332,10 @@
       <button
           @click="openItem"
           :class="{active: isMenuActive}"
-          class="menu-btn">
-        <span class="menu-btn__line"></span>
-        <span class="menu-btn__line"></span>
-        <span class="menu-btn__line"></span>
+          class="header__menu-btn">
+        <span class="header__menu-btn__line"></span>
+        <span class="header__menu-btn__line"></span>
+        <span class="header__menu-btn__line"></span>
       </button>
     </div>
   </header>

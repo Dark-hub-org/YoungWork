@@ -1,5 +1,5 @@
-@import "varibles";
-@import "mixin";
+//@import "varibles";
+//@import "mixin";
 @import "main";
 
 //inner start
@@ -98,6 +98,7 @@
       &__link {
         display: inline-block;
         margin-bottom: 8px;
+        font-size: 18px;
       }
 
       &__title {

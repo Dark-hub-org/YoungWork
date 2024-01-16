@@ -125,22 +125,41 @@ body {
   .wrapper {
     margin: 0 20px;
   }
-}
-
-@media(max-width: 360px) {
 
   .button-orange-another {
+    height: 37px;
     padding: 10px 14px;
-    font-size: 14px !important;
-    line-height: 17px !important;
+    font-size: 14px;
+    line-height: normal;
     letter-spacing: -0.02em;
   }
 
   .button-orange {
-    font-size: 14px !important;
-    line-height: 17px !important;
+    height: 37px;
     padding: 10px 14px;
+    font-size: 14px;
+    line-height: normal;
+    letter-spacing: -0.02em;
   }
+
+  .button-green {
+    height: 37px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: normal;
+    letter-spacing: -0.02em;
+  }
+
+  .button-green-another {
+    height: 37px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: normal;
+    letter-spacing: -0.02em;
+  }
+}
+
+@media(max-width: 360px) {
 
   .section-title {
     font-size: 24px;
