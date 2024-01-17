@@ -1,41 +1,37 @@
 <template>
   <user-profile :userData="applicantData" :profileText="profileText" :userAge="userAge">
     <template v-slot:twoTub>
-      <div class="profile__block data block__full-name">
+      <div class="profile__main-block data block__full-name">
         <div class="profile__field">
-          <p class="profile__field__name">Фамилия:</p>
+          <p class="profile__field-name">Фамилия:</p>
           <div class="profile__value">
             <p class="profile__value-text">{{applicantData.lastname}}</p>
           </div>
-<!--          <input v-model="applicantData.lastname" type="text" class="profile__data">-->
         </div>
         <div class="profile__field">
-          <p class="profile__field__name">Имя:</p>
+          <p class="profile__field-name">Имя:</p>
           <div class="profile__value">
             <p class="profile__value-text">{{applicantData.firstname}}</p>
           </div>
-<!--          <input v-model.trim="applicantData.firstname" type="text" class="profile__data">-->
         </div>
         <div class="profile__field">
-          <p class="profile__field__name">Отчество:</p>
+          <p class="profile__field-name">Отчество:</p>
           <div class="profile__value">
             <p class="profile__value-text">{{applicantData.patronymic}}</p>
           </div>
-<!--          <input v-model.trim="applicantData.patronymic" type="text" class="profile__data">-->
         </div>
       </div>
-      <div class="profile__block">
+      <div class="profile__main-block">
         <div class="profile__field">
-          <p class="profile__field__name">Дата рождения:</p>
+          <p class="profile__field-name">Дата рождения:</p>
           <div class="profile__value">
             <p class="profile__value-text" v-mask="'##/##/####'">{{applicantData.birthday}}</p>
           </div>
-<!--          <input v-model="applicantData.birthday" type="text" class="profile__data" v-mask="'##/##/####'">-->
         </div>
       </div>
-      <div class="profile__block">
+      <div class="profile__main-block">
         <div class="profile__field">
-          <p class="profile__field__name">Пол:</p>
+          <p class="profile__field-name">Пол:</p>
           <div class="profile__value">
             <p class="profile__value-text">
               <template v-if="applicantData.sex === 'men'">
@@ -51,9 +47,9 @@
           </div>
         </div>
       </div>
-<!--      <div class="profile__block">-->
+<!--      <div class="profile__main-block">-->
 <!--        <div class="profile__field">-->
-<!--          <p class="profile__field__name">Пол:</p>-->
+<!--          <p class="profile__field-name">Пол:</p>-->
 <!--          <div class="profile__radio-wrapper">-->
 <!--            <input v-model="applicantData.sex" type="radio" name="exp" value="men" class="profile__radio"-->
 <!--                   id="men"-->
@@ -67,29 +63,26 @@
 <!--          </div>-->
 <!--        </div>-->
 <!--      </div>-->
-      <div class="profile__block data start">
+      <div class="profile__main-block data start">
         <div class="profile__field">
-          <p class="profile__field__name">Гражданство:</p>
+          <p class="profile__field-name">Гражданство:</p>
           <div class="profile__value">
             <p class="profile__value-text">{{applicantData.citizenship}}</p>
           </div>
-<!--          <input v-model="applicantData.citizenship" type="text" class="profile__data">-->
         </div>
       </div>
-      <div class="profile__block data start">
+      <div class="profile__main-block data start">
         <div class="profile__field">
-          <p class="profile__field__name">Регион:</p>
+          <p class="profile__field-name">Регион:</p>
           <div class="profile__value">
             <p class="profile__value-text">{{applicantData.region}}</p>
           </div>
-<!--          <input v-model="applicantData.region" type="text" class="profile__data">-->
         </div>
         <div class="profile__field">
-          <p class="profile__field__name">Город проживания:</p>
+          <p class="profile__field-name">Город проживания:</p>
           <div class="profile__value">
             <p class="profile__value-text">{{applicantData.city}}</p>
           </div>
-<!--          <input v-model="applicantData.city" type="text" class="profile__data">-->
         </div>
       </div>
     </template>

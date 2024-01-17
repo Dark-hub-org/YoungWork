@@ -96,6 +96,7 @@ export default {
           {id: 3, image: '../../assets/applicant-profile/image-3.png'},
         ],
         contact: {
+          logo: '1',
           telegram: 'as8691_1',
           email: 'sasha-andreeva-1998@list.ru',
           telephone: '+7 999 888 77 66',

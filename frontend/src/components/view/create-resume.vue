@@ -210,7 +210,7 @@
           </div>
           <p v-if="isErrorContact" class="create-resume__error">Пожалуйста, заполните поле</p>
         </div>
-        <button @click.prevent="submitForm" type="submit" class="create-resume__submit">Опубликовать</button>
+        <button @click.prevent="submitForm" type="button" class="create-resume__submit">Опубликовать</button>
       </form>
     </div>
   </section>

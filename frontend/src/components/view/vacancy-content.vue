@@ -61,7 +61,7 @@
     <section class="vacancy">
       <div class="wrapper">
         <p class="vacancy__quantity">
-          {{quantityVacancies}} <template v-if="quantityVacancies <= 4">вакансии</template> <template v-else>вакансий</template> <template v-if="requestValue !== ''">“{{requestValue}}”</template>
+          {{quantityVacancies}} <template v-if="quantityVacancies <= 4 && quantityVacancies !== 0">вакансии</template> <template v-else>вакансий</template> <template v-if="requestValue !== ''">“{{requestValue}}”</template>
         </p>
         <div class="vacancy__content">
           <the-filters

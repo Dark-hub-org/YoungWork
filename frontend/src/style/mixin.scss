@@ -86,11 +86,11 @@
   transition: all .3s ease;
 
   &:hover {
-    background-color: $colorGreenLight;
+    border-color: $colorGreenLight;
   }
 
   &:active {
-    background-color: $colorGreenDarker;
+    border-color: $colorGreenDarker;
   }
 }
 
@@ -107,7 +107,7 @@
   position: absolute;
   width: 48px;
   height: 48px;
-  background-image: url('@/assets/edit-icon.png');
+  background-image: url('@/assets/edit-icon.svg');
   background-repeat: no-repeat;
   background-position: center;
   transition: all .15s ease-in-out;
