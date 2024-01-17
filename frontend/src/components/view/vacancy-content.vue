@@ -79,7 +79,7 @@
               <div class="vacancy__item-header">
                 <div class="vacancy__item-content">
                   <router-link
-                      :to="'/vacancy/' + vacancy.id"
+                      :to="{ name: 'vacancy', params: { id: vacancy.id} }"
                       tag="a"
                       target="_blank"
                       class="vacancy__item-title">

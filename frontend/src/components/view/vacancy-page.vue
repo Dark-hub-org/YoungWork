@@ -67,6 +67,15 @@
 <script>
 export default {
   name: 'vacancy-page',
+  props: ['id'],
+  data() {
+    return {
+
+    };
+  },
+  mounted() {
+
+  },
 }
 </script>
 <style src="@/style/vacancy-page.scss" lang="scss" scoped>
