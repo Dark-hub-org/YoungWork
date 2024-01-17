@@ -24,7 +24,7 @@ export default new VueRouter({
   routes: [
     {path: '/', component: LandingContent},//Основа
     {path: '/vacancy/:id', name: "vacancy", props: true, component: vacancyPage},// Детальная вакансия
-    {path: '/vacancy/:page',  name: "vacancies-page", component: VacancyContent}, // вакансии хабовая
+    {path: '/vacancy/page/:page',  name: "vacancies-page", component: VacancyContent}, // вакансии хабовая
     {path: '/vacancy', name: "vacancies", component: VacancyContent},// вакансии
     {path: '/create-vacancy', component: createPage},//Создание вакансии
     {path: '/create-resume', component: createResume},//Создать резюме
