@@ -12,10 +12,11 @@ class VacanciesDataView(APIView):
         vacancies = Vacancies.objects.all()
         serializer = VacanciesDataSerializer(vacancies, many=True)
         return render(request, "index.html", {"vacancies": serializer.data})
+#         return Response(serializer.data)
 
 
 class LargeResultsSetPagination(PageNumberPagination):
-    page_size = 10
+    page_size = 2
     page_size_query_param = 'page_size'
     max_page_size = 10
 

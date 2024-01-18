@@ -65,8 +65,28 @@
   </section>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: 'vacancy-page',
+  props: ['id'],
+  data() {
+    return {
+      vacancyData: [],
+    };
+  },
+  methods: {
+    async getVacancyData(id) {
+      try {
+        const response = await axios.get(`/api/v1/vac?page=${id}`);
+        this.vacancyData = response.data
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  mounted() {
+    this.getVacancyData(this.id)
+  },
 }
 </script>
 <style src="@/style/vacancy-page.scss" lang="scss" scoped>

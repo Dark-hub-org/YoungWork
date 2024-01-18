@@ -82,7 +82,7 @@
               <div class="vacancy__item-header">
                 <div class="vacancy__item-content">
                   <router-link
-                      :to="'/vacancy_detail/' + vacancy.id"
+                      :to="{ name: 'vacancy', params: { id: vacancy.id} }"
                       tag="a"
                       target="_blank"
                       class="vacancy__item-title">
@@ -154,7 +154,7 @@ export default {
       vacancies: [],
       quantityVacancies: 0,
       currentPage: 1,
-      pageQuantityMax: 10,
+      pageQuantityMax: 2,
       requestValue: '',
     }
   },
@@ -171,8 +171,13 @@ export default {
         this.vacancies = response.data.results;
         this.quantityVacancies = response.data.count;
         this.currentPage = page;
-        const route = page === 1 ? '/vacancy' : `/vacancy/?page=${this.currentPage}`;
-        this.$router.push(route);
+
+        // Проверка, изменился ли маршрут
+        const route = page === 1 ? '/vacancy/' : `/vacancy/page/${this.currentPage}/`;
+        if (this.$route.path !== route) {
+          this.$router.push(route);
+        }
+
         window.scrollTo(0, 0);
       } catch (error) {
         console.error(error);
