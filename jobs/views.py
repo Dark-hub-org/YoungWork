@@ -42,7 +42,15 @@ class VacancyDetailView(APIView):
     def get(self, request, pk):
         vacancy_detail = Vacancies.objects.get(pk=pk)
         serializer = VacanciesDetailSerializer(vacancy_detail)
-        return render(request, "index.html", {"vacancy_detail": serializer.data})
+        return render(request, "index.html", {'vacancy_detail': serializer.data})
+
+
+class VacancyDetail(APIView):
+
+    def get(self, request, pk):
+        vacancy_detail = Vacancies.objects.get(pk=pk)
+        serializer = VacanciesDetailSerializer(vacancy_detail)
+        return Response(serializer.data)
 
 
 class EventsDataView(APIView):
