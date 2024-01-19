@@ -133,7 +133,6 @@ export default {
     }
   },
   methods: {
-
     switchingTabs(tab) {
       this.applicantStab = tab
       localStorage.setItem('applicantTab', JSON.stringify(tab));

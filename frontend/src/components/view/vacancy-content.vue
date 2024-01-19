@@ -119,14 +119,18 @@
                 <button class="button-orange vacancy__item-btn">В избранное</button>
               </div>
             </div>
-            <div class="vacancy__list-pagination">
-              <button
-                  v-for="pageNumber in totalPage"
-                  :key="pageNumber"
-                  @click="getVacancies(pageNumber)"
-                  :class="{active: pageNumber === Number(currentPage)}"
-                  class="vacancy__list-page">{{pageNumber}}</button>
-            </div>
+            <paginate
+                v-model="currentPage"
+                :pageCount="totalPage"
+                :prevText="''"
+                :nextText="''"
+                :click-handler="getVacancies"
+                :containerClass="'vacancy__pagination'"
+                :page-class="'vacancy__pagination-page'"
+                :page-link-class="'vacancy__pagination-link'"
+                :prev-class="'vacancy__pagination-prev'"
+                :next-class="'vacancy__pagination-next'">
+            </paginate>
           </div>
         </div>
       </div>
@@ -137,11 +141,12 @@
 <script>
 
 import TheFilters from "@/components/ui/filter.vue";
+import Paginate from 'vuejs-paginate'
 import axios from "axios";
 
 export default {
   name: 'vacancy-content',
-  components: {TheFilters},
+  components: {TheFilters, Paginate},
 
   data() {
     return {
@@ -160,19 +165,41 @@ export default {
     closeFilters() {
       this.isFilterVisible = false
     },
-    async getVacancies(page) {
+    async fetchVacancies(pageNum) {
       try {
-        const response = await axios.get(`/api/v1/vac?page=${page}`);
+        const response = await axios.get(`/api/v1/vac?page=${pageNum}`)
+        this.vacancies = response.data.results
+        this.quantityVacancies = response.data.count
+        this.currentPage = pageNum;
+        sessionStorage.setItem('pageNumber', pageNum)
+      } catch(error) {
+        console.log(error)
+      }
+    },
+    async changePage(pageNum) {
+      try {
+        const route = pageNum === 1 ? '/vacancy' : `/vacancy/page/${pageNum}/`;
+        this.$router.push(route)
+      } catch(error) {
+        console.log(error)
+      }
+    },
+    getVacancy(page) {
+      this.fetchVacancies(page);
+      this.changePage(page)
+    },
+
+    async getVacancies(pageNum) {
+      try {
+        const response = await axios.get(`/api/v1/vac?page=${pageNum}`);
         this.vacancies = response.data.results;
         this.quantityVacancies = response.data.count;
-        this.currentPage = page;
-
-        // Проверка, изменился ли маршрут
-        const route = page === 1 ? '/vacancy/' : `/vacancy/page/${this.currentPage}/`;
+        this.currentPage = pageNum;
+        sessionStorage.setItem('pageNumber', pageNum)
+        const route = pageNum === 1 ? '/vacancy/' : `/vacancy/page/${this.currentPage}/`;
         if (this.$route.path !== route) {
           this.$router.push(route);
         }
-
         window.scrollTo(0, 0);
       } catch (error) {
         console.error(error);
@@ -186,6 +213,7 @@ export default {
   },
   mounted() {
     this.getVacancies(this.currentPage);
+    this.currentPage = JSON.parse(sessionStorage.getItem('pageNumber'))
   },
 }
 
@@ -193,4 +221,62 @@ export default {
 
 <style src="@/style/vacancy.scss" lang="scss" scoped>
 
+</style>
+<style lang="scss">
+@import "../../style/varibles";
+.vacancy__pagination-page {
+  height: 45px;
+  border-radius: 10px;
+  border: 3px solid $colorOrangeM;
+  font-size: 20px;
+  font-weight: 600;
+  color: $colorBlack;
+  transition: all .3s ease;
+  &:hover {
+    background-color: $colorOrangeM;
+    color: $colorWhite;
+  }
+
+  &.active {
+    background-color: $colorOrangeM;
+    color: $colorWhite;
+  }
+}
+
+.vacancy__pagination-link {
+  display: block;
+  padding: 8px;
+}
+
+.vacancy__pagination-prev, .vacancy__pagination-next {
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  background-color: $colorOrangeM;
+  transition: all .3s ease;
+
+  a {
+    display: block;
+    padding: 10px 15px;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../assets/arrow.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &.disabled {
+    opacity: .3;
+  }
+
+  &:hover {
+    background-color: $colorOrangeLight;
+  }
+}
+
+.vacancy__pagination-prev {
+  a {
+    transform: rotate(180deg);
+  }
+}
 </style>

@@ -183,33 +183,15 @@
     &.hidden {
       display: none;
     }
+  }
 
-    &-pagination {
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 10px;
-    }
-
-    &-page {
-      padding: 8px;
-      border-radius: 10px;
-      border: 3px solid $colorOrangeM;
-      font-size: 20px;
-      font-weight: 600;
-      color: $colorBlack;
-      transition: all .3s ease;
-
-      &:hover {
-        background-color: $colorOrangeM;
-        color: $colorWhite;
-      }
-
-      &.active {
-        background-color: $colorOrangeM;
-        color: $colorWhite;
-      }
-    }
+  &__pagination {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    height: 45px;
+    margin-top: 20px;
   }
 
   &__preloader {
@@ -474,4 +456,3 @@
     }
   }
 }
-
