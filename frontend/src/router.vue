@@ -13,11 +13,6 @@ import UserEdit from '@/components/ui/userEdit.vue';
 
 Vue.use(VueRouter);
 
-// const router = new VueRouter({
-//   routes,
-//   mode: 'history',
-// })
-
 export default new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -33,4 +28,42 @@ export default new VueRouter({
     {path: '/profile/edit', component: UserEdit},//Редактирование профиля
   ],
 });
+
+
+const originalPush = VueRouter.prototype.push;
+
+VueRouter.prototype.push = function push(location, onComplete, onAbort) {
+  const result = originalPush.call(
+      this,
+      location,
+      onComplete,
+      onAbort
+  );
+  if (result) {
+    return result.catch(err => {
+      if (err.name !== 'NavigationDuplicated') {
+        throw err;
+      }
+    });
+  }
+  return result;
+};
+
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(location, onComplete, onAbort) {
+  const result = originalReplace.call(
+      this,
+      location,
+      onComplete,
+      onAbort
+  );
+  if (result) {
+    return result.catch(err => {
+      if (err.name !== 'NavigationDuplicated') {
+        throw err;
+      }
+    });
+  }
+  return result;
+};
 </script>

@@ -158,7 +158,7 @@ export default {
       vacancies: [],
       quantityVacancies: 0,
       currentPage: 1,
-      pageQuantityMax: 10,
+      pageQuantityMax: 2,
       requestValue: '',
     }
   },
