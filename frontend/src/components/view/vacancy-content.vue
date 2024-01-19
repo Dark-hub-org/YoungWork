@@ -61,7 +61,10 @@
     <section class="vacancy">
       <div class="wrapper">
         <p class="vacancy__quantity">
-          {{quantityVacancies}} <template v-if="quantityVacancies <= 4 && quantityVacancies !== 0">вакансии</template> <template v-else>вакансий</template> <template v-if="requestValue !== ''">“{{requestValue}}”</template>
+          {{ quantityVacancies }}
+          <template v-if="quantityVacancies <= 4 && quantityVacancies !== 0">вакансии</template>
+          <template v-else>вакансий</template>
+          <template v-if="requestValue !== ''">“{{ requestValue }}”</template>
         </p>
         <div class="vacancy__content">
           <the-filters
@@ -85,14 +88,14 @@
                       class="vacancy__item-title">
                     {{ vacancy.job_title }}
                   </router-link>
-                  <p class="vacancy__item-salary" >
+                  <p class="vacancy__item-salary">
                     <template
                         v-if="vacancy.salary_min && vacancy.salary_max">
-                        от {{ vacancy.salary_min }} до {{vacancy.salary_max}}
+                      от {{ vacancy.salary_min }} до {{ vacancy.salary_max }}
                     </template>
                     <template v-else-if="vacancy.salary_min">от {{ vacancy.salary_min }}</template>
-                    <template v-else>до {{vacancy.salary_max}}</template>
-                     рублей
+                    <template v-else>до {{ vacancy.salary_max }}</template>
+                    рублей
                   </p>
                 </div>
                 <img src="@/assets/vacancy/company-logo.svg" alt="логотип компании">
@@ -103,7 +106,7 @@
                   <p class="vacancy__item-text">Владивосток</p>
                 </div>
                 <div class="vacancy__item-block">
-                  <p class="vacancy__item-text">Опыт работы: {{vacancy.required_experience}}</p>
+                  <p class="vacancy__item-text">Опыт работы: {{ vacancy.required_experience }}</p>
                   <p class="vacancy__item-text vacancy__item-text--type">{{ vacancy.type }}</p>
                 </div>
                 <div class="vacancy__item-block vacancy__item-block--description">
@@ -111,7 +114,8 @@
                     <pre class="vacancy__item-subtitle">Задачи: </pre>
                     <span class="vacancy__item-subtitle-text" v-html="vacancy.description"> </span>
                   </p>
-                  <p class="vacancy__item-text"><span class="vacancy__item-subtitle">Требования:</span> хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.</p>
+                  <p class="vacancy__item-text"><span class="vacancy__item-subtitle">Требования:</span> хорошее
+                    понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.</p>
                 </div>
               </div>
               <div class="vacancy__item-btns">
@@ -119,6 +123,7 @@
                 <button class="button-orange vacancy__item-btn">В избранное</button>
               </div>
             </div>
+<<<<<<< HEAD
             <paginate
                 v-model="currentPage"
                 :pageCount="totalPage"
@@ -131,6 +136,17 @@
                 :prev-class="'vacancy__pagination-prev'"
                 :next-class="'vacancy__pagination-next'">
             </paginate>
+=======
+            <div class="vacancy__list-pagination">
+              <button
+                  v-for="pageNumber in totalPage"
+                  :key="pageNumber"
+                  @click="getVacancies(pageNumber)"
+                  :class="{active: pageNumber === Number(currentPage)}"
+                  class="vacancy__list-page">{{ pageNumber }}
+              </button>
+            </div>
+>>>>>>> af99668705761b1be1a52939779bd44cb7729864
           </div>
         </div>
       </div>

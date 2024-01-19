@@ -66,6 +66,7 @@
 </template>
 <script>
 import axios from "axios";
+
 export default {
   name: 'vacancy-page',
   props: ['id'],
@@ -77,8 +78,9 @@ export default {
   methods: {
     async getVacancyData(id) {
       try {
-        const response = await axios.get(`/api/v1/vac?page=${id}`);
+        const response = await axios.get(`/api/v1/vac/${id}`);
         this.vacancyData = response.data
+        console.log(response)
       } catch (error) {
         console.log(error)
       }
