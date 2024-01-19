@@ -338,7 +338,7 @@ export default {
       };
       this.validateFormVacancy()
       if (Object.values(this.errorFields).every((error) => !error)) {
-        axios.post('', vacancy)
+        axios.post('/create-vacancy/', vacancy)
             .then(response => {
               console.log(response)
               window.location.reload();

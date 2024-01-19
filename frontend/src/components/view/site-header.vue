@@ -112,14 +112,14 @@
                   <label class="modal-form-name">Электронная почта</label>
                   <div class="modal-wrapper-input">
                     <input
-                        v-model.trim="username"
+                        v-model.trim="email"
                         @blur="checkEmail"
                         @input="isEmptyEmail = false"
                         @focus="isCheckEmail = true"
                         type="text"
                         class="modal-form__input"
                         :class="{error: !isCheckEmail || isEmptyEmail}">
-                    <template v-if="!isCheckEmail && username !== '' || isEmptyEmail">
+                    <template v-if="!isCheckEmail && email !== '' || isEmptyEmail">
                       <div class="icon-error">
                       </div>
                       <label v-if="!isCheckEmail" class="modal-input-error">
@@ -197,14 +197,14 @@
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
                   <input
-                      v-model.trim="username"
+                      v-model.trim="email"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
                       @focus="isCheckEmail = true"
                       type="text"
                       class="modal-form__input"
                       :class="{error: !isCheckEmail || isEmptyEmail}">
-                  <template v-if="!isCheckEmail && username !== '' || isEmptyEmail">
+                  <template v-if="!isCheckEmail && email !== '' || isEmptyEmail">
                     <div class="icon-error">
                     </div>
                     <label v-if="!isCheckEmail" class="modal-input-error">
@@ -354,9 +354,7 @@ export default {
   data() {
     return {
       email: '',
-      username: '',
       password: '',
-      user_data: '',
       first_name: '',
 
       isCheckEmail: true,
@@ -392,8 +390,7 @@ export default {
         return
       }
       const presentUser = {
-        email: this.username,
-        username: this.username,
+        email: this.email,
         password: this.password,
       };
       axios.post('/api/v1/users/', presentUser)
@@ -436,7 +433,7 @@ export default {
       localStorage.removeItem('access')
 
       const presentUser = {
-        username: this.username,
+        email: this.email,
         password: this.password,
       }
 
@@ -458,7 +455,7 @@ export default {
           })
     },
     getMe() {
-      axios.get('/api/v1/damp') // Max, add primary key to URL
+      axios.get('/api/v1/auth/users/')
           .then(response => {
             console.log(response)
             this.user_data = response.data.first_name
@@ -487,7 +484,7 @@ export default {
           });
     },
     checkRegFields() {
-      this.isEmptyEmail = _.isEmpty(this.username);
+      this.isEmptyEmail = _.isEmpty(this.email);
       this.isEmptyName = _.isEmpty(this.first_name);
       this.isEmptyPassword = _.isEmpty(this.password);
       if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword) {
@@ -539,7 +536,6 @@ export default {
     clearModalData() {
       this.email = '';
       this.password = '';
-      this.username = '';
       this.isHidePassword = true;
       this.isCheckEmail = true;
       this.isCheckPassword = true;
@@ -548,11 +544,11 @@ export default {
       this.isEmptyName = false;
     },
     checkEmail() {
-      if (this.username === '') {
+      if (this.email === '') {
         return;
       }
       let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      this.isCheckEmail = re.test(this.username);
+      this.isCheckEmail = re.test(this.email);
     },
     checkPassword() {
       if (this.password === '') {
@@ -571,7 +567,7 @@ export default {
       this.isSubMenu = !this.isSubMenu;
     },
     // validName() {
-    //   this.username = this.username.charAt(0).toUpperCase() + this.username.slice(1).toLowerCase().replace(/\s/g, '');
+    //   this.email = this.email.charAt(0).toUpperCase() + this.email.slice(1).toLowerCase().replace(/\s/g, '');
     // }
   },
   watch: {
@@ -586,10 +582,10 @@ export default {
   computed: {
     formaterName: {
       get: function () {
-        return this.username
+        return this.email
       },
       set: function (value) {
-        this.username = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().replace(/\s/g, '');
+        this.email = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().replace(/\s/g, '');
       }
 
     }

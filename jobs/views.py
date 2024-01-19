@@ -12,7 +12,6 @@ class VacanciesDataView(APIView):
         vacancies = Vacancies.objects.all()
         serializer = VacanciesDataSerializer(vacancies, many=True)
         return render(request, "index.html", {"vacancies": serializer.data})
-#         return Response(serializer.data)
 
 
 class LargeResultsSetPagination(PageNumberPagination):
