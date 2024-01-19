@@ -123,30 +123,18 @@
                 <button class="button-orange vacancy__item-btn">В избранное</button>
               </div>
             </div>
-<<<<<<< HEAD
             <paginate
                 v-model="currentPage"
                 :pageCount="totalPage"
                 :prevText="''"
                 :nextText="''"
-                :click-handler="getVacancies"
+                :click-handler="getVacancy"
                 :containerClass="'vacancy__pagination'"
                 :page-class="'vacancy__pagination-page'"
                 :page-link-class="'vacancy__pagination-link'"
                 :prev-class="'vacancy__pagination-prev'"
                 :next-class="'vacancy__pagination-next'">
             </paginate>
-=======
-            <div class="vacancy__list-pagination">
-              <button
-                  v-for="pageNumber in totalPage"
-                  :key="pageNumber"
-                  @click="getVacancies(pageNumber)"
-                  :class="{active: pageNumber === Number(currentPage)}"
-                  class="vacancy__list-page">{{ pageNumber }}
-              </button>
-            </div>
->>>>>>> af99668705761b1be1a52939779bd44cb7729864
           </div>
         </div>
       </div>
@@ -170,7 +158,7 @@ export default {
       vacancies: [],
       quantityVacancies: 0,
       currentPage: 1,
-      pageQuantityMax: 2,
+      pageQuantityMax: 10,
       requestValue: '',
     }
   },
@@ -187,15 +175,17 @@ export default {
         this.vacancies = response.data.results
         this.quantityVacancies = response.data.count
         this.currentPage = pageNum;
-        sessionStorage.setItem('pageNumber', pageNum)
       } catch(error) {
         console.log(error)
       }
     },
     async changePage(pageNum) {
       try {
-        const route = pageNum === 1 ? '/vacancy' : `/vacancy/page/${pageNum}/`;
-        this.$router.push(route)
+        const route = pageNum === 1 ? '/vacancy' : `/vacancy/?page=${pageNum}`;
+        if (this.$route.path !== route) {
+          await this.$router.replace(route);
+          window.scrollTo(0, 0);
+        }
       } catch(error) {
         console.log(error)
       }
@@ -204,23 +194,6 @@ export default {
       this.fetchVacancies(page);
       this.changePage(page)
     },
-
-    async getVacancies(pageNum) {
-      try {
-        const response = await axios.get(`/api/v1/vac?page=${pageNum}`);
-        this.vacancies = response.data.results;
-        this.quantityVacancies = response.data.count;
-        this.currentPage = pageNum;
-        sessionStorage.setItem('pageNumber', pageNum)
-        const route = pageNum === 1 ? '/vacancy/' : `/vacancy/page/${this.currentPage}/`;
-        if (this.$route.path !== route) {
-          this.$router.push(route);
-        }
-        window.scrollTo(0, 0);
-      } catch (error) {
-        console.error(error);
-      }
-    },
   },
   computed: {
     totalPage() {
@@ -228,8 +201,12 @@ export default {
     },
   },
   mounted() {
-    this.getVacancies(this.currentPage);
-    this.currentPage = JSON.parse(sessionStorage.getItem('pageNumber'))
+    if(this.$route.query.page) {
+      this.currentPage = +this.$route.query.page
+      this.getVacancy(this.currentPage);
+    } else {
+      this.getVacancy(this.currentPage);
+    }
   },
 }
 
