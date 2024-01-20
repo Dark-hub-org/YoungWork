@@ -58,6 +58,8 @@ export default {
     border-radius: 20px;
     box-shadow: 0px 0px 5px 0px rgba(217, 217, 217, 0.78);
     background-color:$colorWhite;
+    font-size: 16px;
+    letter-spacing: -0.8px;
   }
 
   .router-link-active {
@@ -73,4 +75,23 @@ export default {
   }
 }
 
+@media(max-width: 1024px) {
+  .breadcrumb {
+    margin-bottom: 64px;
+    span, .router-link-active {
+      font-size: 14px;
+      letter-spacing: -0.8px;
+    }
+  }
+}
+@media(max-width: 450px) {
+  .breadcrumb {
+    margin-bottom: 48px;
+    span, .router-link-active {
+      font-size: 12px;
+      letter-spacing: -0.6px;
+    }
+  }
+
+}
 </style>
