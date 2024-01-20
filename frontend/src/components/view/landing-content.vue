@@ -2,7 +2,7 @@
   <div>
     <section class="inner">
       <div class="wrapper inner__wrapper">
-        <h1 class="inner__title">Сервис по поиску работы для подростков </h1>
+        <the-heading title="Сервис по поиску работы для подростков"></the-heading>
         <form class="inner__form">
           <input type="text" class="inner__form-search" placeholder="найти вакансию">
           <button type="button" class="inner__form-button"></button>
@@ -76,7 +76,7 @@
               class="recommendation__list-card"
           ></vacancy-item>
         </div>
-        <a href="#" class="reviews__more">Смотреть все</a>
+        <a href="/vacancy" class="reviews__more">Смотреть все</a>
       </div>
     </section>
   </div>
@@ -90,9 +90,11 @@ import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
 SwiperCore.use([Navigation])
 
 import 'swiper/swiper-bundle.css'
+import TheHeading from "@/components/ui/heading.vue";
 export default {
   name: "landing-content",
   components: {
+    TheHeading,
     VacancyItem,
     Swiper,
     SwiperSlide

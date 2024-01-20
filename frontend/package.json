@@ -18,6 +18,7 @@
     "swiper-vue2": "^1.0.10",
     "upgrade": "^1.1.0",
     "vue": "^2.7.16",
+    "vue-2-breadcrumbs": "^0.8.1",
     "vue-masked-input": "^0.5.2",
     "vue-router": "^3.6.5",
     "vue-the-mask": "^0.11.1",

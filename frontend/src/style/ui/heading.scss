@@ -1,1 +1,14 @@
 @import "../main";
+
+.heading {
+  max-width: 1440px;
+  width: 100%;
+  margin-bottom: 80px;
+
+  &__title {
+    font-size: 128px;
+    font-weight: 700;
+    line-height: 98.023%;
+    letter-spacing: -6.4px;
+  }
+}

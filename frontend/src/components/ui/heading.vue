@@ -1,16 +1,76 @@
 <template>
   <div class="heading">
     <div class="heading__breadcrumbs"></div>
-    <h1 class="heading__title"></h1>
+    <breadcrumbs></breadcrumbs>
+    <h1 class="heading__title">{{title}}</h1>
   </div>
 </template>
 
 <script>
-export default {
+import Vue from "vue";
+import VueBreadcrumbs from 'vue-2-breadcrumbs';
 
+Vue.use(VueBreadcrumbs);
+
+export default {
+  name: 'the-heading',
+  props: {
+    title: String,
+  }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" src="@/style/ui/heading.scss" scoped>
+
+</style>
+<style lang="scss">
+@import "@/style/varibles";
+
+@function calculate-offset($n) {
+  @return 30px * $n;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 20px;
+  margin-bottom: 80px;
+
+  &-item {
+    position: relative;
+    @for $i from 2 through 3 {
+      &:nth-child(#{$i}) {
+        right: calculate-offset($i - 1);
+        z-index: $i + 1;
+      }
+    }
+    &:first-child {
+      z-index: 10;
+    }
+    &:last-child {
+      z-index: 1;
+    }
+  }
+
+  span, .router-link-active {
+    padding: 8px 40px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px 0px rgba(217, 217, 217, 0.78);
+    background-color:$colorWhite;
+  }
+
+  .router-link-active {
+    color: $colorGreenM;
+    transition: all .3s ease;
+    &:hover {
+      color: $colorGreenLight;
+    }
+  }
+  span {
+    color: $colorWhite;
+    background-color: $colorOrangeM;
+  }
+}
 
 </style>

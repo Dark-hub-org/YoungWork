@@ -2,7 +2,7 @@
   <div>
     <section class="top">
       <div class="wrapper top__wrapper">
-        <h1 class="top__title">Сервис по поиску работы для подростков </h1>
+        <the-heading title="Сервис по поиску работы для подростков"></the-heading>
         <div class="top__block">
           <div class="top__block-item">
             <img src="@/assets/vacancy/vacancy-1.png" alt="it профессии" class="top__block-img">
@@ -147,10 +147,11 @@
 import TheFilters from "@/components/ui/filter.vue";
 import Paginate from 'vuejs-paginate'
 import axios from "axios";
+import TheHeading from "@/components/ui/heading.vue";
 
 export default {
   name: 'vacancy-content',
-  components: {TheFilters, Paginate},
+  components: {TheHeading, TheFilters, Paginate},
 
   data() {
     return {
@@ -158,7 +159,7 @@ export default {
       vacancies: [],
       quantityVacancies: 0,
       currentPage: 1,
-      pageQuantityMax: 2,
+      pageQuantityMax: 10,
       requestValue: '',
     }
   },
