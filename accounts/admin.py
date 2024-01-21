@@ -39,18 +39,19 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         verbose_name = "account"
         model = MyUser
-        fields = ["email", "first_name", "last_name", "surname", "is_admin"]
+        fields = ["email", "usertype", "first_name", "last_name", "surname", "is_admin"]
 
 
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ["email", "first_name", "last_name", "surname", "is_admin"]
+    list_display = ["email", "usertype", "first_name", "last_name", "surname", "is_admin"]
     list_filter = ["is_admin"]
     fieldsets = [
-        (None, {"fields": ["email", "password", "photo", "first_name", "last_name", "surname", "date_of_birth",
-                           "citizenship", "region", "city", "send_email"]}),
+        (None,
+         {"fields": ["email", "usertype", "password", "photo", "first_name", "last_name", "surname", "date_of_birth",
+                     "citizenship", "region", "city", "send_email"]}),
         ("Permissions", {"fields": ["is_admin"]}),
     ]
     add_fieldsets = [
