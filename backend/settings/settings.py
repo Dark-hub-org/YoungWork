@@ -11,6 +11,8 @@ ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://127.0.0.1:8000']
 
+AUTH_USER_MODEL = 'accounts.MyUser'
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100,
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'jobs',
     'summary',
     'accounts',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -100,8 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'accounts.MyUser'
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -110,7 +111,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
