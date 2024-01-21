@@ -3,23 +3,23 @@ from django.db import models
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, usertype, password=None):
+    def create_user(self, email, usertype='', password=None):
         if not email:
             raise ValueError("Users must have an email address")
 
         user = self.model(
             email=self.normalize_email(email),
+            usertype=usertype
         )
-        user.set_usertype(usertype)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, usertype, password=None):
+    def create_superuser(self, email, usertype='', password=None):
         user = self.create_user(
             email,
+            usertype=usertype,
             password=password,
-            usertype=usertype
         )
         user.is_admin = True
         user.save(using=self._db)
