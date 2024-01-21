@@ -3,23 +3,23 @@ from django.db import models
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, usertype='', password=None):
+    def create_user(self, email, usertype, password=None):
         if not email:
             raise ValueError("Users must have an email address")
 
         user = self.model(
             email=self.normalize_email(email),
-            usertype=usertype
+            usertype=usertype,
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, usertype='', password=None):
+    def create_superuser(self, email, usertype, password=None):
         user = self.create_user(
             email,
-            usertype=usertype,
             password=password,
+            usertype=usertype,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -32,7 +32,7 @@ class MyUser(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    usertype = models.CharField(blank=True, default='')
+    usertype = models.CharField()
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     photo = models.ImageField(blank=True, default='')
@@ -48,7 +48,7 @@ class MyUser(AbstractBaseUser):
     objects = MyUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["usertype"]
 
     def __str__(self):
         return self.email

@@ -40,17 +40,17 @@
               <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
               <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
                 <router-link to="/profile/applicant" tag="li" class="supernova-wrapper-item">
-                  <span class="supernova-wrapper__name" :src="user_data">{{ user_data }}</span>
+                  <span class="supernova-wrapper__name">{{ userName }}</span>
                 </router-link>
                 <ul class="supernova-wrapper-list">
                   <router-link to="/vacancies" tag="li" class="supernova-wrapper-item">
-                    <a href="/vacancies" class="supernova-wrapper-link">Работа</a>
+                    <a href="/vacancy" class="supernova-wrapper-link">Работа</a>
                   </router-link>
                   <li class="supernova-wrapper-item">
                     <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
                       <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
                       <router-link to="/vacancies" tag="li">
-                        <a href="/vacancies" class="supernova-sublist-title">Найти задание</a>
+                        <a href="/vacancy" class="supernova-sublist-title">Найти задание</a>
                       </router-link>
                       <router-link to="/create-vacancy" tag="li">
                         <a href="/create-vacancy" class="supernova-sublist-title">Создать задание</a>
@@ -75,8 +75,8 @@
           <div class="modal-switch-wrapper">
             <p class="modal-title">Что вы тут делаете?</p>
             <div class="modal-switch__block">
-              <button class="modal-switch__btn" @click="openModalWinReg">Ищу работу</button>
-              <button class="modal-switch__btn btn--green" @click="openModalWinReg">Ищу сотрудника</button>
+              <button class="modal-switch__btn" @click="openModalWinReg('applicant')">Ищу работу</button>
+              <button class="modal-switch__btn btn--green" @click="openModalWinReg('employer')">Ищу сотрудника</button>
             </div>
           </div>
         </modal-window>
@@ -93,7 +93,7 @@
                 <!--                  <label class="modal-form-name">Имя</label>-->
                 <!--                  <div class="modal-wrapper-input">-->
                 <!--                    <input-->
-                <!--                        v-model.trim="first_name"-->
+                <!--                        v-model.trim="userName"-->
                 <!--                        @input="isEmptyName = false"-->
                 <!--                        type="text"-->
                 <!--                        class="modal-form__input"-->
@@ -355,7 +355,8 @@ export default {
     return {
       email: '',
       password: '',
-      first_name: '',
+      userName: '',
+      userType: '',
 
       isCheckEmail: true,
       isCheckPassword: true,
@@ -392,6 +393,7 @@ export default {
       const presentUser = {
         email: this.email,
         password: this.password,
+        usertype: this.userType,
       };
       axios.post('/api/v1/users/', presentUser)
           .then(response => {
@@ -458,7 +460,7 @@ export default {
       axios.get('/api/v1/auth/users/')
           .then(response => {
             console.log(response)
-            this.user_data = response.data.first_name
+            this.userName = response.data.first_name
           })
           .catch(error => {
             console.log(error)
@@ -485,7 +487,7 @@ export default {
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
-      this.isEmptyName = _.isEmpty(this.first_name);
+      this.isEmptyName = _.isEmpty(this.userName);
       this.isEmptyPassword = _.isEmpty(this.password);
       if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword) {
         return;
@@ -505,7 +507,8 @@ export default {
       this.isModalWinLog = true;
       this.isModalWinReg = false;
     },
-    openModalWinReg() {
+    openModalWinReg(type) {
+      this.userType = type
       this.clearModalData();
       //
       if (this.isModalVisSwitch === true) {
