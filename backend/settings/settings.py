@@ -11,6 +11,8 @@ ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://127.0.0.1:8000']
 
+AUTH_USER_MODEL = 'accounts.MyUser'
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100,
@@ -21,7 +23,9 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=180),
+    'ROTATE_REFRESH_TOKENS': False,
 }
 
 INSTALLED_APPS = [
@@ -40,7 +44,8 @@ INSTALLED_APPS = [
     'profiles',
     'jobs',
     'summary',
-    'damp',
+    'accounts',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -108,7 +113,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 

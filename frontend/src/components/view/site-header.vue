@@ -40,17 +40,17 @@
               <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
               <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
                 <router-link to="/profile/applicant" tag="li" class="supernova-wrapper-item">
-                  <span class="supernova-wrapper__name" :src="user_data">{{ user_data }}</span>
+                  <span class="supernova-wrapper__name">{{ userName }}</span>
                 </router-link>
                 <ul class="supernova-wrapper-list">
                   <router-link to="/vacancies" tag="li" class="supernova-wrapper-item">
-                    <a href="/vacancies" class="supernova-wrapper-link">Работа</a>
+                    <a href="/vacancy" class="supernova-wrapper-link">Работа</a>
                   </router-link>
                   <li class="supernova-wrapper-item">
                     <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
                       <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
                       <router-link to="/vacancies" tag="li">
-                        <a href="/vacancies" class="supernova-sublist-title">Найти задание</a>
+                        <a href="/vacancy" class="supernova-sublist-title">Найти задание</a>
                       </router-link>
                       <router-link to="/create-vacancy" tag="li">
                         <a href="/create-vacancy" class="supernova-sublist-title">Создать задание</a>
@@ -75,8 +75,8 @@
           <div class="modal-switch-wrapper">
             <p class="modal-title">Что вы тут делаете?</p>
             <div class="modal-switch__block">
-              <button class="modal-switch__btn" @click="openModalWinReg">Ищу работу</button>
-              <button class="modal-switch__btn btn--green" @click="openModalWinReg">Ищу сотрудника</button>
+              <button class="modal-switch__btn" @click="openModalWinReg('applicant')">Ищу работу</button>
+              <button class="modal-switch__btn btn--green" @click="openModalWinReg('employer')">Ищу сотрудника</button>
             </div>
           </div>
         </modal-window>
@@ -93,7 +93,7 @@
                 <!--                  <label class="modal-form-name">Имя</label>-->
                 <!--                  <div class="modal-wrapper-input">-->
                 <!--                    <input-->
-                <!--                        v-model.trim="first_name"-->
+                <!--                        v-model.trim="userName"-->
                 <!--                        @input="isEmptyName = false"-->
                 <!--                        type="text"-->
                 <!--                        class="modal-form__input"-->
@@ -112,14 +112,14 @@
                   <label class="modal-form-name">Электронная почта</label>
                   <div class="modal-wrapper-input">
                     <input
-                        v-model.trim="username"
+                        v-model.trim="email"
                         @blur="checkEmail"
                         @input="isEmptyEmail = false"
                         @focus="isCheckEmail = true"
                         type="text"
                         class="modal-form__input"
                         :class="{error: !isCheckEmail || isEmptyEmail}">
-                    <template v-if="!isCheckEmail && username !== '' || isEmptyEmail">
+                    <template v-if="!isCheckEmail && email !== '' || isEmptyEmail">
                       <div class="icon-error">
                       </div>
                       <label v-if="!isCheckEmail" class="modal-input-error">
@@ -197,14 +197,14 @@
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
                   <input
-                      v-model.trim="username"
+                      v-model.trim="email"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
                       @focus="isCheckEmail = true"
                       type="text"
                       class="modal-form__input"
                       :class="{error: !isCheckEmail || isEmptyEmail}">
-                  <template v-if="!isCheckEmail && username !== '' || isEmptyEmail">
+                  <template v-if="!isCheckEmail && email !== '' || isEmptyEmail">
                     <div class="icon-error">
                     </div>
                     <label v-if="!isCheckEmail" class="modal-input-error">
@@ -354,10 +354,9 @@ export default {
   data() {
     return {
       email: '',
-      username: '',
       password: '',
-      user_data: '',
-      first_name: '',
+      userName: '',
+      userType: '',
 
       isCheckEmail: true,
       isCheckPassword: true,
@@ -392,9 +391,9 @@ export default {
         return
       }
       const presentUser = {
-        email: this.username,
-        username: this.username,
+        email: this.email,
         password: this.password,
+        usertype: this.userType,
       };
       axios.post('/api/v1/users/', presentUser)
           .then(response => {
@@ -436,7 +435,7 @@ export default {
       localStorage.removeItem('access')
 
       const presentUser = {
-        username: this.username,
+        email: this.email,
         password: this.password,
       }
 
@@ -458,10 +457,10 @@ export default {
           })
     },
     getMe() {
-      axios.get('/api/v1/damp') // Max, add primary key to URL
+      axios.get('/api/v1/auth/users/')
           .then(response => {
             console.log(response)
-            this.user_data = response.data.first_name
+            this.userName = response.data.first_name
           })
           .catch(error => {
             console.log(error)
@@ -487,8 +486,8 @@ export default {
           });
     },
     checkRegFields() {
-      this.isEmptyEmail = _.isEmpty(this.username);
-      this.isEmptyName = _.isEmpty(this.first_name);
+      this.isEmptyEmail = _.isEmpty(this.email);
+      this.isEmptyName = _.isEmpty(this.userName);
       this.isEmptyPassword = _.isEmpty(this.password);
       if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword) {
         return;
@@ -508,7 +507,8 @@ export default {
       this.isModalWinLog = true;
       this.isModalWinReg = false;
     },
-    openModalWinReg() {
+    openModalWinReg(type) {
+      this.userType = type
       this.clearModalData();
       //
       if (this.isModalVisSwitch === true) {
@@ -539,7 +539,6 @@ export default {
     clearModalData() {
       this.email = '';
       this.password = '';
-      this.username = '';
       this.isHidePassword = true;
       this.isCheckEmail = true;
       this.isCheckPassword = true;
@@ -548,11 +547,11 @@ export default {
       this.isEmptyName = false;
     },
     checkEmail() {
-      if (this.username === '') {
+      if (this.email === '') {
         return;
       }
       let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      this.isCheckEmail = re.test(this.username);
+      this.isCheckEmail = re.test(this.email);
     },
     checkPassword() {
       if (this.password === '') {
@@ -571,7 +570,7 @@ export default {
       this.isSubMenu = !this.isSubMenu;
     },
     // validName() {
-    //   this.username = this.username.charAt(0).toUpperCase() + this.username.slice(1).toLowerCase().replace(/\s/g, '');
+    //   this.email = this.email.charAt(0).toUpperCase() + this.email.slice(1).toLowerCase().replace(/\s/g, '');
     // }
   },
   watch: {
@@ -586,10 +585,10 @@ export default {
   computed: {
     formaterName: {
       get: function () {
-        return this.username
+        return this.email
       },
       set: function (value) {
-        this.username = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().replace(/\s/g, '');
+        this.email = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().replace(/\s/g, '');
       }
 
     }

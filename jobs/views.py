@@ -7,18 +7,17 @@ from rest_framework import generics
 from .serializers import VacanciesDataSerializer, EventsDataSerializer, VacanciesDetailSerializer
 
 
-class VacanciesDataView(APIView):
-    def get(self, request):
-        vacancies = Vacancies.objects.all()
-        serializer = VacanciesDataSerializer(vacancies, many=True)
-        return render(request, "index.html", {"vacancies": serializer.data})
-#         return Response(serializer.data)
-
-
 class LargeResultsSetPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 10
+
+
+class VacanciesDataView(APIView):
+    def get(self, request):
+        vacancies = Vacancies.objects.all()
+        serializer = VacanciesDataSerializer(vacancies, many=True)
+        return render(request, "index.html", {'vacancies': serializer.data})
 
 
 class VacanciesData(generics.ListAPIView):
