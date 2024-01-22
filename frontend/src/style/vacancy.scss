@@ -14,71 +14,6 @@
     letter-spacing: -6.4px;
   }
 
-  &__block {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    max-width: 1660px;
-    width: 100%;
-    padding-bottom: 5px;
-    margin-bottom: 80px;
-    overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-      height: 5px;
-      width: 5px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $colorGreyLight;
-      border-radius: 20px;
-    }
-
-    &-item {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      overflow: hidden;
-      min-width: 612px;
-      width: 100%;
-      height: 382px;
-      padding: 20px 26px;
-      border-radius: 30px;
-    }
-
-    &-img {
-      z-index: -1;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    &-content {
-      max-width: 429px;
-
-      &__link {
-        display: inline-block;
-        margin-bottom: 8px;
-
-      }
-
-      &__title {
-        font-size: 34px;
-        font-weight: 700;
-        line-height: 93.023%;
-        letter-spacing: -1.8px;
-
-        &.white {
-          color: $colorWhite;
-        }
-      }
-    }
-  }
-
   &__search {
     @include displayFlex;
     gap: 24px;
@@ -169,7 +104,7 @@
   &__content {
     display: flex;
     gap: 64px;
-    margin-bottom: 52px;
+    margin-bottom: 80px;
   }
 
   &__list {
@@ -293,12 +228,79 @@
 
 //vacancy end
 
-@media(max-width: 1440px) {
-  .top {
-    &__title {
-      font-size: 114px;
-      letter-spacing: -5.7px;
+// recommendation start
+.recommendation {
+  &__block {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 1660px;
+    width: 100%;
+    padding-bottom: 5px;
+    margin-bottom: 80px;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      height: 5px;
+      width: 5px;
     }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $colorGreyLight;
+      border-radius: 20px;
+    }
+
+    &-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      min-width: 612px;
+      width: 100%;
+      height: 382px;
+      padding: 20px 26px;
+      border-radius: 30px;
+    }
+
+    &-img {
+      z-index: -1;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &-content {
+      max-width: 429px;
+
+      &__link {
+        display: inline-block;
+        margin-bottom: 8px;
+
+      }
+
+      &__title {
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 93.023%;
+        letter-spacing: -1.8px;
+
+        &.white {
+          color: $colorWhite;
+        }
+      }
+    }
+  }
+}
+
+// recommendation end
+
+
+@media(max-width: 1440px) {
+  .recommendation {
 
     &__block-item {
       min-width: 504px;
@@ -311,15 +313,6 @@
 @media(max-width: 1024px) {
 
   .top {
-    &__title {
-      font-size: 80px;
-      letter-spacing: -3.6px;
-    }
-
-    &__block {
-      margin-bottom: 64px;
-    }
-
     &__search {
       &-filter-btn {
         display: block;
@@ -333,15 +326,17 @@
     box-shadow: none;
   }
 
+  .recommendation {
+    &__block {
+      margin-bottom: 64px;
+    }
+  }
+
 }
 
 @media(max-width: 744px) {
   .top {
-    &__title {
-      margin-bottom: 64px;
-      font-size: 58px;
-      letter-spacing: -2.61px;
-    }
+
   }
 
   .vacancy {
@@ -365,16 +360,6 @@
 @media(max-width: 450px) {
 
   .top {
-    &__title {
-      margin-bottom: 32px;
-      font-size: 28px;
-      letter-spacing: -1.26px;
-    }
-
-    &__block-item {
-      min-width: 320px;
-      height: 240px;
-    }
 
     &__search {
       &-input {
@@ -451,6 +436,12 @@
         font-size: 14px;
       }
 
+    }
+  }
+  .recommendation {
+    &__block-item {
+      min-width: 320px;
+      height: 240px;
     }
   }
 }

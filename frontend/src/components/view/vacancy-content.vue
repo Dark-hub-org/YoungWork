@@ -3,47 +3,6 @@
     <section class="top">
       <div class="wrapper top__wrapper">
         <the-heading title="Сервис по поиску работы для подростков"></the-heading>
-        <div class="top__block">
-          <div class="top__block-item">
-            <img src="@/assets/vacancy/vacancy-1.png" alt="it профессии" class="top__block-img">
-            <div class="top__block-content">
-              <router-link
-                  to="/"
-                  tag="a"
-                  active-class="active"
-                  class="button-orange-another top__block-content__link">
-                Перейти
-              </router-link>
-              <h3 class="top__block-content__title">IT-профессии</h3>
-            </div>
-          </div>
-          <div class="top__block-item">
-            <img src="@/assets/vacancy/vacancy-2.png" alt="строительные профессии" class="top__block-img">
-            <div class="top__block-content">
-              <router-link
-                  to="/"
-                  tag="a"
-                  active-class="active"
-                  class="button-orange-another top__block-content__link">
-                Перейти
-              </router-link>
-              <h5 class="top__block-content__title white">Строительные профессии</h5>
-            </div>
-          </div>
-          <div class="top__block-item">
-            <img src="@/assets/vacancy/vacancy-3.png" alt="работа с детьми" class="top__block-img">
-            <div class="top__block-content">
-              <router-link
-                  to="/"
-                  tag="a"
-                  active-class="active"
-                  class="button-orange-another top__block-content__link">
-                Перейти
-              </router-link>
-              <h5 class="top__block-content__title white">Работа с детьми</h5>
-            </div>
-          </div>
-        </div>
         <div class="top__search">
           <div class="top__search-wrapper">
             <input type="text" class="top__search-input" placeholder="найти вакансию">
@@ -135,6 +94,51 @@
                 :prev-class="'vacancy__pagination-prev'"
                 :next-class="'vacancy__pagination-next'">
             </paginate>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="recommendation">
+      <div class="wrapper">
+        <div class="recommendation__block">
+          <div class="recommendation__block-item">
+            <img src="@/assets/vacancy/vacancy-1.png" alt="it профессии" class="recommendation__block-img">
+            <div class="recommendation__block-content">
+              <router-link
+                  to="/"
+                  tag="a"
+                  active-class="active"
+                  class="button-orange-another top__block-content__link">
+                Перейти
+              </router-link>
+              <h3 class="recommendation__block-content__title">IT-профессии</h3>
+            </div>
+          </div>
+          <div class="recommendation__block-item">
+            <img src="@/assets/vacancy/vacancy-2.png" alt="строительные профессии" class="recommendation__block-img">
+            <div class="recommendation__block-content">
+              <router-link
+                  to="/"
+                  tag="a"
+                  active-class="active"
+                  class="button-orange-another recommendation__block-content__link">
+                Перейти
+              </router-link>
+              <h5 class="recommendation__block-content__title white">Строительные профессии</h5>
+            </div>
+          </div>
+          <div class="recommendation__block-item">
+            <img src="@/assets/vacancy/vacancy-3.png" alt="работа с детьми" class="recommendation__block-img">
+            <div class="recommendation__block-content">
+              <router-link
+                  to="/"
+                  tag="a"
+                  active-class="active"
+                  class="button-orange-another recommendation__block-content__link">
+                Перейти
+              </router-link>
+              <h5 class="recommendation__block-content__title white">Работа с детьми</h5>
+            </div>
           </div>
         </div>
       </div>

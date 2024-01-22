@@ -326,26 +326,24 @@ export default {
     }
   },
   methods: {
-    createVacancy() {
-      const vacancy = {
-        job_title: this.vacancyTitle,
-        salary_min: this.salaryMin,
-        salary_max: this.salaryMax,
-        description: this.description,
-        tax: this.isSalaryTask,
-        type: this.employ,
-        required_experience: this.experience,
-      };
-      this.validateFormVacancy()
-      if (Object.values(this.errorFields).every((error) => !error)) {
-        axios.post('/create-vacancy/', vacancy)
-            .then(response => {
-              console.log(response)
-              window.location.reload();
-            })
-            .catch(error => {
-              console.log(error)
-            });
+    async createVacancy() {
+      try {
+        const vacancy = {
+          job_title: this.vacancyTitle,
+          salary_min: this.salaryMin,
+          salary_max: this.salaryMax,
+          description: this.description,
+          tax: this.isSalaryTask,
+          type: this.employ,
+          required_experience: this.experience,
+        };
+        this.validateFormVacancy()
+        if(this.validateFormVacancy()) {
+          axios.post('/create-vacancy/', vacancy)
+          window.location.reload()
+        }
+      } catch(error) {
+        console.log(error)
       }
     },
     validateField(value) {
@@ -356,6 +354,7 @@ export default {
       this.errorFields.salary = this.validateField(this.salaryMin) && this.validateField(this.salaryMax)
       this.errorFields.graph = this.validateField(this.graph)
       this.errorFields.description = this.validateField(this.description)
+      return Object.values(this.errorFields).every((error) => !error)
     },
   },
 }

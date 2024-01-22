@@ -115,14 +115,14 @@
                         v-model.trim="email"
                         @blur="checkEmail"
                         @input="isEmptyEmail = false"
-                        @focus="isCheckEmail = true"
+                        @focus="isCheckEmail = undefined"
                         type="text"
                         class="modal-form__input"
-                        :class="{error: !isCheckEmail || isEmptyEmail}">
-                    <template v-if="!isCheckEmail && email !== '' || isEmptyEmail">
+                        :class="{error: this.isCheckEmail === false || isEmptyEmail}">
+                    <template v-if="this.isCheckEmail === false && email !== '' || isEmptyEmail">
                       <div class="icon-error">
                       </div>
-                      <label v-if="!isCheckEmail" class="modal-input-error">
+                      <label v-if="this.isCheckEmail === false" class="modal-input-error">
                         Неверный E-mail
                       </label>
                       <label
@@ -139,12 +139,12 @@
                     <input
                         v-model.trim="password"
                         @blur="checkPassword"
-                        @focus="isCheckPassword = true"
+                        @focus="isCheckPassword = undefined"
                         @input="isEmptyPassword = false"
-                        :class="{error: !isCheckPassword || isEmptyPassword}"
+                        :class="{error: this.isCheckPassword === false || isEmptyPassword}"
                         :type="isHidePassword ? 'password' : 'text'"
                         class="modal-form__input">
-                    <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
+                    <template v-if="(this.isCheckPassword === false && password !== '') || isEmptyPassword">
                       <template v-if="!isCheckPassword && password !== ''">
                         <label class="modal-input-error">
                           Пароль должен быть минимум 8 символов
@@ -200,14 +200,14 @@
                       v-model.trim="email"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
-                      @focus="isCheckEmail = true"
+                      @focus="isCheckEmail = undefined"
                       type="text"
                       class="modal-form__input"
-                      :class="{error: !isCheckEmail || isEmptyEmail}">
-                  <template v-if="!isCheckEmail && email !== '' || isEmptyEmail">
+                      :class="{error: this.isCheckEmail === false || isEmptyEmail}">
+                  <template v-if="this.isCheckEmail === false && email !== '' || isEmptyEmail">
                     <div class="icon-error">
                     </div>
-                    <label v-if="!isCheckEmail" class="modal-input-error">
+                    <label v-if="this.isCheckEmail === false" class="modal-input-error">
                       Неверный E-mail
                     </label>
                     <label
@@ -224,12 +224,12 @@
                   <input
                       v-model.trim="password"
                       @blur="checkPassword"
-                      @focus="isCheckPassword = true"
+                      @focus="isCheckPassword = undefined"
                       @input="isEmptyPassword = false"
-                      :class="{error: !isCheckPassword || isEmptyPassword}"
+                      :class="{error: this.isCheckPassword === false || isEmptyPassword}"
                       :type="isHidePassword ? 'password' : 'text'"
                       class="modal-form__input">
-                  <template v-if="(!isCheckPassword && password !== '') || isEmptyPassword">
+                  <template v-if="(this.isCheckPassword === false && password !== '') || isEmptyPassword">
                     <template v-if="!isCheckPassword && password !== ''">
                       <label class="modal-input-error">
                         Пароль должен быть минимум 8 символов
@@ -292,11 +292,11 @@
                       v-model.trim="email"
                       @blur="checkEmail"
                       @input="isEmptyEmail = false"
-                      @focus="isCheckEmail = true"
-                      :class="{error: !isCheckEmail}"
+                      @focus="isCheckEmail = undefined"
+                      :class="{error: this.isCheckEmail === false}"
                       type="text"
                       class="modal-form__input">
-                  <template v-if="!isCheckEmail && email !== ''">
+                  <template v-if="this.isCheckEmail === false && email !== ''">
                     <div class="icon-error">
                     </div>
                     <label class="modal-input-error">
@@ -358,8 +358,8 @@ export default {
       userName: '',
       userType: '',
 
-      isCheckEmail: true,
-      isCheckPassword: true,
+      isCheckEmail: undefined,
+      isCheckPassword: undefined,
       isEmptyEmail: false,
       isEmptyPassword: false,
       isEmptyName: false,
@@ -385,77 +385,69 @@ export default {
     this.isAutoRization = localStorage.getItem('isAutoRization');
   },
   methods: {
-    submitFormReg() {
-      if (this.isEmptyEmail || !this.isCheckEmail || this.isEmptyPassword
-          || !this.isCheckPassword) {
-        return
-      }
+    validFormReg() {
+      return this.isEmptyEmail || this.isCheckEmail || this.isEmptyPassword || this.isCheckPassword
+    },
+    async submitFormReg() {
       const presentUser = {
         email: this.email,
         password: this.password,
         usertype: this.userType,
       };
-      axios.post('/api/v1/users/', presentUser)
-          .then(response => {
-            console.log(response)
-            this.authentication(presentUser)
-          })
-          .catch(error => {
-            console.log(error)
-          });
-      this.onCloseModalReg();
+      try {
+        if(this.validFormReg()) {
+          await axios.post('/api/v1/users/', presentUser);
+          this.authentication(presentUser);
+          this.onCloseModalReg();
+        }
+      } catch (error) {
+        console.log(error.request.response)
+        console.error(error);
+      }
     },
-    authentication(presentUser) {
+    async authentication(presentUser) {
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('access')
-
-
-      axios.post('/api/v1/jwt/create/', presentUser)
-          .then(response => {
-            console.log(response)
-            const access = response.data.access
-            const refresh = response.data.refresh
-            this.$store.commit('setAccess', access)
-            this.$store.commit('setRefresh', refresh)
-            this.isAutoRization = true;
-            this.isModalWinLog = false;
-            axios.defaults.headers.common['Authorization'] = 'JWT ' + access
-            localStorage.setItem('isAutoRization', this.isAutoRization);
-            location.reload()
-          })
-          .catch(error => {
-            console.log(error)
-          })
-    },
-    logIn() {
-      if (!this.isCheckPassword || this.isEmptyPassword || this.isEmptyEmail || !this.isCheckEmail) {
-        return;
+      try {
+        const response = await axios.post('/api/v1/jwt/create/', presentUser);
+        const access = response.data.access;
+        const refresh = response.data.refresh;
+        this.$store.commit('setAccess', access);
+        this.$store.commit('setRefresh', refresh);
+        this.isAutoRization = true;
+        this.isModalWinLog = false;
+        axios.defaults.headers.common['Authorization'] = 'JWT ' + access;
+        localStorage.setItem('isAutoRization', this.isAutoRization);
+        location.reload();
+      } catch (error) {
+        console.error(error);
       }
-      axios.defaults.headers.common['Authorization'] = ''
-      localStorage.removeItem('access')
-
-      const presentUser = {
-        email: this.email,
-        password: this.password,
-      }
-
-      axios.post('/api/v1/jwt/create/', presentUser)
-          .then(response => {
-            console.log(response)
-            const access = response.data.access
-            const refresh = response.data.refresh
-            this.$store.commit('setAccess', access)
-            this.$store.commit('setRefresh', refresh)
-            this.isAutoRization = true;
-            this.isModalWinLog = false;
-            axios.defaults.headers.common['Authorization'] = 'JWT ' + access
-            localStorage.setItem('isAutoRization', this.isAutoRization);
-            location.reload()
-          })
-          .catch(error => {
-            console.log(error)
-          })
     },
+    async logIn() {
+      try {
+        const presentUser = {
+          email: this.email,
+          password: this.password,
+        }
+        axios.defaults.headers.common['Authorization'] = ''
+        localStorage.removeItem('access')
+        if(this.validFormReg()) {
+          const response = await axios.post('/api/v1/jwt/create/', presentUser)
+          const access = response.data.access
+          const refresh = response.data.refresh
+          this.$store.commit('setAccess', access)
+          this.$store.commit('setRefresh', refresh)
+          this.isAutoRization = true;
+          this.isModalWinLog = false;
+          axios.defaults.headers.common['Authorization'] = 'JWT ' + access
+          localStorage.setItem('isAutoRization', this.isAutoRization);
+          location.reload()
+        }
+      } catch(error) {
+        console.log(error)
+      }
+    },
+
     getMe() {
       axios.get('/api/v1/auth/users/')
           .then(response => {
@@ -496,7 +488,7 @@ export default {
     openNextStep() {
       this.checkRegFields();
 
-      if (this.isEmptyName || this.isEmptyPassword || this.isEmptyName || !this.isCheckPassword || !this.isCheckEmail) {
+      if (this.isEmptyName || this.isEmptyPassword || this.isEmptyName || this.isCheckPassword || this.isCheckEmail) {
         return;
       }
       this.ModalWinRegCurrentStep++
@@ -541,7 +533,7 @@ export default {
       this.password = '';
       this.isHidePassword = true;
       this.isCheckEmail = true;
-      this.isCheckPassword = true;
+      this.isCheckPassword = undefined;
       this.isEmptyEmail = false;
       this.isEmptyPassword = false;
       this.isEmptyName = false;
@@ -551,13 +543,13 @@ export default {
         return;
       }
       let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      this.isCheckEmail = re.test(this.email);
+      return this.isCheckEmail = re.test(this.email);
     },
     checkPassword() {
       if (this.password === '') {
         return;
       }
-      this.password.length < 8 ? this.isCheckPassword = false : this.isCheckPassword = true;
+        return this.isCheckPassword = this.password.length >= 8
     },
     openItem() {
       this.isMenuActive = !this.isMenuActive;
