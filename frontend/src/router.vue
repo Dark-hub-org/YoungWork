@@ -38,8 +38,8 @@ export default new VueRouter({
       },},// вакансии
     {path: '/create-vacancy', component: createPage},//Создание вакансии
     {path: '/create-resume', component: createResume},//Создать резюме
-    {path: '/profile/applicant/', component: Applicant},//Профиль соискателя
-    {path: '/profile/employer/', component: Employer},//Профиль работодателя
+    {path: '/profile/applicant/:id', component: Applicant},//Профиль соискателя
+    {path: '/profile/employer/:id', component: Employer},//Профиль работодателя
     {path: '/profile/edit', component: UserEdit},//Редактирование профиля
   ],
 });

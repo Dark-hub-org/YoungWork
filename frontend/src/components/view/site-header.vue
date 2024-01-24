@@ -397,6 +397,7 @@ export default {
       try {
         if(this.validFormReg()) {
           await axios.post('/api/v1/users/', presentUser);
+          // this.submitUserType(presentUser.usertype, presentUser.email)
           this.authentication(presentUser);
           this.onCloseModalReg();
         }
@@ -405,11 +406,19 @@ export default {
         console.error(error);
       }
     },
+    async submitUserType(usertype, username) {
+      try {
+        await axios.post(`/api/v1/${usertype}`, username)
+      } catch(error) {
+        console.log(error)
+      }
+    },
     async authentication(presentUser) {
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('access')
       try {
         const response = await axios.post('/api/v1/jwt/create/', presentUser);
+        console.log(response)
         const access = response.data.access;
         const refresh = response.data.refresh;
         this.$store.commit('setAccess', access);
@@ -418,7 +427,8 @@ export default {
         this.isModalWinLog = false;
         axios.defaults.headers.common['Authorization'] = 'JWT ' + access;
         localStorage.setItem('isAutoRization', this.isAutoRization);
-        location.reload();
+        this.$router.push('/profile/applicant/11')
+        // location.reload();
       } catch (error) {
         console.error(error);
       }

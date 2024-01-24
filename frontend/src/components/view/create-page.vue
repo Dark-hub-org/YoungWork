@@ -290,7 +290,7 @@ export default {
       editorConfig: {
         toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
       },
-      description: "" +
+      description:
           "<p><strong>О компании / заказчике:</strong></p" +
           "<ul><li></li></ul>" +
           "<p><strong>Обязанности:</strong></p>" +
@@ -299,16 +299,12 @@ export default {
           "<ul><li></li></ul>" +
           "<p><strong>Условия:</strong></p>" +
           "<ul><li></li></ul>",
+      tasks: '',
+      requirements: this.description,
       isSalaryTask: "До вычета налогов",
       employ: 'Полная занятость',
       experience: 'Не имеет значения',
       graph: ["Полный день",],
-
-      // companyName: '',
-      // companyTel: '',
-      // companyEmail: '',
-      // companyPost: '',
-      // companyPerson: '',
 
       vacancyTitle: '',
       salaryMin: '',
@@ -328,22 +324,52 @@ export default {
   methods: {
     async createVacancy() {
       try {
+        this.parseResponsibilities(this.description, 'Обязанности')
+        this.parseResponsibilities(this.description, 'Требования')
         const vacancy = {
           job_title: this.vacancyTitle,
           salary_min: this.salaryMin,
           salary_max: this.salaryMax,
           description: this.description,
+          tasks: this.tasks,
+          requirements: this.requirements,
           tax: this.isSalaryTask,
           type: this.employ,
           required_experience: this.experience,
         };
         this.validateFormVacancy()
         if(this.validateFormVacancy()) {
-          axios.post('/create-vacancy/', vacancy)
+          await axios.post('/create-vacancy/', vacancy)
           window.location.reload()
         }
       } catch(error) {
         console.log(error)
+      }
+    },
+    parseResponsibilities(description, codeWord) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(description, 'text/html');
+      const strongParagraphs = doc.querySelectorAll('p');
+      let responsibilitiesList = null;
+      for (const strongParagraph of strongParagraphs) {
+
+        if (strongParagraph.textContent.includes(codeWord)) {
+          responsibilitiesList = strongParagraph.nextElementSibling;
+          break;
+        }
+      }
+
+      if (responsibilitiesList && responsibilitiesList.tagName.toLowerCase() === 'ul') {
+        const responsibilitiesArray = Array.from(responsibilitiesList.querySelectorAll('li')).map(li => li.textContent.trim());
+
+        if (responsibilitiesArray.length > 0) {
+          if(codeWord === 'Обязанности') {
+            this.tasks = `${responsibilitiesArray.join(', ')}`;
+          } else if(codeWord === 'Требования') {
+            this.requirements = `${responsibilitiesArray.join(', ')}`;
+          }
+
+        }
       }
     },
     validateField(value) {

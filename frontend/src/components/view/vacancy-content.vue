@@ -71,10 +71,12 @@
                 <div class="vacancy__item-block vacancy__item-block--description">
                   <p class="vacancy__item-text">
                     <pre class="vacancy__item-subtitle">Задачи: </pre>
-                    <span class="vacancy__item-subtitle-text" v-html="vacancy.description"> </span>
+                    <span class="vacancy__item-subtitle-text" v-html="vacancy.tasks"> </span>
                   </p>
-                  <p class="vacancy__item-text"><span class="vacancy__item-subtitle">Требования:</span> хорошее
-                    понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.</p>
+                  <p class="vacancy__item-text">
+                    <pre class="vacancy__item-subtitle">Требования: </pre>
+                    <span class="vacancy__item-subtitle-text" v-html="vacancy.requirements"> </span>
+                  </p>
                 </div>
               </div>
               <div class="vacancy__item-btns">
