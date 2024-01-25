@@ -2,11 +2,11 @@ import uuid
 
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 
 
-class MyUserManager(BaseUserManager):
+class UserManager(BaseUserManager):
     def create_user(self, email, usertype, password=None):
         if not email:
             raise ValueError("Users must have an email address")
