@@ -17,25 +17,31 @@ export default new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    { path: '/',
+    {
+      path: '/',
       name: 'home',
       component: LandingContent,
       meta: {
         breadcrumb: 'Главная'
-      }},// Хабовая
-    {path: '/vacancy/:id', name: "vacancy", props: true, component: vacancyPage, meta: {
+      }
+    },// Хабовая
+    {
+      path: '/vacancy/:id', name: "vacancy", props: true, component: vacancyPage, meta: {
         breadcrumb: {
           label: 'Страница вакансии',
           parent: 'vacancies'
         }
-      },},// Детальная вакансия
-    {path: '/vacancy/:page',  name: "vacancies-page", component: VacancyContent}, // вакансии хабовая
-    {path: '/vacancy/', name: "vacancies", component: VacancyContent, meta: {
+      },
+    },// Детальная вакансия
+    {path: '/vacancy/:page', name: "vacancies-page", component: VacancyContent}, // вакансии хабовая
+    {
+      path: '/vacancy', name: "vacancies", component: VacancyContent, meta: {
         breadcrumb: {
           label: 'Вакансии',
           parent: 'home'
         }
-      },},// вакансии
+      },
+    },// вакансии
     {path: '/create-vacancy', component: createPage},//Создание вакансии
     {path: '/create-resume', component: createResume},//Создать резюме
     {path: '/profile/applicant/:id', component: Applicant},//Профиль соискателя

@@ -1,4 +1,8 @@
-from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+import uuid
+
+from django.conf import settings
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.db import models
 
 
@@ -26,16 +30,23 @@ class MyUserManager(BaseUserManager):
         return user
 
 
-class MyUser(AbstractBaseUser):
+class User(AbstractBaseUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(
         verbose_name="email address",
         max_length=255,
         unique=True,
     )
     usertype = models.CharField()
+    avatar = models.ImageField(upload_to='movies/avatars', blank=True, null=True)
+
+    recommendations = models.ManyToManyField('self')
+
+    posts_count = models.IntegerField(default=0)
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    photo = models.ImageField(blank=True, default='')
+
     first_name = models.CharField(blank=True, max_length=20, default='')
     last_name = models.CharField(blank=True, max_length=20, default='')
     surname = models.CharField(blank=True, max_length=20, default='')
@@ -45,10 +56,17 @@ class MyUser(AbstractBaseUser):
     city = models.CharField(blank=True, max_length=20, default='')
     send_email = models.BooleanField(default=True)
 
-    objects = MyUserManager()
+    objects = UserManager()
 
     USERNAME_FIELD = "email"
+    EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ["usertype"]
+
+    def get_avatar(self):
+        if self.avatar:
+            return settings.WEBSITE_URL + self.avatar.url
+        else:
+            return 'https://github.com/Dark-hub-org/YoungWork/blob/83981ff8000cebb6f3c0602f5f4e7bcc55c3e8db/frontend/src/assets/header/anonim-logo.svg'
 
     def __str__(self):
         return self.email

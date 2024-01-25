@@ -161,6 +161,7 @@ export default {
 
   data() {
     return {
+      id: null,
       isFilterVisible: false,
       vacancies: [],
       quantityVacancies: 0,
@@ -182,7 +183,7 @@ export default {
         this.vacancies = response.data.results
         this.quantityVacancies = response.data.count
         this.currentPage = pageNum;
-      } catch(error) {
+      } catch (error) {
         console.log(error)
       }
     },
@@ -193,7 +194,7 @@ export default {
           await this.$router.replace(route);
           window.scrollTo(0, 0);
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error)
       }
     },
@@ -208,7 +209,7 @@ export default {
     },
   },
   mounted() {
-    if(this.$route.query.page) {
+    if (this.$route.query.page) {
       this.currentPage = +this.$route.query.page
       this.getVacancy(this.currentPage);
     } else {
@@ -224,6 +225,7 @@ export default {
 </style>
 <style lang="scss">
 @import "../../style/varibles";
+
 .vacancy__pagination-page {
   height: 45px;
   border-radius: 10px;
@@ -232,6 +234,7 @@ export default {
   font-weight: 600;
   color: $colorBlack;
   transition: all .3s ease;
+
   &:hover {
     background-color: $colorOrangeM;
     color: $colorWhite;

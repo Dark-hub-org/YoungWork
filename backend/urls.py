@@ -7,19 +7,22 @@ from django.views.generic.base import RedirectView
 from django.views.static import serve
 from django.conf.urls.static import static
 
+from accounts.views import activateemail
+
 favicon_view = RedirectView.as_view(url=os.path.join(settings.STATIC_URL, 'favicon.svg'), permanent=True)
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('favicon.svg', favicon_view),
                   path('', TemplateView.as_view(template_name='index.html')),
-                  path('api/v1/', include('djoser.urls')),
-                  path('api/v1/', include('djoser.urls.jwt')),
+                  path('api/', include('djoser.urls')),
+                  path('api/', include('djoser.urls.jwt')),
+                  path('api/', include('accounts.urls')),
+                  path('', include('chat.urls')),
                   path('', include('profiles.urls')),
                   path('', include('jobs.urls')),
                   path('', include('summary.urls')),
-                  path('', include('accounts.urls')),
-                  path('', include('chat.urls')),
+                  path('activateemail/', activateemail, name='activateemail'),
                   re_path(r'^media/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'media')}),
                   re_path(r'^img/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'img')}),
                   re_path(r'^js/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'js')}),

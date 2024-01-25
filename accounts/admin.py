@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from .models import MyUser
+from .models import User
 
 
 class UserCreationForm(forms.ModelForm):
@@ -15,7 +15,7 @@ class UserCreationForm(forms.ModelForm):
     )
 
     class Meta:
-        model = MyUser
+        model = User
         fields = ["email"]
 
     def clean_password2(self):
@@ -38,7 +38,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         verbose_name = "account"
-        model = MyUser
+        model = User
         fields = ["email", "usertype", "first_name", "last_name", "surname", "is_admin"]
 
 
@@ -46,11 +46,12 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ["email", "usertype", "first_name", "last_name", "surname", "is_admin"]
+    list_display = ["id", "email", "usertype", "first_name", "last_name", "surname", "is_admin"]
     list_filter = ["is_admin"]
     fieldsets = [
         (None,
-         {"fields": ["email", "usertype", "password", "photo", "first_name", "last_name", "surname", "date_of_birth",
+         {"fields": ["email", "usertype", "password", "avatar", "first_name", "last_name", "surname",
+                     "date_of_birth",
                      "citizenship", "region", "city", "send_email"]}),
         ("Permissions", {"fields": ["is_admin"]}),
     ]
@@ -68,5 +69,5 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = []
 
 
-admin.site.register(MyUser, UserAdmin)
+admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)

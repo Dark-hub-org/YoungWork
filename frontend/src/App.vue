@@ -41,8 +41,7 @@ export default {
       const accessData = {
         refresh: this.$store.state.refresh
       }
-
-      axios.post('/api/v1/jwt/refresh', accessData)
+      axios.post('/api/jwt/refresh', accessData)
           .then(response => {
             const access = response.data.access
             localStorage.setItem("access", access)

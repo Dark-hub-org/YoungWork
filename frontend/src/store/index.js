@@ -1,31 +1,36 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import axios from "axios";
-// import {commit} from "lodash/seq";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        id: '',
         access: '',
         refresh: '',
         isProfileEdit: false,
     },
     mutations: {
-        initializeStore(state){
-            if ( localStorage.getItem("access")) {
+        initializeStore(state) {
+            if (localStorage.getItem("access")) {
+                state.id = localStorage.getItem("id")
                 state.access = localStorage.getItem("access")
                 state.refresh = localStorage.getItem("refresh")
             } else {
+                state.id = ''
                 state.access = ''
                 state.refresh = ''
             }
         },
-        setAccess(state, access){
+        setId(state, id) {
+            state.id = id
+            localStorage.setItem('id', id)
+        },
+        setAccess(state, access) {
             state.access = access
             localStorage.setItem('access', access)
         },
-        setRefresh(state, refresh){
+        setRefresh(state, refresh) {
             state.refresh = refresh
             localStorage.setItem('refresh', refresh)
         },
@@ -33,10 +38,7 @@ export default new Vuex.Store({
             state.isProfileEdit = newVal
         },
     },
-    actions: {
-    },
-    getters: {
-
-    },
+    actions: {},
+    getters: {},
     modules: {}
 })
