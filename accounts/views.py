@@ -1,11 +1,18 @@
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from .models import MyUser
-from .serializers import MyUserDataSerializer
+from django.http import HttpResponse
+from django.shortcuts import render
+
+from .models import User
 
 
-class MyUserDataView(APIView):
-    def get(self, request):
-        User = MyUser.objects.all()
-        serializer = MyUserDataSerializer(User, many=True)
-        return Response(serializer.data)
+def activateemail(request):
+    email = request.GET.get('email', '')
+    id = request.GET.get('id', '')
+
+    if email and id:
+        user = User.objects.get(id=id, email=email)
+        user.is_active = True
+        user.save()
+
+        return HttpResponse('The user is now activated. You can go ahead and log in!')
+    else:
+        return HttpResponse('The parameters is not valid!')

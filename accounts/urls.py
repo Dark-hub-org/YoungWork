@@ -1,6 +1,9 @@
 from django.urls import path
-from .views import *
+from . import api
 
 urlpatterns = [
-    path('api/v1/auth/users/', MyUserDataView.as_view()),
+    path('me/', api.me, name='me'),
+    path('signup/', api.signup, name='signup'),
+    path('editprofile/', api.editprofile, name='editprofile'),
+    path('editpassword/', api.editpassword, name='editpassword'),
 ]

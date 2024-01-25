@@ -38,8 +38,8 @@ class ApplicantDetailView(APIView):
 
 
 class DRFApplicantDataView(APIView):
-    def post(self, request, format=None):
-        serializer = EmployerDataSerializer(data=request.data)
+    def post(self, request):
+        serializer = ApplicantDetailSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

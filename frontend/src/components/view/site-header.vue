@@ -395,8 +395,8 @@ export default {
         usertype: this.userType,
       };
       try {
-        if(this.validFormReg()) {
-          await axios.post('/api/v1/users/', presentUser);
+        if (this.validFormReg()) {
+          await axios.post('/api/users/', presentUser);
           this.authentication(presentUser);
           this.onCloseModalReg();
         }
@@ -409,7 +409,7 @@ export default {
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('access')
       try {
-        const response = await axios.post('/api/v1/jwt/create/', presentUser);
+        const response = await axios.post('/api/jwt/create/', presentUser);
         const access = response.data.access;
         const refresh = response.data.refresh;
         this.$store.commit('setAccess', access);
@@ -418,6 +418,9 @@ export default {
         this.isModalWinLog = false;
         axios.defaults.headers.common['Authorization'] = 'JWT ' + access;
         localStorage.setItem('isAutoRization', this.isAutoRization);
+        const response_id = await axios.get('/api/me/')
+        const id = response_id.data.id
+        this.$store.commit('setId', id)
         location.reload();
       } catch (error) {
         console.error(error);
@@ -431,8 +434,8 @@ export default {
         }
         axios.defaults.headers.common['Authorization'] = ''
         localStorage.removeItem('access')
-        if(this.validFormReg()) {
-          const response = await axios.post('/api/v1/jwt/create/', presentUser)
+        if (this.validFormReg()) {
+          const response = await axios.post('/api/jwt/create/', presentUser)
           const access = response.data.access
           const refresh = response.data.refresh
           this.$store.commit('setAccess', access)
@@ -441,17 +444,18 @@ export default {
           this.isModalWinLog = false;
           axios.defaults.headers.common['Authorization'] = 'JWT ' + access
           localStorage.setItem('isAutoRization', this.isAutoRization);
+          const response_id = await axios.get('/api/me/')
+          const id = response_id.data.id
+          this.$store.commit('setId', id)
           location.reload()
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error)
       }
     },
-
     getMe() {
-      axios.get('/api/v1/auth/users/')
+      axios.get('/api/me/')
           .then(response => {
-            console.log(response)
             this.userName = response.data.first_name
           })
           .catch(error => {
@@ -459,23 +463,12 @@ export default {
           })
     },
     logOut() {
+      localStorage.removeItem('id')
       localStorage.removeItem('access')
       localStorage.removeItem('refresh')
       localStorage.removeItem('isAutoRization')
       location.reload()
       this.$router.push('/')
-    },
-    refreshPassword() {
-      const presentUser = {
-        email: this.email
-      }
-      axios.post('/api/v1/users/reset_password/', presentUser)
-          .then(response => {
-            console.log(response)
-          })
-          .catch(error => {
-            console.log(error)
-          });
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
@@ -549,7 +542,7 @@ export default {
       if (this.password === '') {
         return;
       }
-        return this.isCheckPassword = this.password.length >= 8
+      return this.isCheckPassword = this.password.length >= 8
     },
     openItem() {
       this.isMenuActive = !this.isMenuActive;

@@ -11,14 +11,16 @@ ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://127.0.0.1:8000']
 
-AUTH_USER_MODEL = 'accounts.MyUser'
+WEBSITE_URL = 'http://127.0.0.1:8000'
+
+AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
 }
 
 SIMPLE_JWT = {
@@ -36,16 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webpack_loader',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_framework_simplejwt',
     'djoser',
     'corsheaders',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'accounts',
+    'chat',
     'profiles',
     'jobs',
     'summary',
-    'accounts',
-    'chat',
 ]
 
 MIDDLEWARE = [
@@ -115,6 +116,16 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = 'media/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = 'postmaster@sandbox3e650ff1f6fa4b2d8a99062f8743ccf2.mailgun.org'
+EMAIL_HOST_PASSWORD = 'fee4a17647fdfe09f715de88a23a42bb-063062da-c34a9e41'
+EMAIL_PORT = 587

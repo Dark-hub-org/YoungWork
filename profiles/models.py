@@ -1,9 +1,9 @@
 from django.db import models
-from accounts.models import MyUser
+from accounts.models import User
 
 
 class Applicant(models.Model):
-    user = models.OneToOneField(MyUser, on_delete=models.CASCADE, primary_key=True,
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='applicant_user')
     bio = models.TextField(null=True, blank=True)
     portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
@@ -17,7 +17,7 @@ class Applicant(models.Model):
 
 
 class Employer(models.Model):
-    user = models.OneToOneField(MyUser, on_delete=models.CASCADE, primary_key=True,
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='employer_releted_user')
     inn = models.CharField(max_length=100)
     title_org = models.CharField(max_length=100)
