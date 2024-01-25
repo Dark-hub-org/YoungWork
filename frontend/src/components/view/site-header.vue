@@ -397,12 +397,17 @@ export default {
       try {
         if (this.validFormReg()) {
           await axios.post('/api/users/', presentUser);
-          this.authentication(presentUser);
-          this.onCloseModalReg();
         }
       } catch (error) {
         console.log(error.request.response)
         console.error(error);
+      }
+    },
+    async submitUserType(usertype, username) {
+      try {
+        await axios.post(`/api/v1/${usertype}`, username)
+      } catch (error) {
+        console.log(error)
       }
     },
     async authentication(presentUser) {
