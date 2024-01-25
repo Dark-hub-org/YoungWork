@@ -395,8 +395,11 @@ export default {
         usertype: this.userType,
       };
       try {
-        if (this.validFormReg()) {
+        if(this.validFormReg()) {
           await axios.post('/api/users/', presentUser);
+          // this.submitUserType(presentUser.usertype, presentUser.email)
+          this.authentication(presentUser);
+          this.onCloseModalReg();
         }
       } catch (error) {
         console.log(error.request.response)
@@ -406,7 +409,7 @@ export default {
     async submitUserType(usertype, username) {
       try {
         await axios.post(`/api/v1/${usertype}`, username)
-      } catch (error) {
+      } catch(error) {
         console.log(error)
       }
     },
@@ -414,7 +417,8 @@ export default {
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('access')
       try {
-        const response = await axios.post('/api/jwt/create/', presentUser);
+        const response = await axios.post('/api/v1/jwt/create/', presentUser);
+        console.log(response)
         const access = response.data.access;
         const refresh = response.data.refresh;
         this.$store.commit('setAccess', access);
