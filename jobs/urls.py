@@ -5,8 +5,8 @@ from .views import *
 urlpatterns = [
     path('vacancy/', VacanciesDataView.as_view()),
     path('api/v1/vac/', VacanciesData.as_view()),
-    path('vacancy/<int:pk>/', VacancyDetailView.as_view()),
-    path('api/v1/vac/<int:pk>/', VacancyDetail.as_view()),
+    path('vacancy/<str:pk>/', VacancyDetailView.as_view()),
+    path('api/v1/vac/<str:pk>/', VacancyDetail.as_view()),
     path('create-vacancy/', VacanciesCreateDataView.as_view()),
     path('api/v1/events/', EventsDataView.as_view()),
 ]
