@@ -50,23 +50,17 @@ class User(AbstractBaseUser):
     first_name = models.CharField(blank=True, max_length=20, default='')
     last_name = models.CharField(blank=True, max_length=20, default='')
     surname = models.CharField(blank=True, max_length=20, default='')
-    date_of_birth = models.DateField(blank=True, default='1999-01-01')
+    date_of_birth = models.DateField(blank=True, default='')
     citizenship = models.CharField(blank=True, max_length=20, default='')
     region = models.CharField(blank=True, max_length=20, default='')
     city = models.CharField(blank=True, max_length=20, default='')
-    send_email = models.BooleanField(default=True)  # Del
+    gender = models.DateField(blank=True, default='')
 
     objects = UserManager()
 
     USERNAME_FIELD = "email"
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ["usertype"]
-
-    def get_avatar(self):
-        if self.avatar:
-            return settings.WEBSITE_URL + self.avatar.url
-        else:
-            return 'https://github.com/Dark-hub-org/YoungWork/blob/83981ff8000cebb6f3c0602f5f4e7bcc55c3e8db/frontend/src/assets/header/anonim-logo.svg'
 
     def __str__(self):
         return self.email
