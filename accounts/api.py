@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib.auth.forms import PasswordChangeForm
-from django.core.mail import send_mail
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -16,6 +15,13 @@ def me(request):
         'id': request.user.id,
         'first_name': request.user.first_name,
         'email': request.user.email,
+        'usertype': request.user.usertype,
+        'last_name': request.user.last_name,
+        'surname': request.user.surname,
+        'date_of_birth': request.user.date_of_birth,
+        'citizenship': request.user.citizenship,
+        'region': request.user.region,
+        'city': request.user.city,
         'avatar': request.user.get_avatar()
     })
 

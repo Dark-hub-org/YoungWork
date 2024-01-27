@@ -54,7 +54,7 @@ class User(AbstractBaseUser):
     citizenship = models.CharField(blank=True, max_length=20, default='')
     region = models.CharField(blank=True, max_length=20, default='')
     city = models.CharField(blank=True, max_length=20, default='')
-    send_email = models.BooleanField(default=True)
+    send_email = models.BooleanField(default=True)  # Del
 
     objects = UserManager()
 

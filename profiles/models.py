@@ -5,7 +5,7 @@ from accounts.models import User
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='applicant_user')
-    bio = models.TextField(null=True, blank=True)
+    bio = models.TextField(blank=True, default='')
     portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
 
     def __str__(self):
@@ -19,12 +19,12 @@ class Applicant(models.Model):
 class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='employer_releted_user')
-    inn = models.CharField(max_length=100)
-    title_org = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
+    inn = models.CharField(blank=True, max_length=100)
+    title_org = models.CharField(blank=True, max_length=100)
+    description = models.TextField(blank=True, null=True)
     photo_org = models.ImageField(null=True, blank=True, upload_to='movies/employer')
-    job_title = models.CharField(max_length=100)
-    status_validatio = models.CharField(max_length=100)
+    job_title = models.CharField(blank=True, max_length=100)
+    status_validatio = models.CharField(blank=True, max_length=100)
     job_example = models.ImageField(null=True, blank=True, upload_to='movies/employer')
 
     def __str__(self):

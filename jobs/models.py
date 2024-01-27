@@ -24,7 +24,7 @@ class Vacancies(models.Model):
     comments_count = models.IntegerField(default=0)
 
     timestamp = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, related_name='vacancies', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Employer, related_name='vacancies', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.job_title} {self.salary_min} {self.salary_max}"

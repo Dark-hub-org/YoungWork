@@ -385,12 +385,12 @@ export default {
   },
   mounted() {
     // this.isAuthorization = Boolean(localStorage.getItem('isAuthorization'));
-    if(this.isAuthorization) {
+    if (this.isAuthorization) {
       this.getUserdata()
     }
   },
   updated() {
-    if(this.isAuthorization) {
+    if (this.isAuthorization) {
       this.getUserdata()
     }
   },
@@ -398,10 +398,10 @@ export default {
     validFormReg() {
       return this.isEmptyEmail || this.isCheckEmail || this.isEmptyPassword || this.isCheckPassword
     },
-    async submitUserType(usertype, username) {
+    async submitUserType(usertype, user) {
       try {
-        await axios.post(`/api/v1/${usertype}`, username)
-      } catch(error) {
+        await axios.post(`/api/${usertype}/`, user)
+      } catch (error) {
         console.log(error)
       }
     },
@@ -410,7 +410,7 @@ export default {
         const response = await axios.get('/api/me/')
         this.$store.commit('setId', response.data.id)
         this.userId = response.data.id
-      } catch(error) {
+      } catch (error) {
         console.log(error)
       }
     },
@@ -419,7 +419,7 @@ export default {
         const response = await axios.get('/api/me/')
         this.$store.commit('setId', response.data.id)
         this.userName = response.data.first_name
-      } catch(error) {
+      } catch (error) {
         console.log(error)
       }
     },
@@ -430,7 +430,7 @@ export default {
         usertype: this.userType,
       };
       try {
-        if(this.validFormReg()) {
+        if (this.validFormReg()) {
           await axios.post('/api/users/', presentUser);
           this.getUserId()
           this.authentication(presentUser);
@@ -451,10 +451,10 @@ export default {
         this.$store.commit('setRefresh', response.data.refresh);
         this.$store.commit('changeAuthorization', true)
         const user = await axios.get('/api/me/')
-        this.submitUserType(this.userType, user.data.id)
-        this.$router.push(`/profile/${this.userType}/${user.data.id}`)
+        await this.submitUserType(this.userType, user.data.id)
+        await this.$router.push(`/profile/${this.userType}/${user.data.id}`)
         this.$store.commit('editISProfileEdit', true)
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
         console.error(error);
       }
@@ -585,10 +585,10 @@ export default {
   computed: {
 
     isAuthorization: {
-      get: function() {
+      get: function () {
         return Boolean(localStorage.getItem('isAuthorization'));
       },
-      set: function(newValue) {
+      set: function (newValue) {
         localStorage.setItem('isAuthorization', newValue);
       }
     }

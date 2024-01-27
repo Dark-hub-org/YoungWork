@@ -37,20 +37,6 @@ class ApplicantDetailView(APIView):
         return render(request, "index.html", {"summary": serializer})
 
 
-class DRFApplicantDataView(APIView):
-    def post(self, request):
-        serializer = ApplicantDetailSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def get(self, request):
-        applicant = Applicant.objects.all()
-        serializer = ApplicantDataSerializer(applicant, many=True)
-        return Response(serializer.data)
-
-
 class DRFApplicantDetailView(APIView):
 
     def get(self, request, pk):
