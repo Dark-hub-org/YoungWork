@@ -35,7 +35,10 @@ export default {
     setInterval(() => {
       this.getAccess()
     }, 59000)
+    this.setUserData()
+  },
 
+  created() {
   },
   methods: {
     getAccess() {
@@ -52,13 +55,9 @@ export default {
             console.log(error)
           })
     },
-    async getUserData() {
-      try {
-        const response = await axios.get('/api/me/')
-        this.$store.commit('setUserData', response.data)
-      } catch(error) {
-        console.log(error)
-      }
+    setUserData() {
+      this.$store.dispatch('setUserData')
+      this.$store.dispatch('getAuthorization')
     },
   }
 }

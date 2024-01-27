@@ -39,16 +39,13 @@
             <div class="header-supernova">
               <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
               <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
-                <router-link
-                    :to="{ name: 'employer', params: { id: this.userId} }"
-                    tag="li"
-                    class="supernova-wrapper-item">
-                  <span class="supernova-wrapper__name">{{ userName }}</span>
-                </router-link>
                 <ul class="supernova-wrapper-list">
-                  <router-link to="/vacancies" tag="li" class="supernova-wrapper-item">
+                  <li class="supernova-wrapper-item">
+                    <span class="supernova-wrapper__name" @click="moveProfile">{{userData.first_name}}</span>
+                  </li>
+                  <li class="supernova-wrapper-item">
                     <a href="/vacancy" class="supernova-wrapper-link">Работа</a>
-                  </router-link>
+                  </li>
                   <li class="supernova-wrapper-item">
                     <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
                       <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
@@ -357,7 +354,6 @@ export default {
     return {
       email: '',
       password: '',
-      userName: '',
       userType: '',
       userId: '',
 
@@ -377,21 +373,10 @@ export default {
       isModalWinResetPass: false,
 
       isMenuActive: false,
-
+      isAuthorization: false,
       isAuthorized: false,
       isSupernovaMenuActive: false,
       isSubMenu: false,
-    }
-  },
-  mounted() {
-    // this.isAuthorization = Boolean(localStorage.getItem('isAuthorization'));
-    if (this.isAuthorization) {
-      this.getUserdata()
-    }
-  },
-  updated() {
-    if (this.isAuthorization) {
-      this.getUserdata()
     }
   },
   methods: {
@@ -405,24 +390,6 @@ export default {
         console.log(error)
       }
     },
-    async getUserId() {
-      try {
-        const response = await axios.get('/api/me/')
-        this.$store.commit('setId', response.data.id)
-        this.userId = response.data.id
-      } catch (error) {
-        console.log(error)
-      }
-    },
-    async getUserdata() {
-      try {
-        const response = await axios.get('/api/me/')
-        this.$store.commit('setId', response.data.id)
-        this.userName = response.data.first_name
-      } catch (error) {
-        console.log(error)
-      }
-    },
     async submitFormReg() {
       const presentUser = {
         email: this.email,
@@ -432,7 +399,6 @@ export default {
       try {
         if (this.validFormReg()) {
           await axios.post('/api/users/', presentUser);
-          this.getUserId()
           this.authentication(presentUser);
           this.onCloseModalReg();
         }
@@ -449,12 +415,11 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'JWT ' + response.data.access;
         this.$store.commit('setAccess', response.data.access);
         this.$store.commit('setRefresh', response.data.refresh);
-        this.$store.commit('changeAuthorization', true)
         const user = await axios.get('/api/me/')
+        await this.$store.dispatch('setUserData')
+        await this.$store.dispatch('changeAuthorization', true)
         await this.submitUserType(this.userType, user.data.id)
-        await this.$router.push(`/profile/${this.userType}/${user.data.id}`)
-        this.$store.commit('editISProfileEdit', true)
-        window.location.reload();
+        await this.$router.push(`/${this.userType}/${user.data.id}`)
       } catch (error) {
         console.error(error);
       }
@@ -479,17 +444,19 @@ export default {
         console.log(error)
       }
     },
+    moveProfile() {
+      this.$router.push(`/${this.userData.usertype}/${this.userData.id}`)
+    },
     logOut() {
       localStorage.removeItem('id')
       localStorage.removeItem('access')
       localStorage.removeItem('refresh')
       localStorage.removeItem('isAuthorization')
-      location.reload()
       this.$router.push('/')
+      location.reload()
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
-      this.isEmptyName = _.isEmpty(this.userName);
       this.isEmptyPassword = _.isEmpty(this.password);
       if (this.isEmptyEmail || this.isEmptyName || this.isEmptyPassword) {
         return;
@@ -505,14 +472,12 @@ export default {
     },
     openModalWinLog() {
       this.clearModalData();
-      //
       this.isModalWinLog = true;
       this.isModalWinReg = false;
     },
     openModalWinReg(type) {
       this.userType = type
       this.clearModalData();
-      //
       if (this.isModalVisSwitch === true) {
         this.isModalVisSwitch = false;
       }
@@ -581,17 +546,28 @@ export default {
       }
       document.documentElement.style.overflow = 'auto'
     },
+    '$store.state.isAuthorization': {
+      handler(newEmail) {
+        if (newEmail) {
+          this.isAuthorization = true
+        }
+      },
+      immediate: true,
+    },
+    // '$store.state.userData.email': {
+    //   handler(newEmail) {
+    //     if (newEmail) {
+    //       this.isAuthorization = true
+    //     }
+    //   },
+    //   immediate: true,
+    // },
   },
   computed: {
+    userData() {
+      return this.$store.state.userData
+    },
 
-    isAuthorization: {
-      get: function () {
-        return Boolean(localStorage.getItem('isAuthorization'));
-      },
-      set: function (newValue) {
-        localStorage.setItem('isAuthorization', newValue);
-      }
-    }
   },
 
 }

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from "axios";
 
 Vue.use(Vuex)
 
@@ -7,7 +8,7 @@ export default new Vuex.Store({
     state: {
         isAuthorization: false,
         userData: {},
-        userId: '',
+        // userId: '',
         access: '',
         refresh: '',
         isProfileEdit: false,
@@ -27,14 +28,22 @@ export default new Vuex.Store({
         setUserData(state, data) {
           state.userData = data
         },
+        async getUserData(state) {
+            try {
+                const response = await axios.get('/api/me/')
+                state.userData = response.data
+            } catch(error) {
+                console.log(error)
+            }
+        },
         changeAuthorization(state, value) {
             state.isAuthorization = value
             localStorage.setItem('isAuthorization', value)
         },
-        setId(state, id) {
-            state.userId = id
-            localStorage.setItem('id', id)
-        },
+        // setId(state, id) {
+        //     state.userId = id
+        //     localStorage.setItem('id', id)
+        // },
         setAccess(state, access) {
             state.access = access
             localStorage.setItem('access', access)
@@ -47,7 +56,17 @@ export default new Vuex.Store({
             state.isProfileEdit = newVal
         },
     },
-    actions: {},
+    actions: {
+        setUserData({commit}) {
+            commit('getUserData')
+        },
+        changeAuthorization({commit}, value) {
+            commit('changeAuthorization', value)
+        },
+        getAuthorization({state}) {
+            state.isAuthorization = Boolean(localStorage.getItem('isAuthorization'))
+        }
+    },
     getters: {},
     modules: {}
 })
