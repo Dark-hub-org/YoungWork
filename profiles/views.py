@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from .models import Applicant, Employer
+from accounts.models import Applicant, Employer
 from django.shortcuts import render
 from .serializers import ApplicantDetailSerializer, EmployerDetailSerializer
 

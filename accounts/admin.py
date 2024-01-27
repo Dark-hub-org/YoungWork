@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
-from .models import User
+from .models import Applicant, Employer
 
 
 class UserCreationForm(forms.ModelForm):
@@ -14,7 +14,7 @@ class UserCreationForm(forms.ModelForm):
     )
 
     class Meta:
-        model = User
+        model = Applicant
         fields = ["email"]
 
     def clean_password2(self):
@@ -37,7 +37,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         verbose_name = "account"
-        model = User
+        model = Applicant
         fields = ["email", "usertype", "first_name", "last_name", "surname", "is_admin"]
 
 
@@ -68,5 +68,6 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = []
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(Applicant, UserAdmin)
+admin.site.register(Employer)
 admin.site.unregister(Group)

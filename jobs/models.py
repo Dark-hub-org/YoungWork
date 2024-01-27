@@ -1,7 +1,7 @@
 import uuid
 
 from django.db import models
-from profiles.models import Employer
+from accounts.models import Employer
 
 
 class Vacancies(models.Model):

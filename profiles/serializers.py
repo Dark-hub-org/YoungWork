@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Applicant, Employer
+from accounts.models import Applicant, Employer
 
 
 class ApplicantDetailSerializer(serializers.ModelSerializer):

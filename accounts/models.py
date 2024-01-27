@@ -7,7 +7,19 @@ from django.db import models
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, usertype, password=None):
+    def create_applicant(self, email, usertype, password=None):
+        if not email:
+            raise ValueError("Users must have an email address")
+
+        user = self.model(
+            email=self.normalize_email(email),
+            usertype=usertype,
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_employer(self, email, usertype, password=None):
         if not email:
             raise ValueError("Users must have an email address")
 
@@ -30,7 +42,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class Applicant(AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(
         verbose_name="email address",
@@ -54,19 +66,14 @@ class User(AbstractBaseUser):
     citizenship = models.CharField(blank=True, max_length=20, default='')
     region = models.CharField(blank=True, max_length=20, default='')
     city = models.CharField(blank=True, max_length=20, default='')
-    send_email = models.BooleanField(default=True)  # Del
+    bio = models.TextField(blank=True, default='')
+    portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
 
     objects = UserManager()
 
     USERNAME_FIELD = "email"
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ["usertype"]
-
-    def get_avatar(self):
-        if self.avatar:
-            return settings.WEBSITE_URL + self.avatar.url
-        else:
-            return 'https://github.com/Dark-hub-org/YoungWork/blob/83981ff8000cebb6f3c0602f5f4e7bcc55c3e8db/frontend/src/assets/header/anonim-logo.svg'
 
     def __str__(self):
         return self.email
@@ -82,5 +89,61 @@ class User(AbstractBaseUser):
         return self.is_admin
 
     class Meta:
-        verbose_name = "Пользователь"
-        verbose_name_plural = 'Пользователь'
+        verbose_name = "Соискатель"
+        verbose_name_plural = 'Соискатель'
+
+
+class Employer(AbstractBaseUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(
+        verbose_name="email address",
+        max_length=255,
+        unique=True,
+    )
+    usertype = models.CharField()
+    avatar = models.ImageField(upload_to='movies/avatars', blank=True, null=True)
+
+    recommendations = models.ManyToManyField('self')
+
+    posts_count = models.IntegerField(default=0)
+
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+
+    first_name = models.CharField(blank=True, max_length=20, default='')
+    last_name = models.CharField(blank=True, max_length=20, default='')
+    surname = models.CharField(blank=True, max_length=20, default='')
+    date_of_birth = models.DateField(blank=True, default='1999-01-01')
+    citizenship = models.CharField(blank=True, max_length=20, default='')
+    region = models.CharField(blank=True, max_length=20, default='')
+    city = models.CharField(blank=True, max_length=20, default='')
+    title_org = models.CharField(blank=True, max_length=100)
+    description = models.TextField(blank=True, null=True)
+    photo_org = models.ImageField(null=True, blank=True, upload_to='movies/employer')
+    inn = models.CharField(blank=True, max_length=100)
+    job_title = models.CharField(blank=True, max_length=100)
+    status_valid = models.CharField(blank=True, max_length=100)
+    job_example = models.ImageField(null=True, blank=True, upload_to='movies/employer')
+
+    objects = UserManager()
+
+    USERNAME_FIELD = "email"
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = ["usertype"]
+
+    def __str__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
+
+    @property
+    def is_staff(self):
+        return self.is_admin
+
+    class Meta:
+        verbose_name = "Работадатель"
+        verbose_name_plural = 'Работадатель'

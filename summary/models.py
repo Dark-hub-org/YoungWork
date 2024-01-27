@@ -1,5 +1,5 @@
 from django.db import models
-from profiles.models import Applicant
+from accounts.models import Applicant
 from jobs.models import Vacancies
 import uuid
 
