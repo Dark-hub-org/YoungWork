@@ -22,17 +22,8 @@ class ApplicantDataView(APIView):
 
 
 class ApplicantDetailView(APIView):
-
-    def put(self, request, pk, format=None):
-        applicant = self.get_object(pk)
-        serializer = EmployerDataSerializer(applicant, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     def get(self, request, pk):
-        applicant_detail = Applicant.objects.get()
+        applicant_detail = Applicant.objects.get(pk=pk)
         serializer = ApplicantDetailSerializer(applicant_detail)
         return render(request, "index.html", {"summary": serializer})
 
