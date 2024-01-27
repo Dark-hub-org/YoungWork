@@ -398,9 +398,9 @@ export default {
     validFormReg() {
       return this.isEmptyEmail || this.isCheckEmail || this.isEmptyPassword || this.isCheckPassword
     },
-    async submitUserType(usertype, user) {
+    async submitUserType(usertype, userId) {
       try {
-        await axios.post(`/api/${usertype}/`, user)
+        await axios.post(`/api/${usertype}/`, {user: userId})
       } catch (error) {
         console.log(error)
       }
@@ -454,7 +454,7 @@ export default {
         await this.submitUserType(this.userType, user.data.id)
         await this.$router.push(`/profile/${this.userType}/${user.data.id}`)
         this.$store.commit('editISProfileEdit', true)
-        // window.location.reload();
+        window.location.reload();
       } catch (error) {
         console.error(error);
       }
