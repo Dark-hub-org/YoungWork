@@ -1,14 +1,11 @@
-import datetime
 import uuid
 
 from django.db import models
-from accounts.models import User
 from profiles.models import Employer
 
 
 class Vacancies(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
     job_title = models.CharField(max_length=100, default='')
     description = models.TextField(blank=True, default='')
     tasks = models.CharField(blank=True, default='')
@@ -24,31 +21,21 @@ class Vacancies(models.Model):
     comments_count = models.IntegerField(default=0)
 
     timestamp = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(Employer, related_name='vacancies', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.job_title} {self.salary_min} {self.salary_max}"
+    created_by = models.ForeignKey(Employer, related_name='employer_vacancy', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансия'
 
 
-class Like(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    created_by = models.ForeignKey(User, related_name='likes', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-
-# TODO Forgot what is this
+# TODO event to check inn
 class Events(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     event_type = models.CharField(max_length=100, default='')
-    date = models.DateField(null=True, blank=True)
+    date_start = models.DateTimeField(auto_now_add=True)
+    data_end = models.DateTimeField(null=True, blank=True)
     result = models.CharField(max_length=100, default='')
-
-    def __str__(self):
-        return str(self.event_id)
+    created_by = models.ForeignKey(Employer, related_name='employer_event', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Событие'

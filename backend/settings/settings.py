@@ -121,11 +121,3 @@ MEDIA_URL = 'media/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_HOST_USER = 'postmaster@sandbox3e650ff1f6fa4b2d8a99062f8743ccf2.mailgun.org'
-EMAIL_HOST_PASSWORD = 'fee4a17647fdfe09f715de88a23a42bb-063062da-c34a9e41'
-EMAIL_PORT = 587

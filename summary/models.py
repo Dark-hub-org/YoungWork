@@ -1,5 +1,7 @@
 from django.db import models
 from profiles.models import Applicant
+from jobs.models import Vacancies
+import uuid
 
 
 class Summary(models.Model):
@@ -13,6 +15,7 @@ class Summary(models.Model):
     email = models.EmailField(blank=True, max_length=100, default='')
     tm = models.CharField(blank=True, max_length=100, default='')
     website = models.URLField(blank=True)
+    created_by = models.ForeignKey(Applicant, related_name='applicant_summary', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.summary_title)
@@ -20,3 +23,14 @@ class Summary(models.Model):
     class Meta:
         verbose_name = 'Резюме'
         verbose_name_plural = 'Резюме'
+
+
+class Favorites(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    vacancy = models.ManyToManyField(Vacancies, blank=True)
+    created_by = models.ForeignKey(Applicant, related_name='applicant_favorites', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранное'

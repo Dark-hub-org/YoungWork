@@ -27,7 +27,7 @@ class VacanciesData(generics.ListAPIView):
 
 
 class VacanciesCreateDataView(APIView):
-    def post(self, request, format=None):
+    def post(self, request):
         serializer = VacanciesDataSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -45,16 +45,8 @@ class VacancyDetailView(APIView):
         return render(request, "index.html", {'vacancy_detail': serializer.data})
 
 
-class VacancyDetail(APIView):
-
-    def get(self, request, pk):
-        vacancy_detail = Vacancies.objects.get(pk=pk)
-        serializer = VacanciesDetailSerializer(vacancy_detail)
-        return Response(serializer.data)
-
-
 class EventsDataView(APIView):
-    def post(self, request, format=None):
+    def post(self, request):
         serializer = EventsDataSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
