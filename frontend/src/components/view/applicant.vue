@@ -135,6 +135,9 @@ export default {
       },
     }
   },
+  methods: {
+
+  },
   computed: {
     userAge() {
       const birthYear = new Date(this.applicantData.birthday).getFullYear()

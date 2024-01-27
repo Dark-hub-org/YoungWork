@@ -327,6 +327,7 @@ export default {
         this.parseResponsibilities(this.description, 'Обязанности')
         this.parseResponsibilities(this.description, 'Требования')
         const vacancy = {
+          create_by: this.userId,
           job_title: this.vacancyTitle,
           salary_min: this.salaryMin,
           salary_max: this.salaryMax,
@@ -383,6 +384,11 @@ export default {
       return Object.values(this.errorFields).every((error) => !error)
     },
   },
+  computed: {
+    userId() {
+      return this.$store.state.userId
+    }
+  }
 }
 </script>
 <style src="@/style/create.scss" lang="scss" scoped>

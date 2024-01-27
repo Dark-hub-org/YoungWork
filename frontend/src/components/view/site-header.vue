@@ -17,7 +17,7 @@
           <li class="header__nav-item">
             <button type="button" class="button-orange header__nav-button">Работа</button>
           </li>
-          <template v-if="!isAutoRization">
+          <template v-if="!isAuthorization">
             <li class="header__nav-item">
               <button
                   @click="isModalWinLog = true"
@@ -39,7 +39,10 @@
             <div class="header-supernova">
               <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
               <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
-                <router-link to="/profile/applicant" tag="li" class="supernova-wrapper-item">
+                <router-link
+                    :to="{ name: 'employer', params: { id: this.userId} }"
+                    tag="li"
+                    class="supernova-wrapper-item">
                   <span class="supernova-wrapper__name">{{ userName }}</span>
                 </router-link>
                 <ul class="supernova-wrapper-list">
@@ -192,7 +195,7 @@
             :isVisible="isModalWinLog">
           <div class="modal-reg-wrapper">
             <p class="modal-title modal-title-reg">Войти</p>
-            <form class="modal-form modal-form-log">
+            <form @submit.prevent="checkRegFields(); logIn()" class="modal-form modal-form-log">
               <div class="modal-form-block">
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
@@ -254,12 +257,11 @@
                 Забыли пароль?
               </button>
               <button
-                  type="button"
+                  type="submit"
                   @click="checkRegFields(); logIn()"
                   class="modal-form__submit button-orange-another">
                 Войти
               </button>
-              <!--  onCloseModalWin();  -->
               <button
                   @click="openModalWinReg"
                   type="button"
@@ -357,6 +359,7 @@ export default {
       password: '',
       userName: '',
       userType: '',
+      userId: '',
 
       isCheckEmail: undefined,
       isCheckPassword: undefined,
@@ -375,18 +378,50 @@ export default {
 
       isMenuActive: false,
 
-      isAutoRization: false,
+      isAuthorized: false,
       isSupernovaMenuActive: false,
       isSubMenu: false,
     }
   },
   mounted() {
-    this.getMe();
-    this.isAutoRization = localStorage.getItem('isAutoRization');
+    // this.isAuthorization = Boolean(localStorage.getItem('isAuthorization'));
+    if(this.isAuthorization) {
+      this.getUserdata()
+    }
+  },
+  updated() {
+    if(this.isAuthorization) {
+      this.getUserdata()
+    }
   },
   methods: {
     validFormReg() {
       return this.isEmptyEmail || this.isCheckEmail || this.isEmptyPassword || this.isCheckPassword
+    },
+    async submitUserType(usertype, username) {
+      try {
+        await axios.post(`/api/v1/${usertype}`, username)
+      } catch(error) {
+        console.log(error)
+      }
+    },
+    async getUserId() {
+      try {
+        const response = await axios.get('/api/me/')
+        this.$store.commit('setId', response.data.id)
+        this.userId = response.data.id
+      } catch(error) {
+        console.log(error)
+      }
+    },
+    async getUserdata() {
+      try {
+        const response = await axios.get('/api/me/')
+        this.$store.commit('setId', response.data.id)
+        this.userName = response.data.first_name
+      } catch(error) {
+        console.log(error)
+      }
     },
     async submitFormReg() {
       const presentUser = {
@@ -397,7 +432,7 @@ export default {
       try {
         if(this.validFormReg()) {
           await axios.post('/api/users/', presentUser);
-          // this.submitUserType(presentUser.usertype, presentUser.email)
+          this.getUserId()
           this.authentication(presentUser);
           this.onCloseModalReg();
         }
@@ -406,31 +441,20 @@ export default {
         console.error(error);
       }
     },
-    async submitUserType(usertype, username) {
-      try {
-        await axios.post(`/api/v1/${usertype}`, username)
-      } catch(error) {
-        console.log(error)
-      }
-    },
     async authentication(presentUser) {
       axios.defaults.headers.common['Authorization'] = ''
       localStorage.removeItem('access')
       try {
-        const response = await axios.post('/api/v1/jwt/create/', presentUser);
-        console.log(response)
-        const access = response.data.access;
-        const refresh = response.data.refresh;
-        this.$store.commit('setAccess', access);
-        this.$store.commit('setRefresh', refresh);
-        this.isAutoRization = true;
-        this.isModalWinLog = false;
-        axios.defaults.headers.common['Authorization'] = 'JWT ' + access;
-        localStorage.setItem('isAutoRization', this.isAutoRization);
-        const response_id = await axios.get('/api/me/')
-        const id = response_id.data.id
-        this.$store.commit('setId', id)
-        location.reload();
+        const response = await axios.post('api/jwt/create', presentUser);
+        axios.defaults.headers.common['Authorization'] = 'JWT ' + response.data.access;
+        this.$store.commit('setAccess', response.data.access);
+        this.$store.commit('setRefresh', response.data.refresh);
+        this.$store.commit('changeAuthorization', true)
+        const user = await axios.get('/api/me/')
+        this.submitUserType(this.userType, user.data.id)
+        this.$router.push(`/profile/${this.userType}/${user.data.id}`)
+        this.$store.commit('editISProfileEdit', true)
+        window.location.reload();
       } catch (error) {
         console.error(error);
       }
@@ -445,37 +469,21 @@ export default {
         localStorage.removeItem('access')
         if (this.validFormReg()) {
           const response = await axios.post('/api/jwt/create/', presentUser)
-          const access = response.data.access
-          const refresh = response.data.refresh
-          this.$store.commit('setAccess', access)
-          this.$store.commit('setRefresh', refresh)
-          this.isAutoRization = true;
-          this.isModalWinLog = false;
-          axios.defaults.headers.common['Authorization'] = 'JWT ' + access
-          localStorage.setItem('isAutoRization', this.isAutoRization);
-          const response_id = await axios.get('/api/me/')
-          const id = response_id.data.id
-          this.$store.commit('setId', id)
-          location.reload()
+          axios.defaults.headers.common['Authorization'] = 'JWT ' + response.data.access
+          this.$store.commit('setAccess', response.data.access)
+          this.$store.commit('setRefresh', response.data.refresh)
+          this.$store.commit('changeAuthorization', true)
+          window.location.reload();
         }
       } catch (error) {
         console.log(error)
       }
     },
-    getMe() {
-      axios.get('/api/me/')
-          .then(response => {
-            this.userName = response.data.first_name
-          })
-          .catch(error => {
-            console.log(error)
-          })
-    },
     logOut() {
       localStorage.removeItem('id')
       localStorage.removeItem('access')
       localStorage.removeItem('refresh')
-      localStorage.removeItem('isAutoRization')
+      localStorage.removeItem('isAuthorization')
       location.reload()
       this.$router.push('/')
     },
@@ -563,9 +571,7 @@ export default {
     openSubMenu() {
       this.isSubMenu = !this.isSubMenu;
     },
-    // validName() {
-    //   this.email = this.email.charAt(0).toUpperCase() + this.email.slice(1).toLowerCase().replace(/\s/g, '');
-    // }
+
   },
   watch: {
     isMenuActive: function () {
@@ -577,16 +583,17 @@ export default {
     },
   },
   computed: {
-    formaterName: {
-      get: function () {
-        return this.email
-      },
-      set: function (value) {
-        this.email = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().replace(/\s/g, '');
-      }
 
+    isAuthorization: {
+      get: function() {
+        return Boolean(localStorage.getItem('isAuthorization'));
+      },
+      set: function(newValue) {
+        localStorage.setItem('isAuthorization', newValue);
+      }
     }
-  }
+  },
+
 }
 </script>
 

@@ -44,8 +44,16 @@ export default new VueRouter({
     },// вакансии
     {path: '/create-vacancy', component: createPage},//Создание вакансии
     {path: '/create-resume', component: createResume},//Создать резюме
-    {path: '/profile/applicant/:id', component: Applicant},//Профиль соискателя
-    {path: '/profile/employer/:id', component: Employer},//Профиль работодателя
+    {
+      path: '/profile/applicant/:id',
+      name: 'applicant',
+      props: true,
+      component: Applicant},//Профиль соискателя
+    {
+      path: '/profile/employer/:id',
+      name: 'employer',
+      props: true,
+      component: Employer},//Профиль работодателя
     {path: '/profile/edit', component: UserEdit},//Редактирование профиля
   ],
 });

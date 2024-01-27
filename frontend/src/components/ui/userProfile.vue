@@ -83,7 +83,7 @@
           </div>
         </template>
         <template v-else>
-          <user-edit>
+          <user-edit :userData="userData">
           </user-edit>
         </template>
       </div>

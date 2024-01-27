@@ -108,6 +108,12 @@ Vue.use(VueTheMask);
 
 export default {
   name: 'user-edit',
+  props: {
+    userData: {
+      type: Object,
+      required: true,
+    }
+  },
   data() {
     return {
 

@@ -5,7 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        id: '',
+        isAuthorization: false,
+        userData: {},
+        userId: '',
         access: '',
         refresh: '',
         isProfileEdit: false,
@@ -13,17 +15,24 @@ export default new Vuex.Store({
     mutations: {
         initializeStore(state) {
             if (localStorage.getItem("access")) {
-                state.id = localStorage.getItem("id")
+                state.userId = localStorage.getItem("id")
                 state.access = localStorage.getItem("access")
                 state.refresh = localStorage.getItem("refresh")
             } else {
-                state.id = ''
+                state.userId = ''
                 state.access = ''
                 state.refresh = ''
             }
         },
+        setUserData(state, data) {
+          state.userData = data
+        },
+        changeAuthorization(state, value) {
+            state.isAuthorization = value
+            localStorage.setItem('isAuthorization', value)
+        },
         setId(state, id) {
-            state.id = id
+            state.userId = id
             localStorage.setItem('id', id)
         },
         setAccess(state, access) {
