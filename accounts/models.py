@@ -55,7 +55,10 @@ class User(AbstractBaseUser):
     region = models.CharField(blank=True, max_length=20, default='')
     city = models.CharField(blank=True, max_length=20, default='')
     gender = models.DateField(blank=True, default='')
-
+    aboutWork = models.CharField(blank=True, max_length=100, default='')
+    telegram = models.CharField(blank=True, max_length=100, default='')
+    website = models.CharField(blank=True, max_length=100, default='')
+    phone_number = models.CharField(blank=True, max_length=100, default='')
     objects = UserManager()
 
     USERNAME_FIELD = "email"
