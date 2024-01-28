@@ -16,7 +16,6 @@ urlpatterns = [
                   path('api/', include('djoser.urls')),
                   path('api/', include('djoser.urls.jwt')),
                   path('api/', include('accounts.urls')),
-                  path('', include('chat.urls')),
                   path('', include('profiles.urls')),
                   path('', include('jobs.urls')),
                   path('', include('summary.urls')),

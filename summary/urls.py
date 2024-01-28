@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from .views import *
 
 urlpatterns = [
-    path('create-resume/', views.SummaryDataView.as_view()),
-    path('resumes/<int:pk>/', views.SummaryDetailView.as_view()),
+    path('create-resume/', SummaryDataView.as_view()),
+    path('resumes/<int:pk>/', SummaryDetailView.as_view()),
 ]

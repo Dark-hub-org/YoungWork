@@ -8,7 +8,6 @@ export default new Vuex.Store({
     state: {
         isAuthorization: false,
         userData: {},
-        // userId: '',
         access: '',
         refresh: '',
         isProfileEdit: false,
@@ -16,23 +15,21 @@ export default new Vuex.Store({
     mutations: {
         initializeStore(state) {
             if (localStorage.getItem("access")) {
-                state.userId = localStorage.getItem("id")
                 state.access = localStorage.getItem("access")
                 state.refresh = localStorage.getItem("refresh")
             } else {
-                state.userId = ''
                 state.access = ''
                 state.refresh = ''
             }
         },
         setUserData(state, data) {
-          state.userData = data
+            state.userData = data
         },
         async getUserData(state) {
             try {
                 const response = await axios.get('/api/me/')
                 state.userData = response.data
-            } catch(error) {
+            } catch (error) {
                 console.log(error)
             }
         },
@@ -40,10 +37,6 @@ export default new Vuex.Store({
             state.isAuthorization = value
             localStorage.setItem('isAuthorization', value)
         },
-        // setId(state, id) {
-        //     state.userId = id
-        //     localStorage.setItem('id', id)
-        // },
         setAccess(state, access) {
             state.access = access
             localStorage.setItem('access', access)

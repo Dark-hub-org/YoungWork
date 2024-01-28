@@ -41,7 +41,7 @@
               <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
                 <ul class="supernova-wrapper-list">
                   <li class="supernova-wrapper-item">
-                    <span class="supernova-wrapper__name" @click="moveProfile">{{userData.first_name}}</span>
+                    <span class="supernova-wrapper__name" @click="moveProfile">{{ userData.first_name }}</span>
                   </li>
                   <li class="supernova-wrapper-item">
                     <a href="/vacancy" class="supernova-wrapper-link">Работа</a>
@@ -448,7 +448,6 @@ export default {
       this.$router.push(`/${this.userData.usertype}/${this.userData.id}`)
     },
     logOut() {
-      localStorage.removeItem('id')
       localStorage.removeItem('access')
       localStorage.removeItem('refresh')
       localStorage.removeItem('isAuthorization')
