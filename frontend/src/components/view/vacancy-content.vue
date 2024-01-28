@@ -179,7 +179,7 @@ export default {
     },
     async fetchVacancies(pageNum) {
       try {
-        const response = await axios.get(`/api/v1/vac?page=${pageNum}`)
+        const response = await axios.get(`/api/vac?page=${pageNum}`)
         this.vacancies = response.data.results
         this.quantityVacancies = response.data.count
         this.currentPage = pageNum;

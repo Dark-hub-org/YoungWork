@@ -281,6 +281,7 @@ export default {
         this.isErrorContact = true
       }
       const resume = {
+        created_by: this.userId,
         summary_title: this.resumeName,
         type: this.type,
         skill: this.resumeSkill,
@@ -328,7 +329,11 @@ export default {
       this.qualityTags = this.skillsTags.filter((item) => item !== skill)
     },
   },
-  computed: {},
+  computed: {
+    userId() {
+      return this.$store.state.userData.id
+    }
+  },
   watch: {}
 }
 </script>
