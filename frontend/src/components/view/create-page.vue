@@ -335,16 +335,15 @@ export default {
           requirements: this.requirements,
           tax: this.isSalaryTask,
           type: this.employ,
-          graph: this.graph,
           required_experience: this.experience,
+          created_by: this.userId
         };
         this.validateFormVacancy()
-        if(this.validateFormVacancy()) {
-          await axios.post('/create-vacancy/', {created_by: this.userId, vacancyData})
+        if (this.validateFormVacancy()) {
+          await axios.post('/create-vacancy/', vacancyData)
           // window.location.reload()
-          console.log(vacancyData)
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error)
       }
     },
@@ -365,9 +364,9 @@ export default {
         const responsibilitiesArray = Array.from(responsibilitiesList.querySelectorAll('li')).map(li => li.textContent.trim());
 
         if (responsibilitiesArray.length > 0) {
-          if(codeWord === 'Обязанности') {
+          if (codeWord === 'Обязанности') {
             this.tasks = `${responsibilitiesArray.join(', ')}`;
-          } else if(codeWord === 'Требования') {
+          } else if (codeWord === 'Требования') {
             this.requirements = `${responsibilitiesArray.join(', ')}`;
           }
 

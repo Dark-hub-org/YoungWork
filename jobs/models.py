@@ -16,9 +16,9 @@ class Vacancies(models.Model):
     type = models.CharField(blank=True, max_length=100, default='')
     logo = models.ImageField(null=True, blank=True, upload_to='movies/vacancies')
     required_experience = models.CharField(blank=True, max_length=100, default='')
-    graph = models.CharField(blank=True, max_length=100, default='')
+    graph = models.CharField(blank=True, default='')
 
-    comments_count = models.IntegerField(default=0)
+    favorites_count = models.IntegerField(default=0)
 
     timestamp = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(Employer, related_name='employer_vacancy', on_delete=models.CASCADE)

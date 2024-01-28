@@ -26,18 +26,6 @@ class VacanciesData(generics.ListAPIView):
     pagination_class = LargeResultsSetPagination
 
 
-class VacanciesCreateDataView(APIView):
-    def post(self, request):
-        serializer = VacanciesDataSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
-
-    def get(self, request):
-        return render(request, "index.html")
-
-
 class VacancyDetailView(APIView):
     def get(self, request, pk):
         vacancy_detail = Vacancies.objects.get(pk=pk)
