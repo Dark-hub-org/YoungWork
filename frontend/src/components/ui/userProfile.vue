@@ -13,7 +13,7 @@
               </div>
             </div>
             <div class="profile__data">
-              <p class="profile__data-name text-margin">{{userData.first_name}} {{userData.last_name}} {{userData.surname}}</p>
+              <p class="profile__data-name text-margin">{{userData.firstName}} {{userData.lastName}} {{userData.surname}}</p>
               <p class="profile__data-age text-margin">{{userAge}} лет</p>
               <p class="profile__data-geo text-margin">Гражданство:
                 <template v-if="userData.citizenship">{{userData.citizenship}}</template><template v-else>Не заполнено</template></p>

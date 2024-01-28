@@ -5,13 +5,13 @@
         <div class="profile__field">
           <p class="profile__field-name">Фамилия:</p>
           <div class="profile__value">
-            <p class="profile__value-text">{{userData.last_name}}</p>
+            <p class="profile__value-text">{{userData.lastName}}</p>
           </div>
         </div>
         <div class="profile__field">
           <p class="profile__field-name">Имя:</p>
           <div class="profile__value">
-            <p class="profile__value-text">{{userData.first_name}}</p>
+            <p class="profile__value-text">{{userData.firstName}}</p>
           </div>
         </div>
         <div class="profile__field">
@@ -25,7 +25,7 @@
         <div class="profile__field">
           <p class="profile__field-name">Дата рождения:</p>
           <div class="profile__value">
-            <p class="profile__value-text">{{userData.date_of_birth}}</p>
+            <p class="profile__value-text">{{userData.dateOfBirth}}</p>
           </div>
         </div>
       </div>
