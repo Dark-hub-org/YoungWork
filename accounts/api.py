@@ -8,15 +8,20 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 def me(request):
     data = {
         'id': request.user.id,
-        'first_name': request.user.first_name,
+        'firstName': request.user.first_name,
         'email': request.user.email,
         'usertype': request.user.usertype,
-        'last_name': request.user.last_name,
+        'lastName': request.user.last_name,
         'surname': request.user.surname,
-        'date_of_birth': request.user.date_of_birth,
+        'dateOfBirth': request.user.date_of_birth,
         'citizenship': request.user.citizenship,
         'region': request.user.region,
         'city': request.user.city,
-        'avatar': request.user.get_avatar()
+        'avatar': request.user.get_avatar(),
+        'about': request.user.about,
+        'aboutWork': request.user.about_work,
+        'telegram': request.user.telegram,
+        'website': request.user.website,
+        'phoneNumber': request.user.phone_number,
     }
     return JsonResponse(data)
