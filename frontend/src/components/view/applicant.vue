@@ -109,30 +109,6 @@ export default {
         },
         portfolioTitle: 'Примеры выполненных работ:',
       },
-      applicantData: {
-        firstname: 'Максим',
-        lastname: 'Кирюшин',
-        patronymic: 'Евгеньвич',
-        birthday: '10/04/2004',
-        sex: '',
-        citizenship: '',
-        region: '',
-        city: '',
-        photo: '',
-        about: '',
-        aboutWork: '',
-        portfolio: [
-          {id: 1, image: '../../assets/applicant-profile/image-1.png'},
-          {id: 2, image: '../../assets/applicant-profile/image-2.png'},
-          {id: 3, image: '../../assets/applicant-profile/image-3.png'},
-        ],
-        contact: {
-          telegram: 'as8691_1',
-          email: 'sasha-andreeva-1998@list.ru',
-          telephone: '+7 999 888 77 66',
-          website: 'https://dprofile.ru/andreeva_design',
-        }
-      },
     }
   },
   methods: {
@@ -140,8 +116,7 @@ export default {
   },
   computed: {
     userAge() {
-      const birthYear = new Date(this.userData.date_of_birth).getFullYear()
-      console.log(birthYear)
+      const birthYear = new Date(this.userData.dateOfBirth).getFullYear()
       const nowYear = new Date().getFullYear()
       return nowYear - birthYear
     },

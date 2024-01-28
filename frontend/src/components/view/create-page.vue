@@ -326,8 +326,7 @@ export default {
       try {
         this.parseResponsibilities(this.description, 'Обязанности')
         this.parseResponsibilities(this.description, 'Требования')
-        const vacancy = {
-          create_by: this.userId,
+        const vacancyData = {
           job_title: this.vacancyTitle,
           salary_min: this.salaryMin,
           salary_max: this.salaryMax,
@@ -336,12 +335,14 @@ export default {
           requirements: this.requirements,
           tax: this.isSalaryTask,
           type: this.employ,
+          graph: this.graph,
           required_experience: this.experience,
         };
         this.validateFormVacancy()
         if(this.validateFormVacancy()) {
-          await axios.post('/create-vacancy/', vacancy)
-          window.location.reload()
+          await axios.post('/create-vacancy/', {created_by: this.userId, vacancyData})
+          // window.location.reload()
+          console.log(vacancyData)
         }
       } catch(error) {
         console.log(error)
@@ -386,7 +387,7 @@ export default {
   },
   computed: {
     userId() {
-      return this.$store.state.userId
+      return this.$store.state.userData.id
     }
   }
 }

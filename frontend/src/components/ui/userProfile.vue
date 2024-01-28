@@ -47,17 +47,16 @@
             <template v-if="applicantStab === 1">
               <div class="profile__main-block">
                 <div class="profile__contact-mobile">
-                  <user-contacts :userContact="userData.contact" class="contact-mobile">
+                  <user-contacts :userContact="this.userContacts" class="contact-mobile">
                   </user-contacts>
                   <slot name="verification"></slot>
                 </div>
                 <h3 class="profile__subtitle">О вас:</h3>
                 <div class="profile__main-block__about">
-                <textarea
-                    v-model="localUserData.about"
+                <div
                     class="profile__main-block__about-text"
-                    :placeholder="profileText.placeholders.about"
-                ></textarea>
+                    v-html="userData.about"
+                ></div>
                 </div>
               </div>
               <div class="profile__main-block">
@@ -67,13 +66,14 @@
                     <button class="profile__btn-edit btn--work btn--add"></button>
                   </div>
                   <div
-                      v-for="item of localUserData.portfolio"
+                      v-for="item of userData.portfolio"
                       :key="item.id"
                       class="profile__portfolio-block">
                     <button class="profile__btn-edit btn--work btn--"></button>
                   </div>
                 </div>
-                <textarea v-model="localUserData.aboutWork" class="profile__portfolio-about" :placeholder="profileText.placeholders.aboutWork"></textarea>
+                <div class="profile__portfolio-about" v-html="userData.aboutWork"></div>
+<!--                <textarea  :placeholder="profileText.placeholders.aboutWork"></textarea>-->
               </div>
             </template>
             <template v-else>
@@ -89,7 +89,7 @@
       </div>
       <aside class="profile__side">
         <template v-if="!this.$store.state.isProfileEdit">
-          <user-contacts :userContact="userData.contact" class="contact-desktop"></user-contacts>
+          <user-contacts :user-contact="this.userContacts" class="contact-desktop"></user-contacts>
           <slot name="verification"></slot>
         </template>
         <template v-else>
@@ -129,8 +129,7 @@ export default {
   data() {
     return {
       applicantStab: 1,
-      localUserData: this.userData,
-    }
+    };
   },
   methods: {
     switchingTabs(tab) {
@@ -158,6 +157,17 @@ export default {
     },
     closeEditProfile() {
       this.$store.commit('editISProfileEdit', false)
+    }
+  },
+  computed: {
+    userContacts() {
+      return {
+        avatar: this.$store.state.userData.telegram,
+        telegram: this.$store.state.userData.telegram,
+        email: this.$store.state.userData.email,
+        telephone: this.$store.state.userData.telephone,
+        website: this.$store.state.userData.website,
+      }
     }
   },
   mounted() {
