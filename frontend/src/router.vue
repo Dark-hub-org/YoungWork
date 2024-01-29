@@ -9,7 +9,7 @@ import createPage from '@/components/view/create-page.vue';
 import createResume from '@/components/view/create-resume.vue';
 import Applicant from '@/components/view/applicant.vue';
 import Employer from '@/components/view/employer.vue';
-import UserEdit from '@/components/ui/userEdit.vue';
+import UserEdit from '@/components/view/userEdit.vue';
 
 Vue.use(VueRouter);
 
@@ -48,13 +48,24 @@ export default new VueRouter({
       path: '/applicant/:id',
       name: 'applicant',
       props: true,
-      component: Applicant},//Профиль соискателя
+      component: Applicant
+    },//Профиль соискателя
+    {
+      path: '/applicant/edit/:id',
+      name: 'applicant-edit',
+      component: UserEdit
+    },//Редактирование профиля соискателя
     {
       path: '/employer/:id',
       name: 'employer',
       props: true,
-      component: Employer},//Профиль работодателя
-    {path: '/profile/edit', component: UserEdit},//Редактирование профиля
+      component: Employer
+    },//Профиль работодателя
+    {
+      path: '/employer/edit/:id',
+      name: 'employer-edit',
+      component: UserEdit
+    },//Редактирование профиля работодателя
   ],
 });
 

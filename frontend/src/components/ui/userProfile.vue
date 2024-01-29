@@ -82,10 +82,10 @@
             </template>
           </div>
         </template>
-        <template v-else>
-          <user-edit :userData="userData">
-          </user-edit>
-        </template>
+<!--        <template v-else>-->
+<!--          <user-edit :userData="userData">-->
+<!--          </user-edit>-->
+<!--        </template>-->
       </div>
       <aside class="profile__side">
         <template v-if="!this.$store.state.isProfileEdit">
@@ -107,11 +107,10 @@
 <script>
 import UserContacts from "@/components/ui/userContacts.vue";
 import axios from "axios";
-import UserEdit from "@/components/ui/userEdit.vue";
 
 export default {
   name: 'user-profile',
-  components: {UserEdit, UserContacts},
+  components: {UserContacts},
   props: {
     profileText: {
       type: Object,
@@ -153,11 +152,8 @@ export default {
       this.modalVisible = false
     },
     openEditProfile() {
-      this.$store.commit('editISProfileEdit', true)
+      this.$router.push(`/${this.userData.usertype}/edit/${this.userData.id}`)
     },
-    closeEditProfile() {
-      this.$store.commit('editISProfileEdit', false)
-    }
   },
   computed: {
     userContacts() {

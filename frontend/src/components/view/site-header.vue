@@ -285,6 +285,7 @@
                 <label v-if="resetPasswordCurrentStep === 2" class="modal-form-name">Придумайте новый пароль (минимум 8
                   символов)</label>
 
+
                 <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1"
                      class="modal-wrapper-input">
                   <input
