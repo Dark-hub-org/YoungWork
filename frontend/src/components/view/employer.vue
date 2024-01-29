@@ -1,6 +1,6 @@
 <template>
   <user-profile
-      :userData="employerData"
+      :userData="userData"
       :profileText="profileText"
       :userAge="userAge">
     <template v-slot:modal-window>
@@ -141,7 +141,10 @@ export default {
       const birthYear = new Date(this.employerData.birthday).getFullYear()
       const nowYear = new Date().getFullYear()
       return nowYear - birthYear
-    }
+    },
+    userData() {
+      return this.$store.state.userData
+    },
   }
 }
 </script>
