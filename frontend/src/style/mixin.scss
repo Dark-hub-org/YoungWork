@@ -1,0 +1,128 @@
+
+@mixin wrapper {
+  max-width: 1660px;
+  margin: auto;
+}
+
+@mixin displayFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin buttonOrange {
+  height: 52px;
+  padding: 15px 25px;
+  border-radius: 60px;
+  border: 2px solid $colorOrangeM;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.36px;
+  text-wrap: nowrap;
+  color: $colorOrangeM;
+  transition: all .3s ease;
+
+  &:hover {
+    color: $colorOrangeLight;
+    border-color: $colorOrangeLight;
+  }
+
+  &:active {
+    border-color: $colorOrangeDarker;
+  }
+}
+
+@mixin buttonOrangeAnother {
+  height: 52px;
+  padding: 15px 25px;
+  border-radius: 60px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.36px;
+  text-wrap: nowrap;
+  color: $colorWhite;
+  background-color: $colorOrangeM;
+  transition: all .3s ease;
+
+  &:hover {
+    background-color: $colorOrangeLight;
+  }
+
+  &:active {
+    background-color: $colorOrangeDarker;
+  }
+}
+
+@mixin buttonGreen {
+  height: 52px;
+  padding: 15px 25px;
+  border-radius: 60px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  text-wrap: nowrap;
+  color: $colorWhite;
+  background-color: $colorGreenM;
+  transition: all .3s ease;
+
+  &:hover {
+    background-color: $colorGreenLight;
+  }
+
+  &:active {
+    background-color: $colorGreenDarker;
+  }
+}
+
+@mixin buttonGreenAnother {
+  height: 52px;
+  padding: 15px 25px;
+  border: 2px solid $colorGreenM;
+  border-radius: 60px;
+  text-wrap: nowrap;
+  font-size: 20px;
+  color: $colorGreenM;
+  background-color: $colorWhite;
+  transition: all .3s ease;
+
+  &:hover {
+    border-color: $colorGreenLight;
+  }
+
+  &:active {
+    border-color: $colorGreenDarker;
+  }
+}
+
+@mixin sectionTitle {
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 63px;
+  letter-spacing: -0.05em;
+}
+
+@mixin editButton {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-image: url('@/assets/edit-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all .15s ease-in-out;
+
+  &:hover {
+    transform: scale(120%);
+  }
+}
+
+@mixin errorMessage {
+  max-width: 330px;
+  margin-top: 15px;
+  padding: 15px 25px;
+  border-radius: 20px;
+  font-size: 20px;
+  color: $colorError;
+  background-color: $colorErrorBagk;
+}

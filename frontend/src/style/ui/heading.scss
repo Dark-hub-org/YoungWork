@@ -1,0 +1,57 @@
+@import "../main";
+
+.heading {
+  max-width: 1440px;
+  width: 100%;
+  margin-bottom: 80px;
+
+  &__title {
+    font-size: 128px;
+    font-weight: 700;
+    line-height: 98.023%;
+    letter-spacing: -6.4px;
+  }
+}
+
+@media(max-width: 1440px) {
+  .heading {
+
+    &__title {
+      font-size: 114px;
+      letter-spacing: -5.7px;
+    }
+  }
+}
+
+@media(max-width: 1024px) {
+  .heading {
+    margin-bottom: 64px;
+
+    &__title {
+      font-size: 80px;
+      letter-spacing: -3.6px;
+    }
+  }
+}
+
+@media(max-width: 768px) {
+  .heading {
+    margin-bottom: 64px;
+
+    &__title {
+      font-size: 58px;
+      letter-spacing: -2.61px;
+    }
+  }
+}
+
+@media(max-width: 450px) {
+  .heading {
+    margin-bottom: 32px;
+
+    &__title {
+      font-size: 28px;
+      letter-spacing: -1.26px;
+    }
+  }
+}

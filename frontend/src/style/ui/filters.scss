@@ -1,0 +1,153 @@
+@import "../main";
+
+
+.filters {
+  z-index: 3;
+  max-width: 333px;
+  width: 100%;
+  height: fit-content;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
+
+  &__top {
+    display: none;
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 98.023%;
+    letter-spacing: -2px;
+    color: $colorGrey;
+  }
+
+  &__close-btn {
+    width: 30px;
+    height: 30px;
+    background-image: url('@/assets/close-icon.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__block {
+    max-width: 239px;
+
+    &:not(:last-child) {
+      margin-bottom: 40px;
+    }
+
+    &-title {
+      margin-bottom: 24px;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 22px;
+    }
+  }
+
+  &__item {
+    @include displayFlex;
+    justify-content: start;
+    max-width: 238px;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    &-input {
+      display: none;
+
+      &.salary {
+        display: block;
+        max-width: 192px;
+        height: 59px;
+        margin-bottom: 16px;
+        padding: 18px 16px;
+        border-radius: 8px;
+        border: 2px solid $colorInputBorder;
+        font-size: 20px;
+        line-height: 112.523%;
+        letter-spacing: -1px;
+        color: $colorInputBorder;
+        transition: all .3s ease;
+        &::placeholder {
+          font-size: 20px;
+          line-height: 112.523%;
+          letter-spacing: -1px;
+          color: $colorInputBorder;
+        }
+        &:focus{
+          border-color: $colorGrey;
+          color: $colorGrey;
+        }
+      }
+
+      &:checked + .filters__item-label.radio:before {
+        background-image: url("@/assets/vacancy/radio-active.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      &:checked + .filters__item-label.check:before {
+        background-image: url("@/assets/vacancy/cheack-active.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+
+    &-label {
+      @include displayFlex;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 22px;
+      color: $colorBlack;
+      cursor: pointer;
+
+      &.radio {
+        &:before {
+          content: '';
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          margin-right: 16px;
+          border-radius: 50%;
+          background-image: url("@/assets/vacancy/radio.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+
+      &.check {
+        &:before {
+          content: '';
+          display: block;
+          min-width: 24px;
+          min-height: 24px;
+          margin-right: 16px;
+          border-radius: 2px;
+          background-image: url("@/assets/vacancy/cheack.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+    }
+  }
+
+  &__apply {
+    display: none;
+    margin-top: 64px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .filters__top {
+    @include displayFlex;
+  }
+  .filters__apply {
+    display: block;
+  }
+
+}

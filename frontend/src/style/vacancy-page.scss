@@ -1,0 +1,209 @@
+@import "main";
+
+.vacancy {
+    margin-bottom: 80px;
+    &__main {
+        display: grid;
+        grid-template-columns: minmax(400px, 819px) minmax(100px, 560px);
+        column-gap: 64px;
+    }
+    &__info {
+        max-width: 819px;
+        width: 100%;
+        margin-bottom: 64px;
+        padding: 40px;
+        border-radius: 30px;
+        box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+        &-block {
+            margin-bottom: 40px;
+        }
+        &-title {
+            margin-bottom: 32px;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 98.023%;
+            letter-spacing: -1.6px;
+        }
+        &-salary {
+            margin-bottom: 32px;
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 98.023%;
+            letter-spacing: -1.6px;
+        }
+        &-text {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 98.023%;
+            letter-spacing: -1px;
+            color: $colorGrey;
+
+            &:not(:last-child) {
+                margin-bottom: 20px;
+            }
+            &.text--green {
+                color: $colorGreenM;
+            }
+        }
+        &-btns {
+            @include displayFlex;
+            max-width: 358px;
+            gap: 14px;
+        }
+    }
+    &__employer {
+        position: sticky;
+        right: 0;
+        top: 120px;
+        justify-self: end;
+        max-width: 456px;
+        width: 100%;
+        height: fit-content;
+        padding: 40px 100px;
+        border-radius: 30px;
+        box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+        &-img {
+            margin-bottom: 32px;
+        }
+        &-company {
+            margin-bottom: 32px;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 98.023%;
+            letter-spacing: -1.6px;
+            color: $colorGrey;
+        }
+    }
+    &__description {
+        max-width: 819px;
+        width: 100%;
+        margin-bottom: 64px;
+    }
+    &__bottom {
+        grid-column: 1;
+        margin-bottom: 80px;
+        &-date {
+            margin-bottom: 32px;
+            font-size: 24px;
+            line-height: 120%;
+            letter-spacing: -1.2px;
+            color: $colorOrangeM;
+        }
+    }
+    &__recommendation {
+        display: flex;
+        gap: 16px;
+        padding-bottom: 5px;
+        overflow-x: scroll;
+
+        &::-webkit-scrollbar {
+            height: 5px;
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $colorGreyLight;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+    }
+}
+
+@media(max-width: 1124px) {
+    .vacancy {
+        &__employer {
+            padding: 32px;
+        }
+    }
+
+}
+
+@media(max-width: 1024px) {
+    .vacancy {
+        margin-bottom: 64px;
+        &__main {
+            grid-template-columns: 1fr;
+        }
+        &__description {
+            margin-bottom: 48px;
+        }
+        &__bottom {
+            margin-bottom: 64px;
+        }
+        &__info {
+            margin-bottom: 32px;
+        }
+        &__employer {
+            position: initial;
+            margin-bottom: 64px;
+            justify-self: initial;
+        }
+    }
+}
+
+@media(max-width: 550px) {
+    .vacancy {
+        &__bottom {
+            &-date {
+                font-size: 18px;
+            }
+        }
+        &__info {
+            padding: 32px;
+        }
+    }
+}
+
+@media(max-width: 450px) {
+    .vacancy {
+        margin-bottom: 40px;
+        &__top {
+            margin-bottom: 48px;
+        }
+        &__info {
+            &-title {
+                margin-bottom: 24px;
+                font-size: 18px;
+                line-height: 98.023%;
+                letter-spacing: -0.9px;
+            }
+            &-salary {
+                margin-bottom: 24px;
+                font-size: 18px;
+                line-height: 98.023%;
+                letter-spacing: -0.9px;
+            }
+            &-text {
+                margin-bottom: 15px;
+                font-size: 14px;
+                line-height: 98.023%;
+                letter-spacing: -0.7px;
+
+                &:not(:last-child) {
+                    margin-bottom: 15px;
+                }
+            }
+        }
+        &__employer {
+            margin-bottom: 32px;
+            &-company {
+                margin-bottom: 24px;
+                font-size: 18px;
+                line-height: 98.023%;
+                letter-spacing: -0.9px;
+            }
+        }
+        &__description {
+            margin-bottom: 24px;
+        }
+        &__bottom {
+            margin-bottom: 32px;
+            &-date {
+                margin-bottom: 24px;
+                font-size: 14px;
+                letter-spacing: -0.7px;
+            }
+        }
+    }
+}
+
