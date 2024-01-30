@@ -104,15 +104,16 @@ def applicant_view(request, pk):
     serializer = ApplicantDetailSerializer(applicant_detail)
     return render(request, "index.html", serializer.data)
 
-# @api_view(['GET'])
-# def employer_data(self, pk):
-#     employer_detail = Employer.objects.get(pk=pk)
-#     serializer = ApplicantDetailSerializer(employer_detail)
-#     return JsonResponse(serializer.data)
-#
-#
-# @api_view(['GET'])
-# def applicant_data(pk):
-#     applicant_detail = Applicant.objects.get(pk=pk)
-#     serializer = ApplicantDetailSerializer(applicant_detail)
-#     return JsonResponse(serializer.data)
+
+@api_view(['GET'])
+def employer_data(self, pk):
+    employer_detail = Employer.objects.get(pk=pk)
+    serializer = ApplicantDetailSerializer(employer_detail)
+    return JsonResponse(serializer.data)
+
+
+@api_view(['GET'])
+def applicant_data(pk):
+    applicant_detail = Applicant.objects.get(pk=pk)
+    serializer = ApplicantDetailSerializer(applicant_detail)
+    return JsonResponse(serializer.data)
