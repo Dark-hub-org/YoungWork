@@ -26,7 +26,21 @@ def create_employer(request):
     return JsonResponse(serializer.errors)
 
 
-@api_view(['GET', 'PATCH'])
+@api_view(['GET'])
+def edit_applicant_view(request, pk):
+    applicant_detail = Applicant.objects.get(pk=pk)
+    serializer = ApplicantDetailSerializer(applicant_detail)
+    return render(request, "index.html", {'data': serializer.data})
+
+
+@api_view(['GET'])
+def edit_employer_view(request, pk):
+    employer_detail = Employer.objects.get(pk=pk)
+    serializer = EmployerDetailSerializer(employer_detail)
+    return render(request, "index.html", {'data': serializer.data})
+
+
+@api_view(['PATCH'])
 def edit_employer(request, pk):
     first_name = request.data.get('firstName')
     last_name = request.data.get('lastName')
@@ -58,16 +72,6 @@ def edit_employer(request, pk):
     serializer = CreateEmployerSerializer(data=employer)
     if serializer.is_valid():
         serializer.save()
-    return render(request, "index.html")
-
-
-@api_view(['GET'])
-def edit_applicant_view(request):
-    return render(request, "index.html")
-
-
-@api_view(['GET'])
-def edit_employer_view(request):
     return render(request, "index.html")
 
 
