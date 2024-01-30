@@ -169,7 +169,7 @@ export default {
     async submitUserData() {
       try {
         if(this.checkValidData()) {
-          const response = await axios.get(`/${this.userData.usertype}/edit/${this.userData.id}/`, this.userData)
+          const response = await axios.patch(`/${this.userData.usertype}/edit/${this.userData.id}/`, this.userData)
           console.log(response)
         } else {
           this.checkValidData()

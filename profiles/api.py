@@ -107,13 +107,13 @@ def applicant_view(request, pk):
 
 @api_view(['GET'])
 def employer_data(self, pk):
-    employer_detail = Employer.objects.get(pk=pk)
+    employer_detail = Employer.objects.filter(pk=pk)
     serializer = EmployerDetailSerializer(employer_detail)
     return JsonResponse(serializer.data)
 
 
 @api_view(['GET'])
 def applicant_data(self, pk):
-    applicant_detail = Applicant.objects.get(pk=pk)
+    applicant_detail = Applicant.objects.filter(pk=pk)
     serializer = ApplicantDetailSerializer(applicant_detail)
     return JsonResponse(serializer.data)
