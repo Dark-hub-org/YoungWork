@@ -35,10 +35,9 @@ export default {
     setInterval(() => {
       this.getAccess()
     }, 59000)
-    this.setUserData()
   },
-
   created() {
+    this.setUserData()
   },
   methods: {
     getAccess() {

@@ -37,6 +37,7 @@
       }
     }
     &-field {
+      align-self: flex-start;
       max-width: 383px;
       &.about {
         max-width: 100%;
@@ -52,6 +53,20 @@
         line-height: 23.5px;
         letter-spacing: -1.2px;
       }
+      &__error {
+        display: none;
+        width: fit-content;
+        margin: 10px 0;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 18px;
+        color: $colorError;
+        background-color: $colorErrorBagk;
+
+        &.active {
+          display: block;
+        }
+      }
     }
     &-input {
       width: 100%;
@@ -62,6 +77,7 @@
       font-size: 24px;
       line-height: 29px;
       letter-spacing: -1.2px;
+      transition: all .3s ease;
 
       &::placeholder {
         letter-spacing: 1px;
@@ -71,6 +87,9 @@
       &:focus {
         border-color: $colorGreenM;
         color: $colorGreenM;
+      }
+      &.error {
+        border-color: $colorError;
       }
       &.contact {
         padding-left: 72px;

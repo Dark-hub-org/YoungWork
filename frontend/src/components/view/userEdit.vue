@@ -6,21 +6,54 @@
         <div class="edit__data-block">
           <div class="edit__data-field">
             <p class="edit__data-field__name">Фамилия:</p>
-            <input v-model="userData.lastName" type="text" class="edit__data-input">
+            <input
+                v-model="userData.lastName"
+                :class="{'error': errorFields.lastname}"
+                v-restrict-input-length="120"
+                type="text"
+                class="edit__data-input">
+            <span
+                class="edit__data-field__error"
+                :class="{ active: errorFields.lastname }">Заполните поле</span>
           </div>
           <div class="edit__data-field">
             <p class="edit__data-field__name">Имя:</p>
-            <input v-model="userData.firstName" type="text" class="edit__data-input">
+            <input
+                v-model="userData.firstName"
+                :class="{'error': errorFields.firstname}"
+                v-restrict-input-length="120"
+                type="text"
+                class="edit__data-input">
+            <span
+                class="edit__data-field__error"
+                :class="{ active: errorFields.firstname }">Заполните поле</span>
           </div>
           <div class="edit__data-field">
             <p class="edit__data-field__name">Отчество:</p>
-            <input v-model="userData.surname" type="text" class="edit__data-input">
+            <input
+                v-model="userData.surname"
+                :class="{'error': errorFields.surname}"
+                v-restrict-input-length="120"
+                type="text"
+                class="edit__data-input">
+            <span
+                class="edit__data-field__error"
+                :class="{ active: errorFields.surname }">Заполните поле</span>
           </div>
         </div>
         <div class="edit__data-block">
           <div class="edit__data-field">
             <p class="edit__data-field__name">Дата рождения:</p>
-            <input v-model="userData.dateOfBirth" placeholder="00/00/0000" type="text" class="edit__data-input" v-mask="'##/##/####'">
+            <input
+                v-model="userData.dateOfBirth"
+                :class="{'error': errorFields.dateOfBirth}"
+                placeholder="0000/00/00"
+                type="text"
+                class="edit__data-input"
+                v-mask="'####/##/##'">
+            <span
+                class="edit__data-field__error"
+                :class="{ active: errorFields.dateOfBirth}">Заполните поле</span>
           </div>
         </div>
         <div class="edit__data-block">
@@ -120,7 +153,13 @@ export default {
   name: 'user-edit',
   data() {
     return {
-
+      errorFields: {
+        firstname: false,
+        lastname: false,
+        surname: false,
+        dateOfBirth: false
+      },
+      userData: {},
     }
   },
   methods: {
@@ -129,17 +168,35 @@ export default {
     },
     async submitUserData() {
       try {
-        // const response = await axios.post('')
+        if(this.checkValidData()) {
+          // const response = await axios.post('')
+        } else {
+          this.checkValidData()
+        }
       } catch (error) {
         console.log(error)
       }
-    }
+    },
+    validateField(value) {
+      return value.length === 0;
+    },
+    checkValidData() {
+      this.errorFields.firstname = this.validateField(this.userData.firstName)
+      this.errorFields.lastname = this.validateField(this.userData.lastName)
+      this.errorFields.surname = this.validateField(this.userData.surname)
+      this.errorFields.dateOfBirth = this.validateField(this.userData.dateOfBirth)
+      return Object.values(this.errorFields).every((error) => !error)
+    },
+    updateEditedUserData() {
+      this.userData = { ...this.$store.state.userData };
+    },
   },
-  computed: {
-    userData() {
-      return this.$store.state.userData
-    }
-  }
+  watch: {
+    '$store.state.userData': {
+      handler: 'updateEditedUserData',
+      immediate: true,
+    },
+  },
 }
 </script>
 

@@ -340,7 +340,7 @@ export default {
         };
         this.validateFormVacancy()
         if (this.validateFormVacancy()) {
-          await axios.post('/create-vacancy/', vacancyData)
+          await axios.post('/create-vacancy/', JSON.stringify(vacancyData))
           // window.location.reload()
         }
       } catch (error) {
