@@ -11,14 +11,7 @@ class Summary(models.Model):
     quality = models.CharField(blank=True, null=True, max_length=100, default='')
     experience = models.CharField(blank=True, null=True, default='')
     about_us = models.TextField(blank=True, null=True, default='')
-    phone_number = models.CharField(blank=True, null=True, max_length=100, default='')
-    email = models.EmailField(blank=True, null=True, max_length=100, default='')
-    tm = models.CharField(blank=True, null=True, max_length=100, default='')
-    website = models.URLField(blank=True, null=True)
     created_by = models.ForeignKey(Applicant, related_name='applicant_summary', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.summary_title)
 
     class Meta:
         verbose_name = 'Резюме'

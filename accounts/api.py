@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 
 @api_view(['GET'])
 def me(request):
-    data = {
+    return JsonResponse(data={
         'id': request.user.id,
         'firstName': request.user.first_name,
         'email': request.user.email,
@@ -23,5 +23,4 @@ def me(request):
         'telegram': request.user.telegram,
         'website': request.user.website,
         'phoneNumber': request.user.phone_number,
-    }
-    return JsonResponse(data)
+    })
