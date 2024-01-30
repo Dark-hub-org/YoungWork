@@ -94,7 +94,7 @@
                 v-model="userData.email"
                 type="text"
                 placeholder="Адрес эл.почты"
-                class="edit__data-input contact" >
+                class="edit__data-input contact">
           </div>
           <div class="edit__data-field contact">
             <img
@@ -168,7 +168,7 @@ export default {
     },
     async submitUserData() {
       try {
-        if(this.checkValidData()) {
+        if (this.checkValidData()) {
           const response = await axios.patch(`/${this.userData.usertype}/edit/${this.userData.id}/`, this.userData)
           console.log(response)
         } else {
@@ -189,7 +189,7 @@ export default {
       return Object.values(this.errorFields).every((error) => !error)
     },
     updateEditedUserData() {
-      this.userData = { ...this.$store.state.userData };
+      this.userData = {...this.$store.state.userData};
     },
   },
   watch: {
