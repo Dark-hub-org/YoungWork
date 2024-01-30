@@ -41,10 +41,10 @@ def edit_employer(request, pk):
     website = request.data.get('website')
     phone_number = request.data.get('phoneNumber')
     title_org = request.data.get('titleOrg')
-    photo_org = request.data.get('')
-    inn = request.data.get('')
-    status_valid = request.data.get('')
-    job_example = request.data.get('')
+    photo_org = request.data.get('photoOrg')
+    inn = request.data.get('inn')
+    status_valid = request.data.get('statusValid')
+    job_example = request.data.get('jobExample')
     user = User.objects.filter(pk=pk).update(first_name=first_name, last_name=last_name, surname=surname,
                                              date_of_birth=date_of_birth, citizenship=citizenship, region=region,
                                              city=city, about=about, about_work=about_work, telegram=telegram,
@@ -93,13 +93,26 @@ def edit_applicant(request, pk):
 
 @api_view(['GET'])
 def employer_view(request, pk):
-    employer_detail = Employer.objects.filter(id=pk)
+    employer_detail = Employer.objects.get(pk=pk)
     serializer = EmployerDetailSerializer(employer_detail)
-    return render(request, "index.html", {"employer": serializer})
+    return render(request, "index.html", serializer.data)
 
 
 @api_view(['GET'])
 def applicant_view(request, pk):
-    applicant_detail = Applicant.objects.filter(id=pk)
+    applicant_detail = Applicant.objects.get(pk=pk)
     serializer = ApplicantDetailSerializer(applicant_detail)
-    return render(request, "index.html", {"applicant": serializer})
+    return render(request, "index.html", serializer.data)
+
+# @api_view(['GET'])
+# def employer_data(self, pk):
+#     employer_detail = Employer.objects.get(pk=pk)
+#     serializer = ApplicantDetailSerializer(employer_detail)
+#     return JsonResponse(serializer.data)
+#
+#
+# @api_view(['GET'])
+# def applicant_data(pk):
+#     applicant_detail = Applicant.objects.get(pk=pk)
+#     serializer = ApplicantDetailSerializer(applicant_detail)
+#     return JsonResponse(serializer.data)

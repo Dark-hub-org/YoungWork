@@ -7,5 +7,5 @@ urlpatterns = [
     path('applicant/edit/<str:pk>/', api.edit_applicant, name='edit_applicant'),
     path('employer/edit/<str:pk>/', api.edit_employer, name='edit_employer'),
     path('api/applicant/', api.create_applicant, name='create_applicant'),
-    path('api/employer/', api.create_employer, name='create_Яemployer'),
+    path('api/employer/', api.create_employer, name='create_employer'),
 ]
