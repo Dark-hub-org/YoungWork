@@ -5,10 +5,8 @@ from accounts.models import User
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='applicant_user')
+    views = models.IntegerField(default=0)
     portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
-
-    def __str__(self):
-        return str(self.user)
 
     class Meta:
         verbose_name = 'Соискатель'
@@ -23,9 +21,6 @@ class Employer(models.Model):
     inn = models.CharField(blank=True, null=True, max_length=100)
     status_valid = models.CharField(blank=True, null=True, max_length=100)
     job_example = models.ImageField(null=True, blank=True, upload_to='movies/employer')
-
-    def __str__(self):
-        return str(self.user)
 
     class Meta:
         verbose_name = 'Заказчик'

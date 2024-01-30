@@ -81,11 +81,11 @@ def edit_applicant(request, pk):
                                              city=city, about=about, about_work=about_work, telegram=telegram,
                                              website=website,
                                              phone_number=phone_number)
-    serializer = UserSerializer(user)
+    serializer = UserSerializer(data=user)
     if serializer.is_valid():
         serializer.save()
     applicant = Applicant.objects.filter(pk=pk).update(portfolio=portfolio)
-    serializer = CreateApplicantSerializer(applicant)
+    serializer = CreateApplicantSerializer(data=applicant)
     if serializer.is_valid():
         serializer.save()
     return render(request, "index.html")
