@@ -336,12 +336,13 @@ export default {
           tax: this.isSalaryTask,
           type: this.employ,
           required_experience: this.experience,
-          created_by: this.userId
+          created_by: this.userId,
+          graph: this.graph
         };
         this.validateFormVacancy()
         if (this.validateFormVacancy()) {
-          await axios.post('/create-vacancy/', JSON.stringify(vacancyData))
-          // window.location.reload()
+          await axios.post('/create-vacancy/', vacancyData)
+          window.location.reload()
         }
       } catch (error) {
         console.log(error)

@@ -1,5 +1,6 @@
 import uuid
 
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from profiles.models import Employer
 
@@ -16,7 +17,7 @@ class Vacancies(models.Model):
     type = models.CharField(blank=True, max_length=100, default='')
     logo = models.ImageField(null=True, blank=True, upload_to='movies/vacancies')
     required_experience = models.CharField(blank=True, max_length=100, default='')
-    graph = models.CharField(blank=True, default='')
+    graph = ArrayField(models.CharField(max_length=100), default=[], blank=False, null=False)
 
     favorites_count = models.IntegerField(default=0)
 

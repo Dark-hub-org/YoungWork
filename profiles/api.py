@@ -31,7 +31,7 @@ def edit_employer(request, pk):
     serializer = UserSerializer(data=user)
     if serializer.is_valid():
         serializer.save()
-    employer = Employer.objects.filter(pk=pk).update(job_title=request.data)
+    employer = Employer.objects.filter(pk=pk).update(title_org=request.data)
     serializer = CreateEmployerSerializer(data=employer)
     if serializer.is_valid():
         serializer.save()
