@@ -50,7 +50,7 @@ class User(AbstractBaseUser):
     first_name = models.CharField(blank=True, max_length=100, default='')
     last_name = models.CharField(blank=True, max_length=100, default='')
     surname = models.CharField(blank=True, max_length=100, default='')
-    date_of_birth = models.DateField(blank=True, null=True, default='1999-01-01')
+    date_of_birth = models.DateField(default='0001-01-01', blank=True, null=True)
     citizenship = models.CharField(blank=True, max_length=50, default='')
     region = models.CharField(blank=True, max_length=50, default='')
     city = models.CharField(blank=True, max_length=50, default='')

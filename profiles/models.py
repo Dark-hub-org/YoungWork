@@ -5,7 +5,6 @@ from accounts.models import User
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='applicant_user')
-    bio = models.TextField(blank=True, default='')
     portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
 
     def __str__(self):
@@ -23,8 +22,7 @@ class Employer(models.Model):
     description = models.TextField(blank=True, null=True)
     photo_org = models.ImageField(null=True, blank=True, upload_to='movies/employer')
     inn = models.CharField(blank=True, max_length=100)
-    job_title = models.CharField(blank=True, max_length=100)
-    status_validatio = models.CharField(blank=True, max_length=100)
+    status_valid = models.CharField(blank=True, max_length=100)
     job_example = models.ImageField(null=True, blank=True, upload_to='movies/employer')
 
     def __str__(self):

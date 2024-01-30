@@ -3,7 +3,7 @@ from .models import *
 
 
 class Vacancy(admin.ModelAdmin):
-    list_display = ["id", "job_title", "salary_min", "salary_max", "timestamp"]
+    list_display = ["id", "job_title", "salary_min", "salary_max", "timestamp", "graph"]
 
 
 class Event(admin.ModelAdmin):

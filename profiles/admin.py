@@ -3,11 +3,11 @@ from .models import *
 
 
 class Applic(admin.ModelAdmin):
-    list_display = ["user", "bio"]
+    list_display = ["user", "portfolio"]
 
 
 class Employ(admin.ModelAdmin):
-    list_display = ["user", "inn", "title_org", "job_title", "status_validatio"]
+    list_display = ["user", "inn", "title_org", "status_valid"]
 
 
 admin.site.register(Applicant, Applic)
