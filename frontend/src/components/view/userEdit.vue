@@ -73,8 +73,8 @@
           </div>
         </div>
         <div class="edit__data-block">
+          <p class="edit__data-field__name">Контакты:</p>
           <div class="edit__data-field contact">
-            <p class="edit__data-field__name">Контакты:</p>
             <img
                 src="../../assets/phone-icon.svg"
                 alt="иконка телефона"
@@ -145,7 +145,7 @@
 
 import Vue from "vue";
 import VueTheMask from "vue-the-mask";
-// import axios from "axios";
+import axios from "axios";
 
 Vue.use(VueTheMask);
 
@@ -169,7 +169,8 @@ export default {
     async submitUserData() {
       try {
         if(this.checkValidData()) {
-          // const response = await axios.post('')
+          const response = await axios.get(`/${this.userData.usertype}/edit/${this.userData.id}/`, this.userData)
+          console.log(response)
         } else {
           this.checkValidData()
         }
@@ -178,7 +179,7 @@ export default {
       }
     },
     validateField(value) {
-      return value.length === 0;
+      return value === null;
     },
     checkValidData() {
       this.errorFields.firstname = this.validateField(this.userData.firstName)

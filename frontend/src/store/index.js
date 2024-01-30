@@ -28,7 +28,10 @@ export default new Vuex.Store({
         async getUserData(state) {
             try {
                 const response = await axios.get('/api/me/')
+                console.log(response)
                 state.userData = response.data
+
+                await this.dispatch('getUserTypeData', state.userData);
             } catch (error) {
                 console.log(error)
             }
@@ -58,7 +61,17 @@ export default new Vuex.Store({
         },
         getAuthorization({state}) {
             state.isAuthorization = Boolean(localStorage.getItem('isAuthorization'))
-        }
+        },
+        async getUserTypeData({state},userData) {
+            try {
+                const response = await axios.get(`/${userData.usertype}/data/${userData.id}/`);
+                // eslint-disable-next-line no-unused-vars
+                // const { user, ...dataWithoutUser } = response.data;
+                state.userData = Object.assign({}, state.userData, response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
     getters: {},
     modules: {}

@@ -152,7 +152,7 @@ export default {
       this.modalVisible = false
     },
     openEditProfile() {
-      this.$router.push(`/${this.userData.usertype}/edit/${this.userData.id}`)
+      this.$router.push(`/${this.userData.usertype}/edit/${this.userData.id}/`)
     },
   },
   computed: {
