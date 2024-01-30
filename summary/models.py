@@ -5,16 +5,16 @@ import uuid
 
 
 class Summary(models.Model):
-    summary_title = models.CharField(max_length=100, default='')
-    type = models.CharField(blank=True, default='')
-    skills = models.CharField(blank=True, max_length=100, default='')
-    quality = models.CharField(blank=True, max_length=100, default='')
-    experience = models.CharField(blank=True, default='')
-    about_us = models.TextField(blank=True, default='')
-    phone_number = models.CharField(blank=True, max_length=100, default='')
-    email = models.EmailField(blank=True, max_length=100, default='')
-    tm = models.CharField(blank=True, max_length=100, default='')
-    website = models.URLField(blank=True)
+    summary_title = models.CharField(null=True, max_length=100, default='')
+    type = models.CharField(blank=True, null=True, default='')
+    skills = models.CharField(blank=True, null=True, max_length=100, default='')
+    quality = models.CharField(blank=True, null=True, max_length=100, default='')
+    experience = models.CharField(blank=True, null=True, default='')
+    about_us = models.TextField(blank=True, null=True, default='')
+    phone_number = models.CharField(blank=True, null=True, max_length=100, default='')
+    email = models.EmailField(blank=True, null=True, max_length=100, default='')
+    tm = models.CharField(blank=True, null=True, max_length=100, default='')
+    website = models.URLField(blank=True, null=True)
     created_by = models.ForeignKey(Applicant, related_name='applicant_summary', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -29,7 +29,7 @@ class Favorites(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # vacancy = models.ManyToManyField(Vacancies, blank=True)
     created_by = models.ForeignKey(Applicant, related_name='applicant_favorites', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(null=True, auto_now_add=True)
 
     class Meta:
         verbose_name = 'Избранное'

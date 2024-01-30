@@ -18,11 +18,10 @@ class Applicant(models.Model):
 class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='employer_user')
-    title_org = models.CharField(blank=True, max_length=100)
-    description = models.TextField(blank=True, null=True)
+    title_org = models.CharField(blank=True, null=True, max_length=100)
     photo_org = models.ImageField(null=True, blank=True, upload_to='movies/employer')
-    inn = models.CharField(blank=True, max_length=100)
-    status_valid = models.CharField(blank=True, max_length=100)
+    inn = models.CharField(blank=True, null=True, max_length=100)
+    status_valid = models.CharField(blank=True, null=True, max_length=100)
     job_example = models.ImageField(null=True, blank=True, upload_to='movies/employer')
 
     def __str__(self):

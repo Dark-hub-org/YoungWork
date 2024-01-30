@@ -42,24 +42,23 @@ class User(AbstractBaseUser):
 
     recommendations = models.ManyToManyField('self')
 
-    posts_count = models.IntegerField(default=0)
+    vacancy_count = models.IntegerField(default=0)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
-    first_name = models.CharField(blank=True, max_length=100, default='')
-    last_name = models.CharField(blank=True, max_length=100, default='')
-    surname = models.CharField(blank=True, max_length=100, default='')
+    first_name = models.CharField(blank=True, null=True, max_length=100, default='')
+    last_name = models.CharField(blank=True, null=True, max_length=100, default='')
+    surname = models.CharField(blank=True, null=True, max_length=100, default='')
     date_of_birth = models.DateField(default='0001-01-01', blank=True, null=True)
-    citizenship = models.CharField(blank=True, max_length=50, default='')
-    region = models.CharField(blank=True, max_length=50, default='')
-    city = models.CharField(blank=True, max_length=50, default='')
-    gender = models.CharField(blank=True, default='')
-    about = models.CharField(blank=True, default='')
-    about_work = models.CharField(blank=True, default='')
-    telegram = models.CharField(blank=True, max_length=100, default='')
-    website = models.CharField(blank=True, max_length=100, default='')
-    phone_number = models.CharField(blank=True, max_length=100, default='')
+    citizenship = models.CharField(blank=True, null=True, max_length=50, default='')
+    region = models.CharField(blank=True, null=True, max_length=50, default='')
+    city = models.CharField(blank=True, null=True, max_length=50, default='')
+    about = models.CharField(blank=True, null=True, default='')
+    about_work = models.CharField(blank=True, null=True, default='')
+    telegram = models.CharField(blank=True, null=True, max_length=100, default='')
+    website = models.CharField(blank=True, null=True, max_length=100, default='')
+    phone_number = models.CharField(blank=True, null=True, max_length=100, default='')
 
     objects = UserManager()
 
