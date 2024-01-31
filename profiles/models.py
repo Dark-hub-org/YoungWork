@@ -19,7 +19,7 @@ class Employer(models.Model):
     title_org = models.CharField(blank=True, null=True, max_length=100, default='')
     photo_org = models.ImageField(null=True, blank=True, upload_to='movies/employer')
     inn = models.CharField(blank=True, null=True, max_length=100, default='')
-    status_valid = models.BooleanField()
+    status_valid = models.BooleanField(null=True, default=False)
     job_example = models.ImageField(null=True, blank=True, upload_to='movies/employer')
 
     class Meta:
