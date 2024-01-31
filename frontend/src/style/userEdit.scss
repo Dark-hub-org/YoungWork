@@ -78,6 +78,17 @@
       line-height: 29px;
       letter-spacing: -1.2px;
       transition: all .3s ease;
+      &--date {
+        max-width: 383px;
+        width: 100%;
+        border-radius: 16px;
+        border: 2px solid $colorInputBorder;
+        transition: all .3s ease;
+
+        &.error {
+          border-color: $colorError;
+        }
+      }
 
       &::placeholder {
         letter-spacing: 1px;
@@ -163,7 +174,7 @@
 
 @media (max-width: 851px) {
   .edit__data-block {
-    grid-template-columns: minmax(300px, 384px);
+    grid-template-columns: minmax(200px, 384px);
   }
 }
 

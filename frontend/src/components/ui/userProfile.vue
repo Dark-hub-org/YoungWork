@@ -161,7 +161,7 @@ export default {
         avatar: this.$store.state.userData.telegram,
         telegram: this.$store.state.userData.telegram,
         email: this.$store.state.userData.email,
-        telephone: this.$store.state.userData.telephone,
+        phoneNumber: this.$store.state.userData.phoneNumber,
         website: this.$store.state.userData.website,
       }
     }
