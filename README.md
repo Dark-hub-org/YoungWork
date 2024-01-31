@@ -9,6 +9,10 @@ By integrating Django and Vue, we want to show all the possible functionality of
 ![Young_work](https://i.ibb.co/xMFYfNv/image.png)
 
 ## General ⚙️
+This project includes: 
+- creating a profile of the applicant and the employer. 
+- The employer can create vacancies, and the applicant can respond to them. 
+- Checking the company's existence. Chat between users.
 
 ## Installation and launch ℹ️
 
