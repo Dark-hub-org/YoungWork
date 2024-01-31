@@ -23,9 +23,9 @@
     </div>
     <div class="profile-contacts__block">
       <img src="@/assets/telegram-icon.svg" alt="иконка телефона" class="profile-contacts__block-img">
-      <a :href="'tel:'+userContact.telephone" class="profile-contacts__block-link">
-        <template v-if="userContact.telephone === undefined">Не заданно</template>
-        <template v-else>{{userContact.telephone}}</template>
+      <a :href="'tel:'+userContact.phoneNumber" class="profile-contacts__block-link">
+        <template v-if="userContact.phoneNumber === undefined">Не заданно</template>
+        <template v-else>{{userContact.phoneNumber}}</template>
       </a>
     </div>
     <div class="profile-contacts__block">
@@ -52,20 +52,6 @@ export default {
     }
 
   },
-  computed: {
-    // userContacts() {
-    //   return {
-    //     avatar: this.$store.state.userData.telegram,
-    //     telegram: this.$store.state.userData.telegram,
-    //     email: this.$store.state.userData.email,
-    //     telephone: this.$store.state.userData.telephone,
-    //     website: this.$store.state.userData.website,
-    //   }
-    // }
-  },
-  mounted() {
-    console.log(this.userContact)
-  }
 }
 </script>
 

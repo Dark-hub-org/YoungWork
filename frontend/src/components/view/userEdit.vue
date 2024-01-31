@@ -44,16 +44,11 @@
         <div class="edit__data-block">
           <div class="edit__data-field">
             <p class="edit__data-field__name">Дата рождения:</p>
-            <input
-                v-model="userData.dateOfBirth"
-                :class="{'error': errorFields.dateOfBirth}"
-                placeholder="0000/00/00"
-                type="text"
-                class="edit__data-input"
-                v-mask="'####/##/##'">
+            <date-pick v-model="userData.dateOfBirth" :class="{'error': errorFields.dateOfBirth}" :format="'YYYY-MM-DD'" class="edit__data-input--date">
+            </date-pick>
             <span
                 class="edit__data-field__error"
-                :class="{ active: errorFields.dateOfBirth}">Заполните поле</span>
+                :class="{ active: errorFields.dateOfBirth }">Заполните поле</span>
           </div>
         </div>
         <div class="edit__data-block">
@@ -72,8 +67,9 @@
             <input v-model="userData.city" type="text" class="edit__data-input">
           </div>
         </div>
+        <p class="edit__data-field__name">Контакты:</p>
         <div class="edit__data-block">
-          <p class="edit__data-field__name">Контакты:</p>
+
           <div class="edit__data-field contact">
             <img
                 src="../../assets/phone-icon.svg"
@@ -119,15 +115,33 @@
           </div>
         </div>
         <h2 class="edit__data-title">О вас</h2>
+        <div v-if="userData.usertype === 'employer'" class="edit__data-block about">
+          <div class="edit__data-field about">
+            <p class="edit__data-field__name">Название организации</p>
+            <input
+                class="edit__data-input"
+                v-model="userData.title_org"
+                :class="{'error': errorFields.titleOrg}"/>
+            <span
+                class="edit__data-field__error"
+                :class="{ active: errorFields.titleOrg }">Заполните поле</span>
+          </div>
+        </div>
         <div class="edit__data-block about">
           <div class="edit__data-field about">
-            <p class="edit__data-field__name">Название организации:</p>
+            <p class="edit__data-field__name">
+              <template v-if="userData.usertype === 'employer'">Описание организации:</template>
+              <template v-else>Описание:</template>
+            </p>
             <textarea class="edit__data-input about" v-model="userData.about"></textarea>
           </div>
         </div>
         <div class="edit__data-block about">
           <div class="edit__data-field about">
-            <p class="edit__data-field__name">Краткое описание вашей деятельности:</p>
+            <p class="edit__data-field__name">
+              <template v-if="userData.usertype === 'employer'">Краткое описание ваших достижений:</template>
+              <template v-else>Краткое описание ваших работ</template>
+            </p>
             <textarea class="edit__data-input about" v-model="userData.aboutWork"></textarea>
           </div>
         </div>
@@ -147,17 +161,22 @@ import Vue from "vue";
 import VueTheMask from "vue-the-mask";
 import axios from "axios";
 
+import DatePick from 'vue-date-pick';
+import 'vue-date-pick/dist/vueDatePick.css';
+
 Vue.use(VueTheMask);
 
 export default {
   name: 'user-edit',
+  components: {DatePick},
   data() {
     return {
       errorFields: {
         firstname: false,
         lastname: false,
         surname: false,
-        dateOfBirth: false
+        dateOfBirth: false,
+        titleOrg: false,
       },
       userData: {},
     }
@@ -169,23 +188,25 @@ export default {
     async submitUserData() {
       try {
         if (this.checkValidData()) {
-          const response = await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`)
+          const response = await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, this.userData)
           console.log(response)
         } else {
           this.checkValidData()
         }
       } catch (error) {
+        alert(error)
         console.log(error)
       }
     },
     validateField(value) {
-      return value === null;
+      return value.length === 0;
     },
     checkValidData() {
       this.errorFields.firstname = this.validateField(this.userData.firstName)
       this.errorFields.lastname = this.validateField(this.userData.lastName)
       this.errorFields.surname = this.validateField(this.userData.surname)
       this.errorFields.dateOfBirth = this.validateField(this.userData.dateOfBirth)
+      this.errorFields.titleOrg = this.validateField(this.userData.title_org) && this.userData.usertype === 'employer'
       return Object.values(this.errorFields).every((error) => !error)
     },
     updateEditedUserData() {
