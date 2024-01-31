@@ -4,6 +4,10 @@ The site was developed using Vue and Django frameworks.
 
 By integrating Django and Vue, we want to show all the possible functionality of their work together.
 
+## Preview :desktop_computer:
+
+![Young_work](https://i.ibb.co/xMFYfNv/image.png)
+
 ## General ⚙️
 
 ## Installation and launch ℹ️
