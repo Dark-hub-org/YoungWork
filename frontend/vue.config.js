@@ -37,7 +37,7 @@ module.exports = {
                     reuseExistingChunk: true
                 }
             }
-        })
+        });
     },
     configureWebpack: {
         output: {

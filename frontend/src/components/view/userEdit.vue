@@ -4,6 +4,9 @@
       <form class="edit__data">
         <h2 class="edit__data-title">Личные данные</h2>
         <div class="edit__data-block">
+          <div ref="dropzone" class="dropzone edit__data-photo"></div>
+        </div>
+        <div class="edit__data-block">
           <div class="edit__data-field">
             <p class="edit__data-field__name">Фамилия:</p>
             <input
@@ -127,6 +130,9 @@
           </div>
         </div>
         <h2 class="edit__data-title">О вас</h2>
+        <div class="edit__data-block">
+          <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization"></div>
+        </div>
         <div v-if="userData.usertype === 'employer'" class="edit__data-block about">
           <div class="edit__data-field about">
             <p class="edit__data-field__name">Название организации</p>
@@ -176,6 +182,7 @@ import axios from "axios";
 
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
+import {Dropzone} from "dropzone";
 
 Vue.use(VueTheMask);
 
@@ -236,6 +243,24 @@ export default {
       immediate: true,
     },
   },
+  mounted() {
+    this.dropzone = new Dropzone(this.$refs.dropzone, {
+      url: "jhkhk",
+      maxFiles: 1,
+      maxFilesize: 2,
+      thumbnailWidth: 250,
+      thumbnailHeight: 250,
+      addRemoveLinks: true,
+    })
+    this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
+      url: "jhkhk",
+      maxFiles: 1,
+      maxFilesize: 2,
+      thumbnailWidth: 250,
+      thumbnailHeight: 250,
+      addRemoveLinks: true,
+    })
+  }
 }
 </script>
 

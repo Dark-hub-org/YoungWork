@@ -36,6 +36,22 @@
         display: block;
       }
     }
+    &-photo {
+      position: relative;
+      max-width: 280px;
+      width: 100%;
+      min-height: 280px;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid $colorInputBorder;
+      background-color: $colorGreyLight;
+      cursor: pointer;
+      &--organization {
+        max-width: 180px;
+        min-height: 180px;
+        border-radius: 30px;
+      }
+    }
     &-field {
       align-self: flex-start;
       max-width: 383px;
@@ -152,8 +168,9 @@
       font-size: 20px;
       font-weight: 500;
       color: $colorGreenM;
-      &:hover() {
-        
+      transition: all .3s ease;
+      &:hover {
+        border-color: transparent;
       }
     }
   }
@@ -189,6 +206,14 @@
         margin-bottom: 48px;
         font-size: 24px;
         letter-spacing: -1.2px;
+      }
+      &-photo {
+        width: 200px;
+        min-height: 200px;
+        &--organization {
+          width: 100px;
+          min-height: 100px;
+        }
       }
       &-field {
         &__name {

@@ -100,6 +100,46 @@ body {
   @include sectionTitle;
 }
 
+.dropzone {
+  .dz-message {
+    margin: 0;
+    font-size: 0;
+  }
+  .dz-preview {
+    width: 100%;
+    margin: 0;
+    &.dz-image-preview {
+      background: transparent;
+    }
+    .dz-image {
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .dz-error-message {
+      left: 0;
+      width: 100%;
+    }
+    .dz-remove {
+      z-index: 100;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      width: 24px;
+      height: 24px;
+      font-size: 0;
+      background-image: url("@/assets/trash.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+    }
+  }
+}
+
 @media(max-width: 1650px) {
   .wrapper {
     margin: 0 40px;

@@ -13,6 +13,7 @@
     "ckeditor4": "^4.23.0",
     "ckeditor4-vue": "^2.4.0",
     "core-js": "^3.8.3",
+    "dropzone": "^6.0.0-beta.2",
     "lodash": "^4.17.19",
     "npm": "^10.1.0",
     "swiper-vue2": "^1.0.10",

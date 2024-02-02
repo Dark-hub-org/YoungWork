@@ -1,4 +1,6 @@
 @import "../main";
+
+
 .text-margin {
   margin-bottom: 10px;
 }
@@ -27,10 +29,15 @@
 
     &-photo-wrapper {
       position: relative;
-      max-width: 282px;
+      max-width: 280px;
       width: 100%;
-      height: 300px;
+      min-height: 280px;
       margin-right: 80px;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid $colorInputBorder;
+      background-color: $colorGreyLight;
+      cursor: pointer;
     }
 
     &-photo {
@@ -575,4 +582,8 @@
       }
     }
   }
+}
+
+.dz-image-preview {
+  background: transparent;
 }

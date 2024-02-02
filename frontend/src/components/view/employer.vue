@@ -24,9 +24,9 @@
                     :class="{error: isUserINNError}">
                 <img v-if="isUserINNError" src="@/assets/error-icon.svg" alt="иконка ошибка" class="modal-verification__error-icon">
                 <p v-if="isUserINNError" class="modal-verification__error">Неправильно заполнено поле</p>
-                <p class="modal-verification__label">12 цифр</p>
+                <p class="modal-verification__label">10 цифр</p>
               </div>
-              <button @click="submitINN" type="button" class="modal-verification__btn">Отправить на проверку</button>
+              <button @click="checkValidOrganization" type="button" class="modal-verification__btn">Отправить на проверку</button>
             </template>
             <template v-else>
               <p class="modal-verification__title">Отправлено на проверку</p>
@@ -46,7 +46,7 @@
     </template>
     <template v-slot:verification>
       <div class="profile-verification">
-        <template v-if="!employerData.isVerification">
+        <template v-if="!userData.status_valid">
           <p class="profile-verification__title">Подтвердите профиль</p>
           <p class="profile-verification__text">Так вы обеспечиваете дополнительную безопасность и доверие пользователя
             к вашей организации</p>
@@ -64,6 +64,7 @@
 <script>
 import UserProfile from "@/components/ui/userProfile.vue";
 import ModalWindow from "@/components/ui/modalWin.vue";
+import axios from "axios";
 
 export default {
   name: 'employer-profile',
@@ -78,38 +79,23 @@ export default {
         },
         portfolioTitle: 'Награды и достижения:',
       },
-      employerData: {
-        firstname: '',
-        lastname: '',
-        patronymic: '',
-        birthday: '10/02/2004',
-        sex: '',
-        region: '',
-        city: '',
-        photo: '',
-        about: '',
-        aboutWork: '',
-        isVerification: false,
-        portfolio: [
-          {id: 1, image: '../../assets/applicant-profile/image-1.png'},
-          {id: 2, image: '../../assets/applicant-profile/image-2.png'},
-          {id: 3, image: '../../assets/applicant-profile/image-3.png'},
-        ],
-        contact: {
-          logo: '1',
-          telegram: 'as8691_1',
-          email: 'sasha-andreeva-1998@list.ru',
-          telephone: '+7 999 888 77 66',
-          website: 'https://dprofile.ru/andreeva_design',
-        }
-      },
       isVerificationModal: false,
       userINN: '',
+      keyAPI: '905cbd0ecbf3cfba0e900cbd13edc74e17424177',
       isUserINNError: false,
       isModalVisible: false,
     }
   },
   methods: {
+    async checkValidOrganization() {
+      try {
+        const response = await axios.get('pi-fns.ru/api/egr?req=5034039968&key=905cbd0ecbf3cfba0e900cbd13edc74e17424177', {req: this.userINN,  key: this.keyAPI})
+        console.log(response)
+      } catch(error) {
+        console.log({req: this.userINN,  key: this.keyAPI})
+        console.log(error)
+      }
+    },
     onCloseModalWin() {
       this.isModalVisible = false;
       this.userINN = '';
@@ -118,8 +104,8 @@ export default {
     },
     handlerInput() {
       console.log(new Date())
-      if (this.userINN.length > 12) {
-        this.userINN = this.userINN.slice(0, 12)
+      if (this.userINN.length > 10) {
+        this.userINN = this.userINN.slice(0, 10)
       } else {
         if(this.isUserINNError) {
           this.isUserINNError = false
@@ -128,17 +114,10 @@ export default {
       }
 
     },
-    submitINN() {
-      if(this.userINN.length !== 12) {
-        this.isUserINNError = true;
-      } else {
-        this.isVerificationModal = true
-      }
-    }
   },
   computed: {
     userAge() {
-      const birthYear = new Date(this.employerData.birthday).getFullYear()
+      const birthYear = new Date(this.userData.birthday).getFullYear()
       const nowYear = new Date().getFullYear()
       return nowYear - birthYear
     },

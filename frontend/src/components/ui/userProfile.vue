@@ -4,14 +4,7 @@
       <div class="profile__left">
         <template v-if="!this.$store.state.isProfileEdit">
           <div class="profile__top">
-            <div class="profile__top-photo-wrapper">
-              <div
-                  class="profile__top-photo" style="background: #DFDFDF">
-              </div>
-              <div class="profile__top-photo__edit">
-                <input type="file" class=" profile__top-photo__input">
-              </div>
-            </div>
+            <div ref="dropzone" class="profile__top-photo-wrapper"></div>
             <div class="profile__data">
               <p class="profile__data-name text-margin">{{userData.firstName}} {{userData.lastName}} {{userData.surname}}</p>
               <p class="profile__data-age text-margin">{{userAge}} лет</p>
@@ -73,7 +66,6 @@
                   </div>
                 </div>
                 <div class="profile__portfolio-about" v-html="userData.aboutWork"></div>
-<!--                <textarea  :placeholder="profileText.placeholders.aboutWork"></textarea>-->
               </div>
             </template>
             <template v-else>
@@ -82,23 +74,10 @@
             </template>
           </div>
         </template>
-<!--        <template v-else>-->
-<!--          <user-edit :userData="userData">-->
-<!--          </user-edit>-->
-<!--        </template>-->
       </div>
       <aside class="profile__side">
-        <template v-if="!this.$store.state.isProfileEdit">
-          <user-contacts :user-contact="this.userContacts" class="contact-desktop"></user-contacts>
-          <slot name="verification"></slot>
-        </template>
-        <template v-else>
-          <div class="profile__changes">
-            <p class="profile__changes-title">Вы в режиме редактирования</p>
-            <button class="profile__changes-save">Сохранить </button>
-            <button @click="closeEditProfile" class="profile__changes-cancel">Отменить изменения</button>
-          </div>
-        </template>
+        <user-contacts :user-contact="this.userContacts" class="contact-desktop"></user-contacts>
+        <slot name="verification"></slot>
       </aside>
     </div>
   </section>
@@ -128,9 +107,11 @@ export default {
   data() {
     return {
       applicantStab: 1,
+      dropzone: null,
     };
   },
   methods: {
+
     switchingTabs(tab) {
       this.applicantStab = tab
       localStorage.setItem('applicantTab', JSON.stringify(tab));
