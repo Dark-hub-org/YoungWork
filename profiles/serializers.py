@@ -5,13 +5,25 @@ from .models import Applicant, Employer
 class ApplicantDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Applicant
-        fields = ("portfolio", "views")
+        fields = ("portfolio",)
+
+
+class ApplicantDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employer
+        fields = ("portfolio",)
 
 
 class EmployerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer
         fields = ("title_org", "photo_org", "inn", "status_valid", "job_example")
+
+
+class EmployerDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employer
+        fields = ("title_org",)
 
 
 class CreateApplicantSerializer(serializers.ModelSerializer):

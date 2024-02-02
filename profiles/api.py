@@ -1,11 +1,38 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from .serializers import CreateApplicantSerializer, CreateEmployerSerializer, EmployerDetailSerializer, \
-    ApplicantDetailSerializer
+    ApplicantDetailSerializer, EmployerDataSerializer, ApplicantDataSerializer
 from .models import Employer, Applicant
 from accounts.models import User
 from accounts.serializers import UserSerializer
 from django.shortcuts import render
+
+
+def some(request, pk):
+    first_name = request.data.get('firstName')
+    last_name = request.data.get('lastName')
+    surname = request.data.get('surname')
+    date_of_birth = request.data.get('dateOfBirth')
+    citizenship = request.data.get('citizenship')
+    region = request.data.get('region')
+    city = request.data.get('city')
+    about = request.data.get('about')
+    about_work = request.data.get('aboutWork')
+    telegram = request.data.get('telegram')
+    website = request.data.get('website')
+    phone_number = request.data.get('phoneNumber')
+
+    user = User.objects.filter(pk=pk).update(
+        first_name=first_name, last_name=last_name, surname=surname,
+        date_of_birth=date_of_birth, citizenship=citizenship, region=region,
+        city=city, about=about, about_work=about_work, telegram=telegram, website=website,
+        phone_number=phone_number
+    )
+    serializers = UserSerializer(data=user)
+    if serializers.is_valid():
+        serializers.save()
+        return JsonResponse(serializers.data)
+    return JsonResponse(serializers.data)
 
 
 @api_view(['POST'])
@@ -42,67 +69,32 @@ def edit_employer_view(request, pk):
 
 @api_view(['PATCH'])
 def edit_employer(request, pk):
-    first_name = request.data.get('firstName')
-    last_name = request.data.get('lastName')
-    surname = request.data.get('surname')
-    date_of_birth = request.data.get('dateOfBirth')
-    citizenship = request.data.get('citizenship')
-    region = request.data.get('region')
-    city = request.data.get('city')
-    about = request.data.get('about')
-    about_work = request.data.get('aboutWork')
-    telegram = request.data.get('telegram')
-    website = request.data.get('website')
-    phone_number = request.data.get('phoneNumber')
-    title_org = request.data.get('titleOrg')
-    photo_org = request.data.get('photoOrg')
-    inn = request.data.get('inn')
-    status_valid = request.data.get('statusValid')
-    job_example = request.data.get('jobExample')
-    user = User.objects.filter(pk=pk).update(first_name=first_name, last_name=last_name, surname=surname,
-                                             date_of_birth=date_of_birth, citizenship=citizenship, region=region,
-                                             city=city, about=about, about_work=about_work, telegram=telegram,
-                                             website=website,
-                                             phone_number=phone_number)
-    serializer = UserSerializer(data=user)
+    title_org = request.data.get('title_org')
+    # photo_org = request.data.get('photo_org')
+    # inn = request.data.get('inn')
+    # status_valid = request.data.get('status_valid')
+    # job_example = request.data.get('job_example')
+
+    some(request, pk)
+    employer = Employer.objects.filter(pk=pk).update(title_org=title_org)
+    serializer = EmployerDataSerializer(data=employer)
     if serializer.is_valid():
         serializer.save()
-    employer = Employer.objects.filter(pk=pk).update(title_org=title_org, photo_org=photo_org, inn=inn,
-                                                     status_valid=status_valid, job_example=job_example)
-    serializer = CreateEmployerSerializer(data=employer)
-    if serializer.is_valid():
-        serializer.save()
-    return render(request, "index.html")
+        return JsonResponse(serializer.data)
+    return JsonResponse(serializer.data)
 
 
 @api_view(['PATCH'])
 def edit_applicant(request, pk):
-    first_name = request.data.get('firstName')
-    last_name = request.data.get('lastName')
-    surname = request.data.get('surname')
-    date_of_birth = request.data.get('dateOfBirth')
-    citizenship = request.data.get('citizenship')
-    region = request.data.get('region')
-    city = request.data.get('city')
-    about = request.data.get('about')
-    about_work = request.data.get('aboutWork')
-    telegram = request.data.get('telegram')
-    website = request.data.get('website')
-    phone_number = request.data.get('phoneNumber')
     portfolio = request.data.get('portfolio')
-    user = User.objects.filter(pk=pk).update(first_name=first_name, last_name=last_name, surname=surname,
-                                             date_of_birth=date_of_birth, citizenship=citizenship, region=region,
-                                             city=city, about=about, about_work=about_work, telegram=telegram,
-                                             website=website,
-                                             phone_number=phone_number)
-    serializer = UserSerializer(data=user)
-    if serializer.is_valid():
-        serializer.save()
+
+    some(request, pk)
     applicant = Applicant.objects.filter(pk=pk).update(portfolio=portfolio)
-    serializer = CreateApplicantSerializer(data=applicant)
+    serializer = EmployerDataSerializer(data=applicant)
     if serializer.is_valid():
         serializer.save()
-    return render(request, "index.html")
+        return JsonResponse(serializer.data)
+    return JsonResponse(serializer.data)
 
 
 @api_view(['GET'])
