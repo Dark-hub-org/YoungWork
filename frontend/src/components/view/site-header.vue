@@ -420,7 +420,7 @@ export default {
         await this.$store.dispatch('setUserData')
         await this.$store.dispatch('changeAuthorization', true)
         await this.submitUserType(this.userType, user.data.id)
-        await this.$router.push(`/${this.userType}/${user.data.id}`)
+        await this.$router.push(`/${this.userType}/edit/${user.data.id}`)
       } catch (error) {
         console.error(error);
       }

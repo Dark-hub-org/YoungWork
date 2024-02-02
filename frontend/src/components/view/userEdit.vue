@@ -7,64 +7,76 @@
           <div class="edit__data-field">
             <p class="edit__data-field__name">Фамилия:</p>
             <input
-                v-model="userData.lastName"
+                v-model.trim="userData.lastName"
+                @input="errorFields.lastname = false"
                 :class="{'error': errorFields.lastname}"
                 v-restrict-input-length="120"
                 type="text"
                 class="edit__data-input">
+<!--            <div class="edit__data-input">{{userData.lastName}}</div>-->
             <span
                 class="edit__data-field__error"
-                :class="{ active: errorFields.lastname }">Заполните поле</span>
+                :class="{ active: errorFields.lastname }">Заполните обязательно поле</span>
           </div>
           <div class="edit__data-field">
             <p class="edit__data-field__name">Имя:</p>
             <input
-                v-model="userData.firstName"
+                v-model.trim="userData.firstName"
+                @input="errorFields.firstname = false"
                 :class="{'error': errorFields.firstname}"
                 v-restrict-input-length="120"
                 type="text"
                 class="edit__data-input">
             <span
                 class="edit__data-field__error"
-                :class="{ active: errorFields.firstname }">Заполните поле</span>
+                :class="{ active: errorFields.firstname }">Заполните обязательно поле</span>
           </div>
           <div class="edit__data-field">
             <p class="edit__data-field__name">Отчество:</p>
             <input
-                v-model="userData.surname"
+                v-model.trim="userData.surname"
+                @input="errorFields.surname = false"
                 :class="{'error': errorFields.surname}"
                 v-restrict-input-length="120"
                 type="text"
                 class="edit__data-input">
             <span
                 class="edit__data-field__error"
-                :class="{ active: errorFields.surname }">Заполните поле</span>
+                :class="{ active: errorFields.surname }">Заполните обязательно поле</span>
           </div>
         </div>
         <div class="edit__data-block">
           <div class="edit__data-field">
             <p class="edit__data-field__name">Дата рождения:</p>
-            <date-pick v-model="userData.dateOfBirth" :class="{'error': errorFields.dateOfBirth}" :format="'YYYY-MM-DD'" class="edit__data-input--date">
+            <date-pick
+                v-model="userData.dateOfBirth"
+                @input="errorFields.dateOfBirth = false, errorFields.isValidBirth = false"
+                :class="{'error': errorFields.dateOfBirth || errorFields.isValidBirth}"
+                :format="'YYYY-MM-DD'"
+                class="edit__data-input--date">
             </date-pick>
             <span
                 class="edit__data-field__error"
-                :class="{ active: errorFields.dateOfBirth }">Заполните поле</span>
+                :class="{ active: errorFields.dateOfBirth || errorFields.isValidBirth}">
+              <template v-if="errorFields.dateOfBirth">Заполните обязательно поле</template>
+              <template v-else>Заполните поле правильно ГГГГ-ММ-ДД</template>
+            </span>
           </div>
         </div>
         <div class="edit__data-block">
           <div class="edit__data-field">
             <p class="edit__data-field__name">Гражданство:</p>
-            <input v-model="userData.citizenship" type="text" class="edit__data-input">
+            <input v-model.trim="userData.citizenship" type="text" class="edit__data-input">
           </div>
         </div>
         <div class="edit__data-block">
           <div class="edit__data-field">
             <p class="edit__data-field__name">Регион:</p>
-            <input v-model="userData.region" type="text" class="edit__data-input">
+            <input v-model.trim="userData.region" type="text" class="edit__data-input">
           </div>
           <div class="edit__data-field">
             <p class="edit__data-field__name">Город проживания:</p>
-            <input v-model="userData.city" type="text" class="edit__data-input">
+            <input v-model.trim="userData.city" type="text" class="edit__data-input">
           </div>
         </div>
         <p class="edit__data-field__name">Контакты:</p>
@@ -87,7 +99,7 @@
                 alt="иконка e-mail"
                 class="edit__data-img">
             <input
-                v-model="userData.email"
+                v-model.trim="userData.email"
                 type="text"
                 placeholder="Адрес эл.почты"
                 class="edit__data-input contact">
@@ -98,7 +110,7 @@
                 alt="иконка телеграмма"
                 class="edit__data-img">
             <input
-                v-model="userData.telegram"
+                v-model.trim="userData.telegram"
                 type="text"
                 placeholder="Telegram"
                 class="edit__data-input contact">
@@ -109,7 +121,7 @@
                 alt="иконка ссылки"
                 class="edit__data-img">
             <input
-                v-model="userData.website"
+                v-model.trim="userData.website"
                 type="text"
                 class="edit__data-input contact" placeholder="Личный сайт">
           </div>
@@ -119,12 +131,13 @@
           <div class="edit__data-field about">
             <p class="edit__data-field__name">Название организации</p>
             <input
-                class="edit__data-input"
-                v-model="userData.title_org"
-                :class="{'error': errorFields.titleOrg}"/>
+                v-model.trim="userData.title_org"
+                @input="errorFields.titleOrg = false"
+                :class="{'error': errorFields.titleOrg}"
+                class="edit__data-input"/>
             <span
                 class="edit__data-field__error"
-                :class="{ active: errorFields.titleOrg }">Заполните поле</span>
+                :class="{ active: errorFields.titleOrg }">Заполните обязательно поле</span>
           </div>
         </div>
         <div class="edit__data-block about">
@@ -133,7 +146,7 @@
               <template v-if="userData.usertype === 'employer'">Описание организации:</template>
               <template v-else>Описание:</template>
             </p>
-            <textarea class="edit__data-input about" v-model="userData.about"></textarea>
+            <textarea v-model.trim="userData.about" class="edit__data-input about"></textarea>
           </div>
         </div>
         <div class="edit__data-block about">
@@ -142,7 +155,7 @@
               <template v-if="userData.usertype === 'employer'">Краткое описание ваших достижений:</template>
               <template v-else>Краткое описание ваших работ</template>
             </p>
-            <textarea class="edit__data-input about" v-model="userData.aboutWork"></textarea>
+            <textarea v-model.trim="userData.aboutWork" class="edit__data-input about"></textarea>
           </div>
         </div>
       </form>
@@ -176,6 +189,7 @@ export default {
         lastname: false,
         surname: false,
         dateOfBirth: false,
+        isValidBirth: false,
         titleOrg: false,
       },
       userData: {},
@@ -183,23 +197,22 @@ export default {
   },
   methods: {
     closeEditProfile() {
-      this.$router.push(`/${this.userData.usertype}/${this.userData.id}`)
+      return this.checkValidData() ? this.$router.push(`/${this.userData.usertype}/${this.userData.id}`) : this.checkValidData()
     },
     async submitUserData() {
       try {
         if (this.checkValidData()) {
-          const response = await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, this.userData)
-          console.log(response)
+          await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, this.userData)
+          location.reload()
         } else {
           this.checkValidData()
         }
       } catch (error) {
-        alert(error)
         console.log(error)
       }
     },
     validateField(value) {
-      return value.length === 0;
+      return !value;
     },
     checkValidData() {
       this.errorFields.firstname = this.validateField(this.userData.firstName)
@@ -207,11 +220,15 @@ export default {
       this.errorFields.surname = this.validateField(this.userData.surname)
       this.errorFields.dateOfBirth = this.validateField(this.userData.dateOfBirth)
       this.errorFields.titleOrg = this.validateField(this.userData.title_org) && this.userData.usertype === 'employer'
+      this.errorFields.isValidBirth = this.checkValidDateOfBirth(this.userData.dateOfBirth)
       return Object.values(this.errorFields).every((error) => !error)
     },
     updateEditedUserData() {
       this.userData = {...this.$store.state.userData};
     },
+    checkValidDateOfBirth(date) {
+      return !/[a-za-яё]/i.test(date) && !/^\d{4}-\d{2}-\d{2}$/.test(date)
+    }
   },
   watch: {
     '$store.state.userData': {
