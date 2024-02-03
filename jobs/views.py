@@ -1,10 +1,12 @@
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
 from .models import Vacancies, Events
 from rest_framework import generics
-from .serializers import VacanciesDataSerializer, EventsDataSerializer, VacanciesDetailSerializer
+from .serializers import VacanciesDataSerializer, EventsDataSerializer
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class LargeResultsSetPagination(PageNumberPagination):
@@ -13,24 +15,14 @@ class LargeResultsSetPagination(PageNumberPagination):
     max_page_size = 10
 
 
-class VacanciesDataView(APIView):
-    def get(self, request):
-        vacancies = Vacancies.objects.all()
-        serializer = VacanciesDataSerializer(vacancies, many=True)
-        return render(request, "index.html", {'vacancies': serializer.data})
-
-
 class VacanciesData(generics.ListAPIView):
     queryset = Vacancies.objects.all()
     serializer_class = VacanciesDataSerializer
     pagination_class = LargeResultsSetPagination
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
 
-
-class VacancyDetailView(APIView):
-    def get(self, request, pk):
-        vacancy_detail = Vacancies.objects.get(pk=pk)
-        serializer = VacanciesDetailSerializer(vacancy_detail)
-        return render(request, "index.html", {'vacancy_detail': serializer.data})
+    filterset_fields = ['salary_min', 'required_experience', 'type', ]
+    search_fields = ['job_title', 'description', 'tasks', 'requirements', 'profile__title_org']
 
 
 class EventsDataView(APIView):

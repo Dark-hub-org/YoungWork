@@ -54,17 +54,13 @@ def create_employer(request):
 
 
 @api_view(['GET'])
-def edit_applicant_view(request, pk):
-    applicant_detail = Applicant.objects.get(pk=pk)
-    serializer = ApplicantDetailSerializer(applicant_detail)
-    return render(request, "index.html", {'data': serializer.data})
+def edit_applicant_view(request):
+    return render(request, "index.html")
 
 
 @api_view(['GET'])
-def edit_employer_view(request, pk):
-    employer_detail = Employer.objects.get(pk=pk)
-    serializer = EmployerDetailSerializer(employer_detail)
-    return render(request, "index.html", {'data': serializer.data})
+def edit_employer_view(request):
+    return render(request, "index.html")
 
 
 @api_view(['PATCH'])
@@ -90,7 +86,7 @@ def edit_applicant(request, pk):
 
     some(request, pk)
     applicant = Applicant.objects.filter(pk=pk).update(portfolio=portfolio)
-    serializer = EmployerDataSerializer(data=applicant)
+    serializer = ApplicantDataSerializer(data=applicant)
     if serializer.is_valid():
         serializer.save()
         return JsonResponse(serializer.data)
@@ -98,17 +94,13 @@ def edit_applicant(request, pk):
 
 
 @api_view(['GET'])
-def employer_view(request, pk):
-    employer_detail = Employer.objects.get(pk=pk)
-    serializer = EmployerDetailSerializer(employer_detail)
-    return render(request, "index.html", serializer.data)
+def employer_view(request):
+    return render(request, "index.html")
 
 
 @api_view(['GET'])
-def applicant_view(request, pk):
-    applicant_detail = Applicant.objects.get(pk=pk)
-    serializer = ApplicantDetailSerializer(applicant_detail)
-    return render(request, "index.html", serializer.data)
+def applicant_view(request):
+    return render(request, "index.html")
 
 
 @api_view(['GET'])
