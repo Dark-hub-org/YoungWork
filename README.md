@@ -18,17 +18,17 @@ This project includes:
 
 1. Download repository
 2. Install all required libraries for backend:
-   a. virtual venv
-   b. venv/script/activate
-   c. pip install -r requirements.txt
-   d. py manage.py makemigrations
-   e. py manage.py migrate
-3. Follow the path YoungWork\frontend
-4. Install all required libraries for frontend:
-   a. npm upgrade
-6. In the terminal "npm run build"
+   - ``` virtual venv ```
+   - ```venv/script/activate```
+   - ``` pip install -r requirements.txt ```
+   - ``` py manage.py makemigrations ```
+   - ``` py manage.py migrate```
+4. Follow the path YoungWork\frontend
+5. Install all required libraries for frontend:
+   a. ```npm upgrade```
+6. In the terminal ```npm run build```
 7. Go to root .\YoungWork\
-8. In the terminal "sh run.sh prod"
+8. In the terminal ```sh run.sh prod```
 
 ## Notes :bookmark_tabs:
 
