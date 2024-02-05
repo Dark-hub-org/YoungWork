@@ -37,8 +37,15 @@
           </template>
           <template v-else>
             <div class="header-supernova">
-              <button @click="openSupernovaMenu" type="button" class="supernova__btn"></button>
-              <div class="supernova-wrapper" v-if="isSupernovaMenuActive">
+              <button
+                  @click="openSupernovaMenu"
+                  ref="supernovaBtn"
+                  type="button"
+                  class="supernova__btn"></button>
+              <div
+                  :class="{'active': isSupernovaMenuActive}"
+                  ref="supernova"
+                  class="supernova-wrapper">
                 <ul class="supernova-wrapper-list">
                   <li class="supernova-wrapper-item">
                     <span class="supernova-wrapper__name" @click="moveProfile">{{ userData.firstName }}</span>
@@ -536,7 +543,14 @@ export default {
     openSubMenu() {
       this.isSubMenu = !this.isSubMenu;
     },
+    closeDropdownOnOutsideClick(event) {
+      const menu = this.$refs.supernova
+      const menuBtn = this.$refs.supernovaBtn
 
+      if(!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+        this.isSupernovaMenuActive = false
+      }
+    }
   },
   watch: {
     isMenuActive: function () {
@@ -554,14 +568,6 @@ export default {
       },
       immediate: true,
     },
-    // '$store.state.userData.email': {
-    //   handler(newEmail) {
-    //     if (newEmail) {
-    //       this.isAuthorization = true
-    //     }
-    //   },
-    //   immediate: true,
-    // },
   },
   computed: {
     userData() {
@@ -569,7 +575,9 @@ export default {
     },
 
   },
-
+  mounted() {
+    document.addEventListener('click', this.closeDropdownOnOutsideClick)
+  }
 }
 </script>
 

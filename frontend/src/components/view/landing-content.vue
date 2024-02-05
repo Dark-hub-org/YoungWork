@@ -3,10 +3,7 @@
     <section class="inner">
       <div class="wrapper inner__wrapper">
         <the-heading title="Сервис по поиску работы для подростков"></the-heading>
-        <form class="inner__form">
-          <input type="text" class="inner__form-search" placeholder="найти вакансию">
-          <button type="button" class="inner__form-button"></button>
-        </form>
+        <the-search></the-search>
         <div class="inner__info">
           <div class="inner__info-card">
             <img src="@/assets/inner/info-1.png" alt="девушка с папкой" class="inner__info-image">
@@ -91,9 +88,11 @@ SwiperCore.use([Navigation])
 
 import 'swiper/swiper-bundle.css'
 import TheHeading from "@/components/ui/heading.vue";
+import TheSearch from "@/components/ui/searchInput.vue";
 export default {
   name: "landing-content",
   components: {
+    TheSearch,
     TheHeading,
     VacancyItem,
     Swiper,
@@ -101,6 +100,7 @@ export default {
   },
   data() {
     return {
+      searchValue: '',
       breakpoints: {
         1440: {
           slidesPerView: 4
@@ -191,6 +191,9 @@ export default {
     }
   },
   methods: {
+    submitSearchVacancy(value) {
+      this.$router.push(`/vacancy/?search=${value}`)
+    }
   },
   computed: {
     ListLength() {

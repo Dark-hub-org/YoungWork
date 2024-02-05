@@ -4,7 +4,9 @@
       <form class="edit__data">
         <h2 class="edit__data-title">Личные данные</h2>
         <div class="edit__data-block">
-          <div ref="dropzone" class="dropzone edit__data-photo"></div>
+          <div ref="dropzone" class="dropzone edit__data-photo">
+            <img src="@/assets/upload.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+          </div>
         </div>
         <div class="edit__data-block">
           <div class="edit__data-field">
@@ -131,7 +133,9 @@
         </div>
         <h2 class="edit__data-title">О вас</h2>
         <div class="edit__data-block">
-          <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization"></div>
+          <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization">
+            <img src="@/assets/upload.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+          </div>
         </div>
         <div v-if="userData.usertype === 'employer'" class="edit__data-block about">
           <div class="edit__data-field about">

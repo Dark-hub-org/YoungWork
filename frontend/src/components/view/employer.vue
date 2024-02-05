@@ -39,6 +39,7 @@
     <template v-slot:twoTub>
       <div class="profile__vacancy">
         <p class="profile__subtitle">Активные:</p>
+
       </div>
       <div class="profile__vacancy">
         <p class="profile__subtitle">Завершенные:</p>
@@ -117,9 +118,13 @@ export default {
   },
   computed: {
     userAge() {
-      const birthYear = new Date(this.userData.birthday).getFullYear()
-      const nowYear = new Date().getFullYear()
-      return nowYear - birthYear
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const userBirth = new Date(this.userData.dateOfBirth);
+      const dateBirth = new Date(today.getFullYear(), userBirth.getMonth(), userBirth.getDate());
+      const age = today.getFullYear() - userBirth.getFullYear();
+
+      return today < dateBirth ? age - 1 : age
     },
     userData() {
       return this.$store.state.userData

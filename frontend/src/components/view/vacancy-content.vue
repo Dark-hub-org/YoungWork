@@ -4,10 +4,7 @@
       <div class="wrapper top__wrapper">
         <the-heading title="Сервис по поиску работы для подростков"></the-heading>
         <div class="top__search">
-          <div class="top__search-wrapper">
-            <input type="text" class="top__search-input" placeholder="найти вакансию">
-            <button type="button" class="top__search-btn"></button>
-          </div>
+          <the-search @search-vacancy="fetchVacancies"></the-search>
           <button
               @click="isFilterVisible = true"
               type="button"
@@ -23,7 +20,7 @@
           {{ quantityVacancies }}
           <template v-if="quantityVacancies <= 4 && quantityVacancies !== 0">вакансии</template>
           <template v-else>вакансий</template>
-          <template v-if="requestValue !== ''">“{{ requestValue }}”</template>
+          <template v-if="requestValue"> “{{ requestValue }}”</template>
         </p>
         <div class="vacancy__content">
           <the-filters
@@ -85,11 +82,12 @@
               </div>
             </div>
             <paginate
+                v-if="vacancies.length > 0"
                 v-model="currentPage"
                 :pageCount="totalPage"
                 :prevText="''"
                 :nextText="''"
-                :click-handler="getVacancy"
+                :click-handler="paginateHandler"
                 :containerClass="'vacancy__pagination'"
                 :page-class="'vacancy__pagination-page'"
                 :page-link-class="'vacancy__pagination-link'"
@@ -154,10 +152,11 @@ import TheFilters from "@/components/ui/filter.vue";
 import Paginate from 'vuejs-paginate'
 import axios from "axios";
 import TheHeading from "@/components/ui/heading.vue";
+import TheSearch from "@/components/ui/searchInput.vue";
 
 export default {
   name: 'vacancy-content',
-  components: {TheHeading, TheFilters, Paginate},
+  components: {TheSearch, TheHeading, TheFilters, Paginate},
 
   data() {
     return {
@@ -177,31 +176,48 @@ export default {
     closeFilters() {
       this.isFilterVisible = false
     },
-    async fetchVacancies(pageNum) {
+    // async fetchVacancies(pageNum) {
+    //   try {
+    //     const response = await axios.get(`/api/vac?page=${pageNum}`)
+    //     this.vacancies = response.data.results
+    //     this.quantityVacancies = response.data.count
+    //     this.currentPage = pageNum;
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // },
+    // async changePage(pageNum) {
+    //   try {
+    //     const route = pageNum === 1 ? '/vacancy' : `/vacancy/?page=${pageNum}`;
+    //     if (this.$route.path !== route) {
+    //       await this.$router.replace(route);
+    //       window.scrollTo(0, 0);
+    //     }
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // },
+    async fetchVacancies(searchValue, pageNum = 1) {
       try {
-        const response = await axios.get(`/api/vac?page=${pageNum}`)
-        this.vacancies = response.data.results
-        this.quantityVacancies = response.data.count
+        const route = searchValue ? `search=${searchValue}` : '';
+        const pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
+        const response = await axios.get(`/api/vac/?${pageRoute}${route}`);
+        this.vacancies = response.data.results;
+        this.quantityVacancies = response.data.count;
         this.currentPage = pageNum;
-      } catch (error) {
-        console.log(error)
+        this.requestValue = searchValue;
+        this.$router.push(`/vacancy/?${pageRoute}${route}`);
+      } catch(error) {
+        console.error(error);
       }
     },
-    async changePage(pageNum) {
-      try {
-        const route = pageNum === 1 ? '/vacancy' : `/vacancy/?page=${pageNum}`;
-        if (this.$route.path !== route) {
-          await this.$router.replace(route);
-          window.scrollTo(0, 0);
-        }
-      } catch (error) {
-        console.log(error)
-      }
+    paginateHandler(pageNum) {
+      this.fetchVacancies(this.$route.query.search, pageNum);
     },
-    getVacancy(page) {
-      this.fetchVacancies(page);
-      this.changePage(page)
-    },
+    // getVacancy(page) {
+    //   this.fetchVacancies(page);
+    //   this.changePage(page)
+    // },
   },
   computed: {
     totalPage() {
@@ -209,12 +225,21 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.page) {
+    if(this.$route.query.page) {
       this.currentPage = +this.$route.query.page
-      this.getVacancy(this.currentPage);
-    } else {
-      this.getVacancy(this.currentPage);
     }
+    if (this.$route.query.search) {
+      this.fetchVacancies(this.$route.query.search, this.currentPage);
+    } else {
+      this.fetchVacancies('', this.currentPage);
+    }
+    // this.data()
+    // if (this.$route.query.page) {
+    //   this.currentPage = +this.$route.query.page
+    //   this.getVacancy(this.currentPage);
+    // } else {
+    //   this.getVacancy(this.currentPage);
+    // }
   },
 }
 

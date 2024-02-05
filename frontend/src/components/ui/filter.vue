@@ -46,10 +46,6 @@
           placeholder="от"
           class="filters__item-input salary"
           >
-<!--      <div class="filters__item">-->
-<!--        <input v-model="filterParameters.salary" type="radio" value="0" name="salary" class="filters__item-input" id="salary-8">-->
-<!--        <label for="salary-8" class="filters__item-label radio">Доход указан</label>-->
-<!--      </div>-->
     </div>
     <div class="filters__block">
       <p class="filters__block-title">Опыт работы</p>
