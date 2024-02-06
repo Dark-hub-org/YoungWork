@@ -4,13 +4,12 @@ from .serializers import CreateApplicantSerializer, CreateEmployerSerializer, Em
     ApplicantDetailSerializer, EmployerDataSerializer, ApplicantDataSerializer
 from .models import Employer, Applicant
 from accounts.models import User
-from accounts.serializers import UserDataSerializer
+from accounts.serializers import UserSerializer
 from django.shortcuts import render
 
 
 # TODO: remove this function
-def some(request, pk):
-    # add id
+def edit_user_data(request, pk):
     first_name = request.data.get('firstName')
     last_name = request.data.get('lastName')
     surname = request.data.get('surname')
@@ -24,15 +23,13 @@ def some(request, pk):
     website = request.data.get('website')
     phone_number = request.data.get('phoneNumber')
 
-    # remove this
     user = User.objects.filter(pk=pk).update(
         first_name=first_name, last_name=last_name, surname=surname,
         date_of_birth=date_of_birth, citizenship=citizenship, region=region,
         city=city, about=about, about_work=about_work, telegram=telegram, website=website,
         phone_number=phone_number
     )
-    # serializers = UserSerializer(data=request.data)
-    serializers = UserDataSerializer(data=user)
+    serializers = UserSerializer(data=user)
     if serializers.is_valid():
         serializers.save()
         return JsonResponse(serializers.data)
@@ -75,7 +72,7 @@ def edit_employer(request, pk):
     # status_valid = request.data.get('status_valid')
     # job_example = request.data.get('job_example')
 
-    some(request, pk)
+    edit_user_data(request, pk)
     employer = Employer.objects.filter(pk=pk).update(title_org=title_org)
     serializer = EmployerDataSerializer(data=employer)
     if serializer.is_valid():
@@ -88,6 +85,7 @@ def edit_employer(request, pk):
 def edit_applicant(request, pk):
     portfolio = request.data.get('portfolio')
 
+    edit_user_data(request, pk)
     applicant = Applicant.objects.filter(pk=pk).update(portfolio=portfolio)
     serializer = ApplicantDataSerializer(data=applicant)
     if serializer.is_valid():
