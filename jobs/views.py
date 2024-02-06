@@ -21,7 +21,7 @@ class VacanciesData(generics.ListAPIView):
     pagination_class = LargeResultsSetPagination
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
 
-    filterset_fields = ['salary_min', 'required_experience', 'type', ]
+    filterset_fields = ['salary_min', 'required_experience', 'employ', ]
     search_fields = ['job_title', 'description', 'tasks', 'requirements']
 
 
