@@ -4,7 +4,7 @@ from .serializers import CreateApplicantSerializer, CreateEmployerSerializer, Em
     ApplicantDetailSerializer, EmployerDataSerializer, ApplicantDataSerializer
 from .models import Employer, Applicant
 from accounts.models import User
-from accounts.serializers import UserSerializer
+from accounts.serializers import UserDataSerializer
 from django.shortcuts import render
 
 
@@ -32,7 +32,7 @@ def some(request, pk):
         phone_number=phone_number
     )
     # serializers = UserSerializer(data=request.data)
-    serializers = UserSerializer(data=user)
+    serializers = UserDataSerializer(data=user)
     if serializers.is_valid():
         serializers.save()
         return JsonResponse(serializers.data)
@@ -58,12 +58,12 @@ def create_employer(request):
 
 
 @api_view(['GET'])
-def edit_applicant_view(request):
+def edit_applicant_view(request, pk):
     return render(request, "index.html")
 
 
 @api_view(['GET'])
-def edit_employer_view(request):
+def edit_employer_view(request, pk):
     return render(request, "index.html")
 
 
@@ -88,7 +88,6 @@ def edit_employer(request, pk):
 def edit_applicant(request, pk):
     portfolio = request.data.get('portfolio')
 
-    some(request, pk)
     applicant = Applicant.objects.filter(pk=pk).update(portfolio=portfolio)
     serializer = ApplicantDataSerializer(data=applicant)
     if serializer.is_valid():
@@ -98,12 +97,12 @@ def edit_applicant(request, pk):
 
 
 @api_view(['GET'])
-def employer_view(request):
+def employer_view(request, pk):
     return render(request, "index.html")
 
 
 @api_view(['GET'])
-def applicant_view(request):
+def applicant_view(request, pk):
     return render(request, "index.html")
 
 
