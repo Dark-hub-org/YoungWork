@@ -12,7 +12,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 class LargeResultsSetPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
-    max_page_size = 10
+    max_page_size = 9999
 
 
 class VacanciesData(generics.ListAPIView):
@@ -22,7 +22,7 @@ class VacanciesData(generics.ListAPIView):
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
 
     filterset_fields = ['salary_min', 'required_experience', 'type', ]
-    search_fields = ['job_title', 'description', 'tasks', 'requirements', 'profile__title_org']
+    search_fields = ['job_title', 'description', 'tasks', 'requirements']
 
 
 class EventsDataView(APIView):

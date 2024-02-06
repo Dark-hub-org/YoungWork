@@ -33,7 +33,8 @@ export default new VueRouter({
         }
       },
     },// Детальная вакансия
-    {path: '/vacancy/:page', name: "vacancies-page", component: VacancyContent}, // вакансии хабовая
+    {path: '/vacancy/:page', name: "vacancies-page", component: VacancyContent},
+    {path: '/vacancy/?search', name: "vacancies-filters", component: VacancyContent},
     {
       path: '/vacancy', name: "vacancies", component: VacancyContent, meta: {
         breadcrumb: {
@@ -41,7 +42,7 @@ export default new VueRouter({
           parent: 'home'
         }
       },
-    },// вакансии
+    },// // вакансии хабовая
     {path: '/create-vacancy', component: createPage},//Создание вакансии
     {path: '/create-resume', component: createResume},//Создать резюме
     {

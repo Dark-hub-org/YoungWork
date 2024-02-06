@@ -10,6 +10,7 @@ export default new Vuex.Store({
         userData: {},
         access: '',
         refresh: '',
+        searchValue: '',
         isProfileEdit: false,
     },
     mutations: {
@@ -22,15 +23,16 @@ export default new Vuex.Store({
                 state.refresh = ''
             }
         },
+        setSearchValue(state, value) {
+            state.searchValue = value
+        },
         setUserData(state, data) {
             state.userData = data
         },
         async getUserData(state) {
             try {
                 const response = await axios.get('/api/me/')
-                console.log(response)
                 state.userData = response.data
-
                 await this.dispatch('getUserTypeData', state.userData);
             } catch (error) {
                 console.log(error)
