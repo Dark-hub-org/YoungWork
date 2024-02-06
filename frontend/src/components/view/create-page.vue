@@ -328,13 +328,14 @@ export default {
         this.parseResponsibilities(this.description, 'Требования')
         const vacancyData = {
           job_title: this.vacancyTitle,
+          company_name: this.companyName,
           salary_min: this.salaryMin,
           salary_max: this.salaryMax,
           description: this.description,
           tasks: this.tasks,
           requirements: this.requirements,
           tax: this.isSalaryTask,
-          type: this.employ,
+          employ: this.employ,
           required_experience: this.experience,
           created_by: this.userId,
           graph: this.graph
@@ -388,6 +389,9 @@ export default {
   computed: {
     userId() {
       return this.$store.state.userData.id
+    },
+    companyName() {
+      return this.$store.state.userData.title_org
     }
   }
 }

@@ -80,7 +80,10 @@
             <input v-model.trim="userData.region" type="text" class="edit__data-input">
           </div>
           <div class="edit__data-field">
-            <p class="edit__data-field__name">Город проживания:</p>
+            <p class="edit__data-field__name">
+              <template v-if="userData.usertype === 'applicant'">Город проживания:</template>
+              <template v-else>Адрес офиса компании:</template>
+              </p>
             <input v-model.trim="userData.city" type="text" class="edit__data-input">
           </div>
         </div>
