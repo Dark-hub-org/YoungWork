@@ -14,7 +14,7 @@ class Vacancies(models.Model):
     salary_min = models.CharField(blank=True, null=True, max_length=100, default='')
     salary_max = models.CharField(blank=True, null=True, max_length=100, default='')
     tax = models.CharField(blank=True, null=True, max_length=100, default='')
-    type = models.CharField(blank=True, null=True, max_length=100, default='')
+    employ = models.CharField(blank=True, null=True, max_length=100, default='')
     logo = models.ImageField(null=True, blank=True, upload_to='movies/vacancies')
     required_experience = models.CharField(blank=True, null=True, max_length=100, default='')
     graph = ArrayField(models.CharField(max_length=100), default=list, blank=False, null=False)
@@ -22,11 +22,15 @@ class Vacancies(models.Model):
     favorites_count = models.IntegerField(default=0)
 
     timestamp = models.DateTimeField(auto_now_add=True)
+    company_name = models.CharField(null=True, blank=True, max_length=100)
     created_by = models.ForeignKey(Employer, related_name='employer_vacancy', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансия'
+
+    def __str__(self):
+        return f"{self.job_title}"
 
 
 # TODO event to check inn

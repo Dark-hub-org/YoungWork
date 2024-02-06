@@ -12,6 +12,9 @@ class Applicant(models.Model):
         verbose_name = 'Соискатель'
         verbose_name_plural = 'Соискатель'
 
+    def __str__(self):
+        return f"{self.user}"
+
 
 class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
@@ -25,3 +28,6 @@ class Employer(models.Model):
     class Meta:
         verbose_name = 'Заказчик'
         verbose_name_plural = 'Заказчик'
+
+    def __str__(self):
+        return f"{self.user}"
