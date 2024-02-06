@@ -27,6 +27,7 @@
               :class="{active: isFilterVisible}"
               @click="openFilters"
               @closeFilters="closeFilters"
+              @filter-vacancy="data"
               class="vacancy__filters">
           </the-filters>
           <div class="vacancy__list" :class="{hidden: isFilterVisible}">
@@ -165,7 +166,7 @@ export default {
       vacancies: [],
       quantityVacancies: 0,
       currentPage: 1,
-      pageQuantityMax: 10,
+      pageQuantityMax: 2,
       requestValue: '',
     }
   },
@@ -214,6 +215,12 @@ export default {
     paginateHandler(pageNum) {
       this.fetchVacancies(this.$route.query.search, pageNum);
     },
+    data(filterValue) {
+      console.log(filterValue)
+      const page = !this.$route.query.page ? '' : `page=${this.$route.query.page}`
+      const search = !this.$route.query.search ? '' : `search=${this.$route.query.search}`
+      this.$router.push(`/vacancy/?${page}&${search}&${filterValue}`)
+    },
     // getVacancy(page) {
     //   this.fetchVacancies(page);
     //   this.changePage(page)
@@ -223,16 +230,18 @@ export default {
     totalPage() {
       return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
     },
+    filterParametrs() {
+      return this.$route.query
+    }
   },
   mounted() {
+    console.log(this.filterParametrs)
     if(this.$route.query.page) {
       this.currentPage = +this.$route.query.page
     }
-    if (this.$route.query.search) {
-      this.fetchVacancies(this.$route.query.search, this.currentPage);
-    } else {
-      this.fetchVacancies('', this.currentPage);
-    }
+    this.fetchVacancies(this.$route.query.search, this.currentPage);
+
+
     // this.data()
     // if (this.$route.query.page) {
     //   this.currentPage = +this.$route.query.page

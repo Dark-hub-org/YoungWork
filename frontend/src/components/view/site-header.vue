@@ -547,8 +547,8 @@ export default {
       const menu = this.$refs.supernova
       const menuBtn = this.$refs.supernovaBtn
 
-      if(!menu.contains(event.target) && !menuBtn.contains(event.target)) {
-        this.isSupernovaMenuActive = false
+      if (menu && menuBtn) {
+        return !menu.contains(event.target) && !menuBtn.contains(event.target) ? this.isSupernovaMenuActive = false : this.isSupernovaMenuActive
       }
     }
   },
