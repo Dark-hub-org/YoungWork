@@ -1,11 +1,11 @@
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Vacancies, Events
 from rest_framework import generics
 from .serializers import VacanciesDataSerializer, EventsDataSerializer
-from rest_framework import filters
+from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
 
@@ -19,10 +19,13 @@ class VacanciesData(generics.ListAPIView):
     queryset = Vacancies.objects.all()
     serializer_class = VacanciesDataSerializer
     pagination_class = LargeResultsSetPagination
-    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
 
-    filterset_fields = ['salary_min', 'required_experience', 'employ', ]
-    search_fields = ['job_title', 'description', 'tasks', 'requirements']
+    filterset_fields = {
+        'salary_min': ["gt", "exact"], 'salary_max': ["lt", "exact"],
+        "required_experience": ["exact"], 'employ': ["exact"],
+    }
+    search_fields = ['job_title', 'description', 'tasks', 'requirements', 'company_name']
 
 
 class EventsDataView(APIView):
