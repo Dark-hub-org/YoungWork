@@ -28,24 +28,18 @@
           <p class="constructor__form-block__name">Уровень заработной платы:</p>
           <input
               v-model.number="salaryMin"
-              :class="{ error: errorFields.salary }"
-              @input="errorFields.salary = false"
               type="number"
               class="constructor__form-block__input small"
               placeholder="От">
           <span
-              class="constructor__form-block__error"
-              :class="{ active: errorFields.salary }">Заполните поле</span>
+              class="constructor__form-block__error">Заполните поле</span>
           <input
               v-model.number="salaryMax"
-              :class="{ error: errorFields.salary }"
-              @input="errorFields.salary = false"
               type="number"
               class="constructor__form-block__input small"
               placeholder="До">
           <span
-              class="constructor__form-block__error"
-              :class="{ active: errorFields.salary }">Заполните поле</span>
+              class="constructor__form-block__error">Заполните поле</span>
           <div class="constructor__form-parameter">
             <input
                 v-model="isSalaryTask"
@@ -307,15 +301,15 @@ export default {
       graph: ["Полный день",],
 
       vacancyTitle: '',
-      salaryMin: '',
-      salaryMax: '',
+      salaryMin: null,
+      salaryMax: null,
       type: '',
       logo: '',
       errorFields: {
         vacancyTitle: false,
         salary: false,
-        salaryMin: false,
-        salaryMax: false,
+        // salaryMin: false,
+        // salaryMax: false,
         graph: false,
         description: false,
       }
@@ -343,7 +337,7 @@ export default {
         // this.validateFormVacancy()
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)
-          // window.location.reload()
+          window.location.reload()
         }
       } catch (error) {
         console.log(error)
@@ -380,7 +374,7 @@ export default {
     },
     validateFormVacancy() {
       this.errorFields.vacancyTitle = this.validateField(this.vacancyTitle)
-      this.errorFields.salary = this.validateField(this.salaryMin) && this.validateField(this.salaryMax)
+      // this.errorFields.salary = this.validateField(this.salaryMin) && this.validateField(this.salaryMax)
       this.errorFields.graph = this.validateField(this.graph)
       this.errorFields.description = this.validateField(this.description)
       return Object.values(this.errorFields).every((error) => !error)
