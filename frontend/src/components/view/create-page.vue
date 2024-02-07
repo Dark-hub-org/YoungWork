@@ -340,10 +340,10 @@ export default {
           created_by: this.userId,
           graph: this.graph
         };
-        this.validateFormVacancy()
+        // this.validateFormVacancy()
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)
-          window.location.reload()
+          // window.location.reload()
         }
       } catch (error) {
         console.log(error)
