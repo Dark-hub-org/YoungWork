@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'accounts',
     'profiles',
     'jobs',
-    'summary',
+    'resume',
     'django_filters',
 ]
 

@@ -8,7 +8,7 @@ from .serializers import VacanciesDetailSerializer, VacanciesDataSerializer
 from django.shortcuts import render
 
 
-@api_view(['GET'])
+@api_view(['GET', 'DELETE'])
 def vacancy_detail_data(pk):
     vacancy_detail = Vacancies.objects.get(pk=pk)
     serializer = VacanciesDetailSerializer(vacancy_detail)
@@ -22,17 +22,16 @@ def vacancy_of_users(pk):
     return JsonResponse(serializer.data)
 
 
-@api_view(['GET', 'POST', 'DELETE'])
-def vacancy_regstr(request):
+@api_view(['GET', 'POST'])
+def vacancy_reg(request):
     serializer = VacanciesDataSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return render(request, "index.html")
     return render(request, "index.html")
 
-
-@api_view(['DELETE'])
-def vacancy_delete(request, pk):
-    vacancy = Vacancies.objects.filter(created_by=request.user).get(pk=pk)
-    vacancy.delete()
-    return JsonResponse({'message': 'post deleted'})
+# @api_view(['DELETE'])
+# def vacancy_delete(request, pk):
+#     vacancy = Vacancies.objects.filter(created_by=request.user).get(pk=pk)
+#     vacancy.delete()
+#     return JsonResponse({'message': 'post deleted'})

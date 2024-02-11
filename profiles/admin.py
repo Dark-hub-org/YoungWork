@@ -3,10 +3,10 @@ from .models import *
 
 
 @admin.register(Applicant)
-class Applic(admin.ModelAdmin):
+class ApplicantDisplay(admin.ModelAdmin):
     list_display = ["user", "portfolio"]
 
 
 @admin.register(Employer)
-class Employ(admin.ModelAdmin):
+class EmployerDisplay(admin.ModelAdmin):
     list_display = ["user", "inn", "title_org", "status_valid"]
