@@ -8,7 +8,6 @@ from accounts.serializers import UserSerializer
 from django.shortcuts import render
 
 
-# TODO: remove this function
 def edit_user_data(request, pk):
     first_name = request.data.get('firstName')
     last_name = request.data.get('lastName')
@@ -68,12 +67,12 @@ def edit_employer_view(request, pk):
 def edit_employer(request, pk):
     title_org = request.data.get('title_org')
     # photo_org = request.data.get('photo_org')
-    # inn = request.data.get('inn')
-    # status_valid = request.data.get('status_valid')
+    inn = request.data.get('inn')
+    status_valid = request.data.get('status_valid')
     # job_example = request.data.get('job_example')
 
     edit_user_data(request, pk)
-    employer = Employer.objects.filter(pk=pk).update(title_org=title_org)
+    employer = Employer.objects.filter(pk=pk).update(title_org=title_org, status_valid=status_valid, inn=inn)
     serializer = EmployerDataSerializer(data=employer)
     if serializer.is_valid():
         serializer.save()

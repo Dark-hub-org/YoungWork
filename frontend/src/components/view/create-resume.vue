@@ -98,7 +98,8 @@
             <label for="exp-4" class="create-resume-filter-label radio">Нет опыта</label>
           </div>
           <div class="create-resume__block">
-            <input v-model="resumeExperience" type="radio" name="exp" value="От 1 года до 3 лет" class="create-resume__input"
+            <input v-model="resumeExperience" type="radio" name="exp" value="От 1 года до 3 лет"
+                   class="create-resume__input"
                    id="exp-2">
             <label for="exp-2" class="create-resume-filter-label radio">От 1 года до 3 лет</label>
           </div>
@@ -282,21 +283,21 @@ export default {
       }
       const resume = {
         created_by: this.userId,
-        summary_title: this.resumeName,
-        type: this.type,
+        resume_title: this.resumeName,
+        employ: this.type,
         skill: this.resumeSkill,
         quality: this.resumeQuality,
         experience: this.resumeExperience,
         about_us: this.resumeAbout,
-        phone_number: this.resumePhoneNumber,
-        email: this.resumeEmail,
-        tm: this.resumeTelegram,
-        website: this.resumeSite,
+        // phone_number: this.resumePhoneNumber,
+        // email: this.resumeEmail,
+        // tm: this.resumeTelegram,
+        // website: this.resumeSite,
       };
       axios.post('', resume)
           .then(response => {
             console.log(response)
-            window.location.reload();
+            // window.location.reload();
           })
           .catch(error => {
             console.log(error)

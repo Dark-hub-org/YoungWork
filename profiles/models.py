@@ -5,7 +5,7 @@ from accounts.models import User
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='applicant_user')
-    views = models.IntegerField(default=0)
+    
     portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
 
     class Meta:
