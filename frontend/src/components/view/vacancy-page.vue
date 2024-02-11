@@ -1,7 +1,7 @@
 <template>
   <section class="vacancy">
     <div class="wrapper vacancy__wrapper">
-      <the-heading title="Сервис по поиску работы для подростков"></the-heading>
+      <the-heading title="Сервис по поиску работы для молодежи"></the-heading>
       <div class="vacancy__main">
         <div class="vacancy__info">
           <p class="vacancy__info-title">{{vacancyData.job_title}}</p>
@@ -104,7 +104,7 @@ export default {
   methods: {
     async getVacancyData(id) {
       try {
-        const response = await axios.get(`/api/v1/vac/${id}`);
+        const response = await axios.get(`/api/vac/${id}`);
         this.vacancyData = response.data
         console.log(response)
       } catch (error) {

@@ -2,7 +2,7 @@
   <div>
     <section class="top">
       <div class="wrapper top__wrapper">
-        <the-heading title="Сервис по поиску работы для подростков"></the-heading>
+        <the-heading title="Сервис по поиску работы для молодежи"></the-heading>
         <div class="top__search">
           <the-search @search-vacancy="fetchVacancies"></the-search>
           <button
@@ -27,7 +27,7 @@
               :class="{active: isFilterVisible}"
               @click="openFilters"
               @closeFilters="closeFilters"
-              @filter-vacancy="data"
+              @filter-vacancy="fetchVacancies"
               class="vacancy__filters">
           </the-filters>
           <div class="vacancy__list" :class="{hidden: isFilterVisible}">
@@ -45,7 +45,7 @@
                       class="vacancy__item-title">
                     {{ vacancy.job_title }}
                   </router-link>
-                  <p class="vacancy__item-salary">
+                  <p v-if="vacancy.salary_min || vacancy.salary_max" class="vacancy__item-salary">
                     <template
                         v-if="vacancy.salary_min && vacancy.salary_max">
                       от {{ vacancy.salary_min }} до {{ vacancy.salary_max }}
@@ -64,7 +64,9 @@
                 </div>
                 <div class="vacancy__item-block">
                   <p class="vacancy__item-text">Опыт работы: {{ vacancy.required_experience }}</p>
-                  <p class="vacancy__item-text vacancy__item-text--type">{{ vacancy.type }}</p>
+                  <div class="vacancy__item-list">
+                    <p v-for="item in vacancy.graph" :key="item" class="vacancy__item-text vacancy__item-text--type">{{ item }}</p>
+                  </div>
                 </div>
                 <div class="vacancy__item-block vacancy__item-block--description">
                   <p class="vacancy__item-text">
@@ -198,22 +200,23 @@ export default {
     //     console.log(error)
     //   }
     // },
-    async fetchVacancies(searchValue, pageNum = 1) {
+    async fetchVacancies(searchValue, filtersValue, pageNum = 1) {
       try {
-        const route = searchValue ? `search=${searchValue}` : '';
-        const pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
-        const response = await axios.get(`/api/vac/?${pageRoute}${route}`);
+        console.log(filtersValue)
+        var route = searchValue ? `search=${searchValue}` : '';
+        var pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
+        const response = await axios.get(`/api/vac/?${pageRoute}${route}${filtersValue}`);
         this.vacancies = response.data.results;
         this.quantityVacancies = response.data.count;
         this.currentPage = pageNum;
         this.requestValue = searchValue;
-        this.$router.push(`/vacancy/?${pageRoute}${route}`);
+        this.$router.push(`/vacancy/?${pageRoute}${route}${filtersValue}`);
       } catch(error) {
         console.error(error);
       }
     },
     paginateHandler(pageNum) {
-      this.fetchVacancies(this.$route.query.search, pageNum);
+      this.fetchVacancies(this.$route.query.search, '', pageNum);
     },
     data(filterValue) {
       console.log(filterValue)
@@ -230,16 +233,23 @@ export default {
     totalPage() {
       return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
     },
-    filterParametrs() {
-      return this.$route.query
-    }
   },
   mounted() {
-    console.log(this.filterParametrs)
-    if(this.$route.query.page) {
-      this.currentPage = +this.$route.query.page
+    const attributeSearch = this.$route.query.search
+    const attributePage = this.$route.query.page
+
+    const filter = Object.fromEntries(
+        Object.entries(this.$route.query).filter(([key]) => key !== 'search' && key !== 'page')
+    );
+
+    const filterRoute = Object.keys(filter)
+        .map(key => `${key}=${filter[key]}`)
+        .join('&');
+
+    if(attributePage) {
+      this.currentPage = +attributePage
     }
-    this.fetchVacancies(this.$route.query.search, this.currentPage);
+    this.fetchVacancies(attributeSearch, filterRoute, this.currentPage);
 
 
     // this.data()

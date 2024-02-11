@@ -19,9 +19,8 @@ export default {
   methods: {
     submitSearchVacancy() {
       const route = this.searchValue ? { path: '/vacancy/', query: { search: this.searchValue } } : '/vacancy';
-      this.$emit('search-vacancy', this.searchValue)
+      this.$emit('search-vacancy', this.searchValue, '')
       this.$router.push(route);
-      console.log('1')
     },
     clearSearchValue() {
       this.searchValue = ''

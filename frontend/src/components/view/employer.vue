@@ -90,8 +90,14 @@ export default {
   methods: {
     async checkValidOrganization() {
       try {
-        const response = await axios.get('pi-fns.ru/api/egr?req=5034039968&key=905cbd0ecbf3cfba0e900cbd13edc74e17424177', {req: this.userINN,  key: this.keyAPI})
-        console.log(response)
+        const response = await axios.get(`https://api-fns.ru/api/egr?req=${this.userINN}&key=${this.keyAPI}`)
+        const result = response.data.items[0].ЮЛ.Статус
+        if(result === 'Действующее') {
+          axios.patch(`employer/edit-data/${this.userData.id}/`, JSON.stringify({status_valid: true, inn: this.userINN}))
+        } else {
+          alert('Error')
+        }
+
       } catch(error) {
         console.log({req: this.userINN,  key: this.keyAPI})
         console.log(error)

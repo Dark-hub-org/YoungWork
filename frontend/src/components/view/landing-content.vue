@@ -2,7 +2,7 @@
   <div>
     <section class="inner">
       <div class="wrapper inner__wrapper">
-        <the-heading title="Сервис по поиску работы для подростков"></the-heading>
+        <the-heading title="Сервис по поиску работы для молодежи"></the-heading>
         <the-search></the-search>
         <div class="inner__info">
           <div class="inner__info-card">

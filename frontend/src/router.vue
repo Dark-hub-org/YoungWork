@@ -10,6 +10,7 @@ import createResume from '@/components/view/create-resume.vue';
 import Applicant from '@/components/view/applicant.vue';
 import Employer from '@/components/view/employer.vue';
 import UserEdit from '@/components/view/userEdit.vue';
+import resume from "@/components/view/resume.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,14 @@ export default new VueRouter({
     },// // вакансии хабовая
     {path: '/create-vacancy', component: createPage},//Создание вакансии
     {path: '/create-resume', component: createResume},//Создать резюме
+    {
+      path: '/resume/:id', name: "resume", props: true, component: resume, meta: {
+        breadcrumb: {
+          label: 'Резюме',
+          parent: 'home'
+        }
+      },
+    },// Детальная резюме
     {
       path: '/applicant/:id',
       name: 'applicant',
