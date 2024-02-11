@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'jobs',
     'resume',
     'django_filters',
+    'chat',
 ]
 
 MIDDLEWARE = [
