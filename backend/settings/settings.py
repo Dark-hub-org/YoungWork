@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'resume',
     'django_filters',
     'chat',
+    'notification',
 ]
 
 MIDDLEWARE = [

@@ -19,6 +19,8 @@ urlpatterns = [
                   path('', include('profiles.urls')),
                   path('', include('jobs.urls')),
                   path('', include('resume.urls')),
+                  path('api/chat/', include('chat.urls')),
+                  path('', include('notification.urls')),
                   re_path(r'^media/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'media')}),
                   re_path(r'^img/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'img')}),
                   re_path(r'^js/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'js')}),

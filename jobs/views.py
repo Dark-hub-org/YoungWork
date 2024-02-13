@@ -23,7 +23,7 @@ class VacanciesData(generics.ListAPIView):
 
     filterset_fields = {
         'salary_min': ["gt", "exact"], 'salary_max': ["lt", "exact"],
-        "required_experience": ["exact"], 'employ': ["exact"], "graph": [],
+        "required_experience": ["exact"], 'employ': ["exact"],
     }
     search_fields = ['job_title', 'description', 'tasks', 'requirements', 'company_name']
 

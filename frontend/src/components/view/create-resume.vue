@@ -278,26 +278,20 @@ export default {
       if (this.resumeEmploy.length === 0) {
         this.isErrorEmploy = true
       }
-      if (this.resumePhoneNumber.length === 0 && this.resumeEmail.length === 0 && this.resumeTelegram.length === 0 && this.resumeSite.length === 0) {
-        this.isErrorContact = true
-      }
       const resume = {
         created_by: this.userId,
+        salary: 0,
         resume_title: this.resumeName,
-        employ: this.type,
+        employ: this.employ,
         skill: this.resumeSkill,
         quality: this.resumeQuality,
         experience: this.resumeExperience,
         about_us: this.resumeAbout,
-        // phone_number: this.resumePhoneNumber,
-        // email: this.resumeEmail,
-        // tm: this.resumeTelegram,
-        // website: this.resumeSite,
       };
-      axios.post('', resume)
+      axios.post('/api/res/', resume)
           .then(response => {
             console.log(response)
-            window.location.reload();
+            // window.location.reload();
           })
           .catch(error => {
             console.log(error)
