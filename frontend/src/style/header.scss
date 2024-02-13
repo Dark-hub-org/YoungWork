@@ -21,7 +21,12 @@
   }
 
   &__nav {
-    width: 562px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 16px;
+    max-width: 296px;
+    width: 100%;
 
     &.active {
       visibility: visible;
@@ -33,12 +38,22 @@
     }
 
     &-list {
-      @include displayFlex;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
 
     &-item {
 
     }
+  }
+
+
+  &__button {
+    width: 25px;
+    height: 25px;
+
   }
 
   &__menu-btn {
@@ -125,15 +140,14 @@
     transition: all .2s ease;
 
     &.active {
-      height: 200px;
+      height: fit-content;
       opacity: 1;
       overflow: visible;
     }
 
-    .supernova-wrapper__name {
-      margin-bottom: 20px;
+    &__name {
       font-family: $fontMont;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
       letter-spacing: -0.28px;
       cursor: pointer;
@@ -144,30 +158,68 @@
 
 
       .supernova-wrapper-item {
-        font-size: 16px;
-        font-weight: 500;
-        letter-spacing: -0.28px;
-        color: $colorBlack;
-
+        padding-bottom: 8px;
         &:first-child {
-          margin-bottom: 8px;
+          padding-bottom: 24px;
         }
+        &--mobile {
+          display: none;
+        }
+        &--section {
+          padding: 16px 0;
+          border-top: 1px solid $colorOrangeM;
+          border-bottom: 1px solid $colorOrangeM;
+        }
+        &--padding-bottom {
+          padding-bottom: 16px;
+        }
+        &--padding-top {
+          padding-top: 16px;
+        }
+      }
 
-         &:last-child {
-          margin-top: 15px;
-        }
+      .supernova-wrapper-block {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        cursor: pointer;
+      }
+
+      .supernova-wrapper-image {
+        width: 24px;
+        height: 24px;
+      }
+
+      .supernova-wrapper-text {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17px;
+        letter-spacing: -2%;
+        color: $colorBlack;
       }
 
       .supernova-wrapper-sublist {
-        height: 24px;
+        height: 0;
         overflow: hidden;
-        cursor: pointer;
         transition: all .1s ease;
-      }
 
-      .supernova-wrapper-sublist.active {
-        height: 70px;
-        overflow: visible;
+        &.active {
+          padding-top: 17px;
+          height: 70px;
+          overflow: visible;
+        }
+
+        &__link {
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 15px;
+          letter-spacing: -2%;
+          cursor: pointer;
+          &:not(:last-child) {
+            margin-bottom: 8px;
+          }
+        }
       }
 
       .supernova-wrapper-title {
@@ -200,7 +252,7 @@
 
   .supernova-exits-btn {
     font-family: $fontMont;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: -0.28px;
     color: $colorError;
@@ -247,39 +299,14 @@
 
   .header {
     &__nav {
-      z-index: 100;
-      position: absolute;
-      display: block;
-      visibility: hidden;
-      top: 110px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: 0;
-      padding-top: 20px;
-      background-color: $colorWhite;
-      border-top: 2px solid $colorOrangeM;
-      transition: all .3s ease;
 
       &-list {
-        flex-direction: column;
-        gap: 40px;
-        opacity: 0;
-        transition: all .3s ease-in-out;
+        display: none;
       }
-
-      .header__nav-button {
-        height: 52px;
-        padding: 15px 25px;
-        font-size: 20px;
-      }
-
     }
-
-    &__menu-btn {
-      display: flex;
-    }
+  }
+  .header-supernova .supernova-wrapper .supernova-wrapper-list .supernova-wrapper-item--mobile  {
+    display: block;
   }
 }
 

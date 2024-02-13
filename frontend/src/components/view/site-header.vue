@@ -11,12 +11,6 @@
           :class="{active: isMenuActive}"
           class="header__nav">
         <ul class="header__nav-list">
-          <li class="header__nav-item">
-            <button type="button" class="button-orange header__nav-button">Услуги</button>
-          </li>
-          <li class="header__nav-item">
-            <button type="button" class="button-orange header__nav-button">Работа</button>
-          </li>
           <template v-if="!isAuthorization">
             <li class="header__nav-item">
               <button
@@ -36,44 +30,81 @@
             </li>
           </template>
           <template v-else>
-            <div class="header-supernova">
-              <button
-                  @click="openSupernovaMenu"
-                  ref="supernovaBtn"
-                  type="button"
-                  class="supernova__btn"></button>
-              <div
-                  :class="{'active': isSupernovaMenuActive}"
-                  ref="supernova"
-                  class="supernova-wrapper">
-                <ul class="supernova-wrapper-list">
-                  <li class="supernova-wrapper-item">
-                    <span class="supernova-wrapper__name" @click="moveProfile">{{ userData.firstName }}</span>
-                  </li>
-                  <li class="supernova-wrapper-item">
-                    <a href="/vacancy" class="supernova-wrapper-link">Работа</a>
-                  </li>
-                  <li class="supernova-wrapper-item">
-                    <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
-                      <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
-                      <router-link to="/vacancies" tag="li">
-                        <a href="/vacancy" class="supernova-sublist-title">Найти задание</a>
-                      </router-link>
-                      <router-link to="/create-vacancy" tag="li">
-                        <a href="/create-vacancy" class="supernova-sublist-title">Создать задание</a>
-                      </router-link>
-                    </ul>
-                  </li>
-                  <li class="supernova-wrapper-item">
-                    <button @click="logOut" class="supernova-exits-btn">
-                      Выход
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <router-link  to="/" tag="li" class="header__button">
+              <img src="@/assets/star.svg" alt="кнопка избранных вакансий">
+            </router-link>
+            <router-link  to="/" tag="li" class="header__alerts">
+              <img src="@/assets/alerts.svg" alt="кнопка оповещений">
+            </router-link>
+            <button class="header__alerts">
+              <img src="@/assets/message.svg" alt="кнопка чата">
+            </button>
           </template>
         </ul>
+        <div v-if="isAuthorization" class="header-supernova">
+          <button
+              @click="openSupernovaMenu"
+              ref="supernovaBtn"
+              type="button"
+              class="supernova__btn"></button>
+          <div
+              :class="{'active': isSupernovaMenuActive}"
+              ref="supernova"
+              class="supernova-wrapper">
+            <ul class="supernova-wrapper-list">
+              <li class="supernova-wrapper-item">
+                <span class="supernova-wrapper__name">Александра Сергеевна Андреева</span>
+                <!--                    <span class="supernova-wrapper__name" @click.stop="moveProfile">{{ userData.firstName }}</span>-->
+              </li>
+              <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
+                <router-link to="/" tag="div" class="supernova-wrapper-block">
+                  <img src="@/assets/star.svg" alt="кнопка избранное" class="supernova-wrapper-image">
+                  <span class="supernova-wrapper-text">Избранное</span>
+                </router-link>
+              </li>
+              <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
+                <div class="supernova-wrapper-block">
+                  <img src="@/assets/message.svg" alt="кнопка избранное" class="supernova-wrapper-image">
+                  <span class="supernova-wrapper-text">Чат</span>
+                </div>
+              </li>
+              <li class="supernova-wrapper-item supernova-wrapper-item--mobile supernova-wrapper-item--padding-bottom">
+                <div class="supernova-wrapper-block">
+                  <img src="@/assets/alerts.svg" alt="кнопка избранное" class="supernova-wrapper-image">
+                  <button class="supernova-wrapper-text">Уведомления</button>
+                </div>
+              </li>
+              <li class="supernova-wrapper-item supernova-wrapper-item--section">
+                <div @click.stop="openSubMenu" class="supernova-wrapper-block">
+                  <img src="@/assets/vacancy.svg" alt="кнопка избранное" class="supernova-wrapper-image">
+                  <button class="supernova-wrapper-text">
+                    <template v-if="userData.usertype === 'employer'">Вакансии</template>
+                    <template v-if="userData.usertype === 'applicant'">Резюме</template>
+                  </button>
+                </div>
+                <ul class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
+                  <template v-if="userData.usertype === 'employer'">
+                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Создать вакансию</router-link>
+                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Мои вакансии</router-link>
+                  </template>
+                  <template v-if="userData.usertype === 'applicant'">
+                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Создать резюме</router-link>
+                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Мои резюме</router-link>
+                  </template>
+                </ul>
+              </li>
+              <li class="supernova-wrapper-item supernova-wrapper-item--padding-top">
+                <div class="supernova-wrapper-block">
+                  <img src="@/assets/exit.svg" alt="кнопка избранное" class="supernova-wrapper-image">
+                  <button class="supernova-wrapper-text">Сменить аккаунт</button>
+                </div>
+              </li>
+              <li class="supernova-wrapper-item">
+                <button class="supernova-exits-btn">Выйти</button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
       <Transition name="modal">
         <modal-window
