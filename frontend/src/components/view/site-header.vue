@@ -53,8 +53,7 @@
               class="supernova-wrapper">
             <ul class="supernova-wrapper-list">
               <li class="supernova-wrapper-item">
-                <span class="supernova-wrapper__name">Александра Сергеевна Андреева</span>
-                <!--                    <span class="supernova-wrapper__name" @click.stop="moveProfile">{{ userData.firstName }}</span>-->
+              <span class="supernova-wrapper__name" @click.stop="moveProfile">{{ userData.firstName }}</span>
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
                 <router-link to="/" tag="div" class="supernova-wrapper-block">
@@ -88,7 +87,7 @@
                     <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Мои вакансии</router-link>
                   </template>
                   <template v-if="userData.usertype === 'applicant'">
-                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Создать резюме</router-link>
+                    <router-link class="supernova-wrapper-sublist__link" to="/create-resume" tag="li">Создать резюме</router-link>
                     <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Мои резюме</router-link>
                   </template>
                 </ul>
@@ -100,7 +99,7 @@
                 </div>
               </li>
               <li class="supernova-wrapper-item">
-                <button class="supernova-exits-btn">Выйти</button>
+                <button @click.prevent="logOut" class="supernova-exits-btn">Выйти</button>
               </li>
             </ul>
           </div>

@@ -17,6 +17,15 @@
             Пожалуйста, заполните поле
           </p>
         </div>
+        <div class="create-resume-block__wrapper">
+          <span class="create-resume-block__title">Напишите, желанный доход:</span>
+          <input
+              v-restrict-input-length="120"
+              type="number"
+              class="create-resume__input-text"
+              v-model.number="resumeSalary"
+              >
+        </div>
         <div class="create-resume__wrapper">
           <p class="create-resume__name-filter">Тип занятости</p>
           <div class="create-resume__block employ">
@@ -242,6 +251,8 @@ export default {
       resumeName: '',
       isErrorName: false,
 
+      resumeSalary: null,
+
       resumeEmploy: ['fullEmploy'],
       isErrorEmploy: false,
 
@@ -276,8 +287,9 @@ export default {
       const resume = {
         created_by: this.userId,
         resume_title: this.resumeName,
+        salary: this.resumeSalary,
         employ: this.resumeEmploy,
-        skill: this.skillsTags,
+        skills: this.skillsTags,
         quality: this.qualityTags,
         experience: this.resumeExperience,
         about_us: this.resumeAbout,
