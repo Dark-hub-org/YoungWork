@@ -6,7 +6,7 @@ from .views import *
 
 urlpatterns = [
     path('create-resume/', api.resume_reg, name="create_resume"),
-    # path('api/res/', ),
+    path('resume/', ResumeData.as_view()),
     path('resume/<str:pk>/', TemplateView.as_view(template_name='index.html')),
     path('api/res/<str:pk>/', api.resume_detail_data, name="vacancy_ditail_data"),
 ]

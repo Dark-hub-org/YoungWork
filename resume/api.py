@@ -9,14 +9,14 @@ from django.shortcuts import render
 
 
 @api_view(['GET', 'DELETE'])
-def resume_detail_data(pk):
+def resume_detail_data(request, pk):
     vacancy_detail = Resume.objects.get(pk=pk)
     serializer = ResumeDetailSerializer(vacancy_detail)
     return JsonResponse(serializer.data)
 
 
 @api_view(['GET'])
-def resume_of_users(pk):
+def resume_of_users(request, pk):
     vacancy_detail = Resume.objects.filter(pk=pk)
     serializer = ResumeDataSerializer(vacancy_detail)
     return JsonResponse(serializer.data)
