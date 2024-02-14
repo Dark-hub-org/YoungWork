@@ -39,5 +39,7 @@ def ditail_data_of_user(request, pk):
         'first_name': user.first_name,
         'last_name': user.last_name,
         'surname': user.surname,
+        'region': user.region,
         'citizenship': user.citizenship,
+        'phone_number': user.phone_number,
     })
