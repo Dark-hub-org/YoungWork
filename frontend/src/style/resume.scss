@@ -193,6 +193,10 @@
       &-block {
         gap: 8px;
       }
+      &-list {
+        display: flex;
+        align-items: center;
+      }
       &-text {
         text-align: center;
         font-size: 14px;

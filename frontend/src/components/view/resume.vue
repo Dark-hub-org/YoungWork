@@ -4,11 +4,14 @@
       <the-heading title="Сервис по поиску работы для подростков"/>
       <div class="resume__main">
         <div class="resume__top">
-          <p class="resume__top-title">UI/UX дизайнер</p>
-          <p class="resume__top-summery">50 000 рублей</p>
+          <p class="resume__top-title">{{resumeData?.resume_title}}</p>
+          <p class="resume__top-summery">{{resumeData?.salary}}</p>
           <div class="resume__top-block">
-            <p class="resume__top-text">Опыт работы: нет опыта</p>
-            <p class="resume__top-text">Частичная занятость, полная занятость</p>
+            <p class="resume__top-text">Опыт работы: {{resumeData?.experience}}</p>
+            <div class="resume__top-list">
+              <p v-for="item in resumeData?.employ" :key="item" class="resume__top-text">{{item}}, </p>
+            </div>
+
           </div>
           <div class="resume__top-btns">
             <button class="button-orange-another">Связаться</button>
@@ -26,20 +29,18 @@
         <div class="resume__content">
           <div class="resume__content-block">
             <p class="resume__content-title">Обо мне:</p>
-            <p class="resume__content-text">Работаю поэтапно, начинаю с поиска и анализа информации. Выделяю ключевые проблемы и особенности, формирую гипотезы. На основании аналитической части создаю функциональный прототип и поэтапно детализирую, доводя до готовой визуальной концепции.
-
-            Люблю искать решения задач в дизайне и других сферах. Расширяю и углубляю свои знания через книги, лекции и курсы (на данный момент прохожу курсы UPROCK).</p>
+            <div class="resume__content-text" v-html="resumeData?.about_us"></div>
           </div>
           <div class="resume__content-block">
             <p class="resume__content-title">Мои качества:</p>
             <div class="resume__content-list">
-              <p v-for="item in characteristics" :key="item" class="resume__content-item">{{item}}</p>
+              <p v-for="item in resumeData?.quality" :key="item" class="resume__content-item">{{item}}</p>
             </div>
           </div>
           <div class="resume__content-block">
             <p class="resume__content-title">Ключевые навыки:</p>
             <div class="resume__content-list">
-              <p v-for="item in skills" :key="item" class="resume__content-item">{{item}}</p>
+              <p v-for="item in resume?.skills" :key="item" class="resume__content-item">{{item}}</p>
             </div>
           </div>
           <div class="resume__bottom">
@@ -55,15 +56,32 @@
 
 <script>
 import TheHeading from "@/components/ui/heading.vue";
-
+import axios from "axios";
 export default {
   components: {TheHeading},
   name: 'resume-page',
   data() {
     return {
+      resumeData: {},
       characteristics: ['Дружелюбность', 'Отзывчивость', 'Эмпатичность', 'Вежливость', 'Ответственность'],
       skills: ['Прототипирование', 'Анализ ЦА', 'Английский язык', 'Веб-дизайн', 'Figma', 'Adobe Photoshop', 'UI/UX']
     }
+  },
+  methods: {
+    async getResumeData() {
+      try {
+        const response = await axios.get('/api/res/c5762f8a-5037-4af5-a52a-f1c839613805/')
+        // const applicantData = await axios.get('/api/me', { params: { createdBy: response.data.created_by } });
+
+        console.log(response.data)
+        this.resumeData = response.data
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  mounted() {
+    this.getResumeData()
   }
 }
 </script>
