@@ -44,8 +44,8 @@ export default new VueRouter({
         }
       },
     },// // вакансии хабовая
-    {path: '/create-vacancy', component: createPage},//Создание вакансии
-    {path: '/create-resume', component: createResume},//Создать резюме
+    {path: '/create-vacancy/', component: createPage},//Создание вакансии
+    {path: '/create-resume/', component: createResume},//Создать резюме
     {
       path: '/resume/:id', name: "resume", props: true, component: resume, meta: {
         breadcrumb: {

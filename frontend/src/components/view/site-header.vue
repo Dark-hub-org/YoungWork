@@ -56,11 +56,11 @@
                   <li class="supernova-wrapper-item">
                     <ul @click="openSubMenu" class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
                       <span class="supernova-wrapper-title" :class="{active: isSubMenu}">Услуги</span>
-                      <router-link to="/vacancies" tag="li">
-                        <a href="/vacancy" class="supernova-sublist-title">Найти задание</a>
+                      <router-link to="/vacancy/" tag="li">
+                        <a href="/vacancy/" class="supernova-sublist-title">Найти задание</a>
                       </router-link>
                       <router-link to="/create-vacancy" tag="li">
-                        <a href="/create-vacancy" class="supernova-sublist-title">Создать задание</a>
+                        <a href="/create-vacancy/" class="supernova-sublist-title">Создать задание</a>
                       </router-link>
                     </ul>
                   </li>
