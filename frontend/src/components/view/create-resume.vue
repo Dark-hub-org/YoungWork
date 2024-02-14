@@ -286,6 +286,7 @@ export default {
       }
       const resume = {
         created_by: this.userId,
+        salary: 0,
         resume_title: this.resumeName,
         salary: this.resumeSalary,
         employ: this.resumeEmploy,
@@ -293,10 +294,6 @@ export default {
         quality: this.qualityTags,
         experience: this.resumeExperience,
         about_us: this.resumeAbout,
-        // phone_number: this.resumePhoneNumber,
-        // email: this.resumeEmail,
-        // tm: this.resumeTelegram,
-        // website: this.resumeSite,
       };
       axios.post('/create-resume/', resume)
           .then(response => {
