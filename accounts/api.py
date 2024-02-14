@@ -1,12 +1,7 @@
-from django.conf import settings
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.mail import send_mail
 from django.http import JsonResponse
-from .models import User
 
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-
-from notification.utils import create_notification
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
 

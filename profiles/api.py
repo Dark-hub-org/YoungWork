@@ -3,9 +3,10 @@ from rest_framework.decorators import api_view
 from .serializers import CreateApplicantSerializer, CreateEmployerSerializer, EmployerDetailSerializer, \
     ApplicantDetailSerializer, EmployerDataSerializer, ApplicantDataSerializer
 from .models import Employer, Applicant
-from accounts.models import User
+from accounts.models import User, VacancyResponse
 from accounts.serializers import UserSerializer
 from django.shortcuts import render
+from notification.utils import create_notification
 
 
 def edit_user_data(request, pk):
@@ -115,3 +116,20 @@ def applicant_data(self, pk):
     applicant_detail = Applicant.objects.get(pk=pk)
     serializer = ApplicantDetailSerializer(applicant_detail)
     return JsonResponse(serializer.data)
+
+
+@api_view(['GET'])
+def response_on_vacancy(request, pk):
+    user = User.objects.get(pk=pk)
+
+    check_one = VacancyResponse.objects.filter(created_for=request.user).filter(created_by=user)
+    check_two = VacancyResponse.objects.filter(created_for=user).filter(created_by=request.user)
+
+    if not check_one or not check_two:
+        vacancy_response = VacancyResponse.objects.create(created_for=user, created_by=request.user)
+
+        notification = create_notification(request, 'new_vacancy_response', vacancy_response_id=vacancy_response.id)
+
+        return JsonResponse({'message': 'Response on vacancy, success'})
+    else:
+        return JsonResponse({'message': 'Error'})
