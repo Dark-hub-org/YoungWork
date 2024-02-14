@@ -17,6 +17,15 @@
             Пожалуйста, заполните поле
           </p>
         </div>
+        <div class="create-resume-block__wrapper">
+          <span class="create-resume-block__title">Напишите, желанный доход:</span>
+          <input
+              v-restrict-input-length="120"
+              type="number"
+              class="create-resume__input-text"
+              v-model.number="resumeSalary"
+              >
+        </div>
         <div class="create-resume__wrapper">
           <p class="create-resume__name-filter">Тип занятости</p>
           <div class="create-resume__block employ">
@@ -155,62 +164,62 @@
             Пожалуйста, заполните поле
           </p>
         </div>
-        <div class="create-resume-block__wrapper">
-          <h3 class="create-resume-block__title">Как с вами можно связаться:</h3>
-          <div class="create-resume-block__wrapper connection">
-            <img
-                src="@/assets/phone-icon.svg"
-                alt="иконка телефона"
-                class="create-resume__connection__img">
-            <input
-                v-mask="'+7 (###) ### ##-##'"
-                v-model="resumePhoneNumber"
-                placeholder="Номер телефона"
-                class="create-resume__input-text connect"
-                :class="{'error': isErrorContact}"
-                @focus="isErrorContact = false"/>
-          </div>
-          <div class="create-resume-block__wrapper connection">
-            <img
-                src="@/assets/email-icon.svg"
-                alt="иконка e-mail"
-                class="create-resume__connection__img">
-            <input
-                v-model.trim="resumeEmail"
-                type="text"
-                class="create-resume__input-text connect"
-                :class="{'error': isErrorContact}"
-                placeholder="Адрес эл.почты"
-                @focus="isErrorContact = false">
-          </div>
-          <div class="create-resume-block__wrapper connection">
-            <img
-                src="@/assets/telegram-icon.svg"
-                alt="иконка телеграмма"
-                class="create-resume__connection__img">
-            <input
-                v-model.trim="resumeTelegram"
-                type="text"
-                class="create-resume__input-text connect"
-                :class="{'error': isErrorContact}"
-                placeholder="Telegram"
-                @focus="isErrorContact = false">
-          </div>
-          <div class="create-resume-block__wrapper connection">
-            <img
-                src="@/assets/link-icon.svg"
-                alt="иконка ссылки"
-                class="create-resume__connection__img">
-            <input
-                v-model.trim="resumeSite"
-                type="text"
-                class="create-resume__input-text connect"
-                :class="{'error': isErrorContact}"
-                placeholder="Личный сайт"
-                @focus="isErrorContact = false">
-          </div>
-          <p v-if="isErrorContact" class="create-resume__error">Пожалуйста, заполните поле</p>
-        </div>
+<!--        <div class="create-resume-block__wrapper">-->
+<!--          <h3 class="create-resume-block__title">Как с вами можно связаться:</h3>-->
+<!--          <div class="create-resume-block__wrapper connection">-->
+<!--            <img-->
+<!--                src="@/assets/phone-icon.svg"-->
+<!--                alt="иконка телефона"-->
+<!--                class="create-resume__connection__img">-->
+<!--            <input-->
+<!--                v-mask="'+7 (###) ### ##-##'"-->
+<!--                v-model="resumePhoneNumber"-->
+<!--                placeholder="Номер телефона"-->
+<!--                class="create-resume__input-text connect"-->
+<!--                :class="{'error': isErrorContact}"-->
+<!--                @focus="isErrorContact = false"/>-->
+<!--          </div>-->
+<!--          <div class="create-resume-block__wrapper connection">-->
+<!--            <img-->
+<!--                src="@/assets/email-icon.svg"-->
+<!--                alt="иконка e-mail"-->
+<!--                class="create-resume__connection__img">-->
+<!--            <input-->
+<!--                v-model.trim="resumeEmail"-->
+<!--                type="text"-->
+<!--                class="create-resume__input-text connect"-->
+<!--                :class="{'error': isErrorContact}"-->
+<!--                placeholder="Адрес эл.почты"-->
+<!--                @focus="isErrorContact = false">-->
+<!--          </div>-->
+<!--          <div class="create-resume-block__wrapper connection">-->
+<!--            <img-->
+<!--                src="@/assets/telegram-icon.svg"-->
+<!--                alt="иконка телеграмма"-->
+<!--                class="create-resume__connection__img">-->
+<!--            <input-->
+<!--                v-model.trim="resumeTelegram"-->
+<!--                type="text"-->
+<!--                class="create-resume__input-text connect"-->
+<!--                :class="{'error': isErrorContact}"-->
+<!--                placeholder="Telegram"-->
+<!--                @focus="isErrorContact = false">-->
+<!--          </div>-->
+<!--          <div class="create-resume-block__wrapper connection">-->
+<!--            <img-->
+<!--                src="@/assets/link-icon.svg"-->
+<!--                alt="иконка ссылки"-->
+<!--                class="create-resume__connection__img">-->
+<!--            <input-->
+<!--                v-model.trim="resumeSite"-->
+<!--                type="text"-->
+<!--                class="create-resume__input-text connect"-->
+<!--                :class="{'error': isErrorContact}"-->
+<!--                placeholder="Личный сайт"-->
+<!--                @focus="isErrorContact = false">-->
+<!--          </div>-->
+<!--          <p v-if="isErrorContact" class="create-resume__error">Пожалуйста, заполните поле</p>-->
+<!--        </div>-->
         <button @click.prevent="submitForm" type="button" class="create-resume__submit">Опубликовать</button>
       </form>
     </div>
@@ -242,6 +251,8 @@ export default {
       resumeName: '',
       isErrorName: false,
 
+      resumeSalary: null,
+
       resumeEmploy: ['fullEmploy'],
       isErrorEmploy: false,
 
@@ -262,11 +273,6 @@ export default {
       isErrorAbout: false,
 
       resumeExperience: 'noExp',
-      resumePhoneNumber: '',
-      resumeEmail: '',
-      resumeTelegram: '',
-      resumeSite: '',
-      isErrorContact: false,
       type: '',
     }
   },
@@ -282,14 +288,16 @@ export default {
         created_by: this.userId,
         salary: 0,
         resume_title: this.resumeName,
-        employ: this.employ,
-        skill: this.resumeSkill,
-        quality: this.resumeQuality,
+        salary: this.resumeSalary,
+        employ: this.resumeEmploy,
+        skills: this.skillsTags,
+        quality: this.qualityTags,
         experience: this.resumeExperience,
         about_us: this.resumeAbout,
       };
-      axios.post('/api/res/', resume)
+      axios.post('/create-resume/', resume)
           .then(response => {
+            console.log(resume)
             console.log(response)
             // window.location.reload();
           })
