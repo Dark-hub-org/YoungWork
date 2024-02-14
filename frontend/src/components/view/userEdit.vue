@@ -18,7 +18,7 @@
                 v-restrict-input-length="120"
                 type="text"
                 class="edit__data-input">
-<!--            <div class="edit__data-input">{{userData.lastName}}</div>-->
+            <!--            <div class="edit__data-input">{{userData.lastName}}</div>-->
             <span
                 class="edit__data-field__error"
                 :class="{ active: errorFields.lastname }">Заполните обязательно поле</span>
@@ -83,7 +83,7 @@
             <p class="edit__data-field__name">
               <template v-if="userData.usertype === 'applicant'">Город проживания:</template>
               <template v-else>Адрес офиса компании:</template>
-              </p>
+            </p>
             <input v-model.trim="userData.city" type="text" class="edit__data-input">
           </div>
         </div>
@@ -217,7 +217,7 @@ export default {
       try {
         if (this.checkValidData()) {
           await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, this.userData)
-          location.reload()
+          // location.reload()
         } else {
           this.checkValidData()
         }

@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import PasswordChangeForm
+from django.core.mail import send_mail
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -24,3 +25,15 @@ def me(request):
         'website': request.user.website,
         'phoneNumber': request.user.phone_number,
     })
+
+
+@api_view(['POST'])
+def editpassword(request):
+    user = request.user
+    form = PasswordChangeForm(data=request.data, user=user)
+
+    if form.is_valid():
+        form.save()
+        return JsonResponse({'message': 'success'})
+    else:
+        return JsonResponse({'message': form.errors.as_json()}, safe=False)

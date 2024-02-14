@@ -12,4 +12,5 @@ urlpatterns = [
     path('employer/data/<str:pk>/', api.employer_data, name='data_employer'),
     path('api/applicant/', api.create_applicant, name='create_applicant'),
     path('api/employer/', api.create_employer, name='create_employer'),
+    path('vacancy-response/<str:pk>/', api.response_on_vacancy, name='vacancy_response')
 ]
