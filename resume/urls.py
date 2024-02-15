@@ -9,5 +9,5 @@ urlpatterns = [
     path('resume/', ResumeData.as_view()),
     path('resume/<str:pk>/', TemplateView.as_view(template_name='index.html')),
     path('api/res/<str:pk>/', api.resume_detail_data, name="vacancy_ditail_data"),
-    path('ditail-data/<str:pk>/', api.ditail_data_of_user, name='ditail-data'),
+    path('detail-data/<str:pk>/', api.ditail_data_of_user, name='ditail-data'),
 ]

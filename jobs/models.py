@@ -20,6 +20,7 @@ class Vacancies(models.Model):
     graph = ArrayField(models.CharField(max_length=100), default=list, blank=False, null=False)
 
     favorites_count = models.IntegerField(default=0)
+    active = models.BooleanField(default=True)
 
     timestamp = models.DateTimeField(auto_now_add=True)
     company_name = models.CharField(null=True, blank=True, max_length=100)
