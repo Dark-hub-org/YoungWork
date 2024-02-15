@@ -3,6 +3,7 @@ from profiles.models import Applicant
 from jobs.models import Vacancies
 from django.contrib.postgres.fields import ArrayField
 import uuid
+from datetime import datetime as datetime
 
 
 class Resume(models.Model):
@@ -15,7 +16,7 @@ class Resume(models.Model):
     experience = models.CharField(blank=True, null=True, default='')
     about_us = models.TextField(blank=True, null=True, default='')
 
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateField(auto_now_add=False, auto_now=True)
     created_by = models.ForeignKey(Applicant, related_name='applicant_summary', on_delete=models.CASCADE)
 
     class Meta:

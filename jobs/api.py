@@ -15,11 +15,11 @@ def vacancy_detail_data(request, pk):
     return JsonResponse(serializer.data)
 
 
-@api_view(['GET'])
-def vacancy_of_users(request):
-    vacancy_detail = Vacancies.objects.filter(created_by=request.user.id)
-    serializer = VacanciesDetailSerializer(vacancy_detail)
-    return JsonResponse(serializer.data)
+# @api_view(['GET'])
+# def vacancy_of_users(request):
+#     vacancy_detail = Vacancies.objects.filter(created_by=request.user.id)
+#     serializer = VacanciesDetailSerializer(vacancy_detail)
+#     return JsonResponse(serializer.data)
 
 
 @api_view(['GET', 'POST'])

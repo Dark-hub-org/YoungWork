@@ -22,7 +22,7 @@ class Vacancies(models.Model):
     favorites_count = models.IntegerField(default=0)
     active = models.BooleanField(default=True)
 
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateField(auto_now_add=False, auto_now=True)
     company_name = models.CharField(null=True, blank=True, max_length=100)
     created_by = models.ForeignKey(Employer, related_name='employer_vacancy', on_delete=models.CASCADE)
 
