@@ -16,7 +16,7 @@ class LargeResultsSetPagination(PageNumberPagination):
 
 
 class VacanciesData(generics.ListAPIView):
-    queryset = Vacancies.objects.all()
+    queryset = Vacancies.objects.filter(active=True).all()
     serializer_class = VacanciesDataSerializer
     pagination_class = LargeResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
