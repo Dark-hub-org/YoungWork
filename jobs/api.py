@@ -16,8 +16,8 @@ def vacancy_detail_data(request, pk):
 
 
 @api_view(['GET'])
-def vacancy_of_users(request, pk):
-    vacancy_detail = Vacancies.objects.filter(pk=pk)
+def vacancy_of_users(request):
+    vacancy_detail = Vacancies.objects.filter(created_by=request.user.id)
     serializer = VacanciesDetailSerializer(vacancy_detail)
     return JsonResponse(serializer.data)
 
@@ -29,6 +29,20 @@ def vacancy_reg(request):
         serializer.save()
         return render(request, "index.html")
     return render(request, "index.html")
+
+
+@api_view(['GET'])
+def active_vacancy(request):
+    active_vacancies = Vacancies.objects.filter(created_by=request.user.id, active=True)
+    serializer = VacanciesDataSerializer(active_vacancies, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def inactive_vacancy(request):
+    inactive_vacancies = Vacancies.objects.filter(created_by=request.user.id, active=False)
+    serializer = VacanciesDataSerializer(inactive_vacancies)
+    return JsonResponse(serializer.data, safe=False)
 
 # @api_view(['DELETE'])
 # def vacancy_delete(request, pk):
