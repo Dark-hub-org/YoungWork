@@ -43,6 +43,7 @@ class User(AbstractBaseUser):
     recommendations = models.ManyToManyField('self')
 
     vacancy_count = models.IntegerField(default=0)
+    resume_count = models.IntegerField(default=0)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import api_view, permission_classes
 
 from accounts.models import User
 
@@ -25,9 +25,8 @@ def conversation_detail(request, pk):
 
 
 @api_view(['GET'])
-def conversation_get_or_create(request, user_pk):
-    user = User.objects.get(pk=user_pk)
-
+def conversation_get_or_create(request, pk):
+    user = User.objects.get(pk=pk)
     conversations = Conversation.objects.filter(users__in=list([request.user])).filter(users__in=list([user]))
 
     if conversations.exists():
