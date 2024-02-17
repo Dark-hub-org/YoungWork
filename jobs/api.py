@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
+from accounts.models import User
 from .models import Vacancies, Response
 from .serializers import VacanciesDetailSerializer, VacanciesDataSerializer, ResponseDataSerializer
 from django.shortcuts import render
@@ -50,6 +51,18 @@ def all_response(request):
     resp = Response.objects.filter(org=request.user.id)
     serializer = ResponseDataSerializer(resp, many=True)
     return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def ditail_data_of_user(request, pk):
+    user = User.objects.get(pk=pk)
+    return JsonResponse(data={
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'region': user.region,
+        'citizenship': user.citizenship,
+        'phone_number': user.phone_number,
+    })
 
 # @api_view(['DELETE'])
 # def vacancy_delete(request, pk):
