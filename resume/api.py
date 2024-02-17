@@ -1,7 +1,5 @@
 from django.http import JsonResponse
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.response import Response
 
 from accounts.models import User
 from .models import Resume
@@ -17,9 +15,9 @@ def resume_detail_data(request, pk):
 
 
 @api_view(['GET'])
-def resume_of_users(request, pk):
-    resume_detail = Resume.objects.filter(pk=pk)
-    serializer = ResumeDataSerializer(resume_detail)
+def resume_of_users(request):
+    resume = Resume.objects.filter(created_by=request.user.id)
+    serializer = ResumeDataSerializer(resume)
     return JsonResponse(serializer.data)
 
 

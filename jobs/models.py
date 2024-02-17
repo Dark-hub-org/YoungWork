@@ -2,7 +2,7 @@ import uuid
 
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from profiles.models import Employer
+from profiles.models import Employer, Applicant
 
 
 class Vacancies(models.Model):
@@ -34,15 +34,21 @@ class Vacancies(models.Model):
         return f"{self.job_title}"
 
 
-# TODO event to check inn
-class Events(models.Model):
+class Response(models.Model):
+    resp = {
+        "Response": 'new_response',
+        "Invite": 'invite',
+        "Accepted": 'accepted_response',
+        "Rejected": 'rejected_response',
+    }
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    event_type = models.CharField(null=True, max_length=100, default='')
-    date_start = models.DateTimeField(null=True, auto_now_add=True)
-    data_end = models.DateTimeField(null=True, blank=True)
-    result = models.CharField(null=True, max_length=100, default='')
-    created_by = models.ForeignKey(Employer, related_name='employer_event', on_delete=models.CASCADE)
+    vacancy = models.ForeignKey(Vacancies, on_delete=models.CASCADE, blank=True, null=True)
+    date_start = models.DateField(auto_now_add=False, auto_now=True)
+    data_end = models.DateField(null=True, blank=True)
+    result = models.CharField(max_length=50, choices=resp, default='new_vacancy_response')
+    org = models.ForeignKey(Employer, related_name='employer_event', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Applicant, related_name='applicant_event', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Событие'
-        verbose_name_plural = 'Событие'
+        verbose_name = 'Отклики'
+        verbose_name_plural = 'Отклики'

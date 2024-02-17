@@ -218,6 +218,7 @@ export default {
         if (this.checkValidData()) {
           await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, this.userData)
           // location.reload()
+          console.log(this.userData)
         } else {
           this.checkValidData()
         }
