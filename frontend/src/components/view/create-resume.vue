@@ -253,7 +253,7 @@ export default {
 
       resumeSalary: null,
 
-      resumeEmploy: ['fullEmploy'],
+      resumeEmploy: ['Полная занятость'],
       isErrorEmploy: false,
 
       resumeGraph: [],
@@ -272,7 +272,7 @@ export default {
       resumeAbout: '',
       isErrorAbout: false,
 
-      resumeExperience: 'noExp',
+      resumeExperience: 'Нет опыта',
       type: '',
     }
   },

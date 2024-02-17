@@ -6,13 +6,13 @@ from jobs.models import Vacancies
 
 
 class Notification(models.Model):
-    type_of_notification = {
-        "VacancyResponse": 'new_vacancy_response',
-        "AcceptedVacancy": 'accepted_vacancy_response',
-        "RejectedVacancy": 'rejected_vacancy_response',
-        "VacancyFavorites": 'vacancy_favorites',
-        "PostComment": 'vacancy_comment',
-    }
+    type_of_notification = (
+        ("VacancyResponse", 'new_vacancy_response'),
+        ("AcceptedVacancy", 'accepted_vacancy_response'),
+        ("RejectedVacancy", 'rejected_vacancy_response'),
+        ("VacancyFavorites", 'vacancy_favorites'),
+        ("PostComment", 'vacancy_comment')
+        )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     body = models.TextField()
     is_read = models.BooleanField(default=False)

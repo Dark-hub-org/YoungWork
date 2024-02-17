@@ -184,6 +184,11 @@
 
     &-block {
       margin-bottom: 24px;
+      &--description {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
       &:last-child {
         margin-bottom: 32px;
       }
@@ -191,7 +196,10 @@
 
     &-list {
       display: flex;
+      align-items: center;
+      gap: 5px;
       flex-wrap: wrap;
+      margin-top: 8px;
     }
 
     &-text {
@@ -201,13 +209,9 @@
       letter-spacing: -1px;
       &--type {
         display: inline-block;
-        margin-top: 8px;
         padding: 8px;
         border-radius: 8px;
         background-color: $colorBlueBg;
-      }
-      &:first-of-type {
-        margin-bottom: 8px;
       }
     }
     &-company {
