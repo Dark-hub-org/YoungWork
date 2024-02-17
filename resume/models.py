@@ -17,7 +17,7 @@ class Resume(models.Model):
     about_us = models.TextField(blank=True, null=True, default='')
 
     timestamp = models.DateField(auto_now_add=False, auto_now=True)
-    created_by = models.ForeignKey(Applicant, related_name='applicant_summary', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Applicant, related_name='applicant_resume', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Резюме'

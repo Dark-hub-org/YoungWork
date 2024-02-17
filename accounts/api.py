@@ -1,5 +1,4 @@
 from django.contrib.auth.forms import PasswordChangeForm
-from django.core.mail import send_mail
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes

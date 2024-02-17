@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Vacancies, Events
+from .models import Vacancies, Response
 
 
 class VacanciesDataSerializer(serializers.ModelSerializer):
@@ -15,7 +15,7 @@ class VacanciesDetailSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class EventsDataSerializer(serializers.ModelSerializer):
+class ResponseDataSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Events
+        model = Response
         fields = "__all__"

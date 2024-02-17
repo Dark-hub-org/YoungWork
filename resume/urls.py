@@ -5,9 +5,10 @@ from . import api
 from .views import *
 
 urlpatterns = [
-    path('create-resume/', api.resume_reg, name="create_resume"),
-    path('resume/', ResumeData.as_view()),
+    path('resume/', TemplateView.as_view(template_name='index.html')),
+    path('api/res/', ResumeData.as_view()),
     path('resume/<str:pk>/', TemplateView.as_view(template_name='index.html')),
     path('api/res/<str:pk>/', api.resume_detail_data, name="vacancy_ditail_data"),
-    path('detail-data/<str:pk>/', api.ditail_data_of_user, name='ditail-data'),
+    path('api/res/user/', api.resume_of_users, name="user_of_resume"),
+    path('create-resume/', api.resume_reg, name="create_resume"),
 ]

@@ -30,10 +30,10 @@
             </li>
           </template>
           <template v-else>
-            <router-link  to="/" tag="li" class="header__button">
+            <router-link to="/" tag="li" class="header__button">
               <img src="@/assets/star.svg" alt="кнопка избранных вакансий">
             </router-link>
-            <router-link  to="/" tag="li" class="header__alerts">
+            <router-link to="/" tag="li" class="header__alerts">
               <img src="@/assets/alerts.svg" alt="кнопка оповещений">
             </router-link>
             <button class="header__alerts">
@@ -53,7 +53,7 @@
               class="supernova-wrapper">
             <ul class="supernova-wrapper-list">
               <li class="supernova-wrapper-item">
-              <span class="supernova-wrapper__name" @click.stop="moveProfile">{{ userData.firstName }}</span>
+                <span class="supernova-wrapper__name" @click.stop="moveProfile">{{ userData.firstName }}</span>
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
                 <router-link to="/" tag="div" class="supernova-wrapper-block">
@@ -83,12 +83,18 @@
                 </div>
                 <ul class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
                   <template v-if="userData.usertype === 'employer'">
-                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Создать вакансию</router-link>
-                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Мои вакансии</router-link>
+                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Создать
+                      вакансию
+                    </router-link>
+                    <router-link class="supernova-wrapper-sublist__link" to="/employer/" tag="li">Мои
+                      вакансии
+                    </router-link>
                   </template>
                   <template v-if="userData.usertype === 'applicant'">
-                    <router-link class="supernova-wrapper-sublist__link" to="/create-resume" tag="li">Создать резюме</router-link>
-                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Мои резюме</router-link>
+                    <router-link class="supernova-wrapper-sublist__link" to="/create-resume" tag="li">Создать резюме
+                    </router-link>
+                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Мои резюме
+                    </router-link>
                   </template>
                 </ul>
               </li>
