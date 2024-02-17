@@ -31,9 +31,8 @@
               class="vacancy__filters">
           </the-filters>
           <div class="vacancy__list" :class="{hidden: isFilterVisible}">
-            <div v-if="vacancies === []" class="vacancy__preloader"></div>
             <div
-                v-else class="vacancy__item"
+                class="vacancy__item"
                 v-for="vacancy in vacancies"
                 :key="vacancy.id">
               <div class="vacancy__item-header">
@@ -80,7 +79,7 @@
                 </div>
               </div>
               <div class="vacancy__item-btns">
-                <button class="button-orange-another vacancy__item-btn">Откликнуться</button>
+                <button @click="sendResponse(vacancy.id, vacancy.job_title, vacancy.create.by)" class="button-orange-another vacancy__item-btn">Откликнуться</button>
                 <button class="button-orange vacancy__item-btn">В избранное</button>
               </div>
             </div>
@@ -179,27 +178,6 @@ export default {
     closeFilters() {
       this.isFilterVisible = false
     },
-    // async fetchVacancies(pageNum) {
-    //   try {
-    //     const response = await axios.get(`/api/vac?page=${pageNum}`)
-    //     this.vacancies = response.data.results
-    //     this.quantityVacancies = response.data.count
-    //     this.currentPage = pageNum;
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // },
-    // async changePage(pageNum) {
-    //   try {
-    //     const route = pageNum === 1 ? '/vacancy' : `/vacancy/?page=${pageNum}`;
-    //     if (this.$route.path !== route) {
-    //       await this.$router.replace(route);
-    //       window.scrollTo(0, 0);
-    //     }
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // },
     async fetchVacancies(searchValue, filtersValue, pageNum = 1) {
       try {
         console.log(filtersValue)
@@ -207,6 +185,7 @@ export default {
         var pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
         const response = await axios.get(`/api/vac/?${pageRoute}${route}${filtersValue}`);
         this.vacancies = response.data.results;
+        console.log( response.data.results)
         this.quantityVacancies = response.data.count;
         this.currentPage = pageNum;
         this.requestValue = searchValue;
@@ -224,10 +203,18 @@ export default {
       const search = !this.$route.query.search ? '' : `search=${this.$route.query.search}`
       this.$router.push(`/vacancy/?${page}&${search}&${filterValue}`)
     },
-    // getVacancy(page) {
-    //   this.fetchVacancies(page);
-    //   this.changePage(page)
-    // },
+    async sendResponse(vacancyId, vacancyTitle, vacancyUserId) {
+      const data = {
+        vacancy: vacancyId,
+        org: vacancyTitle,
+        created_by: vacancyUserId
+      }
+      try {
+        await axios.post('api/response/', data)
+      } catch(error) {
+        console.log(error)
+      }
+    }
   },
   computed: {
     totalPage() {

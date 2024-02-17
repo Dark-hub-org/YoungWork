@@ -20,13 +20,13 @@
             <p class="vacancy__info-text text--green">Сейчас эту вакансию смотрят 3 человека</p>
           </div>
           <div class="vacancy__info-btns">
-            <button class="button-orange-another">Откликнуться</button>
+            <button @click="sendResponse" class="button-orange-another">Откликнуться</button>
             <button class="button-orange">В избранное</button>
           </div>
         </div>
         <div class="vacancy__employer">
           <img src="@/assets/vacancy/company-logo.svg" alt="логотип компании" class="vacancy__employer-img">
-          <p class="vacancy__employer-company">ООО ЦТД</p>
+          <p class="vacancy__employer-company">{{vacancyData.job_title}}</p>
           <p class="vacancy__info-text">Владивосток, ул. Ленина, 25</p>
           <p class="vacancy__info-text">8(999)888-77-66</p>
           <p class="vacancy__info-text text--green">HR, Самохина Людмила</p>
@@ -61,6 +61,7 @@ export default {
   data() {
     return {
       vacancyData: {},
+      employerData: {},
       vacancys: [
         {
           title: 'Дизайнер интерфейсов',
@@ -105,15 +106,37 @@ export default {
     async getVacancyData(id) {
       try {
         const response = await axios.get(`/api/vac/${id}`);
+        // const employerData = await axios.get(`api/data/${response.data.id}`)
+        // this.employerData = employerData
+
         this.vacancyData = response.data
-        console.log(response)
       } catch (error) {
+        console.log(error)
+      }
+    },
+    async sendResponse() {
+      const data = {
+        vacancy: this.vacancyData.id,
+        org: this.vacancyData.created_by,
+        created_by: this.userId
+      }
+      try {
+        await axios.post('/api/response/', JSON.stringify(data))
+        console.log(data)
+      } catch(error) {
+        console.log(data)
         console.log(error)
       }
     }
   },
+  computed: {
+    userId() {
+      return this.$store.state.userData.id
+    }
+  },
   mounted() {
     this.getVacancyData(this.id)
+
   },
 }
 </script>

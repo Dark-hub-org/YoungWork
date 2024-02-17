@@ -366,6 +366,7 @@
           </div>
         </modal-window>
       </Transition>
+      <the-chat v-if="isChatActive"/>
       <button
           @click="openItem"
           :class="{active: isMenuActive}"
@@ -382,10 +383,12 @@
 import ModalWindow from "@/components/ui/modalWin.vue";
 import _ from 'lodash';
 import axios from "axios"
+import TheChat from "@/components/ui/chat.vue";
 
 export default {
   name: 'SiteHeader',
   components: {
+    TheChat,
     ModalWindow
   },
   data() {
@@ -415,6 +418,8 @@ export default {
       isAuthorized: false,
       isSupernovaMenuActive: false,
       isSubMenu: false,
+
+      isChatActive: false,
     }
   },
   methods: {

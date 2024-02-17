@@ -16,7 +16,7 @@ class Resume(models.Model):
     experience = models.CharField(blank=True, null=True, default='')
     about_us = models.TextField(blank=True, null=True, default='')
 
-    timestamp = models.DateField(auto_now_add=False, auto_now=True)
+    timestamp = models.DateField(auto_now_add=True)
     created_by = models.ForeignKey(Applicant, related_name='applicant_summary', on_delete=models.CASCADE)
 
     class Meta:
