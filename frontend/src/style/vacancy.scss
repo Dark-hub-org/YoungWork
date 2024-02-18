@@ -173,6 +173,9 @@
       &:hover {
         color: $colorBlack;
       }
+      &:visited {
+        color: $colorOrangeM;
+      }
     }
 
     &-salary {

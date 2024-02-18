@@ -79,7 +79,7 @@
                 </div>
               </div>
               <div class="vacancy__item-btns">
-                <button @click="sendResponse(vacancy.id, vacancy.job_title, vacancy.create.by)" class="button-orange-another vacancy__item-btn">Откликнуться</button>
+                <button v-if="!vacancy.response" @click="sendResponse(vacancy)" class="button-orange-another vacancy__item-btn">Откликнуться</button>
                 <button class="button-orange vacancy__item-btn">В избранное</button>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default {
       vacancies: [],
       quantityVacancies: 0,
       currentPage: 1,
-      pageQuantityMax: 2,
+      pageQuantityMax: 10,
       requestValue: '',
     }
   },
@@ -178,14 +178,22 @@ export default {
     closeFilters() {
       this.isFilterVisible = false
     },
+    convertVacancies(vacancy) {
+      this.vacancies = vacancy.map(item => {
+        return { ...item, response: false };
+      });
+    },
+
     async fetchVacancies(searchValue, filtersValue, pageNum = 1) {
       try {
         console.log(filtersValue)
-        var route = searchValue ? `search=${searchValue}` : '';
-        var pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
+        const route = searchValue ? `search=${searchValue}` : '';
+        const pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
         const response = await axios.get(`/api/vac/?${pageRoute}${route}${filtersValue}`);
-        this.vacancies = response.data.results;
-        console.log( response.data.results)
+
+        this.convertVacancies(response.data.results)
+        // this.vacancies = response.data.results;
+
         this.quantityVacancies = response.data.count;
         this.currentPage = pageNum;
         this.requestValue = searchValue;
@@ -203,22 +211,30 @@ export default {
       const search = !this.$route.query.search ? '' : `search=${this.$route.query.search}`
       this.$router.push(`/vacancy/?${page}&${search}&${filterValue}`)
     },
-    async sendResponse(vacancyId, vacancyTitle, vacancyUserId) {
+    async sendResponse(vacancy) {
       const data = {
-        vacancy: vacancyId,
-        org: vacancyTitle,
-        created_by: vacancyUserId
+        vacancy: vacancy.id,
+        org: vacancy.created_by,
+        created_by: this.userId,
       }
       try {
-        await axios.post('api/response/', data)
+        await axios.post('/api/response/', data)
+        this.vacancies = this.vacancies.map(item => item.id === vacancy.id ? {...item, response: true} : {...item})
       } catch(error) {
+        console.log(data)
         console.log(error)
       }
     }
   },
+  beforeCreate() {
+    this.applicantResponseVacancy = this.$store.state.userData.response
+  },
   computed: {
     totalPage() {
       return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
+    },
+    userId() {
+      return this.$store.state.userData.id
     },
   },
   mounted() {
@@ -237,15 +253,6 @@ export default {
       this.currentPage = +attributePage
     }
     this.fetchVacancies(attributeSearch, filterRoute, this.currentPage);
-
-
-    // this.data()
-    // if (this.$route.query.page) {
-    //   this.currentPage = +this.$route.query.page
-    //   this.getVacancy(this.currentPage);
-    // } else {
-    //   this.getVacancy(this.currentPage);
-    // }
   },
 }
 

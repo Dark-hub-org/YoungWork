@@ -35,12 +35,12 @@ class Vacancies(models.Model):
 
 
 class Response(models.Model):
-    resp = {
-        "Response": 'new_response',
-        "Invite": 'invite',
-        "Accepted": 'accepted_response',
-        "Rejected": 'rejected_response',
-    }
+    resp = (
+        ("Response", 'new_response'),
+        ("Invite", 'invite'),
+        ("Accepted", 'accepted_response'),
+        ("Rejected", 'rejected_response'),
+    )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     vacancy = models.ForeignKey(Vacancies, on_delete=models.CASCADE, blank=True, null=True)

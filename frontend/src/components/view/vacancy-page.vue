@@ -20,7 +20,7 @@
             <p class="vacancy__info-text text--green">Сейчас эту вакансию смотрят 3 человека</p>
           </div>
           <div class="vacancy__info-btns">
-            <button @click="sendResponse" class="button-orange-another">Откликнуться</button>
+            <button v-if="!vacancyData.response" @click="sendResponse" class="button-orange-another">Откликнуться</button>
             <button class="button-orange">В избранное</button>
           </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="vacancy__description" v-html="vacancyData.description"></div>
         <div class="vacancy__bottom">
           <p class="vacancy__bottom-date">Вакансия была опубликована сегодня, 16:25</p>
-          <button class="button-orange-another">Откликнуться</button>
+          <button v-if="!vacancyData.response" class="button-orange-another">Откликнуться</button>
         </div>
       </div>
       <h3 class="section-title">Рекомендуем вам</h3>
@@ -121,10 +121,9 @@ export default {
         created_by: this.userId
       }
       try {
-        await axios.post('/api/response/', JSON.stringify(data))
-        console.log(data)
+        await axios.post('/api/response/', data)
+        this.vacancyData = {...this.vacancyData, response: true}
       } catch(error) {
-        console.log(data)
         console.log(error)
       }
     }
