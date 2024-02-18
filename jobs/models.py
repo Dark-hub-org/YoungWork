@@ -41,6 +41,7 @@ class Response(models.Model):
         "Accepted": 'accepted_response',
         "Rejected": 'rejected_response',
     }
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     vacancy = models.ForeignKey(Vacancies, on_delete=models.CASCADE, blank=True, null=True)
     date_start = models.DateField(auto_now_add=False, auto_now=True)

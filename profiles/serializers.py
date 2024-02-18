@@ -5,13 +5,13 @@ from .models import Applicant, Employer
 class ApplicantDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Applicant
-        fields = ["portfolio", ]
+        fields = ["portfolio", "response"]
 
 
 class ApplicantDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer
-        fields = ["portfolio", ]
+        fields = ["portfolio", "response"]
 
 
 class EmployerDetailSerializer(serializers.ModelSerializer):

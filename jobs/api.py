@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
+from profiles.models import Applicant
 from accounts.models import User
 from .models import Vacancies, Response
 from .serializers import VacanciesDetailSerializer, VacanciesDataSerializer, ResponseDataSerializer
@@ -39,11 +40,22 @@ def inactive_vacancy(request):
 
 @api_view(['POST'])
 def response_on_vacancy(request):
-    serializer = ResponseDataSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return JsonResponse(serializer.data)
-    return render(request, "index.html")
+    vacancy = request.data.get('vacancy')
+    check = Response.objects.filter(created_by=request.user.id, vacancy=vacancy)
+
+    if not check:
+        serializer = ResponseDataSerializer(data=request.data)
+        applicant_get = Applicant.objects.get(user=request.user.id)
+        applicant_filter = Applicant.objects.filter(user=request.user.id)
+        res = list(applicant_get.response.copy())
+        res.append(vacancy)
+        applicant_filter.update(response=res)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.data, safe=False)
+    else:
+        return JsonResponse("Вы уже откликнулись", safe=False)
 
 
 @api_view(['GET'])

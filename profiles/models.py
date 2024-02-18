@@ -1,11 +1,13 @@
 from django.db import models
 from accounts.models import User
+from django.contrib.postgres.fields import ArrayField
 
 
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='applicant_user')
-    
+    response = ArrayField(models.CharField(max_length=100), default=list, blank=True, null=True)
+
     portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
 
     class Meta:
