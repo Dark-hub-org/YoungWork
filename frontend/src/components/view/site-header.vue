@@ -86,9 +86,11 @@
                     <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Создать
                       вакансию
                     </router-link>
-                    <router-link class="supernova-wrapper-sublist__link" to="/employer/" tag="li">Мои
-                      вакансии
-                    </router-link>
+                    <li @click="routeEmployerVacancy" class="supernova-wrapper-sublist__link">Мои
+                      вакансии</li>
+<!--                    <router-link  class="supernova-wrapper-sublist__link" :to="{name: 'employer', params: { id: userData.id} }" tag="li">Мои-->
+<!--                      вакансии-->
+<!--                    </router-link>-->
                   </template>
                   <template v-if="userData.usertype === 'applicant'">
                     <router-link class="supernova-wrapper-sublist__link" to="/create-resume" tag="li">Создать резюме
@@ -429,6 +431,10 @@ export default {
     }
   },
   methods: {
+    routeEmployerVacancy() {
+      this.$router.push({ name: 'employer', params: { id: this.userData.id } })
+      localStorage.setItem('applicantTab', JSON.stringify(2));
+    },
     validFormReg() {
       return this.isEmptyEmail || this.isCheckEmail || this.isEmptyPassword || this.isCheckPassword
     },

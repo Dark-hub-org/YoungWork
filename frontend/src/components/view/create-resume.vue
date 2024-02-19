@@ -295,10 +295,8 @@ export default {
         about_us: this.resumeAbout,
       };
       axios.post('/create-resume/', resume)
-          .then(response => {
-            console.log(resume)
-            console.log(response)
-            // window.location.reload();
+          .then(() => {
+            location.reload()
           })
           .catch(error => {
             console.log(error)

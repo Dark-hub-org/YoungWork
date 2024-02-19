@@ -110,7 +110,8 @@
                 v-model.trim="userData.email"
                 type="text"
                 placeholder="Адрес эл.почты"
-                class="edit__data-input contact">
+                class="edit__data-input contact"
+                readonly>
           </div>
           <div class="edit__data-field contact">
             <img
@@ -217,8 +218,7 @@ export default {
       try {
         if (this.checkValidData()) {
           await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, this.userData)
-          // location.reload()
-          console.log(this.userData)
+          location.reload()
         } else {
           this.checkValidData()
         }

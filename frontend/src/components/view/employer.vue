@@ -39,10 +39,43 @@
     <template v-slot:twoTub>
       <div class="profile__vacancy">
         <p class="profile__subtitle">Активные:</p>
-
+        <swiper
+            :slides-per-view="2"
+            :space-between="16"
+            :loop="false"
+            :navigation="true"
+            class="profile__slider">
+          <swiper-slide
+              v-for="vacancy in activeVacancy"
+              :key="vacancy.id"
+              class="profile__slider-item">
+            <p class="profile__slider-title">{{vacancy.job_title}}</p>
+            <div class="profile__slider-btns">
+              <router-link to="/" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
+              <router-link to="/" tag="a" class="button-orange">Отклики</router-link>
+            </div>
+          </swiper-slide>
+        </swiper>
       </div>
       <div class="profile__vacancy">
         <p class="profile__subtitle">Завершенные:</p>
+        <swiper
+            :slides-per-view="2"
+            :space-between="16"
+            :loop="false"
+            :navigation="true"
+            class="profile__slider">
+          <swiper-slide
+              v-for="vacancy in activeVacancy"
+              :key="vacancy.id"
+              class="profile__slider-item profile__slider-item--inactive">
+            <p class="profile__slider-title">{{vacancy.job_title}}</p>
+            <div class="profile__slider-btns">
+              <router-link to="/create-vacancy" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
+              <router-link to="/" tag="a" class="button-orange">Отклики</router-link>
+            </div>
+          </swiper-slide>
+        </swiper>
       </div>
     </template>
     <template v-slot:verification>
@@ -65,11 +98,17 @@
 <script>
 import UserProfile from "@/components/ui/userProfile.vue";
 import ModalWindow from "@/components/ui/modalWin.vue";
-import axios from "axios";
 
+import { Navigation} from 'swiper'
+import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
+SwiperCore.use([Navigation])
+
+
+import axios from "axios";
+import 'swiper/swiper-bundle.css'
 export default {
   name: 'employer-profile',
-  components: {ModalWindow, UserProfile},
+  components: {ModalWindow, UserProfile, Swiper, SwiperSlide},
   data() {
     return {
       profileText: {
@@ -80,11 +119,18 @@ export default {
         },
         portfolioTitle: 'Награды и достижения:',
       },
+      breakpoints: {
+        850: {
+          slidesPerView: 1
+        }
+      },
       isVerificationModal: false,
       userINN: '',
       keyAPI: '905cbd0ecbf3cfba0e900cbd13edc74e17424177',
       isUserINNError: false,
       isModalVisible: false,
+      activeVacancy: [],
+      inactiveVacancy: [],
     }
   },
   methods: {
@@ -102,6 +148,16 @@ export default {
         console.log({req: this.userINN,  key: this.keyAPI})
         console.log(error)
       }
+    },
+    async getVacancyUser() {
+        try {
+          const activeVacancy = await axios.get('/api/active/vac/')
+          const inactiveVacancy = await axios.get('/api/inactive/vac/')
+          this.activeVacancy = activeVacancy.data
+          this.inactiveVacancy = inactiveVacancy.data
+        } catch(error) {
+          console.log(error)
+        }
     },
     onCloseModalWin() {
       this.isModalVisible = false;
@@ -135,10 +191,13 @@ export default {
     userData() {
       return this.$store.state.userData
     },
+  },
+  mounted() {
+    this.getVacancyUser()
   }
 }
 </script>
 
-<style src="@/style/employer.scss" lang="scss" scoped>
+<style src="@/style/employer.scss" lang="scss">
 
 </style>
