@@ -115,6 +115,13 @@ def applicant_data(self, pk):
     serializer = ApplicantDetailSerializer(applicant_detail)
     return JsonResponse(serializer.data)
 
+
+@api_view(['GET'])
+def applicant_data_more(self, pk):
+    applicant_detail = Applicant.objects.get(pk=pk)
+    serializer = ApplicantDetailSerializer(applicant_detail)
+    return JsonResponse(serializer.data)
+
 # @api_view(['GET'])
 # def response_on_vacancy(request, pk):
 #     user = User.objects.get(pk=pk)
