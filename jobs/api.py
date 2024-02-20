@@ -48,15 +48,19 @@ def edit_vacancy(request, pk):
     return JsonResponse(serializers.data)
 
 
-@api_view(['GET'])
-def active_vacancy(request):
+@api_view(['GET', 'POST'])
+def active_vacancy(request, pk):
+    if request.method == 'POST':
+        Vacancies.objects.filter(pk=pk).update(active=True)
     active_vacancies = Vacancies.objects.filter(created_by=request.user.id, active=True)
     serializer = VacanciesDataSerializer(active_vacancies, many=True)
     return JsonResponse(serializer.data, safe=False)
 
 
-@api_view(['GET'])
-def inactive_vacancy(request):
+@api_view(['GET', 'POST'])
+def inactive_vacancy(request, pk):
+    if request.method == 'POST':
+        Vacancies.objects.filter(pk=pk).update(active=False)
     inactive_vacancies = Vacancies.objects.filter(created_by=request.user.id, active=False)
     serializer = VacanciesDataSerializer(inactive_vacancies, many=True)
     return JsonResponse(serializer.data, safe=False)
