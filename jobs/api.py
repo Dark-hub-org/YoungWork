@@ -34,7 +34,7 @@ def active_vacancy(request):
 @api_view(['GET'])
 def inactive_vacancy(request):
     inactive_vacancies = Vacancies.objects.filter(created_by=request.user.id, active=False)
-    serializer = VacanciesDataSerializer(inactive_vacancies)
+    serializer = VacanciesDataSerializer(inactive_vacancies, many=True)
     return JsonResponse(serializer.data, safe=False)
 
 
