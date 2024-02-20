@@ -220,7 +220,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import "@/style/landing";
+<style src="@/style/landing.scss" lang="scss" scoped>
 
 </style>

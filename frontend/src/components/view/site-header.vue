@@ -628,8 +628,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import "@/style/header";
+<style src="@/style/header.scss" lang="scss" scoped>
 
 </style>
 

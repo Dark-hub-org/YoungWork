@@ -224,9 +224,15 @@
             }
         }
 
-        &-submit {
-            margin-left: 50%;
-            transform: translateX(-50%);
+        //&-submit {
+        //    margin-left: 50%;
+        //    transform: translateX(-50%);
+        //}
+        &-btns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
         }
     }
 }

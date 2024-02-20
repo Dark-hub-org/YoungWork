@@ -13,7 +13,7 @@
         <div class="constructor__form-block">
           <p class="constructor__form-block__name">Напишите название вакансии:</p>
           <input
-              v-model.trim="vacancyTitle"
+              v-model.trim="vacancyData.job_title"
               v-restrict-input-length="120"
               :class="{ error: errorFields.vacancyTitle }"
               @input="errorFields.vacancyTitle = false"
@@ -27,14 +27,14 @@
         <div class="constructor__form-block">
           <p class="constructor__form-block__name">Уровень заработной платы:</p>
           <input
-              v-model.number="salaryMin"
+              v-model.number="vacancyData.salary_min"
               type="number"
               class="constructor__form-block__input small"
               placeholder="От">
           <span
               class="constructor__form-block__error">Заполните поле</span>
           <input
-              v-model.number="salaryMax"
+              v-model.number="vacancyData.salary_max"
               type="number"
               class="constructor__form-block__input small"
               placeholder="До">
@@ -42,7 +42,7 @@
               class="constructor__form-block__error">Заполните поле</span>
           <div class="constructor__form-parameter">
             <input
-                v-model="isSalaryTask"
+                v-model="vacancyData.tax"
                 type="radio"
                 value="До вычета налогов"
                 name="salary"
@@ -52,7 +52,7 @@
           </div>
           <div class="constructor__form-parameter">
             <input
-                v-model="isSalaryTask"
+                v-model="vacancyData.tax"
                 type="radio"
                 name="salary"
                 value="На руки"
@@ -65,7 +65,7 @@
           <p class="constructor__form-block__name">Укажите тип занятости:</p>
           <div class="constructor__form-parameter">
             <input
-                v-model="employ"
+                v-model="vacancyData.employ"
                 type="radio"
                 name="employ"
                 value="Полная занятость"
@@ -76,7 +76,7 @@
           </div>
           <div class="constructor__form-parameter">
             <input
-                v-model="employ"
+                v-model="vacancyData.employ"
                 type="radio"
                 name="employ"
                 value="Частичная занятость"
@@ -86,7 +86,7 @@
           </div>
           <div class="constructor__form-parameter">
             <input
-                v-model="employ"
+                v-model="vacancyData.employ"
                 type="radio"
                 name="employ"
                 value="Стажировка"
@@ -96,7 +96,7 @@
           </div>
           <div class="constructor__form-parameter">
             <input
-                v-model="employ"
+                v-model="vacancyData.employ"
                 type="radio"
                 name="employ"
                 value="Проектная работа"
@@ -106,7 +106,7 @@
           </div>
           <div class="constructor__form-parameter">
             <input
-                v-model="employ"
+                v-model="vacancyData.employ"
                 type="radio"
                 name="employ"
                 value="Волонтерство"
@@ -119,7 +119,7 @@
           <p class="constructor__form-block__name">Укажите требуемый опыт работы:</p>
           <div class="constructor__form-parameter">
             <input
-                v-model="experience"
+                v-model="vacancyData.required_experience"
                 type="radio"
                 name="exp"
                 value="Не имеет значения"
@@ -129,7 +129,7 @@
           </div>
           <div class="constructor__form-parameter">
             <input
-                v-model="experience"
+                v-model="vacancyData.required_experience"
                 type="radio"
                 name="exp"
                 value="от 1 года до 3 лет"
@@ -138,7 +138,7 @@
           </div>
           <div class="constructor__form-parameter">
             <input
-                v-model="experience"
+                v-model="vacancyData.required_experience"
                 type="radio"
                 name="exp"
                 value="От 3 до 6 лет"
@@ -148,7 +148,7 @@
           </div>
           <div class="constructor__form-parameter">
             <input
-                v-model="experience"
+                v-model="vacancyData.required_experience"
                 type="radio"
                 name="exp"
                 value="Нет опыта"
@@ -158,7 +158,7 @@
           </div>
           <div class="constructor__form-parameter">
             <input
-                v-model="experience"
+                v-model="vacancyData.required_experience"
                 type="radio"
                 name="exp"
                 value="Более 6 лет"
@@ -171,7 +171,7 @@
           <p class="constructor__form-block__name">График работы</p>
           <div class="constructor__form-parameter employ">
             <input
-                v-model="graph"
+                v-model="vacancyData.graph"
                 @change="errorFields.graph = false"
                 type="checkbox"
                 class="constructor__form-parameter__input"
@@ -184,7 +184,7 @@
           </div>
           <div class="constructor__form-parameter employ">
             <input
-                v-model="graph"
+                v-model="vacancyData.graph"
                 @change="errorFields.graph = false"
                 type="checkbox"
                 class="constructor__form-parameter__input"
@@ -197,7 +197,7 @@
           </div>
           <div class="constructor__form-parameter employ">
             <input
-                v-model="graph"
+                v-model="vacancyData.graph"
                 @change="errorFields.graph = false"
                 type="checkbox"
                 class="constructor__form-parameter__input"
@@ -210,7 +210,7 @@
           </div>
           <div class="constructor__form-parameter employ">
             <input
-                v-model="graph"
+                v-model="vacancyData.graph"
                 @change="errorFields.graph = false"
                 type="checkbox"
                 class="constructor__form-parameter__input"
@@ -223,7 +223,7 @@
           </div>
           <div class="constructor__form-parameter employ">
             <input
-                v-model="graph"
+                v-model="vacancyData.graph"
                 @change="errorFields.graph = false"
                 type="checkbox"
                 class="constructor__form-parameter__input"
@@ -242,7 +242,7 @@
             class="constructor__form-ckeditor-wrapper">
           <ckeditor
               :config="editorConfig"
-              v-model="description"
+              v-model="vacancyData.description"
               @input="errorFields.description = false"
               :class="{error: errorFields.description}"
               class="constructor__form-ckeditor"></ckeditor>
@@ -252,12 +252,23 @@
         </div>
         <div class="constructor-contact">
         </div>
-        <button
-            type="submit"
-            @click.prevent="createVacancy"
-            class="button-orange-another constructor__form-submit"
-        >Опубликовать
-        </button>
+        <div class="constructor__form-btns">
+          <button
+              type="submit"
+              @click.prevent="editVacancyData"
+              class="button-orange-another constructor__form-submit"
+          >Сохранить
+          </button>
+          <button
+              @click="switchVacancyActive(vacancyData.active = !vacancyData.active)"
+              type="button"
+              class="button-orange constructor__form-submit"
+          >
+            <template v-if="vacancyData.active">Добавить в архив</template>
+            <template v-else>Сделать активной</template>
+          </button>
+        </div>
+
       </form>
     </div>
   </section>
@@ -284,60 +295,44 @@ export default {
       editorConfig: {
         toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
       },
-      description:
-          "<p><strong>О компании / заказчике:</strong></p" +
-          "<ul><li></li></ul>" +
-          "<p><strong>Обязанности:</strong></p>" +
-          "<ul><li></li></ul>" +
-          "<p><strong>Требования:</strong></p>" +
-          "<ul><li></li></ul>" +
-          "<p><strong>Условия:</strong></p>" +
-          "<ul><li></li></ul>",
-      tasks: '',
-      requirements: this.description,
-      isSalaryTask: "До вычета налогов",
-      employ: 'Полная занятость',
-      experience: 'Не имеет значения',
-      graph: ["Полный день",],
-
-      vacancyTitle: '',
-      salaryMin: null,
-      salaryMax: null,
-      type: '',
-      logo: '',
+      vacancyId: '',
+      vacancyData: {},
       errorFields: {
         vacancyTitle: false,
         salary: false,
-        // salaryMin: false,
-        // salaryMax: false,
         graph: false,
         description: false,
-      }
+      },
     }
   },
   methods: {
-    async createVacancy() {
+    async getVacancyData() {
       try {
-        this.parseResponsibilities(this.description, 'Обязанности')
-        this.parseResponsibilities(this.description, 'Требования')
-        const vacancyData = {
-          job_title: this.vacancyTitle,
-          company_name: this.companyName,
-          salary_min: this.salaryMin,
-          salary_max: this.salaryMax,
-          description: this.description,
-          tasks: this.tasks,
-          requirements: this.requirements,
-          tax: this.isSalaryTask,
-          employ: this.employ,
-          required_experience: this.experience,
-          created_by: this.userId,
-          graph: this.graph
-        };
-        // this.validateFormVacancy()
-        if (this.validateFormVacancy()) {
-          await axios.post('/create-vacancy/', vacancyData)
+        const vacancyData  = await axios(`/api/vac/${this.vacancyId}`)
+        this.vacancyData = vacancyData.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async editVacancyData() {
+      this.parseResponsibilities(this.vacancyData.description, 'Обязанности')
+      this.parseResponsibilities(this.vacancyData.description, 'Требования')
+      try {
+        if(this.validateFormVacancy) {
+          await axios.patch(`/api/edit-vacancy/${this.vacancyData.id}/`, this.vacancyData)
           window.location.reload()
+        }
+      } catch(error) {
+        console.log(error)
+        console.log(this.vacancyData)
+      }
+    },
+    async switchVacancyActive(isActive) {
+      try {
+        if(!isActive) {
+          await axios.post('/api/inactive/vac/', {pk: this.vacancyData.id})
+        } else {
+          await axios.post('/api/active/vac/', {pk: this.vacancyData.id})
         }
       } catch (error) {
         console.log(error)
@@ -361,9 +356,9 @@ export default {
 
         if (responsibilitiesArray.length > 0) {
           if (codeWord === 'Обязанности') {
-            this.tasks = `${responsibilitiesArray.join(', ')}`;
+            this.vacancyData.tasks = `${responsibilitiesArray.join(', ')}`;
           } else if (codeWord === 'Требования') {
-            this.requirements = `${responsibilitiesArray.join(', ')}`;
+            this.vacancyData.requirements = `${responsibilitiesArray.join(', ')}`;
           }
 
         }
@@ -373,10 +368,9 @@ export default {
       return value.length === 0;
     },
     validateFormVacancy() {
-      this.errorFields.vacancyTitle = this.validateField(this.vacancyTitle)
-      // this.errorFields.salary = this.validateField(this.salaryMin) && this.validateField(this.salaryMax)
-      this.errorFields.graph = this.validateField(this.graph)
-      this.errorFields.description = this.validateField(this.description)
+      this.errorFields.vacancyTitle = this.validateField(this.vacancyData.job_title)
+      this.errorFields.graph = this.validateField(this.vacancyData.graph)
+      this.errorFields.description = this.validateField(this.vacancyData.description)
       return Object.values(this.errorFields).every((error) => !error)
     },
   },
@@ -387,6 +381,10 @@ export default {
     companyName() {
       return this.$store.state.userData.title_org
     }
+  },
+  mounted() {
+    this.vacancyId = this.$route.params.id
+    this.getVacancyData()
   }
 }
 </script>

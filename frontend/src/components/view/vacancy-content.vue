@@ -178,9 +178,11 @@ export default {
     closeFilters() {
       this.isFilterVisible = false
     },
-    convertVacancies(vacancy) {
+    convertVacancies(vacancy, responseVacancy) {
       this.vacancies = vacancy.map(item => {
-        return { ...item, response: false };
+        const isVacancy = responseVacancy.includes(item.id)
+        console.log(isVacancy)
+        return { ...item, response: isVacancy };
       });
     },
 
@@ -190,14 +192,16 @@ export default {
         const route = searchValue ? `search=${searchValue}` : '';
         const pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
         const response = await axios.get(`/api/vac/?${pageRoute}${route}${filtersValue}`);
+        const responseVacancy = await axios.get(`/applicant/data/${this.userId}/`)
 
-        this.convertVacancies(response.data.results)
-        // this.vacancies = response.data.results;
+        this.convertVacancies(response.data.results, responseVacancy.data.response)
 
         this.quantityVacancies = response.data.count;
         this.currentPage = pageNum;
         this.requestValue = searchValue;
         this.$router.push(`/vacancy/?${pageRoute}${route}${filtersValue}`);
+
+        return response.data.results
       } catch(error) {
         console.error(error);
       }
@@ -226,9 +230,6 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    this.applicantResponseVacancy = this.$store.state.userData.response
-  },
   computed: {
     totalPage() {
       return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
@@ -236,7 +237,11 @@ export default {
     userId() {
       return this.$store.state.userData.id
     },
+    responseVacancy() {
+      return this.$store.state.userData.response
+    }
   },
+
   mounted() {
     const attributeSearch = this.$route.query.search
     const attributePage = this.$route.query.page
@@ -252,6 +257,7 @@ export default {
     if(attributePage) {
       this.currentPage = +attributePage
     }
+
     this.fetchVacancies(attributeSearch, filterRoute, this.currentPage);
   },
 }
