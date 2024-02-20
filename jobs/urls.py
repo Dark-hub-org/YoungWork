@@ -14,6 +14,7 @@ urlpatterns = [
     path('create-vacancy/', api.vacancy_reg, name="create_vacancy"),
     path('api/all-response/', api.all_response, name="response_org"),
     path('api/response/', api.response_on_vacancy, name="response_on_vacancy"),
-    path('api/data/<str:pk>', api.ditail_data_of_user, name="ditail_data_user"),
-    path('api/edit-vacancy/<str:pk>', api.edit_vacancy, name="edit_vacancy"),
+    path('api/data/<str:pk>/', api.ditail_data_of_user, name="ditail_data_user"),
+    path('edit-vacancy/<str:pk>/', TemplateView.as_view(template_name='index.html')),
+    path('api/edit-vacancy/<str:pk>/', api.edit_vacancy, name="edit_vacancy"),
 ]

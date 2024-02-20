@@ -24,7 +24,7 @@ def vacancy_reg(request):
     return render(request, "index.html")
 
 
-@api_view(['PETCH'])
+@api_view(['PATCH'])
 def edit_vacancy(request, pk):
     vacancy_data = {
         "job_title": request.data.get('job_title'),
