@@ -253,15 +253,21 @@ export default {
   },
   mounted() {
     this.dropzone = new Dropzone(this.$refs.dropzone, {
-      url: "jhkhk",
+      url: "/api/upload-avatar/",
+      method: 'post',
       maxFiles: 1,
       maxFilesize: 2,
       thumbnailWidth: 250,
       thumbnailHeight: 250,
       addRemoveLinks: true,
+      sending: (file, xhr, formData) => {
+        // Добавление параметра email к запросу
+        formData.append("email", 'fsdfsdasasf@yandex.ru'); // Предположим, что userEmail - это переменная с email пользователя
+      },
     })
     this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
-      url: "jhkhk",
+      url: "/api/upload-avatar/",
+      methods: "put",
       maxFiles: 1,
       maxFilesize: 2,
       thumbnailWidth: 250,
