@@ -42,5 +42,7 @@ def editpassword(request):
 
 @api_view(['POST'])
 def upload_avatar(request):
-    User.objects.filter(user=request.user.id).update(request.FILES.get('data'))
+    if request.method == 'POST':
+        file = request.FILES.get('file')
+        User.objects.filter(id=request.user.id).create(avatar=file)
     return JsonResponse({'message': 'Success'})
