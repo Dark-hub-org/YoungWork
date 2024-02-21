@@ -3,8 +3,9 @@ from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, permission_classes
 
+from accounts.forms import ProfileForm
 from accounts.models import User
-from accounts.serializers import UserSerializer
+from accounts.serializers import UserAvatarSerializer
 
 
 @api_view(['GET'])
@@ -43,10 +44,11 @@ def editpassword(request):
 
 @api_view(['POST'])
 def upload_avatar(request):
+    user = request.user
+
     if request.method == 'POST':
-        user = User.objects.filter(pk=request.user.id).update(avatar=request.FILES.get('file'))
-        serializers = UserSerializer(user)
-        if serializers.is_valid():
-            serializers.save()
-            return JsonResponse({'message': 'Success'})
-        return JsonResponse({'message': 'Success'})
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+        serializer = UserAvatarSerializer(user)
+        return JsonResponse({'message': 'information updated', 'user': serializer.data})

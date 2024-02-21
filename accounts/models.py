@@ -38,7 +38,7 @@ class User(AbstractBaseUser):
         unique=True,
     )
     usertype = models.CharField()
-    avatar = models.ImageField(upload_to='movies/avatars')
+    avatar = models.ImageField(upload_to='movies/avatars', null=True)
 
     recommendations = models.ManyToManyField('self')
 
@@ -66,12 +66,6 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = "email"
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ["usertype"]
-
-    def get_avatar(self):
-        if self.avatar:
-            return settings.WEBSITE_URL + self.avatar.url
-        else:
-            return 'https://github.com/Dark-hub-org/YoungWork/blob/83981ff8000cebb6f3c0602f5f4e7bcc55c3e8db/frontend/src/assets/header/anonim-logo.svg'
 
     def __str__(self):
         return self.email
