@@ -66,12 +66,12 @@
             :navigation="true"
             class="profile__slider">
           <swiper-slide
-              v-for="vacancy in activeVacancy"
+              v-for="vacancy in inactiveVacancy"
               :key="vacancy.id"
               class="profile__slider-item profile__slider-item--inactive">
             <p class="profile__slider-title">{{vacancy.job_title}}</p>
             <div class="profile__slider-btns">
-              <router-link to="/create-vacancy" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
+              <router-link  :to="{ name: 'edit-vacancy', params: { id: vacancy.id} }" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
               <router-link to="/" tag="a" class="button-orange">Отклики</router-link>
             </div>
           </swiper-slide>

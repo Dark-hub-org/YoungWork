@@ -93,6 +93,6 @@ export default {
 }
 </script>
 
-<style lang="scss" src="@/style/resume.scss">
+<style lang="scss" src="@/style/resume.scss" scoped>
 
 </style>

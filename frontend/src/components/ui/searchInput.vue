@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/searchInput.scss" lang="scss">
+<style src="@/style/ui/searchInput.scss" lang="scss" scoped>
 
 </style>
 <style>

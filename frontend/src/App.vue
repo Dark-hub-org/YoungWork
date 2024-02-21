@@ -6,9 +6,6 @@
   </div>
 </template>
 
-<style lang="scss">
-
-</style>
 <script setup>
 import SiteHeader from "@/components/view/site-header.vue"
 import SiteContent from "@/components/view/site-content.vue"

@@ -1,0 +1,29 @@
+@import "varibles";
+@import "mixin";
+@import "main";
+
+
+// components
+@import "./ui/chat";
+@import "./ui/filters";
+@import "./ui/heading";
+@import "./ui/modalWin";
+@import "./ui/searchInput";
+@import "./ui/sliderComponent";
+@import "./ui/sliderItem";
+@import "./ui/userContacts";
+@import "./ui/userProfile";
+@import "./ui/vacancyItem";
+
+// page
+@import "applicant";
+@import "create";
+@import "create-resume";
+@import "employer";
+@import "footer";
+@import "header";
+@import "landing";
+@import "resume";
+@import "userEdit";
+@import "vacancy";
+@import "vacancy-page";

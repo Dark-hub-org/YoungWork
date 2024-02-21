@@ -34,7 +34,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import "@/style/footer";
+<style src="@/style/footer.scss" lang="scss" scoped>
 
 </style>

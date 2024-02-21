@@ -31,8 +31,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-@import "src/style/ui/vacancyItem";
+<style src="@/style/ui/vacancyItem.scss" lang="scss" scoped>
 
 </style>
