@@ -8,12 +8,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class UserAvatarSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['file']
-
-
 class EditProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

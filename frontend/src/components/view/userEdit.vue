@@ -260,7 +260,8 @@ export default {
       thumbnailWidth: 250,
       thumbnailHeight: 250,
       addRemoveLinks: true,
-      sending: (avatar, xhr, formData) => {
+      paramName: "avatar",
+      sending: (file, xhr, formData) => {
         formData.append("email", this.userData.email);
         formData.append("usertype", this.userData.usertype);
       },

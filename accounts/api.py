@@ -3,9 +3,7 @@ from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, permission_classes
 
-from accounts.forms import ProfileForm
 from accounts.models import User
-from accounts.serializers import UserAvatarSerializer
 
 
 @api_view(['GET'])
@@ -41,7 +39,7 @@ def editpassword(request):
         return JsonResponse({'message': form.errors.as_json()}, safe=False)
 
 
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 def upload_avatar(request):
-    User.objects.filter(email=request.data.get('email')).update(**request.data)
+    User.objects.filter(email=request.data.get('email')).update(avatar=request.data.get('avatar'))
     return JsonResponse({'message': 'success'})
