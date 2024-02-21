@@ -80,6 +80,7 @@
               </div>
               <div class="vacancy__item-btns">
                 <button v-if="!vacancy.response" @click="sendResponse(vacancy)" class="button-orange-another vacancy__item-btn">Откликнуться</button>
+                <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
                 <button class="button-orange vacancy__item-btn">В избранное</button>
               </div>
             </div>
@@ -326,4 +327,13 @@ export default {
     transform: rotate(180deg);
   }
 }
+
+.button-enter-active, .button-leave-active {
+  transition: opacity .3s;
+}
+
+.button-enter, .button-leave-to {
+  opacity: 0;
+}
 </style>
+
