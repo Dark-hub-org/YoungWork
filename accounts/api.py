@@ -43,17 +43,15 @@ def editpassword(request):
 
 @api_view(['POST'])
 def upload_avatar(request):
-    user = request.user
-    email = request.data.get('email')
-
-    if User.objects.exclude(id=user.id).filter(email=email).exists():
-        return JsonResponse({'message': 'email already exists'})
-    else:
-        form = ProfileForm(request.POST, request.FILES, instance=user)
-
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
 
-        serializer = UserAvatarSerializer(user)
+            img_object = form.instance
 
-        return JsonResponse({'message': 'information updated', 'user': serializer.data})
+            return JsonResponse('success', img_object)
+    else:
+        form = ProfileForm()
+
+    return JsonResponse('bad', form)
