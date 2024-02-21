@@ -115,6 +115,33 @@ def applicant_data(self, pk):
     serializer = ApplicantDetailSerializer(applicant_detail)
     return JsonResponse(serializer.data)
 
+
+@api_view(['POST'])
+def upload_portfolio(request):
+    try:
+        User.objects.filter(user=request.user.id).update(portfolio=request.data.get('portfolio'))
+        return JsonResponse({'message': 'success'})
+    except TypeError:
+        return JsonResponse({'message': 'Error'})
+
+
+@api_view(['POST'])
+def upload_photo_org(request):
+    try:
+        User.objects.filter(user=request.user.id).update(photo_org=request.data.get('photo_org'))
+        return JsonResponse({'message': 'success'})
+    except TypeError:
+        return JsonResponse({'message': 'Error'})
+
+
+@api_view(['POST'])
+def upload_job_example(request):
+    try:
+        User.objects.filter(user=request.user.id).update(logo=request.data.get('logo'))
+        return JsonResponse({'message': 'success'})
+    except TypeError:
+        return JsonResponse({'message': 'Error'})
+
 # @api_view(['GET'])
 # def response_on_vacancy(request, pk):
 #     user = User.objects.get(pk=pk)

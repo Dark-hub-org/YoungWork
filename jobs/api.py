@@ -104,6 +104,15 @@ def ditail_data_of_user(request, pk):
         'phone_number': user.phone_number,
     })
 
+
+@api_view(['POST'])
+def upload_preview(request):
+    try:
+        User.objects.filter(user=request.user.id).update(portfolio=request.data.get('portfolio'))
+        return JsonResponse({'message': 'success'})
+    except TypeError:
+        return JsonResponse({'message': 'Error'})
+
 # @api_view(['DELETE'])
 # def vacancy_delete(request, pk):
 #     vacancy = Vacancies.objects.filter(created_by=request.user).get(pk=pk)
