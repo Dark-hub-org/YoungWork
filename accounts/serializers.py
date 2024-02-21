@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserAvatarSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['avatar']
+        fields = ['file']
 
 
 class EditProfileSerializer(serializers.ModelSerializer):

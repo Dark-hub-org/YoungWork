@@ -260,9 +260,9 @@ export default {
       thumbnailWidth: 250,
       thumbnailHeight: 250,
       addRemoveLinks: true,
-      sending: (file, xhr, formData) => {
-        // Добавление параметра email к запросу
-        formData.append("email", 'fsdfsdasasf@yandex.ru'); // Предположим, что userEmail - это переменная с email пользователя
+      sending: (avatar, xhr, formData) => {
+        formData.append("email", this.userData.email);
+        formData.append("usertype", this.userData.usertype);
       },
     })
     this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {

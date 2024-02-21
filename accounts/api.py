@@ -41,17 +41,7 @@ def editpassword(request):
         return JsonResponse({'message': form.errors.as_json()}, safe=False)
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def upload_avatar(request):
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-
-            img_object = form.instance
-
-            return JsonResponse('success', img_object)
-    else:
-        form = ProfileForm()
-
-    return JsonResponse('bad', form)
+    User.objects.filter(email=request.data.get('email')).update(**request.data)
+    return JsonResponse({'message': 'success'})

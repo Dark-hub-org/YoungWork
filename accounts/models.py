@@ -38,7 +38,7 @@ class User(AbstractBaseUser):
         unique=True,
     )
     usertype = models.CharField()
-    avatar = models.ImageField(upload_to='movies/avatars', null=True)
+    file = models.ImageField(upload_to='movies/avatars', null=True)
 
     recommendations = models.ManyToManyField('self')
 
