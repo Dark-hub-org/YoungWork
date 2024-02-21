@@ -21,6 +21,7 @@
           </div>
           <div class="vacancy__info-btns">
             <button v-if="!vacancyData.response" @click="sendResponse" class="button-orange-another">Откликнуться</button>
+            <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
             <button class="button-orange">В избранное</button>
           </div>
         </div>
@@ -35,6 +36,7 @@
         <div class="vacancy__bottom">
           <p class="vacancy__bottom-date">Вакансия была опубликована {{vacancyData.timestamp}}</p>
           <button v-if="!vacancyData.response" class="button-orange-another">Откликнуться</button>
+          <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
         </div>
       </div>
       <h3 class="section-title">Рекомендуем вам</h3>
@@ -103,13 +105,18 @@ export default {
     };
   },
   methods: {
+    convertVacancy(vacancy, responseVacancy) {
+      const isVacancy = responseVacancy.includes(vacancy.id)
+      this.vacancyData = {...vacancy, response: isVacancy}
+    },
     async getVacancyData(id) {
       try {
         const response = await axios.get(`/api/vac/${id}`);
-        // const employerData = await axios.get(`api/data/${response.data.id}`)
-        // this.employerData = employerData
+        const responseVacancy = await axios.get(`/applicant/data/${this.userId}/`)
 
-        this.vacancyData = response.data
+        this.convertVacancy(response.data, responseVacancy.data.response)
+
+
       } catch (error) {
         console.log(error)
       }
