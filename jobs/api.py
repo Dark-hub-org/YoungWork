@@ -88,7 +88,7 @@ def response_on_vacancy(request):
 
 @api_view(['GET'])
 def all_response(request):
-    resp = Response.objects.filter(org=request.user.id)
+    resp = Response.objects.filter(vacancy=request.data.get('pk'))
     serializer = ResponseDataSerializer(resp, many=True)
     return JsonResponse(serializer.data, safe=False)
 
