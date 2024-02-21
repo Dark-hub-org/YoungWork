@@ -43,5 +43,13 @@ def editpassword(request):
 
 @api_view(['POST'])
 def upload_avatar(request):
-    user = User.objects.filter(pk=request.user.id).update(avatar=request.FILES.get('file'))
-    return JsonResponse(user, safe=False)
+    user = request.user
+
+    form = ProfileForm(request.POST, request.FILES, instance=user)
+
+    if form.is_valid():
+        form.save()
+
+    serializer = UserAvatarSerializer(user)
+
+    return JsonResponse({'message': 'information updated', 'user': serializer.data})
