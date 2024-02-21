@@ -3,6 +3,8 @@ from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, permission_classes
 
+from accounts.models import User
+
 
 @api_view(['GET'])
 def me(request):
@@ -36,3 +38,9 @@ def editpassword(request):
         return JsonResponse({'message': 'success'})
     else:
         return JsonResponse({'message': form.errors.as_json()}, safe=False)
+
+
+@api_view(['POST'])
+def upload_avatar(request):
+    User.objects.filter(user=request.user.id).update(request.FILES.get('data'))
+    return JsonResponse({'message': 'Success'})
