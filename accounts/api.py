@@ -21,7 +21,6 @@ def me(request):
         'citizenship': request.user.citizenship,
         'region': request.user.region,
         'city': request.user.city,
-        'avatar': request.user.get_avatar(),
         'about': request.user.about,
         'aboutWork': request.user.about_work,
         'telegram': request.user.telegram,
@@ -45,10 +44,16 @@ def editpassword(request):
 @api_view(['POST'])
 def upload_avatar(request):
     user = request.user
+    email = request.data.get('email')
 
-    if request.method == 'POST':
+    if User.objects.exclude(id=user.id).filter(email=email).exists():
+        return JsonResponse({'message': 'email already exists'})
+    else:
         form = ProfileForm(request.POST, request.FILES, instance=user)
+
         if form.is_valid():
             form.save()
+
         serializer = UserAvatarSerializer(user)
+
         return JsonResponse({'message': 'information updated', 'user': serializer.data})
