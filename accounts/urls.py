@@ -5,4 +5,5 @@ urlpatterns = [
     path('me/', api.me, name='me'),
     path('password-change/', api.editpassword, name='password_change'),
     path('upload-avatar/', api.upload_avatar, name='upload_avatar'),
+    path('recommend/', api.recommend, name='recommend'),
 ]

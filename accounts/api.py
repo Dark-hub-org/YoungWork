@@ -4,6 +4,9 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 
 from accounts.models import User
+from jobs.models import Vacancies
+from resume.models import Resume
+from jobs.serializers import VacanciesDataSerializer
 
 
 @api_view(['GET'])
@@ -43,3 +46,20 @@ def editpassword(request):
 def upload_avatar(request):
     User.objects.filter(email=request.data.get('email')).update(avatar=request.data.get('avatar'))
     return JsonResponse({'message': 'success'})
+
+
+@api_view(['GET'])
+def recommend(request):
+    user = request.user.id
+    user_resume = Resume.objects.filter(created_by=user).first()
+    if user_resume is None:
+        vac = Vacancies.objects.all()
+        serializer = VacanciesDataSerializer(vac, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    user_resume_employ = user_resume.employ  # ['Частичная занятость']
+    if Vacancies.objects.filter(employ=user_resume_employ).exists():  # ('employ', 'Частичная занятость')
+        vacancies = Vacancies.objects.filter(employ=user_resume_employ)
+        serializer = VacanciesDataSerializer(vacancies, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    else:
+        return JsonResponse({'message': 'No vacancies found for this applicant'})
