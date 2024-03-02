@@ -1,0 +1,45 @@
+.dropzone {
+  border: none;
+  .dz-message {
+    margin: 0;
+    font-size: 0;
+  }
+  .dz-preview {
+    width: 100%;
+    margin: 0;
+    &:hover {
+      z-index: 1;
+    }
+    &.dz-image-preview {
+      height: 100%;
+      background: transparent;
+    }
+    .dz-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .dz-error-message {
+      left: 0;
+      width: 100%;
+    }
+    .dz-remove {
+      z-index: 100;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 24px;
+      height: 24px;
+      font-size: 0;
+      background-image: url("@/assets/xmark-icon.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+    }
+  }
+}
