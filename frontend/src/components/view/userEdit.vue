@@ -5,7 +5,7 @@
         <h2 class="edit__data-title">Личные данные</h2>
         <div class="edit__data-block">
           <div ref="dropzone" class="dropzone edit__data-photo">
-            <img src="@/assets/upload.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+            <img src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
           </div>
         </div>
         <div class="edit__data-block">
@@ -135,10 +135,23 @@
                 class="edit__data-input contact" placeholder="Личный сайт">
           </div>
         </div>
+
+        <div class="edit__data-field about">
+          <form class="edit__data-portfolio">
+            <div v-for="image in userDataPortfolio" :key="image" class="edit__data-portfolio__item">
+              <img :src="image" alt="" class="edit__data-portfolio__image">
+              <button @click="deleteImage(image)" type="button" class="edit__data-portfolio__delete"></button>
+            </div>
+            <div ref="dropzonePortfolio" class="dropzone edit__data-portfolio__item">
+              <img class="edit__data-portfolio__button" src="@/assets/btn-add.svg" alt="кнопка добавления">
+            </div>
+          </form>
+        </div>
+
         <h2 class="edit__data-title">О вас</h2>
         <div class="edit__data-block">
           <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization">
-            <img src="@/assets/upload.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+            <img src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
           </div>
         </div>
         <div v-if="userData.usertype === 'employer'" class="edit__data-block about">
@@ -175,8 +188,8 @@
       </form>
       <aside class="edit__side">
         <span class="edit__side-title">Вы в режиме редактирования</span>
-        <button @click="submitUserData" class="button-green edit__side-button">Сохранить</button>
-        <button @click="closeEditProfile" class="edit__side-link">Отменить изменения</button>
+        <button @click="submitUserData" type="button" class="button-green edit__side-button">Сохранить</button>
+        <button @click="closeEditProfile" type="button" class="edit__side-link">Вернуться в профиль</button>
       </aside>
     </div>
   </section>
@@ -207,6 +220,7 @@ export default {
         isValidBirth: false,
         titleOrg: false,
       },
+      userDataPortfolio: ['1212121', '121212aaa'],
       userData: {},
     }
   },
@@ -243,6 +257,9 @@ export default {
     },
     checkValidDateOfBirth(date) {
       return !/[a-za-яё]/i.test(date) && !/^\d{4}-\d{2}-\d{2}$/.test(date)
+    },
+    deleteImage(image) {
+      this.userDataPortfolio = this.userDataPortfolio.filter(item => item !== image)
     }
   },
   watch: {
@@ -254,23 +271,44 @@ export default {
   mounted() {
     this.dropzone = new Dropzone(this.$refs.dropzone, {
       url: "/api/upload-avatar/",
+      method: 'post',
+      maxFiles: 1,
+      maxFilesize: 2,
+      thumbnailWidth: 250,
+      thumbnailHeight: 250,
+      addRemoveLinks: true,
+      paramName: "avatar",
+      sending: (file, xhr, formData) => {
+        formData.append("email", this.userData.email);
+        formData.append("usertype", this.userData.usertype);
+      },
+    })
+    this.dropzone = new Dropzone(this.$refs.dropzonePortfolio, {
+      url: "/api/applicant/upload-portfolio/",
+      method: 'post',
+      maxFiles: 1,
+      maxFilesize: 2,
+      thumbnailWidth: 373,
+      thumbnailHeight: 280,
+      addRemoveLinks: true,
+      paramName: "avatar",
+      sending: (file, xhr, formData) => {
+        formData.append("email", this.userData.email);
+        formData.append("usertype", this.userData.usertype);
+      },
+    })
+    this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
+      url: "/api/employer/upload-photorg/",
+      methods: "post",
       maxFiles: 1,
       maxFilesize: 2,
       thumbnailWidth: 250,
       thumbnailHeight: 250,
       addRemoveLinks: true,
       sending: (file, xhr, formData) => {
-        // Добавление параметра email к запросу
-        formData.append("email", this.userData.email); // Предположим, что userEmail - это переменная с email пользователя
+        formData.append("email", this.userData.email);
+        formData.append("usertype", this.userData.usertype);
       },
-    })
-    this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
-      url: "/api/upload-avatar/",
-      maxFiles: 1,
-      maxFilesize: 2,
-      thumbnailWidth: 250,
-      thumbnailHeight: 250,
-      addRemoveLinks: true,
     })
   }
 }
@@ -279,3 +317,5 @@ export default {
 <style src="@/style/userEdit.scss" lang="scss" scoped>
 
 </style>
+
+<!--</style>-->

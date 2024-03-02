@@ -33,15 +33,14 @@
 
   &__clear {
     position: absolute;
-    right: 50px;
+    right: 60px;
     top: 50%;
     width: 25px;
     height: 25px;
     transform: translateY(-50%);
-    background-color: black;
     background-image: url("@/assets/xmark-icon.svg");
     background-position: center;
-    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   &__submit {
@@ -51,13 +50,9 @@
     width: 24px;
     height: 24px;
     transform: translateY(-50%);
+    transform-origin: 50% 50%;
     background-image: url("@/assets/inner/search-icon.svg");
     background-repeat: no-repeat;
     background-position: center;
-    transition: all .15s ease-in-out;
-
-    &:hover {
-      scale: 120%;
-    }
   }
 }

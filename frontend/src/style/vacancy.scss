@@ -15,7 +15,9 @@
   }
 
   &__search {
-    @include displayFlex;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
     gap: 24px;
     max-width: 831px;
     width: 100%;

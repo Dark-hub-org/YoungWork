@@ -1,10 +1,9 @@
 <template>
   <section class="constructor">
     <div class="wrapper constructor-wrapper">
-      <div class="constructor__banner">
+      <div ref="banner" class="dropzone constructor__banner">
         <div class="constructor__banner-wrapper">
           <p class="constructor__banner-title">Загрузите тизер</p>
-          <input type="file" name="image" class="constructor__banner-input">
           <div class="constructor__banner-cross"></div>
         </div>
       </div>
@@ -269,6 +268,8 @@
 import axios from "axios";
 import Vue from 'vue';
 
+import {Dropzone} from "dropzone";
+
 Vue.directive('restrict-input-length', {
   bind(el, binding) {
     el.addEventListener('input', (event) => {
@@ -324,7 +325,7 @@ export default {
         this.parseResponsibilities(this.description, 'Требования')
         const vacancyData = {
           job_title: this.vacancyTitle,
-          company_name: this.companyName,
+          company_name: this.userData.title_org,
           salary_min: this.salaryMin,
           salary_max: this.salaryMax,
           description: this.description,
@@ -333,7 +334,7 @@ export default {
           tax: this.isSalaryTask,
           employ: this.employ,
           required_experience: this.experience,
-          created_by: this.userId,
+          created_by: this.userData.id,
           graph: this.graph
         };
         // this.validateFormVacancy()
@@ -383,15 +384,44 @@ export default {
     },
   },
   computed: {
-    userId() {
-      return this.$store.state.userData.id
+    userData() {
+      return this.$store.state.userData
     },
-    companyName() {
-      return this.$store.state.userData.title_org
-    }
+  },
+  mounted() {
+    this.dropzone = new Dropzone(this.$refs.banner, {
+      url: "/api/vacancy/upload_preview/",
+      method: 'post',
+      maxFiles: 1,
+      maxFilesize: 3,
+      addRemoveLinks: true,
+      paramName: "banner",
+      sending: (file, xhr, formData) => {
+        formData.append("email", this.userData.email);
+        formData.append("usertype", this.userData.usertype);
+      },
+    })
   }
 }
 </script>
 <style src="@/style/create.scss" lang="scss" scoped>
+
+</style>
+<style>
+
+.dropzone.constructor__banner {
+  .dz-preview {
+    & .dz-remove {
+      width: 50px;
+      height: 50px;
+      background-size: cover;
+    }
+    .dz-image {
+      img {
+        object-fit: fill;
+      }
+    }
+  }
+}
 
 </style>

@@ -53,7 +53,7 @@
               class="supernova-wrapper">
             <ul class="supernova-wrapper-list">
               <li class="supernova-wrapper-item">
-                <span class="supernova-wrapper__name" @click.stop="moveProfile">{{ userData.firstName }}</span>
+                <a :href="`/${userData.usertype}/${userData.id}`" class="supernova-wrapper__name">{{ userData.firstName }}</a>
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
                 <router-link to="/" tag="div" class="supernova-wrapper-block">
@@ -329,8 +329,6 @@
                   (письмо с кодом отправлено на указанный E-mail)</label>
                 <label v-if="resetPasswordCurrentStep === 2" class="modal-form-name">Придумайте новый пароль (минимум 8
                   символов)</label>
-
-
                 <div v-if="resetPasswordCurrentStep === 0 || resetPasswordCurrentStep === 1"
                      class="modal-wrapper-input">
                   <input
@@ -498,9 +496,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    },
-    moveProfile() {
-      this.$router.push(`/${this.userData.usertype}/${this.userData.id}`)
     },
     logOut() {
       localStorage.removeItem('access')

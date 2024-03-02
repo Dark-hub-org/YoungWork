@@ -63,7 +63,7 @@
                       v-for="item of userData.portfolio"
                       :key="item.id"
                       class="profile__portfolio-block">
-                    <button class="profile__btn-edit btn--work btn--"></button>
+                    <button class="profile__btn-edit btn--work btn--add"></button>
                   </div>
                 </div>
                 <div class="profile__portfolio-about" v-html="userData.aboutWork"></div>
