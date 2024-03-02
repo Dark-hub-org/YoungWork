@@ -15,5 +15,11 @@ class EditProfileSerializer(serializers.ModelSerializer):
             'first_name', 'last_name', 'surname',
             'date_of_birth', 'citizenship', 'region',
             'city', 'about', 'about_work', 'telegram',
-            'website', 'phone_number',
+            'website', 'phone_number', 'avatar',
         ]
+
+
+class AvatarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'usertype', 'avatar']

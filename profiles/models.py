@@ -22,10 +22,10 @@ class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='employer_user')
     title_org = models.CharField(blank=True, max_length=100, null=True, default='')
-    photo_org = models.ImageField(null=True, blank=True, upload_to='movies/employer')
+    photo_org = models.ImageField(upload_to='movies/employer', null=True)
     inn = models.CharField(blank=True, null=True, max_length=100, default='')
     status_valid = models.BooleanField(null=True, default=False)
-    job_example = models.ImageField(null=True, blank=True, upload_to='movies/employer')
+    job_example = models.ImageField(upload_to='movies/employer', null=True)
 
     class Meta:
         verbose_name = 'Заказчик'

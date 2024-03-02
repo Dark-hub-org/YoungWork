@@ -395,7 +395,7 @@ export default {
       maxFiles: 1,
       maxFilesize: 3,
       addRemoveLinks: true,
-      paramName: "banner",
+      paramName: "logo",
       sending: (file, xhr, formData) => {
         formData.append("email", this.userData.email);
         formData.append("usertype", this.userData.usertype);
@@ -416,6 +416,7 @@ export default {
       height: 50px;
       background-size: cover;
     }
+
     .dz-image {
       img {
         object-fit: fill;

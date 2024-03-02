@@ -118,27 +118,24 @@ def applicant_data(self, pk):
 
 @api_view(['POST'])
 def upload_portfolio(request):
-    try:
-        User.objects.filter(user=request.user.id).update(portfolio=request.data.get('portfolio'))
-        return JsonResponse({'message': 'success'})
-    except TypeError:
-        return JsonResponse({'message': 'Error'})
+    Applicant.objects.filter(user=request.data.get('pk')).update(portfolio=request.data.get('portfolio'))
+    return JsonResponse({'message': 'success'})
 
 
 @api_view(['POST'])
 def upload_photo_org(request):
-    try:
-        User.objects.filter(user=request.user.id).update(photo_org=request.data.get('photo_org'))
-        return JsonResponse({'message': 'success'})
-    except TypeError:
-        return JsonResponse({'message': 'Error'})
+    user = Employer.objects.filter(user=request.data.get('pk')).update(photo_org=request.data.get('photo_org'))
+    return JsonResponse({'user': user})
 
 
 @api_view(['POST'])
 def upload_job_example(request):
     try:
-        User.objects.filter(user=request.user.id).update(logo=request.data.get('logo'))
-        return JsonResponse({'message': 'success'})
+        if request.data.get('usertype') == 'employer':
+            Employer.objects.filter(user=request.user.id).update(logo=request.data.get('logo'))
+            return JsonResponse({'message': 'success'})
+        elif request.data.get('usertype') == 'applicant':
+            Applicant.objects.filter(user=request.user.id).update()
     except TypeError:
         return JsonResponse({'message': 'Error'})
 

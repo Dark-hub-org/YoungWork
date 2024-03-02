@@ -107,11 +107,8 @@ def ditail_data_of_user(request, pk):
 
 @api_view(['POST'])
 def upload_preview(request):
-    try:
-        User.objects.filter(user=request.user.id).update(portfolio=request.data.get('portfolio'))
-        return JsonResponse({'message': 'success'})
-    except TypeError:
-        return JsonResponse({'message': 'Error'})
+    Vacancies.objects.filter(user=request.user.id).update(portfolio=request.data.get('portfolio'))
+    return JsonResponse({'message': 'success'})
 
 # @api_view(['DELETE'])
 # def vacancy_delete(request, pk):
