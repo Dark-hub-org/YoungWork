@@ -3,9 +3,10 @@ from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, permission_classes
 
-from accounts.forms import ProfileForm
 from accounts.models import User
-from accounts.serializers import UserAvatarSerializer
+from jobs.models import Vacancies
+from resume.models import Resume
+from jobs.serializers import VacanciesDataSerializer
 
 
 @api_view(['GET'])
@@ -43,17 +44,22 @@ def editpassword(request):
 
 @api_view(['POST'])
 def upload_avatar(request):
-    user = request.user
-    email = request.data.get('email')
+    User.objects.filter(email=request.data.get('email')).update(avatar=request.data.get('avatar'))
+    return JsonResponse({'message': 'success'})
 
-    if User.objects.exclude(id=user.id).filter(email=email).exists():
-        return JsonResponse({'message': 'email already exists'})
+
+@api_view(['GET'])
+def recommend(request):
+    user = request.user.id
+    user_resume = Resume.objects.filter(created_by=user).first()
+    if user_resume is None:
+        vac = Vacancies.objects.all()
+        serializer = VacanciesDataSerializer(vac, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    user_resume_employ = user_resume.employ  # ['Частичная занятость']
+    if Vacancies.objects.filter(employ=user_resume_employ).exists():  # ('employ', 'Частичная занятость')
+        vacancies = Vacancies.objects.filter(employ=user_resume_employ)
+        serializer = VacanciesDataSerializer(vacancies, many=True)
+        return JsonResponse(serializer.data, safe=False)
     else:
-        form = ProfileForm(request.POST, request.FILES, instance=user)
-
-        if form.is_valid():
-            form.save()
-
-        serializer = UserAvatarSerializer(user)
-
-        return JsonResponse({'message': 'information updated', 'user': serializer.data})
+        return JsonResponse({'message': 'No vacancies found for this applicant'})

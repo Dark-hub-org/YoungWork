@@ -14,7 +14,7 @@ class Vacancies(models.Model):
     salary_min = models.BigIntegerField(blank=True, null=True, default=0)
     salary_max = models.BigIntegerField(blank=True, null=True, default=0)
     tax = models.CharField(blank=True, null=True, max_length=100, default='')
-    employ = models.CharField(blank=True, null=True, max_length=100, default='')
+    employ = ArrayField(models.CharField(max_length=100), default=list, blank=True, null=True)
     logo = models.ImageField(null=True, blank=True, upload_to='movies/vacancies')
     required_experience = models.CharField(blank=True, null=True, max_length=100, default='')
     graph = ArrayField(models.CharField(max_length=100), default=list, blank=False, null=False)
