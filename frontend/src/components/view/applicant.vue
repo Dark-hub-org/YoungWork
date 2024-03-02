@@ -47,22 +47,6 @@
           </div>
         </div>
       </div>
-<!--      <div class="profile__main-block">-->
-<!--        <div class="profile__field">-->
-<!--          <p class="profile__field-name">Пол:</p>-->
-<!--          <div class="profile__radio-wrapper">-->
-<!--            <input v-model="applicantData.sex" type="radio" name="exp" value="men" class="profile__radio"-->
-<!--                   id="men"-->
-<!--                   checked>-->
-<!--            <label for="men" class="profile-filter-label">Мужской</label>-->
-<!--          </div>-->
-<!--          <div class="profile__radio-wrapper">-->
-<!--            <input v-model="applicantData.sex" type="radio" name="exp" value="women" class="profile__radio"-->
-<!--                   id="women">-->
-<!--            <label for="women" class="profile-filter-label">Женщина</label>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
       <div class="profile__main-block data start">
         <div class="profile__field">
           <p class="profile__field-name">Гражданство:</p>
