@@ -54,6 +54,16 @@ def upload_avatar(request):
     return JsonResponse({'message': 'success'})
 
 
+@api_view(['POST'])
+def switch_profile(request):
+    if request.user.usertype == 'applicant':
+        User.objects.filter(id=request.user.id).update(usertype='employer')
+        return JsonResponse({'message': 'switch on employer'})
+    else:
+        User.objects.filter(id=request.user.id).update(usertype='applicant')
+        return JsonResponse({'message': 'switch on applicant'})
+
+
 # TODO: switch fields
 @api_view(['GET'])
 def recommend(request):
@@ -63,9 +73,9 @@ def recommend(request):
         vac = Vacancies.objects.all()
         serializer = VacanciesDataSerializer(vac, many=True)
         return JsonResponse(serializer.data, safe=False)
-    user_resume_employ = user_resume.employ
-    if Vacancies.objects.filter(employ=user_resume_employ).exists():
-        vacancies = Vacancies.objects.filter(employ=user_resume_employ)
+    user_resume_skills = user_resume.skills
+    if Vacancies.objects.filter(description=user_resume_skills).exists():
+        vacancies = Vacancies.objects.filter(description=user_resume_skills)
         serializer = VacanciesDataSerializer(vacancies, many=True)
         return JsonResponse(serializer.data, safe=False)
     else:
