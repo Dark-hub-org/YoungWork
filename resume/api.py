@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from accounts.models import User
 from .models import Resume
@@ -7,6 +8,7 @@ from .serializers import ResumeDataSerializer, ResumeDetailSerializer
 from django.shortcuts import render
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET', 'DELETE'])
 def resume_detail_data(request, pk):
     resume_detail = Resume.objects.get(pk=pk)
@@ -21,6 +23,7 @@ def resume_of_users(request):
     return JsonResponse(serializer.data)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET', 'POST'])
 def resume_reg(request):
     serializer = ResumeDataSerializer(data=request.data)
@@ -30,6 +33,7 @@ def resume_reg(request):
     return render(request, "index.html")
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def ditail_data_of_user(request, pk):
     user = User.objects.get(pk=pk)

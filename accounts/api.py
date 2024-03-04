@@ -2,7 +2,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, permission_classes
-
+from rest_framework.permissions import IsAuthenticated
 from .serializers import AvatarSerializer
 from accounts.models import User
 from jobs.models import Vacancies
@@ -10,6 +10,7 @@ from resume.models import Resume
 from jobs.serializers import VacanciesDataSerializer
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def me(request):
     return JsonResponse(data={
@@ -32,6 +33,7 @@ def me(request):
     })
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def editpassword(request):
     user = request.user
@@ -44,6 +46,7 @@ def editpassword(request):
         return JsonResponse({'message': form.errors.as_json()}, safe=False)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_avatar(request):
     User.objects.filter(email=request.data.get('email')).update(avatar=request.data.get('avatar'))
@@ -54,6 +57,7 @@ def upload_avatar(request):
     return JsonResponse({'message': 'success'})
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def switch_profile(request):
     if request.user.usertype == 'applicant':

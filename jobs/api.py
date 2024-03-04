@@ -1,5 +1,6 @@
 from django.http import JsonResponse
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from profiles.models import Applicant
 from accounts.models import User
@@ -15,6 +16,7 @@ def vacancy_detail_data(request, pk):
     return JsonResponse(serializer.data)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET', 'POST'])
 def vacancy_reg(request):
     serializer = VacanciesDataSerializer(data=request.data)
@@ -24,6 +26,7 @@ def vacancy_reg(request):
     return render(request, "index.html")
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['PATCH'])
 def edit_vacancy(request, pk):
     vacancy_data = {
@@ -66,6 +69,7 @@ def inactive_vacancy(request):
     return JsonResponse(serializer.data, safe=False)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def response_on_vacancy(request):
     vacancy = request.data.get('vacancy')
@@ -86,6 +90,7 @@ def response_on_vacancy(request):
         return JsonResponse("Вы уже откликнулись", safe=False)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def all_response(request):
     resp = Response.objects.filter(vacancy=request.data.get('pk'))
@@ -93,6 +98,7 @@ def all_response(request):
     return JsonResponse(serializer.data, safe=False)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def ditail_data_of_user(request, pk):
     user = User.objects.get(pk=pk)
