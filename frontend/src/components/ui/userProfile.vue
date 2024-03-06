@@ -4,17 +4,21 @@
       <div class="profile__left">
         <template v-if="!this.$store.state.isProfileEdit">
           <div class="profile__top">
-<!--            <img src="../../../../mediafiles/movies/applicant_portfolio/63hkx3oc5cxcfmbex5l14m46pmv60df0.webp" alt="">-->
+            <!--            <img src="../../../../mediafiles/movies/applicant_portfolio/63hkx3oc5cxcfmbex5l14m46pmv60df0.webp" alt="">-->
             <div ref="dropzone" class="profile__top-photo-wrapper"></div>
             <div class="profile__data">
-              <p class="profile__data-name text-margin">{{userData.firstName}} {{userData.lastName}} {{userData.surname}}</p>
-              <p class="profile__data-age text-margin">{{userAge}} лет</p>
+              <p class="profile__data-name text-margin">{{ userData.firstName }} {{ userData.lastName }}
+                {{ userData.surname }}</p>
+              <p class="profile__data-age text-margin">{{ userAge }} лет</p>
               <p class="profile__data-geo text-margin">Гражданство:
-                <template v-if="userData.citizenship">{{userData.citizenship}}</template><template v-else>Не заполнено</template></p>
+                <template v-if="userData.citizenship">{{ userData.citizenship }}</template>
+                <template v-else>Не заполнено</template>
+              </p>
               <p class="profile__data-geo">
-                <template v-if="userData.region">{{userData.region}}</template>
-                <template v-else>Регион не заполнен</template>,
-                <template v-if="userData.city">{{userData.city}}</template>
+                <template v-if="userData.region">{{ userData.region }}</template>
+                <template v-else>Регион не заполнен</template>
+                ,
+                <template v-if="userData.city">{{ userData.city }}</template>
                 <template v-else>город не заполнен</template>
               </p>
               <button @click="openEditProfile" class="profile__data-edit">Редактировать профиль</button>
@@ -29,14 +33,16 @@
                   :class="{active: applicantStab === 1}"
                   class="profile__main-btn"
                   ref="tabOne"
-                  >Обо мне</button>
+              >Обо мне
+              </button>
               <button
                   @click="switchingTabs(2)"
                   :class="{active: applicantStab === 2}"
                   class="profile__main-btn"
                   ref="tabTwo"
-                  >
-                {{ profileText.buttonText }}</button>
+              >
+                {{ profileText.buttonText }}
+              </button>
             </div>
             <template v-if="applicantStab === 1">
               <div class="profile__main-block">
@@ -47,14 +53,14 @@
                 </div>
                 <h3 class="profile__subtitle">О вас:</h3>
                 <div class="profile__main-block__about">
-                <div
-                    class="profile__main-block__about-text"
-                    v-html="userData.about"
-                ></div>
+                  <div
+                      class="profile__main-block__about-text"
+                      v-html="userData.about"
+                  ></div>
                 </div>
               </div>
               <div class="profile__main-block">
-                <h3 class="profile__subtitle">{{profileText.portfolioTitle}}</h3>
+                <h3 class="profile__subtitle">{{ profileText.portfolioTitle }}</h3>
                 <div class="profile__portfolio">
                   <div class="profile__portfolio-block profile__portfolio-block--add">
                     <button class="profile__btn-edit btn--work btn--add"></button>
@@ -134,7 +140,7 @@ export default {
       this.modalVisible = false
     },
     openEditProfile() {
-      this.$router.push(`/${this.userData.usertype}/edit/${this.userData.id}/`)
+      this.$router.push(`/${this.userData.usertype}/edit/`)
     },
   },
   computed: {

@@ -2,6 +2,7 @@ from django.db import models
 from profiles.models import Applicant
 from jobs.models import Vacancies
 from django.contrib.postgres.fields import ArrayField
+from accounts.models import User
 import uuid
 from datetime import datetime as datetime
 
@@ -19,7 +20,6 @@ class Resume(models.Model):
     timestamp = models.DateField(auto_now_add=False, auto_now=True)
     created_by = models.ForeignKey(Applicant, related_name='applicant_resume', on_delete=models.CASCADE)
 
-
     class Meta:
         verbose_name = 'Резюме'
         verbose_name_plural = 'Резюме'
@@ -27,10 +27,10 @@ class Resume(models.Model):
 
 class Favorites(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    # vacancy = models.ManyToManyField(Vacancies, blank=True)
+    vacancy = models.ManyToManyField(Vacancies, related_name='vacancies')
 
     timestamp = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(Applicant, related_name='applicant_favorites', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, related_name='user_favorites', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Избранное'

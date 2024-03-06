@@ -30,10 +30,10 @@
             </li>
           </template>
           <template v-else>
-            <router-link to="/" tag="li" class="header__button">
+            <router-link to="/favorites/" tag="li" class="header__button">
               <img src="@/assets/star.svg" alt="кнопка избранных вакансий">
             </router-link>
-            <router-link to="/" tag="li" class="header__alerts">
+            <router-link to="/api/not/not/" tag="li" class="header__alerts">
               <img src="@/assets/alerts.svg" alt="кнопка оповещений">
             </router-link>
             <button class="header__alerts">
@@ -53,7 +53,9 @@
               class="supernova-wrapper">
             <ul class="supernova-wrapper-list">
               <li class="supernova-wrapper-item">
-                <a :href="`/${userData.usertype}/${userData.id}`" class="supernova-wrapper__name">{{ userData.firstName }}</a>
+                <a :href="`/${userData.usertype}/`" class="supernova-wrapper__name">{{
+                    userData.firstName
+                  }}</a>
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
                 <router-link to="/" tag="div" class="supernova-wrapper-block">
@@ -87,10 +89,11 @@
                       вакансию
                     </router-link>
                     <li @click="routeEmployerVacancy" class="supernova-wrapper-sublist__link">Мои
-                      вакансии</li>
-<!--                    <router-link  class="supernova-wrapper-sublist__link" :to="{name: 'employer', params: { id: userData.id} }" tag="li">Мои-->
-<!--                      вакансии-->
-<!--                    </router-link>-->
+                      вакансии
+                    </li>
+                    <!--                    <router-link  class="supernova-wrapper-sublist__link" :to="{name: 'employer', params: { id: userData.id} }" tag="li">Мои-->
+                    <!--                      вакансии-->
+                    <!--                    </router-link>-->
                   </template>
                   <template v-if="userData.usertype === 'applicant'">
                     <router-link class="supernova-wrapper-sublist__link" to="/create-resume" tag="li">Создать резюме
@@ -430,7 +433,7 @@ export default {
   },
   methods: {
     routeEmployerVacancy() {
-      this.$router.push({ name: 'employer', params: { id: this.userData.id } })
+      this.$router.push({name: 'employer', params: {id: this.userData.id}})
       localStorage.setItem('applicantTab', JSON.stringify(2));
     },
     validFormReg() {

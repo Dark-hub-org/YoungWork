@@ -4,8 +4,9 @@ from rest_framework.permissions import IsAuthenticated
 
 from accounts.models import User
 from .models import Resume
-from .serializers import ResumeDataSerializer, ResumeDetailSerializer
+from .serializers import ResumeDataSerializer, ResumeDetailSerializer, FavoritesDataSerializer
 from django.shortcuts import render
+from .models import Favorites
 
 
 @permission_classes([IsAuthenticated])
@@ -31,6 +32,19 @@ def resume_reg(request):
         serializer.save()
         return render(request, "index.html")
     return render(request, "index.html")
+
+
+@permission_classes([IsAuthenticated])
+@api_view(['POST', 'GET'])
+def favorites(request):
+    user = request.user
+    if request.method == "POST":
+        instance = Favorites.objects.create(created_by=user)
+        instance.vacancy.set([request.data.get('vacancy')])
+        return JsonResponse({'message': 'success'})
+    fav = Favorites.objects.filter(created_by=user).all()
+    serializer = FavoritesDataSerializer(fav, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 
 @permission_classes([IsAuthenticated])

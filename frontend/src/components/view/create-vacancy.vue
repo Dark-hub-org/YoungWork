@@ -299,7 +299,7 @@ export default {
       tasks: '',
       requirements: this.description,
       isSalaryTask: "До вычета налогов",
-      employ: 'Полная занятость',
+      employ: ['Полная занятость',],
       experience: 'Не имеет значения',
       graph: ["Полный день",],
 
@@ -340,7 +340,7 @@ export default {
         // this.validateFormVacancy()
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)
-          window.location.reload()
+          // window.location.reload()
         }
       } catch (error) {
         console.log(error)
