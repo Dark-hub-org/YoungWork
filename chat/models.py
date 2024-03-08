@@ -24,5 +24,5 @@ class ConversationMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
 
-    def create_at_formatted(self):
+    def created_at_formatted(self):
         return timesince(self.created_at)

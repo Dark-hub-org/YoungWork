@@ -1,12 +1,15 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from accounts.models import User
 from .models import Resume
-from .serializers import ResumeDataSerializer, ResumeDetailSerializer
+from .serializers import ResumeDataSerializer, ResumeDetailSerializer, FavoritesDataSerializer
 from django.shortcuts import render
+from .models import Favorites
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET', 'DELETE'])
 def resume_detail_data(request, pk):
     resume_detail = Resume.objects.get(pk=pk)
@@ -21,6 +24,7 @@ def resume_of_users(request):
     return JsonResponse(serializer.data)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET', 'POST'])
 def resume_reg(request):
     serializer = ResumeDataSerializer(data=request.data)
@@ -30,6 +34,20 @@ def resume_reg(request):
     return render(request, "index.html")
 
 
+@permission_classes([IsAuthenticated])
+@api_view(['POST', 'GET'])
+def favorites(request):
+    user = request.user
+    if request.method == "POST":
+        instance = Favorites.objects.create(created_by=user)
+        instance.vacancy.set([request.data.get('vacancy')])
+        return JsonResponse({'message': 'success'})
+    fav = Favorites.objects.filter(created_by=user).all()
+    serializer = FavoritesDataSerializer(fav, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def ditail_data_of_user(request, pk):
     user = User.objects.get(pk=pk)

@@ -299,7 +299,7 @@ export default {
       tasks: '',
       requirements: this.description,
       isSalaryTask: "До вычета налогов",
-      employ: 'Полная занятость',
+      employ: ['Полная занятость',],
       experience: 'Не имеет значения',
       graph: ["Полный день",],
 
@@ -340,7 +340,7 @@ export default {
         // this.validateFormVacancy()
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)
-          window.location.reload()
+          // window.location.reload()
         }
       } catch (error) {
         console.log(error)
@@ -395,7 +395,7 @@ export default {
       maxFiles: 1,
       maxFilesize: 3,
       addRemoveLinks: true,
-      paramName: "banner",
+      paramName: "logo",
       sending: (file, xhr, formData) => {
         formData.append("email", this.userData.email);
         formData.append("usertype", this.userData.usertype);
@@ -416,6 +416,7 @@ export default {
       height: 50px;
       background-size: cover;
     }
+
     .dz-image {
       img {
         object-fit: fill;

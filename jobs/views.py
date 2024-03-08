@@ -3,7 +3,8 @@ from .models import Vacancies
 from rest_framework import generics
 from .serializers import VacanciesDataSerializer
 from rest_framework.filters import SearchFilter
-from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework as filters
+from rest_framework.permissions import IsAuthenticated
 
 
 class LargeResultsSetPagination(PageNumberPagination):
@@ -12,14 +13,25 @@ class LargeResultsSetPagination(PageNumberPagination):
     max_page_size = 9999
 
 
+class VacancyFilter(filters.FilterSet):
+    min_salary = filters.NumberFilter(field_name="salary_min", lookup_expr='gte')
+    employ = filters.CharFilter(lookup_expr='icontains')
+    graph = filters.CharFilter(lookup_expr='icontains')
+
+    class Meta:
+        model = Vacancies
+        fields = ['required_experience', ]
+
+
 class VacanciesData(generics.ListAPIView):
     queryset = Vacancies.objects.filter(active=True).all()
     serializer_class = VacanciesDataSerializer
     pagination_class = LargeResultsSetPagination
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [filters.DjangoFilterBackend, SearchFilter]
+    filterset_class = VacancyFilter
+    # filterset_fields = {
+    #     'salary_min': ["gt", "exact"], 'salary_max': ["lt", "exact"],
+    #     'required_experience': ["exact"], 'employ': ['contains'],
+    # }
 
-    filterset_fields = {
-        'salary_min': ["gt", "exact"], 'salary_max': ["lt", "exact"],
-        "required_experience": ["exact"], 'employ': ["exact"],
-    }
     search_fields = ['job_title', 'description', 'tasks', 'requirements', 'company_name']

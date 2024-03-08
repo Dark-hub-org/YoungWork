@@ -89,24 +89,24 @@ export default new VueRouter({
       },
     },// Детальная резюме
     {
-      path: '/applicant/:id',
+      path: '/applicant/',
       name: 'applicant',
       props: true,
       component: Applicant
     },//Профиль соискателя
     {
-      path: '/applicant/edit/:id',
+      path: '/applicant/edit/',
       name: 'applicant-edit',
       component: UserEdit
     },//Редактирование профиля соискателя
     {
-      path: '/employer/:id',
+      path: '/employer/',
       name: 'employer',
       props: true,
       component: Employer
     },//Профиль работодателя
     {
-      path: '/employer/edit/:id',
+      path: '/employer/edit/',
       name: 'employer-edit',
       component: UserEdit
     },//Редактирование профиля работодателя

@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from .serializers import CreateApplicantSerializer, CreateEmployerSerializer, EmployerDetailSerializer, \
     ApplicantDetailSerializer, EmployerDataSerializer, ApplicantDataSerializer
 from .models import Employer, Applicant
@@ -7,6 +7,7 @@ from accounts.models import User, VacancyResponse
 from accounts.serializers import EditProfileSerializer
 from django.shortcuts import render
 from notification.utils import create_notification
+from rest_framework.permissions import IsAuthenticated
 
 
 def edit_user_data(request):
@@ -32,6 +33,7 @@ def edit_user_data(request):
     return JsonResponse(serializers.data)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def create_applicant(request):
     serializer = CreateApplicantSerializer(data=request.data)
@@ -41,6 +43,7 @@ def create_applicant(request):
     return JsonResponse(serializer.errors)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def create_employer(request):
     serializer = CreateEmployerSerializer(data=request.data)
@@ -50,16 +53,19 @@ def create_employer(request):
     return JsonResponse(serializer.errors)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
-def edit_applicant_view(request, pk):
+def edit_applicant_view(request):
     return render(request, "index.html")
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
-def edit_employer_view(request, pk):
+def edit_employer_view(request):
     return render(request, "index.html")
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['PATCH'])
 def edit_employer(request, pk):
     employer_data = {
@@ -79,6 +85,7 @@ def edit_employer(request, pk):
     return JsonResponse(serializer.data)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['PATCH'])
 def edit_applicant(request, pk):
     portfolio = request.data.get('portfolio')
@@ -93,15 +100,16 @@ def edit_applicant(request, pk):
 
 
 @api_view(['GET'])
-def employer_view(request, pk):
+def employer_view(request):
     return render(request, "index.html")
 
 
 @api_view(['GET'])
-def applicant_view(request, pk):
+def applicant_view(request):
     return render(request, "index.html")
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def employer_data(self, pk):
     employer_detail = Employer.objects.get(pk=pk)
@@ -109,6 +117,7 @@ def employer_data(self, pk):
     return JsonResponse(serializer.data)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def applicant_data(self, pk):
     applicant_detail = Applicant.objects.get(pk=pk)
@@ -116,44 +125,39 @@ def applicant_data(self, pk):
     return JsonResponse(serializer.data)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_portfolio(request):
-    try:
-        User.objects.filter(user=request.user.id).update(portfolio=request.data.get('portfolio'))
-        return JsonResponse({'message': 'success'})
-    except TypeError:
-        return JsonResponse({'message': 'Error'})
+    Applicant.objects.filter(user=request.data.get('pk')).update(portfolio=request.data.get('portfolio'))
+    return JsonResponse({'message': 'success'})
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_photo_org(request):
-    try:
-        User.objects.filter(user=request.user.id).update(photo_org=request.data.get('photo_org'))
-        return JsonResponse({'message': 'success'})
-    except TypeError:
-        return JsonResponse({'message': 'Error'})
+    org = Employer.objects.filter(user=request.data.get('pk')).update(photo_org=request.data.get('photo_org'))
+    return JsonResponse({'user': org})
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_job_example(request):
-    try:
-        User.objects.filter(user=request.user.id).update(logo=request.data.get('logo'))
-        return JsonResponse({'message': 'success'})
-    except TypeError:
-        return JsonResponse({'message': 'Error'})
+    example = Employer.objects.filter(user=request.data.get('pk')).update(job_example=request.data.get('job_example'))
+    return JsonResponse({'user': example})
 
-# @api_view(['GET'])
-# def response_on_vacancy(request, pk):
-#     user = User.objects.get(pk=pk)
-#
-#     check_one = VacancyResponse.objects.filter(created_for=request.user).filter(created_by=user)
-#     check_two = VacancyResponse.objects.filter(created_for=user).filter(created_by=request.user)
-#
-#     if not check_one or not check_two:
-#         vacancy_response = VacancyResponse.objects.create(created_for=user, created_by=request.user)
-#
-#         notification = create_notification(request, 'new_vacancy_response', vacancy_response_id=vacancy_response.id)
-#
-#         return JsonResponse({'message': 'Response on vacancy, success'})
-#     else:
-#         return JsonResponse({'message': 'Error'})
+
+@api_view(['GET'])
+def response_on_vacancy(request, pk):
+    user = User.objects.get(pk=pk)
+
+    check_one = VacancyResponse.objects.filter(created_for=request.user).filter(created_by=user)
+    check_two = VacancyResponse.objects.filter(created_for=user).filter(created_by=request.user)
+
+    if not check_one or not check_two:
+        vacancy_response = VacancyResponse.objects.create(created_for=user, created_by=request.user)
+
+        notification = create_notification(request, 'new_vacancy_response', vacancy_response_id=vacancy_response.id)
+
+        return JsonResponse({'message': 'Response on vacancy, success'})
+    else:
+        return JsonResponse({'message': 'Error'})

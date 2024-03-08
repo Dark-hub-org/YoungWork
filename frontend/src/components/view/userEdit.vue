@@ -291,9 +291,9 @@ export default {
       thumbnailWidth: 373,
       thumbnailHeight: 280,
       addRemoveLinks: true,
-      paramName: "avatar",
+      paramName: "portfolio",
       sending: (file, xhr, formData) => {
-        formData.append("email", this.userData.email);
+        formData.append("pk", this.userData.id);
         formData.append("usertype", this.userData.usertype);
       },
     })
@@ -305,9 +305,9 @@ export default {
       thumbnailWidth: 250,
       thumbnailHeight: 250,
       addRemoveLinks: true,
-      paramName: "avatar",
+      paramName: "photo_org",
       sending: (file, xhr, formData) => {
-        formData.append("email", this.userData.email);
+        formData.append("pk", this.userData.id);
         formData.append("usertype", this.userData.usertype);
       },
     })

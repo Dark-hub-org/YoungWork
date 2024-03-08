@@ -2,10 +2,10 @@ from django.urls import path
 from . import api
 
 urlpatterns = [
-    path('applicant/<str:pk>/', api.applicant_view, name='applicant'),
-    path('employer/<str:pk>/', api.employer_view, name='employer'),
-    path('applicant/edit/<str:pk>/', api.edit_applicant_view, name='edit_applicant'),
-    path('employer/edit/<str:pk>/', api.edit_employer_view, name='edit_employer'),
+    path('applicant/', api.applicant_view, name='applicant'),
+    path('employer/', api.employer_view, name='employer'),
+    path('applicant/edit/', api.edit_applicant_view, name='edit_applicant'),
+    path('employer/edit/', api.edit_employer_view, name='edit_employer'),
     path('applicant/edit-data/<str:pk>/', api.edit_applicant, name='edit_applicant_data'),
     path('employer/edit-data/<str:pk>/', api.edit_employer, name='edit_employer_data'),
     path('applicant/data/<str:pk>/', api.applicant_data, name='data_applicant'),
@@ -15,5 +15,5 @@ urlpatterns = [
     path('api/applicant/upload-portfolio/', api.upload_portfolio, name='upload_portfolio'),
     path('api/employer/upload-photorg/', api.upload_photo_org, name='upload_photo_org'),
     path('api/employer/upload-jobexample/', api.upload_job_example, name='upload_job_example'),
-    # path('vacancy-response/<str:pk>/', api.response_on_vacancy, name='vacancy_response')
+    path('vacancy-response/<str:pk>/', api.response_on_vacancy, name='vacancy_response')
 ]

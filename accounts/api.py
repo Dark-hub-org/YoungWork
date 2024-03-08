@@ -2,13 +2,15 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, permission_classes
-
+from rest_framework.permissions import IsAuthenticated
+from .serializers import AvatarSerializer
 from accounts.models import User
 from jobs.models import Vacancies
 from resume.models import Resume
 from jobs.serializers import VacanciesDataSerializer
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def me(request):
     return JsonResponse(data={
@@ -20,6 +22,7 @@ def me(request):
         'surname': request.user.surname,
         'dateOfBirth': request.user.date_of_birth,
         'citizenship': request.user.citizenship,
+        'avatar': request.user.get_avatar(),
         'region': request.user.region,
         'city': request.user.city,
         'about': request.user.about,
@@ -30,6 +33,7 @@ def me(request):
     })
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def editpassword(request):
     user = request.user
@@ -42,12 +46,29 @@ def editpassword(request):
         return JsonResponse({'message': form.errors.as_json()}, safe=False)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_avatar(request):
     User.objects.filter(email=request.data.get('email')).update(avatar=request.data.get('avatar'))
+    # user_upload = User.objects.filter(email=request.data.get('email')).values()
+    # serializer = AvatarSerializer(data=user_upload)
+    # if serializer.is_valid():
+    #     serializer.save()
     return JsonResponse({'message': 'success'})
 
 
+@permission_classes([IsAuthenticated])
+@api_view(['POST'])
+def switch_profile(request):
+    if request.user.usertype == 'applicant':
+        User.objects.filter(id=request.user.id).update(usertype='employer')
+        return JsonResponse({'message': 'switch on employer'})
+    else:
+        User.objects.filter(id=request.user.id).update(usertype='applicant')
+        return JsonResponse({'message': 'switch on applicant'})
+
+
+# TODO: switch fields
 @api_view(['GET'])
 def recommend(request):
     user = request.user.id
@@ -56,9 +77,9 @@ def recommend(request):
         vac = Vacancies.objects.all()
         serializer = VacanciesDataSerializer(vac, many=True)
         return JsonResponse(serializer.data, safe=False)
-    user_resume_employ = user_resume.employ  # ['Частичная занятость']
-    if Vacancies.objects.filter(employ=user_resume_employ).exists():  # ('employ', 'Частичная занятость')
-        vacancies = Vacancies.objects.filter(employ=user_resume_employ)
+    user_resume_skills = user_resume.skills
+    if Vacancies.objects.filter(description=user_resume_skills).exists():
+        vacancies = Vacancies.objects.filter(description=user_resume_skills)
         serializer = VacanciesDataSerializer(vacancies, many=True)
         return JsonResponse(serializer.data, safe=False)
     else:
