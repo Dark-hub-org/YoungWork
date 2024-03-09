@@ -4,7 +4,7 @@
   position: relative;
   max-width: 1025px;
   width: 100%;
-  margin-bottom: 89px;
+  //margin-bottom: 89px;
   &:hover {
     .search__input {
       border-color: transparent;
@@ -55,4 +55,27 @@
     background-repeat: no-repeat;
     background-position: center;
   }
+}
+
+
+@media (max-width: 551px) {
+
+  .search {
+    &__input {
+      height: 65px;
+      font-size: 20px;
+      &::placeholder {
+        font-size: 20px;
+      }
+    }
+    &__submit {
+      width: 20px;
+      height: 20px;
+    }
+    &__clear {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
 }

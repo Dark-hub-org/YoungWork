@@ -310,6 +310,14 @@
   }
 }
 
+@media(max-width: 551px) {
+
+  .header__wrapper {
+    padding: 20px 0;
+  }
+
+}
+
 @media (max-width: 360px) {
   .header__wrapper {
     margin: 0 20px;

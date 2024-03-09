@@ -297,20 +297,22 @@ export default {
         formData.append("usertype", this.userData.usertype);
       },
     })
-    this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
-      url: "/api/employer/upload-photorg/",
-      methods: "post",
-      maxFiles: 1,
-      maxFilesize: 2,
-      thumbnailWidth: 250,
-      thumbnailHeight: 250,
-      addRemoveLinks: true,
-      paramName: "photo_org",
-      sending: (file, xhr, formData) => {
-        formData.append("pk", this.userData.id);
-        formData.append("usertype", this.userData.usertype);
-      },
-    })
+    if(this.$refs.dropzoneSmall) {
+      this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
+        url: "/api/employer/upload-photorg/",
+        methods: "post",
+        maxFiles: 1,
+        maxFilesize: 2,
+        thumbnailWidth: 250,
+        thumbnailHeight: 250,
+        addRemoveLinks: true,
+        paramName: "photo_org",
+        sending: (file, xhr, formData) => {
+          formData.append("pk", this.userData.id);
+          formData.append("usertype", this.userData.usertype);
+        },
+      })
+    }
   }
 }
 </script>

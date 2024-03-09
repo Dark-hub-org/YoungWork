@@ -3,7 +3,7 @@
     <section class="inner">
       <div class="wrapper inner__wrapper">
         <the-heading title="Сервис по поиску работы для молодежи"></the-heading>
-        <the-search></the-search>
+        <the-search class="inner__search"></the-search>
         <div class="inner__info">
           <div class="inner__info-card">
             <img src="@/assets/inner/info-1.png" alt="девушка с папкой" class="inner__info-image">

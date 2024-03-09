@@ -79,9 +79,11 @@
                 </div>
               </div>
               <div class="vacancy__item-btns">
-                <button v-if="!vacancy.response" @click="sendResponse(vacancy)" class="button-orange-another vacancy__item-btn">Откликнуться</button>
-                <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
-                <button class="button-orange vacancy__item-btn">В избранное</button>
+                <template v-if="userData.usertype === 'applicant'">
+                  <button v-if="!vacancy.response" @click="sendResponse(vacancy)" class="button-orange-another vacancy__item-btn">Откликнуться</button>
+                  <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
+                  <button class="button-orange vacancy__item-btn">В избранное</button>
+                </template>
               </div>
             </div>
             <paginate
@@ -182,7 +184,6 @@ export default {
     convertVacancies(vacancy, responseVacancy) {
       this.vacancies = vacancy.map(item => {
         const isVacancy = responseVacancy.includes(item.id)
-        console.log(isVacancy)
         return { ...item, response: isVacancy };
       });
     },
@@ -193,10 +194,11 @@ export default {
         const route = searchValue ? `search=${searchValue}` : '';
         const pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
         const response = await axios.get(`/api/vac/?${pageRoute}${route}${filtersValue}`);
-        const responseVacancy = await axios.get(`/applicant/data/${this.userId}/`)
-
-        this.convertVacancies(response.data.results, responseVacancy.data.response)
-
+        if(this.userData.usertype === 'applicant') {
+          const responseVacancy = await axios.get(`/applicant/data/${this.userData.usertype}/`)
+          this.convertVacancies(response.data.results, responseVacancy.data.response)
+        }
+        this.vacancies = response.data.results
         this.quantityVacancies = response.data.count;
         this.currentPage = pageNum;
         this.requestValue = searchValue;
@@ -220,7 +222,7 @@ export default {
       const data = {
         vacancy: vacancy.id,
         org: vacancy.created_by,
-        created_by: this.userId,
+        created_by: this.userData.usertype,
       }
       try {
         await axios.post('/api/response/', data)
@@ -235,12 +237,12 @@ export default {
     totalPage() {
       return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
     },
-    userId() {
-      return this.$store.state.userData.id
+    // userId() {
+    //   return this.$store.state.userData.id
+    // },
+    userData() {
+      return this.$store.state.userData
     },
-    responseVacancy() {
-      return this.$store.state.userData.response
-    }
   },
 
   mounted() {
