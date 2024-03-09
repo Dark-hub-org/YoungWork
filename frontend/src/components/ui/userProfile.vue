@@ -171,6 +171,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/userProfile.scss" lang="scss" scoped>
+<style src="@/style/ui/userProfile.scss" lang="scss">
 
 </style>

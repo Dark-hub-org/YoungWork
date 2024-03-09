@@ -195,7 +195,7 @@ export default {
         const pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
         const response = await axios.get(`/api/vac/?${pageRoute}${route}${filtersValue}`);
         if(this.userData.usertype === 'applicant') {
-          const responseVacancy = await axios.get(`/applicant/data/${this.userData.usertype}/`)
+          const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
           this.convertVacancies(response.data.results, responseVacancy.data.response)
         }
         this.vacancies = response.data.results

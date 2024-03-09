@@ -198,6 +198,6 @@ export default {
 }
 </script>
 
-<style src="@/style/employer.scss" lang="scss">
+<style src="@/style/employer.scss" lang="scss" scoped>
 
 </style>

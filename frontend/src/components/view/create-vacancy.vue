@@ -65,54 +65,73 @@
           <div class="constructor__form-parameter">
             <input
                 v-model="employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Полная занятость"
                 class="constructor__form-parameter__input"
                 id="fullEmploy"
                 checked>
-            <label for="fullEmploy" class="constructor__form-parameter__label radio">Полная занятость</label>
+            <label
+                for="fullEmploy"
+                class="constructor__form-parameter__label check"
+                :class="{error: errorFields.employ }">Полная занятость</label>
+
           </div>
           <div class="constructor__form-parameter">
             <input
                 v-model="employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Частичная занятость"
                 class="constructor__form-parameter__input"
                 id="partialEmploy">
-            <label for="partialEmploy" class="constructor__form-parameter__label radio">Частичная занятость</label>
+            <label
+                for="partialEmploy"
+                class="constructor__form-parameter__label check"
+                :class="{error: errorFields.employ }">Частичная занятость</label>
           </div>
           <div class="constructor__form-parameter">
             <input
                 v-model="employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Стажировка"
                 class="constructor__form-parameter__input"
                 id="internship">
-            <label for="internship" class="constructor__form-parameter__label radio">Стажировка</label>
+            <label
+                for="internship"
+                class="constructor__form-parameter__label check"
+                :class="{error: errorFields.employ }">Стажировка</label>
           </div>
           <div class="constructor__form-parameter">
             <input
                 v-model="employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Проектная работа"
                 class="constructor__form-parameter__input"
                 id="projectWork">
-            <label for="projectWork" class="constructor__form-parameter__label radio">Проектная работа</label>
+            <label
+                for="projectWork"
+                class="constructor__form-parameter__label check"
+                :class="{error: errorFields.employ }">Проектная работа</label>
           </div>
           <div class="constructor__form-parameter">
             <input
                 v-model="employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Волонтерство"
                 class="constructor__form-parameter__input"
                 id="volunteering">
-            <label for="volunteering" class="constructor__form-parameter__label radio">Волонтерство</label>
+            <label
+                for="volunteering"
+                class="constructor__form-parameter__label check"
+                :class="{error: errorFields.employ }">Волонтерство</label>
           </div>
+          <span
+              class="constructor__form-block__error"
+              :class="{ active: errorFields.employ }">Заполните поле</span>
         </div>
         <div class="constructor__form-block">
           <p class="constructor__form-block__name">Укажите требуемый опыт работы:</p>
@@ -311,6 +330,7 @@ export default {
       errorFields: {
         vacancyTitle: false,
         salary: false,
+        employ: false,
         // salaryMin: false,
         // salaryMax: false,
         graph: false,
@@ -340,7 +360,7 @@ export default {
         // this.validateFormVacancy()
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)
-          // window.location.reload()
+          window.location.reload()
         }
       } catch (error) {
         console.log(error)
@@ -379,6 +399,7 @@ export default {
       this.errorFields.vacancyTitle = this.validateField(this.vacancyTitle)
       // this.errorFields.salary = this.validateField(this.salaryMin) && this.validateField(this.salaryMax)
       this.errorFields.graph = this.validateField(this.graph)
+      this.errorFields.employ = this.validateField(this.employ)
       this.errorFields.description = this.validateField(this.description)
       return Object.values(this.errorFields).every((error) => !error)
     },
