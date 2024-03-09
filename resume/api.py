@@ -35,7 +35,7 @@ def resume_reg(request):
 
 
 @permission_classes([IsAuthenticated])
-@api_view(['POST', 'GET'])
+@api_view(['POST', 'GET', 'DELETE'])
 def favorites(request):
     user = request.user
     if request.method == "POST":

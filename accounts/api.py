@@ -3,8 +3,8 @@ from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from .serializers import AvatarSerializer
 from accounts.models import User
+from profiles.models import Applicant, Employer
 from jobs.models import Vacancies
 from resume.models import Resume
 from jobs.serializers import VacanciesDataSerializer
@@ -61,11 +61,21 @@ def upload_avatar(request):
 @api_view(['POST'])
 def switch_profile(request):
     if request.user.usertype == 'applicant':
-        User.objects.filter(id=request.user.id).update(usertype='employer')
-        return JsonResponse({'message': 'switch on employer'})
+        if Employer.objects.filter(user=request.user.id).exists():
+            User.objects.filter(id=request.user.id).update(usertype='employer')
+            return JsonResponse({'message': 'switch on employer'})
+        else:
+            Employer.objects.create(user=request.user)
+            User.objects.filter(id=request.user.id).update(usertype='employer')
+            return JsonResponse({'message': 'switch on employer'})
     else:
-        User.objects.filter(id=request.user.id).update(usertype='applicant')
-        return JsonResponse({'message': 'switch on applicant'})
+        if Applicant.objects.filter(user=request.user.id).exists():
+            User.objects.filter(id=request.user.id).update(usertype='applicant')
+            return JsonResponse({'message': 'switch on applicant'})
+        else:
+            Applicant.objects.create(user=request.user)
+            User.objects.filter(id=request.user.id).update(usertype='applicant')
+            return JsonResponse({'message': 'switch on applicant'})
 
 
 # TODO: switch fields
