@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Resume, Favorites
+from .models import Resume
 
 
 class ResumeDataSerializer(serializers.ModelSerializer):
@@ -12,10 +12,4 @@ class ResumeDataSerializer(serializers.ModelSerializer):
 class ResumeDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resume
-        fields = "__all__"
-
-
-class FavoritesDataSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Favorites
         fields = "__all__"

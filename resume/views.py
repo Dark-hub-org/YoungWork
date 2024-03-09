@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Resume, Favorites
 from rest_framework import generics
-from .serializers import ResumeDataSerializer, FavoritesDataSerializer
+from .serializers import ResumeDataSerializer
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
