@@ -106,7 +106,7 @@
               <li class="supernova-wrapper-item supernova-wrapper-item--padding-top">
                 <div class="supernova-wrapper-block">
                   <img src="@/assets/exit.svg" alt="кнопка избранное" class="supernova-wrapper-image">
-                  <button class="supernova-wrapper-text">Сменить аккаунт</button>
+                  <button @click="switchType" class="supernova-wrapper-text">Сменить аккаунт</button>
                 </div>
               </li>
               <li class="supernova-wrapper-item">
@@ -506,6 +506,14 @@ export default {
       localStorage.removeItem('isAuthorization')
       this.$router.push('/')
       location.reload()
+    },
+    async switchType() {
+      try {
+        await axios.post('/api/switch/')
+        window.location.reload()
+      } catch (error) {
+        console.log(error)
+      }
     },
     checkRegFields() {
       this.isEmptyEmail = _.isEmpty(this.email);
