@@ -82,7 +82,7 @@
                 <template v-if="userData.usertype === 'applicant'">
                   <button v-if="!vacancy.response" @click="sendResponse(vacancy)" class="button-orange-another vacancy__item-btn">Откликнуться</button>
                   <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
-                  <button class="button-orange vacancy__item-btn">В избранное</button>
+                  <button @click="addedFavorites(vacancy.id)" class="button-orange vacancy__item-btn">В избранное</button>
                 </template>
               </div>
             </div>
@@ -213,7 +213,6 @@ export default {
       this.fetchVacancies(this.$route.query.search, '', pageNum);
     },
     data(filterValue) {
-      console.log(filterValue)
       const page = !this.$route.query.page ? '' : `page=${this.$route.query.page}`
       const search = !this.$route.query.search ? '' : `search=${this.$route.query.search}`
       this.$router.push(`/vacancy/?${page}&${search}&${filterValue}`)
@@ -231,15 +230,19 @@ export default {
         console.log(data)
         console.log(error)
       }
-    }
+    },
+    async addedFavorites(id) {
+      try {
+        await axios.post('/favorites/', {vacancy: id})
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
   computed: {
     totalPage() {
       return Math.ceil(this.quantityVacancies / this.pageQuantityMax)
     },
-    // userId() {
-    //   return this.$store.state.userData.id
-    // },
     userData() {
       return this.$store.state.userData
     },
