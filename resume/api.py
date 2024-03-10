@@ -40,17 +40,22 @@ def resume_reg(request):
 @api_view(['POST', 'GET', 'DELETE'])
 def favorites(request):
     user = request.user
-    instance = Favorites.objects.get(created_by=user)
     if request.method == 'POST':
         if Favorites.objects.filter(created_by=user).exists():
+            instance = Favorites.objects.get(created_by=user)
             instance.vacancy.add(request.data.get('vacancy'))
             return JsonResponse({'message': 'add success'})
         else:
+            instance = Favorites.objects.create(created_by=user)
             instance.vacancy.set([request.data.get('vacancy')])
             return JsonResponse({'message': 'success'})
-    fav_vac = instance.vacancy.all()
-    serializer = VacanciesDataSerializer(fav_vac, many=True)
-    return JsonResponse(serializer.data, safe=False)
+    if Favorites.objects.filter(created_by=user).exists():
+        instance = Favorites.objects.get(created_by=user)
+        fav_vac = instance.vacancy.all()
+        serializer = VacanciesDataSerializer(fav_vac, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    else:
+        return JsonResponse({'message': 'empty_space'})
 
 
 @permission_classes([IsAuthenticated])
