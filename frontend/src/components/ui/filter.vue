@@ -10,35 +10,35 @@
     <div class="filters__block">
       <p class="filters__block-title">Уровень дохода</p>
       <div class="filters__item">
-        <input v-model="filterParameters.salary_min__jt" type="radio" value="" name="salary_min__jt" class="filters__item-input" id="salary-1">
+        <input v-model="filterParameters.min_salary" type="radio" value="" name="min_salary" class="filters__item-input" id="salary-1">
         <label for="salary-1" class="filters__item-label radio">Не имеет значение</label>
       </div>
       <div class="filters__item">
-        <input v-model="filterParameters.salary_min__jt" type="radio" value="25000" name="salary_min__jt" class="filters__item-input" id="salary-2">
+        <input v-model="filterParameters.min_salary" type="radio" value="25000" name="min_salary" class="filters__item-input" id="salary-2">
         <label for="salary-2" class="filters__item-label radio">от 25 000 руб.</label>
       </div>
       <div class="filters__item">
-        <input v-model="filterParameters.salary_min__jt" type="radio" value="55000" name="salary_min__jt" class="filters__item-input" id="salary-3">
+        <input v-model="filterParameters.min_salary" type="radio" value="55000" name="min_salary" class="filters__item-input" id="salary-3">
         <label for="salary-3" class="filters__item-label radio">от 55 000 руб.</label>
       </div>
       <div class="filters__item">
-        <input v-model="filterParameters.salary_min__jt" type="radio" value="85000" name="salary_min__jt" class="filters__item-input" id="salary-4">
+        <input v-model="filterParameters.min_salary" type="radio" value="85000" name="min_salary" class="filters__item-input" id="salary-4">
         <label for="salary-4" class="filters__item-label radio">от 85 000 руб.</label>
       </div>
       <div class="filters__item">
-        <input v-model="filterParameters.salary_min__jt" type="radio" value="145000" name="salary_min__jt" class="filters__item-input" id="salary-5">
+        <input v-model="filterParameters.min_salary" type="radio" value="145000" name="min_salary" class="filters__item-input" id="salary-5">
         <label for="salary-5" class="filters__item-label radio">от 145 000 руб.</label>
       </div>
       <div class="filters__item">
-        <input v-model="filterParameters.salary_min__jt" type="radio" value="175000" name="salary_min__jt" class="filters__item-input" id="salary-6">
+        <input v-model="filterParameters.min_salary" type="radio" value="175000" name="min_salary" class="filters__item-input" id="salary-6">
         <label for="salary-6" class="filters__item-label radio">от 175 000 руб.</label>
       </div>
       <div class="filters__item">
         <input
-            v-model="filterParameters.salary_min__jt"
+            v-model="filterParameters.min_salary"
             @change="handleRadioChange"
             :checked="isCheckOwnSalary === true"
-            :value="filterParameters.salary_min__jt"
+            :value="filterParameters.min_salary"
             type="radio"
             name="salary_min__jt"
             class="filters__item-input"
@@ -46,7 +46,7 @@
         <label for="salary-7" class="filters__item-label radio">Своя зарплата</label>
       </div>
       <input
-          v-model="filterParameters.salary_min__jt"
+          v-model="filterParameters.min_salary"
           @focus="isCheckOwnSalary = true"
           @blur="isCheckOwnSalary = false"
           ref="customSalaryInput"
@@ -139,7 +139,7 @@ export default {
   data() {
     return {
       filterParameters: {
-        salary_min__jt: '',
+        min_salary: '',
         required_experience: '',
         employ: [],
         graph: [],
