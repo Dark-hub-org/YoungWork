@@ -7,6 +7,7 @@ class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='applicant_user')
     response = ArrayField(models.CharField(max_length=100), default=list, blank=True, null=True)
+    resume_count = models.IntegerField(default=0)
 
     portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
 
@@ -26,6 +27,7 @@ class Employer(models.Model):
     inn = models.CharField(blank=True, null=True, max_length=100, default='')
     status_valid = models.BooleanField(null=True, default=False)
     job_example = models.ImageField(upload_to='movies/employer', null=True)
+    vacancy_count = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = 'Заказчик'

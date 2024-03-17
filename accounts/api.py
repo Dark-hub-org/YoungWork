@@ -10,30 +10,31 @@ from resume.models import Resume
 from jobs.serializers import VacanciesDataSerializer
 
 
-@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def me(request):
-    return JsonResponse(data={
-        'id': request.user.id,
-        'firstName': request.user.first_name,
-        'email': request.user.email,
-        'usertype': request.user.usertype,
-        'lastName': request.user.last_name,
-        'surname': request.user.surname,
-        'dateOfBirth': request.user.date_of_birth,
-        'citizenship': request.user.citizenship,
-        'avatar': request.user.get_avatar(),
-        'region': request.user.region,
-        'city': request.user.city,
-        'about': request.user.about,
-        'aboutWork': request.user.about_work,
-        'telegram': request.user.telegram,
-        'website': request.user.website,
-        'phoneNumber': request.user.phone_number,
-    })
+    try:
+        return JsonResponse(data={
+            'id': request.user.id,
+            'firstName': request.user.first_name,
+            'email': request.user.email,
+            'usertype': request.user.usertype,
+            'lastName': request.user.last_name,
+            'surname': request.user.surname,
+            'dateOfBirth': request.user.date_of_birth,
+            'citizenship': request.user.citizenship,
+            'avatar': request.user.get_avatar(),
+            'region': request.user.region,
+            'city': request.user.city,
+            'about': request.user.about,
+            'aboutWork': request.user.about_work,
+            'telegram': request.user.telegram,
+            'website': request.user.website,
+            'phoneNumber': request.user.phone_number,
+        })
+    except Exception as e:
+        return e
 
 
-@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def editpassword(request):
     user = request.user
@@ -46,7 +47,6 @@ def editpassword(request):
         return JsonResponse({'message': form.errors.as_json()}, safe=False)
 
 
-@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_avatar(request):
     User.objects.filter(email=request.data.get('email')).update(avatar=request.data.get('avatar'))
@@ -57,7 +57,6 @@ def upload_avatar(request):
     return JsonResponse({'message': 'success'})
 
 
-@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def switch_profile(request):
     if request.user.usertype == 'applicant':

@@ -38,12 +38,7 @@ class User(AbstractBaseUser):
         unique=True,
     )
     usertype = models.CharField()
-    avatar = models.ImageField(upload_to='movies/avatars', null=True)
-
-    recommendations = models.ManyToManyField('self')
-
-    vacancy_count = models.IntegerField(default=0)
-    resume_count = models.IntegerField(default=0)
+    avatar = models.ImageField(upload_to='movies/avatars', null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
