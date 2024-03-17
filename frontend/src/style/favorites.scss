@@ -1,10 +1,209 @@
 @import "main";
 
-.favorites__list {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  max-width: 1263px;
-  width: 100%;
+.favorites {
+  &__title {
+    margin-bottom: 80px;
+    font-size: 90px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 98.023%;
+    letter-spacing: -6.4px;
+  }
+
+  &__list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 1263px;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  &__item {
+    max-width: 1263px;
+    width: 100%;
+    padding: 40px;
+    color: $colorGrey;
+    border-radius: 30px;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+
+    &:not(:last-of-type) {
+      margin-bottom: 32px;
+    }
+
+    &-header {
+      @include displayFlex;
+    }
+    &-content {
+      margin-bottom: 24px;
+
+      &:last-child {
+        margin-bottom: 32px;
+      }
+    }
+    &-title {
+      display: block;
+      margin-bottom: 16px;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 98.023%;
+      letter-spacing: -1.6px;
+      cursor: pointer;
+      transition: all .3s ease;
+
+      &:hover {
+        color: $colorBlack;
+      }
+      &:visited {
+        color: $colorOrangeM;
+      }
+    }
+    &-salary {
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 98.023%;
+      letter-spacing: -1.6px;
+    }
+
+    &-info {
+
+    }
+    &-block {
+      margin-bottom: 24px;
+      &--description {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      &:last-child {
+        margin-bottom: 32px;
+      }
+    }
+    &-list {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    &-text {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 98.023%;
+      letter-spacing: -1px;
+      &--type {
+        display: inline-block;
+        padding: 8px;
+        border-radius: 8px;
+        background-color: $colorBlueBg;
+      }
+    }
+    &-company {
+      margin-bottom: 8px;
+    }
+
+    &-subtitle {
+      display: inline;
+      font-family: inherit;
+      color: $colorOrangeM;
+    }
+    &-btns {
+      @include displayFlex;
+      max-width: 344px;
+      gap: 14px;
+    }
+  }
 }
+
+@media(max-width: 991px) {
+  .favorites {
+    &__title {
+      font-size: 60px;
+      line-height: 98.023%;
+      letter-spacing: -1px;
+    }
+  }
+}
+
+@media(max-width: 744px) {
+
+  .favorites {
+    &__title {
+      font-size: 48px;
+      margin-bottom: 32px;
+    }
+    &__item {
+      padding: 24px;
+      &-title {
+        margin-bottom: 8px;
+        font-size: 24px;
+      }
+
+      &-salary {
+        font-size: 24px;
+        letter-spacing: -0.9px;
+      }
+
+
+    }
+  }
+}
+
+@media(max-width: 450px) {
+
+  .favorites {
+    &__title {
+      font-size: 32px;
+    }
+    &__item {
+
+      &-block {
+        margin-bottom: 16px;
+        &--description {
+          display: none;
+        }
+      }
+
+      &-title {
+        margin-bottom: 8px;
+        font-size: 18px;
+        letter-spacing: -0.9px;
+      }
+
+      &-salary {
+        font-size: 18px;
+        letter-spacing: -0.9px;
+      }
+
+      &-logo {
+        width: 50px;
+        height: 50px;
+      }
+
+      &-text {
+        font-size: 14px;
+
+        &--type {
+          margin-top: 4px;
+        }
+
+        &:first-of-type {
+          margin-bottom: 4px;
+        }
+      }
+
+      &-btns {
+        max-width: 249px;
+      }
+
+      &-btn {
+        font-size: 14px;
+      }
+
+    }
+  }
+
+}
+
 

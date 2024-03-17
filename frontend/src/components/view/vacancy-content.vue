@@ -80,9 +80,11 @@
               </div>
               <div class="vacancy__item-btns">
                 <template v-if="userData.usertype === 'applicant'">
-                  <button v-if="!vacancy.response" @click="sendResponse(vacancy)" class="button-orange-another vacancy__item-btn">Откликнуться</button>
+                  <button v-if="!vacancy.response" @click="sendResponse(vacancy)" class="button-orange-another vacancy__item-btn">
+                    Откликнуться</button>
                   <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
-                  <button @click="addedFavorites(vacancy.id)" class="button-orange vacancy__item-btn">В избранное</button>
+                  <button v-if="!vacancy.favorite" @click="addedFavorites(vacancy.id)" class="button-orange vacancy__item-btn">В избранное</button>
+                  <span v-else class="button-orange vacancy__item-btn">Добавленно в избранное</span>
                 </template>
               </div>
             </div>
@@ -181,41 +183,53 @@ export default {
     closeFilters() {
       this.isFilterVisible = false
     },
-    convertVacancies(vacancy, responseVacancy) {
+    convertVacancies(vacancy, responseVacancy, favoriteVacancy) {
       this.vacancies = vacancy.map(item => {
         const isVacancy = responseVacancy.includes(item.id)
-        return { ...item, response: isVacancy };
+        const isFavorite = favoriteVacancy.includes(item.id)
+        return { ...item, response: isVacancy, favorite: isFavorite};
       });
+
     },
 
     async fetchVacancies(searchValue, filtersValue, pageNum = 1) {
       try {
-        console.log(filtersValue)
-        const route = searchValue ? `search=${searchValue}` : '';
+        const route = searchValue ? `search=${searchValue}&` : '';
         const pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
+        console.log(pageRoute)
         const response = await axios.get(`/api/vac/?${pageRoute}${route}${filtersValue}`);
         if(this.userData.usertype === 'applicant') {
           const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
-          this.convertVacancies(response.data.results, responseVacancy.data.response)
+          const responseFavoriteVacancy  = await axios.get('/data-favorites/')
+
+          const favoritesVacancy = responseFavoriteVacancy.data.length ? responseFavoriteVacancy.data.map(vacancy => vacancy.id) : []
+
+          this.convertVacancies(response.data.results, responseVacancy.data.response, favoritesVacancy)
+        } else {
+          this.vacancies = response.data.results
         }
-        this.vacancies = response.data.results
         this.quantityVacancies = response.data.count;
         this.currentPage = pageNum;
         this.requestValue = searchValue;
         this.$router.push(`/vacancy/?${pageRoute}${route}${filtersValue}`);
-
-        return response.data.results
       } catch(error) {
         console.error(error);
       }
     },
     paginateHandler(pageNum) {
-      this.fetchVacancies(this.$route.query.search, '', pageNum);
-    },
-    data(filterValue) {
-      const page = !this.$route.query.page ? '' : `page=${this.$route.query.page}`
-      const search = !this.$route.query.search ? '' : `search=${this.$route.query.search}`
-      this.$router.push(`/vacancy/?${page}&${search}&${filterValue}`)
+      let filter = Object.fromEntries(
+          Object.entries(this.$route.query).filter(([key]) => key !== 'search' && key !== 'page')
+      );
+
+      filter = Object.keys(filter)
+          .map(key => `${key}=${filter[key]}`)
+          .join('&');
+
+      console.log(filter)
+
+      const filterRoute = filter !== '=null' ? filter : ''
+
+      this.fetchVacancies(this.$route.query.search, filterRoute, pageNum);
     },
     async sendResponse(vacancy) {
       const data = {
@@ -227,13 +241,13 @@ export default {
         await axios.post('/api/response/', data)
         this.vacancies = this.vacancies.map(item => item.id === vacancy.id ? {...item, response: true} : {...item})
       } catch(error) {
-        console.log(data)
         console.log(error)
       }
     },
     async addedFavorites(id) {
       try {
-        await axios.post('/favorites/', {vacancy: id})
+        await axios.post('/data-favorites/', {vacancy: id})
+        this.vacancies = this.vacancies.map(item => item.id === id ? {...item, favorite: true} : {...item})
       } catch (error) {
         console.log(error)
       }

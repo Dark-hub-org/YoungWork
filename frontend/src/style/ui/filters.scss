@@ -135,7 +135,7 @@
   }
 
   &__apply {
-    display: none;
+    //display: none;
     margin-top: 64px;
     margin-left: 50%;
     transform: translateX(-50%);
@@ -146,8 +146,8 @@
   .filters__top {
     @include displayFlex;
   }
-  .filters__apply {
-    display: block;
-  }
+  //.filters__apply {
+  //  display: block;
+  //}
 
 }

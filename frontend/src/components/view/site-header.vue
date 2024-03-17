@@ -58,7 +58,7 @@
                   }}</a>
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
-                <router-link to="/" tag="div" class="supernova-wrapper-block">
+                <router-link to="/favorites" tag="div" class="supernova-wrapper-block">
                   <img src="@/assets/star.svg" alt="кнопка избранное" class="supernova-wrapper-image">
                   <span class="supernova-wrapper-text">Избранное</span>
                 </router-link>

@@ -49,11 +49,14 @@
     }
   }
 
+  &__alerts {
+    cursor: pointer;
+  }
 
   &__button {
     width: 25px;
     height: 25px;
-
+    cursor: pointer;
   }
 
   &__menu-btn {
@@ -189,6 +192,7 @@
       .supernova-wrapper-image {
         width: 24px;
         height: 24px;
+
       }
 
       .supernova-wrapper-text {
