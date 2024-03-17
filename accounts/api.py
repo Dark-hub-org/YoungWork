@@ -81,15 +81,17 @@ def switch_profile(request):
 @api_view(['GET'])
 def recommend(request):
     user = request.user.id
-    user_resume = Resume.objects.filter(created_by=user).first()
-    if user_resume is None:
+    if Resume.objects.filter(created_by=user).exists():
+        user_resume = Resume.objects.filter(created_by=user).first()
+        user_resume_skills = user_resume.skills
+        vacancies = Vacancies.objects.all()
+        recommended_vacancies = []
+        for vacancy in vacancies:
+            if all(skill in vacancy.description for skill in user_resume_skills):
+                recommended_vacancies.append(vacancy)
+        serializer = VacanciesDataSerializer(recommended_vacancies, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    else:
         vac = Vacancies.objects.all()
         serializer = VacanciesDataSerializer(vac, many=True)
         return JsonResponse(serializer.data, safe=False)
-    user_resume_skills = user_resume.skills
-    if Vacancies.objects.filter(description=user_resume_skills).exists():
-        vacancies = Vacancies.objects.filter(description=user_resume_skills)
-        serializer = VacanciesDataSerializer(vacancies, many=True)
-        return JsonResponse(serializer.data, safe=False)
-    else:
-        return JsonResponse({'message': 'No vacancies found for this applicant'})
