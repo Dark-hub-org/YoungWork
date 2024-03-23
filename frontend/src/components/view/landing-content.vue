@@ -173,15 +173,11 @@ export default {
         } else {
           this.recommendedVacancy = response.data
         }
-        console.log(response.data)
       } catch(error) {
         console.log(error)
       }
     },
     convertVacancies(vacancy, responseVacancy, favoriteVacancy) {
-      console.log(vacancy)
-      console.log(responseVacancy)
-      console.log(favoriteVacancy)
       this.recommendedVacancy = vacancy.map(item => {
         const isVacancy = responseVacancy.includes(item.id)
         const isFavorite = favoriteVacancy.includes(item.id)

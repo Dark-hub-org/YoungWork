@@ -450,7 +450,6 @@ export default {
           this.onCloseModalReg();
         }
       } catch (error) {
-        console.log(error.request.response)
         console.error(error);
       }
     },

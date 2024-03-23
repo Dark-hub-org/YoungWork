@@ -3,6 +3,8 @@
 @import "../main";
 
 .vacancy-card {
+  display: flex;
+  flex-direction: column;
   max-width: 405px;
   padding: 20px;
   border-radius: 20px;
@@ -47,6 +49,7 @@
   &__btns {
     @include displayFlex;
     max-width: 344px;
+    margin-top: auto;
   }
   &__response {
     font-size: 18px;

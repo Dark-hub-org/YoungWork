@@ -76,7 +76,6 @@ export default {
       try {
         const response = await axios.get('/data-favorites/')
         this.favoritesVacancy = response.data
-        console.log(response)
       } catch (error) {
         console.log(error)
       }

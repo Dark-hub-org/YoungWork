@@ -2,11 +2,11 @@
   <div v-if="isVisible" class="notification" ref="notification">
     <div class="notification__list">
       <div
-          v-for="item in items"
-          :key="item.text"
+          v-for="item in notifications"
+          :key="item.id"
           @click.stop="fullText"
           class="notification__item">
-        <p class="notification__item-text">{{item.text}}</p>
+        <p class="notification__item-text">{{item.body}}</p>
       </div>
     </div>
   </div>
@@ -33,6 +33,7 @@ export default {
   },
   data() {
     return {
+      notifications: [],
       items: [
         {text: "на вашу вакансию откликнулись"},
         {text: "на вашу вакансию откликнулись"},
@@ -53,7 +54,8 @@ export default {
     async getNotifications() {
       try {
         const response = await axios.get('/api/not/notes/')
-        console.log(response)
+        this.notifications = response.data
+        console.log(response.data)
       } catch (error) {
         console.log(error)
       }

@@ -114,6 +114,10 @@
       gap: 14px;
     }
   }
+  &__text {
+    font-size: 50px;
+    line-height: normal;
+  }
 }
 
 @media(max-width: 991px) {
