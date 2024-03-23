@@ -52,6 +52,7 @@ class UserAdmin(BaseUserAdmin):
          {"fields": ["email", "usertype", "avatar", "first_name", "last_name", "surname",
                      "date_of_birth",
                      "citizenship", "region", "city"]}),
+        (None, {"fields": ["about", "about_work", "telegram", "website", "phone_number"]}),
         ("Permissions", {"fields": ["is_admin"]}),
     ]
     add_fieldsets = [

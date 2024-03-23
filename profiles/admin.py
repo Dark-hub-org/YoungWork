@@ -10,6 +10,6 @@ class ApplicantDisplay(admin.ModelAdmin):
 
 @admin.register(Employer)
 class EmployerDisplay(admin.ModelAdmin):
-    list_display = ["user", "inn", "title_org", "status_valid"]
+    list_display = ["user", "title_org", "inn", "status_valid"]
     list_filter = ["status_valid"]
-    search_fields = ["user"]
+    search_fields = ["user", "title_org"]

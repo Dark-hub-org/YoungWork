@@ -70,7 +70,8 @@
                 </div>
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--mobile supernova-wrapper-item--padding-bottom">
-                <div @click="isVisibleNotifications = !isVisibleNotifications" ref="mobileAlert" class="supernova-wrapper-block">
+                <div @click="isVisibleNotifications = !isVisibleNotifications" ref="mobileAlert"
+                     class="supernova-wrapper-block">
                   <img src="@/assets/alerts.svg" alt="кнопка избранное" class="supernova-wrapper-image">
                   <button class="supernova-wrapper-text">Уведомления</button>
                 </div>

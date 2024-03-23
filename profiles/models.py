@@ -5,11 +5,11 @@ from django.contrib.postgres.fields import ArrayField
 
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
-                                related_name='applicant_user')
-    response = ArrayField(models.CharField(max_length=100), default=list, blank=True, null=True)
-    resume_count = models.IntegerField(default=0)
+                                related_name='applicant_user', verbose_name='Пользователь')
+    response = ArrayField(models.CharField(max_length=100), verbose_name="Отклики", default=list, blank=True, null=True)
+    resume_count = models.IntegerField('Счетчик резюме', default=0)
 
-    portfolio = models.ImageField(null=True, blank=True, upload_to='movies/applicant_portfolio')
+    portfolio = models.ImageField('Портфолио', null=True, blank=True, upload_to='movies/applicant_portfolio')
 
     class Meta:
         verbose_name = 'Соискатель'
@@ -21,13 +21,13 @@ class Applicant(models.Model):
 
 class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
-                                related_name='employer_user')
-    title_org = models.CharField(blank=True, max_length=100, null=True, default='')
-    photo_org = models.ImageField(upload_to='movies/employer', null=True)
-    inn = models.CharField(blank=True, null=True, max_length=100, default='')
-    status_valid = models.BooleanField(null=True, default=False)
-    job_example = models.ImageField(upload_to='movies/employer', null=True)
-    vacancy_count = models.IntegerField(default=0)
+                                related_name='employer_user', verbose_name='Пользователь')
+    title_org = models.CharField('Название организации', blank=True, max_length=100, null=True, default='')
+    photo_org = models.ImageField('Логотип', upload_to='movies/employer', blank=True, null=True)
+    inn = models.CharField('ИНН', blank=True, null=True, max_length=100, default='')
+    status_valid = models.BooleanField('Статус проверки ИНН', null=True, default=False)
+    job_example = models.ImageField('Достижения', upload_to='movies/employer', blank=True, null=True)
+    vacancy_count = models.IntegerField('Счетчик вакансий', default=0)
 
     class Meta:
         verbose_name = 'Заказчик'
