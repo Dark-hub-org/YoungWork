@@ -33,9 +33,9 @@
             <router-link to="/favorites/" tag="li" class="header__button">
               <img src="@/assets/star.svg" alt="кнопка избранных вакансий">
             </router-link>
-            <router-link to="/api/not/not/" tag="li" class="header__alerts">
+            <button @click="isVisibleNotifications = !isVisibleNotifications" class="header__alerts" ref="alert">
               <img src="@/assets/alerts.svg" alt="кнопка оповещений">
-            </router-link>
+            </button>
             <button class="header__alerts">
               <img src="@/assets/message.svg" alt="кнопка чата">
             </button>
@@ -70,7 +70,7 @@
                 </div>
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--mobile supernova-wrapper-item--padding-bottom">
-                <div class="supernova-wrapper-block">
+                <div @click="isVisibleNotifications = !isVisibleNotifications" ref="mobileAlert" class="supernova-wrapper-block">
                   <img src="@/assets/alerts.svg" alt="кнопка избранное" class="supernova-wrapper-image">
                   <button class="supernova-wrapper-text">Уведомления</button>
                 </div>
@@ -91,9 +91,6 @@
                     <li @click="routeEmployerVacancy" class="supernova-wrapper-sublist__link">Мои
                       вакансии
                     </li>
-                    <!--                    <router-link  class="supernova-wrapper-sublist__link" :to="{name: 'employer', params: { id: userData.id} }" tag="li">Мои-->
-                    <!--                      вакансии-->
-                    <!--                    </router-link>-->
                   </template>
                   <template v-if="userData.usertype === 'applicant'">
                     <router-link class="supernova-wrapper-sublist__link" to="/create-resume" tag="li">Создать резюме
@@ -116,6 +113,14 @@
           </div>
         </div>
       </nav>
+      <transition name="modal">
+        <the-notification
+            @close-notification="onCloseNotification"
+            :alerts-button="this.$refs.alert"
+            :alerts-button-mobile="this.$refs.mobileAlert"
+            :is-visible="isVisibleNotifications">
+        </the-notification>
+      </transition>
       <Transition name="modal">
         <modal-window
             @close="onCloseModalSwitch"
@@ -137,25 +142,6 @@
             <p class="modal-title">Регистрация</p>
             <form @submit.prevent="submitFormReg" class="modal-form">
               <div v-if="ModalWinRegCurrentStep === 0">
-                <!--                <div class="modal-form-block">-->
-                <!--                  <label class="modal-form-name">Имя</label>-->
-                <!--                  <div class="modal-wrapper-input">-->
-                <!--                    <input-->
-                <!--                        v-model.trim="userName"-->
-                <!--                        @input="isEmptyName = false"-->
-                <!--                        type="text"-->
-                <!--                        class="modal-form__input"-->
-                <!--                        :class="{error: isEmptyName}">-->
-                <!--                    <template v-if="isEmptyName">-->
-                <!--                      <div class="icon-error">-->
-                <!--                      </div>-->
-                <!--                      <label-->
-                <!--                          class="modal-input-error">-->
-                <!--                        Пожалуйста, заполните поле-->
-                <!--                      </label>-->
-                <!--                    </template>-->
-                <!--                  </div>-->
-                <!--                </div>-->
                 <div class="modal-form-block">
                   <label class="modal-form-name">Электронная почта</label>
                   <div class="modal-wrapper-input">
@@ -393,10 +379,12 @@ import ModalWindow from "@/components/ui/modalWin.vue";
 import _ from 'lodash';
 import axios from "axios"
 import TheChat from "@/components/ui/chat.vue";
+import TheNotification from "@/components/ui/notifications.vue";
 
 export default {
   name: 'SiteHeader',
   components: {
+    TheNotification,
     TheChat,
     ModalWindow
   },
@@ -429,6 +417,8 @@ export default {
       isSubMenu: false,
 
       isChatActive: false,
+
+      isVisibleNotifications: false,
     }
   },
   methods: {
@@ -522,14 +512,14 @@ export default {
         return;
       }
     },
-    openNextStep() {
-      this.checkRegFields();
-
-      if (this.isEmptyName || this.isEmptyPassword || this.isEmptyName || this.isCheckPassword || this.isCheckEmail) {
-        return;
-      }
-      this.ModalWinRegCurrentStep++
-    },
+    // openNextStep() {
+    //   this.checkRegFields();
+    //
+    //   if (this.isEmptyName || this.isEmptyPassword || this.isEmptyName || this.isCheckPassword || this.isCheckEmail) {
+    //     return;
+    //   }
+    //   this.ModalWinRegCurrentStep++
+    // },
     openModalWinLog() {
       this.clearModalData();
       this.isModalWinLog = true;
@@ -563,6 +553,11 @@ export default {
     onCloseModalResetPass() {
       this.isModalWinResetPass = false
     },
+
+    onCloseNotification() {
+      this.isVisibleNotifications = false
+    },
+
     clearModalData() {
       this.email = '';
       this.password = '';

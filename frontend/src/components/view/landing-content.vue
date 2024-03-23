@@ -70,6 +70,8 @@
               v-for="vacancy in ListLength"
               :vacancy="vacancy"
               :key="vacancy.id"
+              @added-vacancy="addedRecommendedVacancy"
+              @added-favorite="addedFavoritesVacancy"
               class="recommendation__list-card"
           ></vacancy-item>
         </div>
@@ -80,6 +82,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import VacancyItem from "@/components/ui/vacancyItem.vue";
 
 import { Navigation} from 'swiper'
@@ -113,6 +116,7 @@ export default {
         }
       },
       currentSliderStep: 0,
+      recommendedVacancy: [],
       reviews: [
         {
           title: 'Нужно оформить презентацию перед запуском продукта',
@@ -150,57 +154,68 @@ export default {
           post: 'HR, Компания Юла'
         },
       ],
-      vacancys: [
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-      ],
     }
   },
   methods: {
     submitSearchVacancy(value) {
       this.$router.push(`/vacancy/?search=${value}`)
+    },
+    async getRecommendedVacancy() {
+      try {
+        const response = await axios.get('api/recommend/')
+        if(this.userData.usertype === 'applicant') {
+          const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
+          const responseFavoriteVacancy  = await axios.get('/data-favorites/')
+
+          const favoritesVacancy = responseFavoriteVacancy.data.length ? responseFavoriteVacancy.data.map(vacancy => vacancy.id) : []
+
+          this.convertVacancies(response.data, responseVacancy.data.response, favoritesVacancy)
+        } else {
+          this.recommendedVacancy = response.data
+        }
+        console.log(response.data)
+      } catch(error) {
+        console.log(error)
+      }
+    },
+    convertVacancies(vacancy, responseVacancy, favoriteVacancy) {
+      console.log(vacancy)
+      console.log(responseVacancy)
+      console.log(favoriteVacancy)
+      this.recommendedVacancy = vacancy.map(item => {
+        const isVacancy = responseVacancy.includes(item.id)
+        const isFavorite = favoriteVacancy.includes(item.id)
+        return { ...item, response: isVacancy, favorite: isFavorite};
+      });
+    },
+
+    async addedRecommendedVacancy(data, vacancy) {
+      try {
+        await axios.post('/api/response/', data)
+        this.recommendedVacancy = this.recommendedVacancy.map(item => item.id === vacancy.id ? {...item, response: true} : {...item})
+      } catch(error) {
+        console.log(error)
+      }
+    },
+
+    async addedFavoritesVacancy(id) {
+      try {
+        await axios.post('/data-favorites/', {vacancy: id})
+        this.recommendedVacancy = this.recommendedVacancy.map(item => item.id === id ? {...item, favorite: true} : {...item})
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   computed: {
+    userData() {
+      return this.$store.state.userData
+    },
     ListLength() {
       if (window.innerWidth > 1440) {
-        return this.vacancys.slice(0, 6)
+        return this.recommendedVacancy.slice(0, 6)
       }
-      return this.vacancys.slice(0, 4)
+      return this.recommendedVacancy.slice(0, 4)
     },
     reviewsList() {
       return this.reviews.map(review => {
@@ -213,9 +228,10 @@ export default {
         return review;
       });
     },
+
   },
   mounted() {
-
+    this.getRecommendedVacancy()
   }
 }
 </script>
