@@ -58,7 +58,7 @@
               </div>
               <div class="vacancy__item-info">
                 <div class="vacancy__item-block">
-                  <p class="vacancy__item-text vacancy__item-company">ООО ЦТД</p>
+                  <p class="vacancy__item-text vacancy__item-company">{{ vacancy.company_name }}</p>
                   <p class="vacancy__item-text">Владивосток</p>
                 </div>
                 <div class="vacancy__item-block">
@@ -196,7 +196,6 @@ export default {
       try {
         const route = searchValue ? `search=${searchValue}&` : '';
         const pageRoute = pageNum === 1 ? '' : `page=${pageNum}&`
-        console.log(pageRoute)
         const response = await axios.get(`/api/vac/?${pageRoute}${route}${filtersValue}`);
         if(this.userData.usertype === 'applicant') {
           const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
@@ -225,8 +224,6 @@ export default {
           .map(key => `${key}=${filter[key]}`)
           .join('&');
 
-      console.log(filter)
-
       const filterRoute = filter !== '=null' ? filter : ''
 
       this.fetchVacancies(this.$route.query.search, filterRoute, pageNum);
@@ -235,7 +232,7 @@ export default {
       const data = {
         vacancy: vacancy.id,
         org: vacancy.created_by,
-        created_by: this.userData.usertype,
+        created_by: this.userData.id,
       }
       try {
         await axios.post('/api/response/', data)

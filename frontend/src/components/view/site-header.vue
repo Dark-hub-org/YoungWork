@@ -95,7 +95,7 @@
                   <template v-if="userData.usertype === 'applicant'">
                     <router-link class="supernova-wrapper-sublist__link" to="/create-resume" tag="li">Создать резюме
                     </router-link>
-                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Мои резюме
+                    <router-link class="supernova-wrapper-sublist__link" to="/api/res" tag="li">Мои резюме
                     </router-link>
                   </template>
                 </ul>

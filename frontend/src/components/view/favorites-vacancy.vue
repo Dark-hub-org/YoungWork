@@ -3,7 +3,7 @@
     <section class="favorites">
       <div class="wrapper">
         <h1 class="favorites__title">Избранные вакансии</h1>
-        <div class="favorites__list">
+        <div v-if="favoritesVacancy.length" class="favorites__list">
           <div
               class="favorites__item"
               v-for="vacancy in favoritesVacancy"
@@ -31,7 +31,7 @@
             </div>
             <div class="favorites__item-info">
               <div class="favorites__item-block">
-                <p class="favorites__item-text favorites__item-company">ООО ЦТД</p>
+                <p class="favorites__item-text favorites__item-company">{{ vacancy.company_name }}</p>
                 <p class="favorites__item-text">Владивосток</p>
               </div>
               <div class="favorites__item-block">
@@ -56,6 +56,7 @@
             </div>
           </div>
         </div>
+        <p v-else class="favorites__text">Избранных вакансий нет</p>
       </div>
     </section>
 </template>

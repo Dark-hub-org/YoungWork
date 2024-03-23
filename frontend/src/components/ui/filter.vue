@@ -10,7 +10,7 @@
     <div class="filters__block">
       <p class="filters__block-title">Уровень дохода</p>
       <div class="filters__item">
-        <input v-model="filterParameters.min_salary" type="radio" value="" name="min_salary" class="filters__item-input" id="salary-1">
+        <input v-model="filterParameters.min_salary" value="" type="radio" name="min_salary" class="filters__item-input" id="salary-1" >
         <label for="salary-1" class="filters__item-label radio">Не имеет значение</label>
       </div>
       <div class="filters__item">
@@ -35,12 +35,10 @@
       </div>
       <div class="filters__item">
         <input
-            v-model="filterParameters.min_salary"
             @change="handleRadioChange"
-            :checked="isCheckOwnSalary === true"
             :value="filterParameters.min_salary"
             type="radio"
-            name="salary_min__jt"
+            name="min_salary"
             class="filters__item-input"
             id="salary-7">
         <label for="salary-7" class="filters__item-label radio">Своя зарплата</label>
@@ -139,7 +137,7 @@ export default {
   data() {
     return {
       filterParameters: {
-        min_salary: '',
+        min_salary: "",
         required_experience: '',
         employ: [],
         graph: [],

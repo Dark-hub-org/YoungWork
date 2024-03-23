@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "the-notification",
   props: {
@@ -47,10 +49,19 @@ export default {
       if(notification && !notification.contains(event.target) && !this.alertsButton.contains(event.target) && !this.alertsButtonMobile.contains(event.target)) {
         this.$emit('close-notification');
       }
-
     },
+    async getNotifications() {
+      try {
+        const response = await axios.get('/api/not/notes/')
+        console.log(response)
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
+
   mounted() {
+    this.getNotifications()
     document.addEventListener('click', this.closeOnOutsideClick);
   },
   beforeDestroy() {
