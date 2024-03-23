@@ -33,28 +33,28 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(
-        verbose_name="email address",
+        verbose_name="Почта",
         max_length=255,
         unique=True,
     )
-    usertype = models.CharField()
-    avatar = models.ImageField(upload_to='movies/avatars', null=True, blank=True)
+    usertype = models.CharField('Тип пользователя', help_text="Пример: employer/applicant")
+    avatar = models.ImageField('Фото профиля', upload_to='movies/avatars', null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
-    first_name = models.CharField(blank=True, null=True, max_length=100, default='')
-    last_name = models.CharField(blank=True, null=True, max_length=100, default='')
-    surname = models.CharField(blank=True, null=True, max_length=100, default='')
-    date_of_birth = models.CharField(blank=True, null=True, default='')
-    citizenship = models.CharField(blank=True, null=True, max_length=50, default='')
-    region = models.CharField(blank=True, null=True, max_length=50, default='')
-    city = models.CharField(blank=True, null=True, max_length=50, default='')
-    about = models.CharField(blank=True, null=True, default='')
-    about_work = models.CharField(blank=True, null=True, default='')
-    telegram = models.CharField(blank=True, null=True, max_length=100, default='')
-    website = models.CharField(blank=True, null=True, max_length=100, default='')
-    phone_number = models.CharField(blank=True, null=True, max_length=100, default='')
+    first_name = models.CharField('Имя', blank=True, null=True, max_length=100, default='')
+    last_name = models.CharField('Фамилия', blank=True, null=True, max_length=100, default='')
+    surname = models.CharField('Отчество', blank=True, null=True, max_length=100, default='')
+    date_of_birth = models.CharField('Дата рождения', blank=True, null=True, default='', help_text="Пример: 1999-10-12")
+    citizenship = models.CharField('Гражданство', blank=True, null=True, max_length=50, default='')
+    region = models.CharField('Регион', blank=True, null=True, max_length=50, default='')
+    city = models.CharField('Город', blank=True, null=True, max_length=50, default='')
+    about = models.CharField('О вас', blank=True, null=True, default='')
+    about_work = models.CharField('Портфолио', blank=True, null=True, default='')
+    telegram = models.CharField('Телеграм', blank=True, null=True, max_length=100, default='')
+    website = models.CharField('Сайт', blank=True, null=True, max_length=100, default='')
+    phone_number = models.CharField('Номер телефона', blank=True, null=True, max_length=100, default='')
 
     objects = UserManager()
 

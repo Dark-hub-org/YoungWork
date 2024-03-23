@@ -1,7 +1,7 @@
 from .models import Notification
 
 from jobs.models import Vacancies
-from accounts.models import VacancyResponse
+from jobs.models import Response
 
 
 def create_notification(request, type_of_notification, vacancy_id=None, vacancy_response_id=None):
@@ -16,16 +16,16 @@ def create_notification(request, type_of_notification, vacancy_id=None, vacancy_
         vacancy = Vacancies.objects.get(pk=vacancy_id)
         created_for = vacancy.created_by
     elif type_of_notification == 'new_vacancy_response':
-        vacancyresponse = VacancyResponse.objects.get(pk=vacancy_response_id)
-        created_for = vacancyresponse.created_for
-        body = f'{request.user.name} откликнулся на вашу вакансию!'
+        vacancy = Vacancies.objects.get(pk=vacancy_id)
+        created_for = vacancy.created_by
+        body = f'{request.user.first_name} откликнулся на вашу вакансию!'
     elif type_of_notification == 'accepted_vacancy_response':
-        vacancyresponse = VacancyResponse.objects.get(pk=vacancy_response_id)
-        created_for = vacancyresponse.created_for
+        vacancyresponse = Response.objects.get(pk=vacancy_response_id)
+        created_for = vacancyresponse.created_by
         body = f'{request.user.name} компания хочет пригласить вас на интервью!'
     elif type_of_notification == 'rejected_vacancy_response':
-        vacancyresponse = VacancyResponse.objects.get(pk=vacancy_response_id)
-        created_for = vacancyresponse.created_for
+        vacancyresponse = Response.objects.get(pk=vacancy_response_id)
+        created_for = vacancyresponse.created_by
         body = f'{request.user.name} компания не готова вас приглосить!'
 
     notification = Notification.objects.create(

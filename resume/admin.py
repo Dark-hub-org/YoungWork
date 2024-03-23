@@ -4,8 +4,8 @@ from .models import *
 
 @admin.register(Resume)
 class ResumeAdmin(admin.ModelAdmin):
-    list_display = ["id", "resume_title", "employ", "about_us", "experience"]
-    search_fields = ["id", "resume_title", "created_by"]
+    list_display = ["resume_title", "employ", "about_us", "experience"]
+    search_fields = ["id", "resume_title"]
     list_filter = ["timestamp"]
 
 
