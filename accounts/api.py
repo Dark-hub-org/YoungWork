@@ -2,6 +2,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
 import os
 
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from accounts.models import User
 from profiles.models import Applicant, Employer
@@ -58,15 +59,16 @@ def upload_avatar(request):
 
 
 @api_view(['DELETE'])
-def delete_photo(file_path):
+def delete_photo(request):
     try:
+        file_path = request.data.get('file_path')
         if os.path.exists(file_path):
             os.remove(file_path)
-            return True, "File deleted successfully"
+            return Response({'message': 'File deleted successfully'})
         else:
-            return False, "File does not exist"
+            return Response({'message': 'File does not exist'}, status=404)
     except Exception as e:
-        return False, str(e)
+        return Response({'message': str(e)}, status=500)
 
 
 @api_view(['POST'])
