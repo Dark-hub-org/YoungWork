@@ -44,7 +44,15 @@ def editpassword(request):
 
 @api_view(['POST'])
 def upload_avatar(request):
-    User.objects.filter(email=request.data.get('email')).update(avatar=request.data.get('avatar'))
+    user = request.user
+
+    email = request.data.get('email')
+    avatar = request.data.get('avatar')
+    User.objects.filter(email=email).update(avatar=avatar)
+
+    updated_user = User.objects.get(email=email)
+
+    updated_user.save()
     return JsonResponse({'message': 'success'})
 
 
