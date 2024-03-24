@@ -6,7 +6,7 @@
           <img src="@/assets/logo.svg" alt="логотип" class="footer__logo">
         </li>
         <li class="footer__list-item">
-          <a href="#" class="footer__list-link">
+          <a href="/vacancy/" class="footer__list-link">
             Вакансии
           </a>
           <a href="#" class="footer__list-link">Отзывы</a>
@@ -21,7 +21,7 @@
         </li>
       </ul>
       <div class="footer__bottom">
-        <span class="footer-bottom__copy">© 2023 YoungWork. Все права защищены.</span>
+        <span class="footer-bottom__copy">© 2024 YoungWork. Все права защищены.</span>
         <span class="footer-bottom__developers">Сайт разработан Dark Hub</span>
       </div>
     </div>
