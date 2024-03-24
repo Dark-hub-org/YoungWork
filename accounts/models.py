@@ -63,7 +63,10 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ["usertype"]
 
     def get_avatar(self):
-        return self.avatar.url
+        if self.avatar:
+            return self.avatar.url
+        else:
+            return ''
 
     def __str__(self):
         return self.email
