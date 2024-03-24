@@ -9,6 +9,7 @@ from .serializers import ResumeDataSerializer, ResumeDetailSerializer
 from django.shortcuts import render
 from .models import Favorites
 from jobs.serializers import VacanciesDataSerializer
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @permission_classes([IsAuthenticated])
@@ -37,7 +38,7 @@ def resume_reg(request):
 
 
 @permission_classes([IsAuthenticated])
-@api_view(['POST', 'GET', 'DELETE'])
+@api_view(['POST', 'GET'])
 def favorites(request):
     user = request.user
     if request.method == 'POST':
@@ -56,6 +57,20 @@ def favorites(request):
         return JsonResponse(serializer.data, safe=False)
     else:
         return JsonResponse({'message': 'empty_space'})
+
+
+@api_view(['DELETE'])
+def favorite_delete(request, pk):
+    user = request.user
+    try:
+        fav = Favorites.objects.get(created_by=user)
+        vacancy = Vacancies.objects.get(pk=pk)
+        fav.vacancy.remove(vacancy)
+        return JsonResponse({'message': 'Vacancy removed from favorites'})
+    except ObjectDoesNotExist:
+        return JsonResponse({'message': 'Favorites not found'}, status=404)
+    except Vacancies.DoesNotExist:
+        return JsonResponse({'message': 'Vacancy not found'}, status=404)
 
 
 @permission_classes([IsAuthenticated])

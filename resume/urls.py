@@ -13,4 +13,5 @@ urlpatterns = [
     path('create-resume/', api.resume_reg, name="create_resume"),
     path('favorites/', TemplateView.as_view(template_name='index.html')),
     path('data-favorites/', api.favorites, name="favorites"),
+    path('favorites-del/<str:pk>/', api.favorite_delete, name="delet_favorites"),
 ]
