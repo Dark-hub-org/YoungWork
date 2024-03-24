@@ -7,9 +7,7 @@ from profiles.models import Applicant, Employer
 from jobs.models import Vacancies
 from resume.models import Resume
 from jobs.serializers import VacanciesDataSerializer
-from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-from django.conf import settings
 
 
 @api_view(['GET'])

@@ -8,6 +8,7 @@ from accounts.serializers import EditProfileSerializer
 from django.shortcuts import render
 from notification.utils import create_notification
 from rest_framework.permissions import IsAuthenticated
+from django.core.files.base import ContentFile
 
 
 def edit_user_data(request):
@@ -135,8 +136,14 @@ def upload_portfolio(request):
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_photo_org(request):
-    org = Employer.objects.filter(user=request.data.get('pk')).update(photo_org=request.data.get('photo_org'))
-    return JsonResponse({'user': org})
+    employer = Employer.objects.filter(user=request.data.get('pk')).get()
+    if 'photo_org' in request.FILES:
+        photo_org_file = request.FILES['photo_org']
+        photo_name = f"org_{employer.user.id}_photo.jpg"
+        employer.photo_org.save(photo_name, ContentFile(photo_org_file.read()), save=True)
+        return JsonResponse({'message': 'success'})
+    else:
+        return JsonResponse({'message': 'no avatar provided'}, status=400)
 
 
 @permission_classes([IsAuthenticated])
