@@ -49,10 +49,10 @@ def editpassword(request):
 def upload_avatar(request):
     email = request.data.get('email')
     user = User.objects.filter(email=email).get()
-    if 'avatar' == '':
-        avatar_file = ''
-        photo_name = ''
-        user.avatar.save(photo_name, ContentFile(avatar_file.read()), save=True)
+    if request.data.get('avatar') == 1:
+        instance = User.objects.get(email=email)
+        instance.avatar = None
+        instance.save()
         return JsonResponse({'message': 'success'})
     else:
         if 'avatar' in request.FILES:
