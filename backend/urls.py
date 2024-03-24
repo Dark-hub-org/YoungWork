@@ -26,4 +26,5 @@ urlpatterns = [
                   re_path(r'^js/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'js')}),
                   re_path(r'^css/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'css')}),
                   re_path(r'^fonts/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'fonts')}),
-              ] + static(settings.STATIC_URL, document_root=settings.STATIC_URL)
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_URL) + static(settings.MEDIA_URL,
+                                                                                          document_root=settings.MEDIA_ROOT)
