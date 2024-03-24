@@ -125,6 +125,8 @@
     background-image: url('@/assets/header/anonim-logo.svg');
     background-repeat: no-repeat;
     background-position: center;
+    overflow: hidden;
+    border-radius: 50%;
   }
 
   .supernova-wrapper {

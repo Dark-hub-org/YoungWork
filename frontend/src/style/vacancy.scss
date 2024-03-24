@@ -187,6 +187,12 @@
       letter-spacing: -1.6px;
     }
 
+    &-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
+
     &-block {
       margin-bottom: 24px;
       &--description {
@@ -230,9 +236,19 @@
     }
 
     &-btns {
-      @include displayFlex;
-      max-width: 344px;
+      display: flex;
+      align-items: center;
+      max-width: 572px;
       gap: 14px;
+      padding-bottom: 5px;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        height: 5px;
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $colorOrangeM;
+      }
     }
 
     &-btn {
@@ -355,6 +371,11 @@
   }
 
   .vacancy {
+    &__quantity {
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+
     &__item {
       padding: 24px;
       &-title {
@@ -431,6 +452,11 @@
         letter-spacing: -0.9px;
       }
 
+      &-logo {
+        width: 40px;
+        height: 40px;
+      }
+
       &-text {
         font-size: 14px;
 
@@ -441,10 +467,6 @@
         &:first-of-type {
           margin-bottom: 4px;
         }
-      }
-
-      &-btns {
-        max-width: 249px;
       }
 
       &-btn {

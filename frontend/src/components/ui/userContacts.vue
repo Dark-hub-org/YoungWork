@@ -22,7 +22,7 @@
       </a>
     </div>
     <div class="profile-contacts__block">
-      <img src="@/assets/telegram-icon.svg" alt="иконка телефона" class="profile-contacts__block-img">
+      <img src="@/assets/phone-icon.svg" alt="иконка телефона" class="profile-contacts__block-img">
       <a :href="'tel:'+userContact.phoneNumber" class="profile-contacts__block-link">
         <template v-if="userContact.phoneNumber === undefined">Не заданно</template>
         <template v-else>{{userContact.phoneNumber}}</template>

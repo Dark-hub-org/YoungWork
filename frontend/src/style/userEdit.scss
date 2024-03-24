@@ -60,6 +60,29 @@
         height: 80px;
         pointer-events: none;
         transition: all .3s ease;
+
+      }
+      &__avatar {
+        transition: all .15s ease;
+        &:hover {
+          filter: blur(6px);
+        }
+      }
+      &__delete {
+        z-index: 3;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 24px;
+        height: 24px;
+        background-image: url("@/assets/xmark-icon.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        cursor: pointer;
+        &:hover +  .edit__data-photo__avatar{
+          filter: blur(6px);
+        }
       }
       &--organization {
         max-width: 180px;

@@ -5,7 +5,9 @@
         <h2 class="edit__data-title">Личные данные</h2>
         <div class="edit__data-block">
           <div ref="dropzone" class="dropzone edit__data-photo">
-            <img src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+            <button v-if="userData.avatar" @click="deletePhotoAvatar()" class="edit__data-photo__delete"></button>
+            <img v-if="!userData.avatar" src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+            <img v-else :src='"/img" + userData.avatar' alt="" class="edit__data-photo__avatar">
           </div>
         </div>
         <div class="edit__data-block">
@@ -226,7 +228,10 @@ export default {
   },
   methods: {
     closeEditProfile() {
-      return this.checkValidData() ? this.$router.push(`/${this.userData.usertype}/${this.userData.id}`) : this.checkValidData()
+      return this.checkValidData() ? this.$router.push(`/${this.userData.usertype}`) : this.checkValidData()
+    },
+    deletePhotoAvatar() {
+      this.userData.avatar = ''
     },
     async submitUserData() {
       try {
@@ -283,6 +288,11 @@ export default {
         formData.append("usertype", this.userData.usertype);
       },
     })
+
+    this.dropzone.on("success", () => {
+      console.log("Файл успешно загружен:");
+    });
+
     this.dropzone = new Dropzone(this.$refs.dropzonePortfolio, {
       url: "/api/applicant/upload-portfolio/",
       method: 'post',

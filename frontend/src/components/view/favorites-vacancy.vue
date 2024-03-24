@@ -52,7 +52,7 @@
               </div>
             </div>
             <div class="favorites__item-btns">
-
+              <button @click="deleteFavoriteVacancy(vacancy.id)" class="button-orange-another">Удалить</button>
             </div>
           </div>
         </div>
@@ -72,6 +72,14 @@ export default {
     }
   },
   methods: {
+    async deleteFavoriteVacancy(id) {
+      try {
+         await axios.delete(`/favorites-del/${id}/` )
+          this.favoritesVacancy = this.favoritesVacancy.filter(item => item.id !== id)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async getFavoritesVacancy() {
       try {
         const response = await axios.get('/data-favorites/')
