@@ -51,7 +51,7 @@ def upload_avatar(request):
     user = User.objects.filter(email=email).get()
     if 'avatar' in request.FILES:
         avatar_file = request.FILES['avatar']
-        photo_name = f"user_{user.id}_photo.jpg"
+        photo_name = f"{user.id}"
         user.avatar.save(photo_name, ContentFile(avatar_file.read()), save=True)
         return JsonResponse({'message': 'success'})
     else:
