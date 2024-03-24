@@ -64,7 +64,7 @@ class User(AbstractBaseUser):
 
     def get_avatar(self):
         if self.avatar:
-            return settings.WEBSITE_URL + self.avatar.url
+            return self.avatar.url
         else:
             return 'https://picsum.photos/200/200'
 
