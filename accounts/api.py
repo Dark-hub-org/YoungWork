@@ -78,6 +78,7 @@ def switch_profile(request):
 @api_view(['GET'])
 def recommend(request):
     user = request.user.id
+    vac = Vacancies.objects.all()
     if Resume.objects.filter(created_by=user).exists():
         user_resume = Resume.objects.filter(created_by=user).first()
         user_resume_skills = user_resume.skills
@@ -87,8 +88,9 @@ def recommend(request):
             if all(skill in vacancy.description for skill in user_resume_skills):
                 recommended_vacancies.append(vacancy)
         serializer = VacanciesDataSerializer(recommended_vacancies, many=True)
+        if serializer.data == []:
+            serializer = VacanciesDataSerializer(vac, many=True)
         return JsonResponse(serializer.data, safe=False)
     else:
-        vac = Vacancies.objects.all()
         serializer = VacanciesDataSerializer(vac, many=True)
         return JsonResponse(serializer.data, safe=False)
