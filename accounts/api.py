@@ -49,10 +49,19 @@ def editpassword(request):
 def upload_avatar(request):
     email = request.data.get('email')
     user = User.objects.filter(email=email).get()
-    avatar_file = request.FILES['avatar']
-    photo_name = f"{user.id}"
-    user.avatar.save(photo_name, ContentFile(avatar_file.read()), save=True)
-    return JsonResponse({'message': 'success'})
+    if 'avatar' == '':
+        avatar_file = ''
+        photo_name = ''
+        user.avatar.save(photo_name, ContentFile(avatar_file.read()), save=True)
+        return JsonResponse({'message': 'success'})
+    else:
+        if 'avatar' in request.FILES:
+            avatar_file = request.FILES['avatar']
+            photo_name = f"{user.id}"
+            user.avatar.save(photo_name, ContentFile(avatar_file.read()), save=True)
+            return JsonResponse({'message': 'success'})
+        else:
+            return JsonResponse({'message': 'no avatar provided'}, status=400)
 
 
 @api_view(['POST'])
