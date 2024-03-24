@@ -4,9 +4,8 @@
       <div class="profile__left">
         <template v-if="!this.$store.state.isProfileEdit">
           <div class="profile__top">
-            <!--            <img src="../../../../mediafiles/movies/applicant_portfolio/63hkx3oc5cxcfmbex5l14m46pmv60df0.webp" alt="">-->
             <div ref="dropzone" class="profile__top-photo-wrapper">
-              <img v-if="userData.avatar" :src='"/img/" + userData.avatar' alt="">
+              <img v-if="userData.avatar" :src='"/img/" + userData.avatar' alt="" class="profile__top-photo">
             </div>
             <div class="profile__data">
               <p class="profile__data-name text-margin">{{ userData.firstName }} {{ userData.lastName }}

@@ -47,7 +47,7 @@
               ref="supernovaBtn"
               type="button"
               class="supernova__btn">
-            <img v-if="userData.avatar" style="width: 50px; height: 50px" :src='"/img" + userData.avatar' alt="">
+            <img v-if="userData.avatar" class="header__avatar" style="width: 50px; height: 50px" :src='"/img" + userData.avatar' alt="">
           </button>
           <div
               :class="{'active': isSupernovaMenuActive}"
