@@ -7,6 +7,9 @@ from profiles.models import Applicant, Employer
 from jobs.models import Vacancies
 from resume.models import Resume
 from jobs.serializers import VacanciesDataSerializer
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
 
 
 @api_view(['GET'])
@@ -44,16 +47,15 @@ def editpassword(request):
 
 @api_view(['POST'])
 def upload_avatar(request):
-    user = request.user
-
     email = request.data.get('email')
-    avatar = request.data.get('avatar')
-    User.objects.filter(email=email).update(avatar=avatar)
-
-    updated_user = User.objects.get(email=email)
-
-    updated_user.save()
-    return JsonResponse({'message': 'success'})
+    user = User.objects.filter(email=email).get()
+    if 'avatar' in request.FILES:
+        avatar_file = request.FILES['avatar']
+        photo_name = f"user_{user.id}_photo.jpg"
+        user.avatar.save(photo_name, ContentFile(avatar_file.read()), save=True)
+        return JsonResponse({'message': 'success'})
+    else:
+        return JsonResponse({'message': 'no avatar provided'}, status=400)
 
 
 @api_view(['POST'])
