@@ -38,7 +38,7 @@ class User(AbstractBaseUser):
         unique=True,
     )
     usertype = models.CharField('Тип пользователя', help_text="Пример: employer/applicant")
-    avatar = models.ImageField('Фото профиля', upload_to='movies/avatars', null=True, blank=True)
+    avatar = models.ImageField('Фото профиля', upload_to='media/avatars', null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
