@@ -5,9 +5,9 @@
         <h2 class="edit__data-title">Личные данные</h2>
         <div class="edit__data-block">
           <div ref="dropzone" class="dropzone edit__data-photo">
-            <button v-if="userData.avatar" @click="deletePhotoAvatar()" class="edit__data-photo__delete"></button>
+            <button v-if="userData.avatar" type="button" @click="deletePhotoAvatar(userData.avatar)" class="edit__data-photo__delete"></button>
             <img v-if="!userData.avatar" src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
-            <img v-else :src='"/img" + userData.avatar' alt="" class="edit__data-photo__avatar">
+            <img v-else :src='"/img" + userData.avatar' alt="" class="edit__data-photo__upload">
           </div>
         </div>
         <div class="edit__data-block">
@@ -152,7 +152,9 @@
         <h2 class="edit__data-title">О вас</h2>
         <div v-if="userData.usertype === 'employer'" class="edit__data-block">
           <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization">
-            <img src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+            <button v-if="userData.photo_org" @click="deletePhotoOrg()" class="edit__data-photo__delete"></button>
+            <img v-if="!userData.photo_org" src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+            <img v-else :src='"/img" + userData.photo_org' alt="" class="edit__data-photo__upload">
           </div>
         </div>
         <div v-if="userData.usertype === 'employer'" class="edit__data-block about">
@@ -229,8 +231,25 @@ export default {
     closeEditProfile() {
       return this.checkValidData() ? this.$router.push(`/${this.userData.usertype}`) : this.checkValidData()
     },
-    deletePhotoAvatar() {
-      this.userData.avatar = ''
+    async deletePhotoAvatar(path) {
+      path = `/img${path}`
+      try {
+        await axios.post(`/api/delete_photo/`, {file_path: path})
+        await axios.post('/api/upload-avatar/',
+            {
+              avatar: 1,
+              email: this.userData.email,
+              usertype: this.userData.usertype,
+            }
+        )
+        this.userData.avatar = ''
+      } catch (error) {
+        console.log({file_path: path})
+        console.log(error)
+      }
+    },
+    deletePhotoOrg() {
+      this.userData.photo_org = ''
     },
     async submitUserData() {
       try {
@@ -268,6 +287,7 @@ export default {
           thumbnailWidth: 250,
           thumbnailHeight: 250,
           addRemoveLinks: true,
+          acceptedFiles: "image/jpeg,image/png,image/webp",
           paramName: "photo_org",
           sending: (file, xhr, formData) => {
             formData.append("pk", this.userData.id);
@@ -298,6 +318,7 @@ export default {
       thumbnailWidth: 250,
       thumbnailHeight: 250,
       addRemoveLinks: true,
+      acceptedFiles: "image/jpeg,image/png,image/webp",
       paramName: "avatar",
       sending: (file, xhr, formData) => {
         formData.append("email", this.userData.email);
@@ -313,6 +334,7 @@ export default {
       thumbnailWidth: 373,
       thumbnailHeight: 280,
       addRemoveLinks: true,
+      acceptedFiles: "image/jpeg,image/png,image/webp",
       paramName: "portfolio",
       sending: (file, xhr, formData) => {
         formData.append("pk", this.userData.id);
