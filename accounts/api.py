@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
-import os
+from backend.settings import *
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -58,12 +58,12 @@ def upload_avatar(request):
         return JsonResponse({'message': 'no avatar provided'}, status=400)
 
 
-@api_view(['DELETE'])
+@api_view(['POST'])
 def delete_photo(request):
     try:
         file_path = request.data.get('file_path')
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        if os.path.exists(BASE_DIR + '/frontend/dist' + file_path):
+            os.remove(BASE_DIR + '/frontend/dist' + file_path)
             return Response({'message': 'File deleted successfully'})
         else:
             return Response({'message': 'File does not exist'}, status=404)
