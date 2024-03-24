@@ -63,10 +63,7 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ["usertype"]
 
     def get_avatar(self):
-        if self.avatar:
-            return self.avatar.url
-        else:
-            return 'https://picsum.photos/200/200'
+        return self.avatar.url
 
     def __str__(self):
         return self.email
