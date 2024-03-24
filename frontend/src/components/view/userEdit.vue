@@ -149,9 +149,8 @@
             </div>
           </form>
         </div>
-
         <h2 class="edit__data-title">О вас</h2>
-        <div v-if="userData.type === 'employer'" class="edit__data-block">
+        <div v-if="userData.usertype === 'employer'" class="edit__data-block">
           <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization">
             <img src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
           </div>
@@ -259,6 +258,23 @@ export default {
     },
     updateEditedUserData() {
       this.userData = {...this.$store.state.userData};
+
+      if(this.$refs.dropzoneSmall) {
+        this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
+          url: "/api/employer/upload-photorg/",
+          methods: "post",
+          maxFiles: 1,
+          maxFilesize: 2,
+          thumbnailWidth: 250,
+          thumbnailHeight: 250,
+          addRemoveLinks: true,
+          paramName: "photo_org",
+          sending: (file, xhr, formData) => {
+            formData.append("pk", this.userData.id);
+            formData.append("usertype", this.userData.usertype);
+          },
+        })
+      }
     },
     checkValidDateOfBirth(date) {
       return !/[a-za-яё]/i.test(date) && !/^\d{4}-\d{2}-\d{2}$/.test(date)
@@ -289,10 +305,6 @@ export default {
       },
     })
 
-    this.dropzone.on("success", () => {
-      console.log("Файл успешно загружен:");
-    });
-
     this.dropzone = new Dropzone(this.$refs.dropzonePortfolio, {
       url: "/api/applicant/upload-portfolio/",
       method: 'post',
@@ -307,23 +319,7 @@ export default {
         formData.append("usertype", this.userData.usertype);
       },
     })
-    if(this.$refs.dropzoneSmall) {
-      this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
-        url: "/api/employer/upload-photorg/",
-        methods: "post",
-        maxFiles: 1,
-        maxFilesize: 2,
-        thumbnailWidth: 250,
-        thumbnailHeight: 250,
-        addRemoveLinks: true,
-        paramName: "photo_org",
-        sending: (file, xhr, formData) => {
-          formData.append("pk", this.userData.id);
-          formData.append("usertype", this.userData.usertype);
-        },
-      })
-    }
-  }
+  },
 }
 </script>
 
