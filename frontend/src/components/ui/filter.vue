@@ -37,6 +37,7 @@
         <input
             @change="handleRadioChange"
             :value="filterParameters.min_salary"
+            :checked="isCheckOwnSalary"
             type="radio"
             name="min_salary"
             class="filters__item-input"

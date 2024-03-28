@@ -83,7 +83,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         cursor: pointer;
-        &:hover +  .edit__data-photo__upload{
+        &:hover +  .edit__data-photo__uploadY {
           filter: blur(6px);
         }
       }

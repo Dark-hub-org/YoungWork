@@ -1,6 +1,6 @@
 <template>
   <div v-if="isVisible" class="notification" ref="notification">
-    <div class="notification__list">
+    <div v-if="notifications.length" class="notification__list">
       <div
           v-for="item in notifications"
           :key="item.id"
@@ -9,6 +9,7 @@
         <p class="notification__item-text">{{item.body}}</p>
       </div>
     </div>
+    <p v-else >Оповещений нет</p>
   </div>
 </template>
 

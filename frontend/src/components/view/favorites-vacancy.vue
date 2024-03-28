@@ -2,7 +2,7 @@
 
     <section class="favorites">
       <div class="wrapper">
-        <h1 class="favorites__title">Избранные вакансии</h1>
+        <the-heading title="Избранные вакансии"></the-heading>
         <div v-if="favoritesVacancy.length" class="favorites__list">
           <div
               class="favorites__item"
@@ -57,15 +57,18 @@
           </div>
         </div>
         <p v-else class="favorites__text">Избранных вакансий нет</p>
+        <router-link class="button-orange-another favorites__link" to="/vacancy" tag="a">Перейти к вакансиям</router-link>
       </div>
     </section>
 </template>
 
 <script>
 import axios from "axios";
+import TheHeading from "@/components/ui/heading.vue";
 
 export default {
   name: 'favorites-vacancy',
+  components: {TheHeading},
   data() {
     return {
       favoritesVacancy: [],

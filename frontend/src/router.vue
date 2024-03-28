@@ -72,6 +72,12 @@ export default new VueRouter({
       path: '/favorites',
       name: "favorites-vacancy",
       component: favoritesVacancy,
+      meta: {
+        breadcrumb: {
+          label: 'Избранные',
+          parent: 'home'
+        }
+      },
     },
     {
       path: '/create-vacancy/',
