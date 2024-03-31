@@ -355,9 +355,13 @@ export default {
           employ: this.employ,
           required_experience: this.experience,
           created_by: this.userData.id,
-          graph: this.graph
+          graph: this.graph,
+          title_org: this.userData.title_org,
+          citizenship: this.userData.city,
+          phone_number: this.userData.phoneNumber,
+          first_name: this.userData.firstName,
+          last_name: this.userData.lastName,
         };
-        // this.validateFormVacancy()
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)
           window.location.reload()
@@ -397,7 +401,6 @@ export default {
     },
     validateFormVacancy() {
       this.errorFields.vacancyTitle = this.validateField(this.vacancyTitle)
-      // this.errorFields.salary = this.validateField(this.salaryMin) && this.validateField(this.salaryMax)
       this.errorFields.graph = this.validateField(this.graph)
       this.errorFields.employ = this.validateField(this.employ)
       this.errorFields.description = this.validateField(this.description)

@@ -27,10 +27,10 @@
         </div>
         <div class="vacancy__employer">
           <img src="@/assets/vacancy/company-logo.svg" alt="логотип компании" class="vacancy__employer-img">
-          <p class="vacancy__employer-company">{{vacancyData.job_title}}</p>
-          <p class="vacancy__info-text">Владивосток, ул. Ленина, 25</p>
-          <p class="vacancy__info-text">8(999)888-77-66</p>
-          <p class="vacancy__info-text text--green">HR, Самохина Людмила</p>
+          <p class="vacancy__employer-company">{{vacancyData.title_org}}</p>
+          <p class="vacancy__info-text">{{vacancyData.citizenship}}</p>
+          <p class="vacancy__info-text">{{vacancyData.phone_number}}</p>
+          <p class="vacancy__info-text text--green">{{vacancyData.last_name}} {{vacancyData.first_name}}</p>
         </div>
         <div class="vacancy__description" v-html="vacancyData.description"></div>
         <div class="vacancy__bottom">
@@ -67,9 +67,10 @@ export default {
     async getVacancyData(id) {
       try {
         const response = await axios.get(`/api/vac/${id}`);
-        const responseVacancy = await axios.get(`/applicant/data/${this.userId}/`)
-
-        this.convertVacancy(response.data, responseVacancy.data.response)
+        this.vacancyData = response.data
+        // const responseVacancy = await axios.get(`/applicant/data/${this.userId}/`)
+        //
+        // this.convertVacancy(response.data, responseVacancy.data.response)
 
 
       } catch (error) {

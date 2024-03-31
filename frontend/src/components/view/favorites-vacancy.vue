@@ -56,8 +56,10 @@
             </div>
           </div>
         </div>
-        <p v-else class="favorites__text">Избранных вакансий нет</p>
-        <router-link class="button-orange-another favorites__link" to="/vacancy" tag="a">Перейти к вакансиям</router-link>
+        <div v-else>
+          <p class="favorites__text">Избранных вакансий нет</p>
+          <router-link class="button-orange-another favorites__link" to="/vacancy" tag="a">Перейти к вакансиям</router-link>
+        </div>
       </div>
     </section>
 </template>
