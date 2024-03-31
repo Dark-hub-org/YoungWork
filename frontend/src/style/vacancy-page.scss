@@ -90,23 +90,6 @@
             color: $colorOrangeM;
         }
     }
-    &__recommendation {
-        display: flex;
-        gap: 16px;
-        padding-bottom: 5px;
-        overflow-x: scroll;
-
-        &::-webkit-scrollbar {
-            height: 5px;
-            width: 5px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: $colorGreyLight;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-    }
 }
 
 @media(max-width: 1124px) {

@@ -295,22 +295,6 @@
 
 // recommendation end
 
-@media(max-width: 1440px) {
-  .recommendation__list {
-    grid-template-columns: repeat(2, minmax(300px, 405px));
-    grid-template-rows: repeat(2, 1fr);
-  }
-}
-@media(max-width: 1024px) {
-  .recommendation__list {
-    display: flex;
-    justify-content: flex-start;
-    gap: 16px;
-    width: 100%;
-    overflow: scroll;
-  }
-}
-
 @media(max-width: 850px) {
 
   .reviews__slider-title {
@@ -322,10 +306,8 @@
   }
 }
 
+
 @media(max-width: 550px) {
-  .recommendation__list-card {
-    min-width: 320px;
-  }
 
   .reviews__slider {
 

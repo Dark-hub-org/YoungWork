@@ -2,10 +2,20 @@
 //@import "../mixin";
 @import "../main";
 
+.vacancy-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(300px, 405px));
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px 20px;
+  width: fit-content;
+  margin: 0 auto 24px auto;
+}
+
 .vacancy-card {
   display: flex;
   flex-direction: column;
   max-width: 405px;
+  width: 100%;
   padding: 20px;
   border-radius: 20px;
   background-color: #FFE9DE;
@@ -14,6 +24,10 @@
     margin-bottom: 34px;
     font-weight: 600;
     font-size: 20px;
+    transition: all .15s ease;
+    &:hover {
+      color: $colorOrangeM;
+    }
   }
   &__list {
     position: relative;
@@ -48,13 +62,45 @@
   }
   &__btns {
     @include displayFlex;
+    gap: 10px;
     max-width: 344px;
     margin-top: auto;
+    padding-bottom: 5px;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      height: 5px;
+      border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $colorOrangeM;
+    }
   }
   &__response {
     font-size: 18px;
   }
   &__favourites {
     font-size: 18px;
+  }
+}
+
+@media(max-width: 1440px) {
+  .vacancy-list {
+    grid-template-columns: repeat(2, minmax(300px, 405px));
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+@media(max-width: 1024px) {
+  .vacancy-list {
+    display: flex;
+    justify-content: flex-start;
+    gap: 16px;
+    width: 100%;
+    overflow: scroll;
+  }
+}
+
+@media(max-width: 768px) {
+  .vacancy-card {
+    min-width: 320px;
   }
 }

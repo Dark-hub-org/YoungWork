@@ -40,68 +40,23 @@
         </div>
       </div>
       <h3 class="section-title">Рекомендуем вам</h3>
-      <div class="vacancy__recommendation">
-        <vacancy-item
-            v-for="vacancy in vacancys"
-            :vacancy="vacancy"
-            :key="vacancy.id"
-            class="recommendation__list-card"
-        ></vacancy-item>
-      </div>
+      <recommended-vacancy></recommended-vacancy>
     </div>
   </section>
 </template>
 <script>
 import axios from "axios";
-import VacancyItem from "@/components/ui/vacancyItem.vue";
 import TheHeading from "@/components/ui/heading.vue";
+import RecommendedVacancy from "@/components/ui/recommendedVacancy.vue";
 
 export default {
   name: 'vacancy-page',
-  components: {TheHeading, VacancyItem},
+  components: {RecommendedVacancy, TheHeading},
   props: ['id'],
   data() {
     return {
       vacancyData: {},
       employerData: {},
-      vacancys: [
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-        {
-          title: 'Дизайнер интерфейсов',
-          requirements: 'Хорошее понимание UI/UX базы; понимание всех нюансов разработки современных сайтов.',
-          tasks: 'Разработка макетов и адаптивов, упаковка готовых решений в презентации.',
-          salary: '35 000 рублей'
-        },
-      ],
     };
   },
   methods: {

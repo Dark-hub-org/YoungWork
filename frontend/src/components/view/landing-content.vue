@@ -65,16 +65,7 @@
     <section class="recommendation">
       <div class="wrapper">
         <h2 class="section-title">Рекомендуем вам</h2>
-        <div class="recommendation__list">
-          <vacancy-item
-              v-for="vacancy in ListLength"
-              :vacancy="vacancy"
-              :key="vacancy.id"
-              @added-vacancy="addedRecommendedVacancy"
-              @added-favorite="addedFavoritesVacancy"
-              class="recommendation__list-card"
-          ></vacancy-item>
-        </div>
+        <recommended-vacancy></recommended-vacancy>
         <a href="/vacancy" class="reviews__more">Смотреть все</a>
       </div>
     </section>
@@ -82,8 +73,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import VacancyItem from "@/components/ui/vacancyItem.vue";
 
 import { Navigation} from 'swiper'
 import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
@@ -92,12 +81,13 @@ SwiperCore.use([Navigation])
 import 'swiper/swiper-bundle.css'
 import TheHeading from "@/components/ui/heading.vue";
 import TheSearch from "@/components/ui/searchInput.vue";
+import RecommendedVacancy from "@/components/ui/recommendedVacancy.vue";
 export default {
   name: "landing-content",
   components: {
+    RecommendedVacancy,
     TheSearch,
     TheHeading,
-    VacancyItem,
     Swiper,
     SwiperSlide
   },
@@ -160,58 +150,10 @@ export default {
     submitSearchVacancy(value) {
       this.$router.push(`/vacancy/?search=${value}`)
     },
-    async getRecommendedVacancy() {
-      try {
-        const response = await axios.get('api/recommend/')
-        if(this.userData.usertype === 'applicant') {
-          const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
-          const responseFavoriteVacancy  = await axios.get('/data-favorites/')
-
-          const favoritesVacancy = responseFavoriteVacancy.data.length ? responseFavoriteVacancy.data.map(vacancy => vacancy.id) : []
-
-          this.convertVacancies(response.data, responseVacancy.data.response, favoritesVacancy)
-        } else {
-          this.recommendedVacancy = response.data
-        }
-      } catch(error) {
-        console.log(error)
-      }
-    },
-    convertVacancies(vacancy, responseVacancy, favoriteVacancy) {
-      this.recommendedVacancy = vacancy.map(item => {
-        const isVacancy = responseVacancy.includes(item.id)
-        const isFavorite = favoriteVacancy.includes(item.id)
-        return { ...item, response: isVacancy, favorite: isFavorite};
-      });
-    },
-
-    async addedRecommendedVacancy(data, vacancy) {
-      try {
-        await axios.post('/api/response/', data)
-        this.recommendedVacancy = this.recommendedVacancy.map(item => item.id === vacancy.id ? {...item, response: true} : {...item})
-      } catch(error) {
-        console.log(error)
-      }
-    },
-
-    async addedFavoritesVacancy(id) {
-      try {
-        await axios.post('/data-favorites/', {vacancy: id})
-        this.recommendedVacancy = this.recommendedVacancy.map(item => item.id === id ? {...item, favorite: true} : {...item})
-      } catch (error) {
-        console.log(error)
-      }
-    }
   },
   computed: {
     userData() {
       return this.$store.state.userData
-    },
-    ListLength() {
-      if (window.innerWidth > 1440) {
-        return this.recommendedVacancy.slice(0, 6)
-      }
-      return this.recommendedVacancy.slice(0, 4)
     },
     reviewsList() {
       return this.reviews.map(review => {
@@ -226,9 +168,6 @@ export default {
     },
 
   },
-  mounted() {
-    this.getRecommendedVacancy()
-  }
 }
 </script>
 
