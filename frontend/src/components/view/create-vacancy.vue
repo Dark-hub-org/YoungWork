@@ -361,10 +361,11 @@ export default {
           phone_number: this.userData.phoneNumber,
           first_name: this.userData.firstName,
           last_name: this.userData.lastName,
+          com_logo: this.userData.photo_org,
         };
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)
-          window.location.reload()
+          // window.location.reload()
         }
       } catch (error) {
         console.log(error)
