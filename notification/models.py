@@ -20,5 +20,5 @@ class Notification(models.Model):
     type_of_notification = models.CharField(max_length=50, choices=type_of_notification)
     vacancy = models.ForeignKey(Vacancies, on_delete=models.CASCADE, blank=True, null=True)
     created_by = models.ForeignKey(User, related_name='created_notifications', on_delete=models.CASCADE)
-    created_for = models.ForeignKey(Employer, related_name='received_notifications', on_delete=models.CASCADE)
+    created_for = models.ForeignKey(User, related_name='received_notifications', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

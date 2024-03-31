@@ -10,6 +10,7 @@ from django.shortcuts import render
 from .models import Favorites
 from jobs.serializers import VacanciesDataSerializer
 from django.core.exceptions import ObjectDoesNotExist
+from notification.utils import create_notification
 
 
 @permission_classes([IsAuthenticated])
@@ -45,12 +46,13 @@ def favorites(request):
         if Favorites.objects.filter(created_by=user).exists():
             instance = Favorites.objects.get(created_by=user)
             instance.vacancy.add(request.data.get('vacancy'))
+            notification = create_notification(request, 'vacancy_favorites')
             return JsonResponse({'message': 'add success'})
         else:
             instance = Favorites.objects.create(created_by=user)
             instance.vacancy.set([request.data.get('vacancy')])
             return JsonResponse({'message': 'success'})
-    if Favorites.objects.filter(created_by=user).exists():
+    elif Favorites.objects.filter(created_by=user).exists():
         instance = Favorites.objects.get(created_by=user)
         fav_vac = instance.vacancy.all()
         serializer = VacanciesDataSerializer(fav_vac, many=True)
