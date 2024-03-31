@@ -28,7 +28,7 @@ class Vacancies(models.Model):
     created_by = models.ForeignKey(Employer, verbose_name="Создатель", related_name='employer_vacancy',
                                    on_delete=models.CASCADE)
 
-    com_logo = models.ImageField('Фото компании', null=True, blank=True)
+    com_logo = models.ImageField('Фото компании', null=True, blank=True, default='')
     citizenship = models.CharField('Гражданство', blank=True, null=True, max_length=50, default='')
     region = models.CharField('Регион', blank=True, null=True, max_length=50, default='')
     phone_number = models.CharField('Номер телефона', blank=True, null=True, max_length=100, default='')
