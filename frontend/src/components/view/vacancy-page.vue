@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="vacancy__employer">
-          <img src="@/assets/vacancy/company-logo.svg" alt="логотип компании" class="vacancy__employer-img">
+          <img :src='"/img/" + vacancyData.com_logo' alt="логотип компании" class="vacancy__employer-img">
           <p class="vacancy__employer-company">{{vacancyData.title_org}}</p>
           <p class="vacancy__info-text">{{vacancyData.citizenship}}</p>
           <p class="vacancy__info-text">{{vacancyData.phone_number}}</p>

@@ -365,7 +365,7 @@ export default {
         };
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)
-          // window.location.reload()
+          window.location.reload()
         }
       } catch (error) {
         console.log(error)
