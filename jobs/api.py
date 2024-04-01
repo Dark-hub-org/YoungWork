@@ -23,26 +23,6 @@ def vacancy_reg(request):
 # TODO: Test
 @api_view(['PATCH'])
 def edit_vacancy(request, pk):
-    # vacancy_data = {
-    #     "job_title": request.data.get('job_title'),
-    #     "company_name": request.data.get('company_name'),
-    #     "salary_min": request.data.get('salary_min'),
-    #     "salary_max": request.data.get('salary_max'),
-    #     "description": request.data.get('description'),
-    #     "tasks": request.data.get('tasks'),
-    #     "requirements": request.data.get('requirements'),
-    #     "tax": request.data.get('tax'),
-    #     "employ": request.data.get('employ'),
-    #     "required_experience": request.data.get('required_experience'),
-    #     "created_by": request.data.get('created_by'),
-    #     "graph": request.data.get('graph'),
-    # }
-    # vacancy = Vacancies.objects.filter(pk=pk).update(**vacancy_data)
-    # serializers = VacanciesDataSerializer(data=vacancy)
-    # if serializers.is_valid():
-    #     serializers.save()
-    #     return JsonResponse(serializers.data)
-    # return JsonResponse(serializers.data)
     try:
         vacancy = Vacancies.objects.get(pk=pk)
     except Vacancies.DoesNotExist:

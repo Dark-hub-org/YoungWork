@@ -15,5 +15,4 @@ urlpatterns = [
     path('api/applicant/upload-portfolio/', api.upload_portfolio, name='upload_portfolio'),
     path('api/employer/upload-photorg/', api.upload_photo_org, name='upload_photo_org'),
     path('api/employer/upload-jobexample/', api.upload_job_example, name='upload_job_example'),
-    path('vacancy-response/<str:pk>/', api.response_on_vacancy, name='vacancy_response')
 ]
