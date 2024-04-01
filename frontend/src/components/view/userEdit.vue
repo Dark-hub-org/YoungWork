@@ -5,7 +5,7 @@
         <h2 class="edit__data-title">Личные данные</h2>
         <div class="edit__data-block">
           <div ref="dropzone" class="dropzone edit__data-photo">
-            <button v-if="userData.avatar" type="button" @click="deletePhotoAvatar(userData.avatar)" class="edit__data-photo__delete"></button>
+            <button v-if="userData.avatar" type="button" @click="deletePhotoAvatar(userData.avatar, 'avatar')" class="edit__data-photo__delete"></button>
             <img v-if="!userData.avatar" src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
             <img v-else :src='"/img" + userData.avatar' alt="" class="edit__data-photo__upload">
           </div>
@@ -152,7 +152,7 @@
         <h2 class="edit__data-title">О вас</h2>
         <div v-show="userData.usertype === 'employer'" class="edit__data-block">
           <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization">
-            <button v-if="userData.photo_org" @click="deletePhotoOrg()" class="edit__data-photo__delete"></button>
+            <button v-if="userData.photo_org" type="button" @click="deletePhotoAvatar(userData.photo_org, 'logotype')" class="edit__data-photo__delete"></button>
             <img v-if="!userData.photo_org" src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
             <img v-else :src='"/img" + userData.photo_org' alt="" class="edit__data-photo__upload">
           </div>
@@ -231,7 +231,7 @@ export default {
     closeEditProfile() {
       return this.checkValidData() ? this.$router.push(`/${this.userData.usertype}`) : this.checkValidData()
     },
-    async deletePhotoAvatar(path) {
+    async deletePhotoAvatar(path, type) {
       path = `/img${path}`
       try {
         await axios.post(`/api/delete_photo/`, {file_path: path})
@@ -242,14 +242,14 @@ export default {
               usertype: this.userData.usertype,
             }
         )
-        this.userData.avatar = ''
+        if(type === 'avatar') {
+          this.userData.avatar = ''
+        } else if(type === 'logotype') {
+          this.userData.photo_org = ''
+        }
       } catch (error) {
-        console.log({file_path: path})
         console.log(error)
       }
-    },
-    deletePhotoOrg() {
-      this.userData.photo_org = ''
     },
     async submitUserData() {
       try {

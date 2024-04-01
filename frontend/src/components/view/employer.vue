@@ -53,6 +53,7 @@
             <div class="profile__slider-btns">
               <router-link to="/" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
               <router-link to="/" tag="a" class="button-orange">Отклики</router-link>
+              <button @click="changeStatusVacancy(vacancy, 'active')" type="button" class="button-orange">В архив</button>
             </div>
           </swiper-slide>
         </swiper>
@@ -71,8 +72,9 @@
               class="profile__slider-item profile__slider-item--inactive">
             <p class="profile__slider-title">{{vacancy.job_title}}</p>
             <div class="profile__slider-btns">
-              <router-link  :to="{ name: 'edit-vacancy', params: { id: vacancy.id} }" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
+              <router-link  :to="{ name: 'vacancy-edit', params: { id: vacancy.id} }" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
               <router-link to="/" tag="a" class="button-orange">Отклики</router-link>
+              <button @click="changeStatusVacancy(vacancy, 'inactive')" type="button" class="button-orange">В актив</button>
             </div>
           </swiper-slide>
         </swiper>
@@ -158,6 +160,21 @@ export default {
         } catch(error) {
           console.log(error)
         }
+    },
+    async changeStatusVacancy(vacancy, status) {
+      try {
+        if(status === 'active') {
+          await axios.post('/api/inactive/vac/', {pk: vacancy.id})
+          this.activeVacancy = this.activeVacancy.filter(item => item.id !== vacancy.id)
+          this.inactiveVacancy.push(vacancy)
+        } else {
+          await axios.post('/api/active/vac/', {pk: vacancy.id})
+          this.inactiveVacancy = this.inactiveVacancy.filter(item => item.id !== vacancy.id)
+          this.activeVacancy.push(vacancy)
+        }
+      } catch(error) {
+       console.log(error)
+      }
     },
     onCloseModalWin() {
       this.isModalVisible = false;

@@ -17,24 +17,9 @@ import axios from "axios"
 
 export default {
   name: 'App',
-  beforeCreate() {
-    this.$store.commit("initializeStore")
-
-    const access = this.$store.state.access
-
-    if (access) {
-      axios.defaults.headers.common['Authorization'] = "JWT " + access
-    } else {
-      axios.defaults.headers.common['Authorization'] = ''
+  data() {
+    return {
     }
-  },
-  mounted() {
-    setInterval(() => {
-      this.getAccess()
-    }, 59000)
-  },
-  created() {
-    this.setUserData()
   },
   methods: {
     getAccess() {
@@ -55,6 +40,31 @@ export default {
       this.$store.dispatch('setUserData')
       this.$store.dispatch('getAuthorization')
     },
-  }
+  },
+  mounted() {
+    if(this.$store.state.access.length) {
+      setInterval(() => {
+        this.getAccess()
+      }, 59000)
+    }
+
+  },
+  created() {
+    if(this.$store.state.access.length) {
+      this.setUserData()
+    }
+  },
+  beforeCreate() {
+
+    this.$store.commit("initializeStore")
+
+    const access = this.$store.state.access
+
+    if (access) {
+      axios.defaults.headers.common['Authorization'] = "JWT " + access
+    } else {
+      axios.defaults.headers.common['Authorization'] = ''
+    }
+  },
 }
 </script>

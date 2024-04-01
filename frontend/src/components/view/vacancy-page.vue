@@ -22,11 +22,12 @@
           <div class="vacancy__info-btns">
             <button v-if="!vacancyData.response" @click="sendResponse" class="button-orange-another">Откликнуться</button>
             <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
-            <button class="button-orange">В избранное</button>
+            <button v-if="!vacancyData.favorite" @click="addedFavorites(vacancyData.id)" class="button-orange">В избранное</button>
+            <span v-else class="button-orange vacancy__item-btn">Добавленно в избранное</span>
           </div>
         </div>
         <div class="vacancy__employer">
-          <img :src='"/img/" + vacancyData.com_logo' alt="логотип компании" class="vacancy__employer-img">
+          <img v-if="vacancyData.com_logo" :src='"/img/" + vacancyData.com_logo' alt="логотип компании" class="vacancy__employer-img">
           <p class="vacancy__employer-company">{{vacancyData.title_org}}</p>
           <p class="vacancy__info-text">{{vacancyData.citizenship}}</p>
           <p class="vacancy__info-text">{{vacancyData.phone_number}}</p>
@@ -89,7 +90,15 @@ export default {
       } catch(error) {
         console.log(error)
       }
-    }
+    },
+    async addedFavorites(id) {
+      try {
+        await axios.post('/data-favorites/', {vacancy: id})
+        this.vacancies = this.vacancies.map(item => item.id === id ? {...item, favorite: true} : {...item})
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
   computed: {
     userId() {

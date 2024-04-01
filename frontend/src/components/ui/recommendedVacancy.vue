@@ -136,6 +136,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/vacancyItem.scss" lang="scss" scoped>
+<style src="@/style/ui/recommendedVacancy.scss" lang="scss" scoped>
 
 </style>
