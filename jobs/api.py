@@ -68,8 +68,8 @@ def inactive_vacancy(request):
 def response_on_vacancy(request):
     vacancy = request.data.get('vacancy')
     check = Response.objects.filter(created_by=request.user.id, vacancy=vacancy)
-
-    if not check:
+    check1 = Vacancies.objects.filter(created_by=request.user.id)
+    if (not check) or (not check1):
         serializer = ResponseDataSerializer(data=request.data)
         applicant_get = Applicant.objects.get(user=request.user.id)
         applicant_filter = Applicant.objects.filter(user=request.user.id)
@@ -82,8 +82,7 @@ def response_on_vacancy(request):
             return JsonResponse(serializer.data, safe=False)
         return JsonResponse(serializer.data, safe=False)
     else:
-        notification = create_notification(request, 'new_vacancy_response', vacancy_id=vacancy)
-        return JsonResponse("Вы уже откликнулись", safe=False)
+        return JsonResponse("Вы не можете откликнуться на вакансию", safe=False)
 
 
 @api_view(['GET'])

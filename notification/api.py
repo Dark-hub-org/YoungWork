@@ -26,5 +26,4 @@ def read_notification(request, pk):
 def view_notification(request):
     notifications = Notification.objects.filter(created_for=request.user.id)
     serializer = NotificationSerializer(notifications, many=True)
-
     return JsonResponse(serializer.data, safe=False)

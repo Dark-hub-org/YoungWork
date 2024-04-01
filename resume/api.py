@@ -42,11 +42,12 @@ def resume_reg(request):
 @api_view(['POST', 'GET'])
 def favorites(request):
     user = request.user
+    vacancy = request.data.get('vacancy')
     if request.method == 'POST':
         if Favorites.objects.filter(created_by=user).exists():
             instance = Favorites.objects.get(created_by=user)
             instance.vacancy.add(request.data.get('vacancy'))
-            notification = create_notification(request, 'vacancy_favorites')
+            notification = create_notification(request, 'vacancy_favorites', vacancy_id=vacancy)
             return JsonResponse({'message': 'add success'})
         else:
             instance = Favorites.objects.create(created_by=user)
