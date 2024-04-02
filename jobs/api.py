@@ -109,8 +109,9 @@ def upload_preview(request):
     Vacancies.objects.filter(user=request.user.id).update(portfolio=request.data.get('portfolio'))
     return JsonResponse({'message': 'success'})
 
-# @api_view(['DELETE'])
-# def vacancy_delete(request, pk):
-#     vacancy = Vacancies.objects.filter(created_by=request.user).get(pk=pk)
-#     vacancy.delete()
-#     return JsonResponse({'message': 'post deleted'})
+
+@api_view(['DELETE'])
+def vacancy_delete(request):
+    vacancy = Vacancies.objects.filter(created_by=request.user).get(pk=request.data.pk)
+    vacancy.delete()
+    return JsonResponse({'message': 'post deleted'})
