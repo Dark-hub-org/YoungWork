@@ -20,7 +20,6 @@ def vacancy_reg(request):
     return render(request, "index.html")
 
 
-# TODO: Test
 @api_view(['PATCH'])
 def edit_vacancy(request, pk):
     try:
@@ -112,6 +111,6 @@ def upload_preview(request):
 
 @api_view(['DELETE'])
 def vacancy_delete(request):
-    vacancy = Vacancies.objects.filter(created_by=request.user.id).get(pk=request.data.get('pk'))
+    vacancy = Vacancies.objects.get(pk=request.data.get('pk'))
     vacancy.delete()
     return JsonResponse({'message': 'post deleted'})
