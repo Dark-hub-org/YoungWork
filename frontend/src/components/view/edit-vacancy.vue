@@ -267,6 +267,10 @@
             <template v-if="vacancyData.active">Добавить в архив</template>
             <template v-else>Сделать активной</template>
           </button>
+          <button
+              @click="deleteVacancy(vacancyData.id)"
+              type="button"
+              class="button-orange">Удалить</button>
         </div>
 
       </form>
@@ -338,6 +342,19 @@ export default {
         console.log(error)
       }
     },
+    async deleteVacancy(id) {
+      try {
+        await axios.delete(`/api/vacancy/delete/${id}/` )
+        if(this.userData.usertype === 'applicant') {
+          this.$router.push('/applicant')
+        } else {
+          this.$router.push('/employer')
+        }
+      } catch(error) {
+        console.log({pk: id})
+        console.log(error)
+      }
+    },
     parseResponsibilities(description, codeWord) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(description, 'text/html');
@@ -375,11 +392,11 @@ export default {
     },
   },
   computed: {
-    userId() {
-      return this.$store.state.userData.id
-    },
-    companyName() {
-      return this.$store.state.userData.title_org
+    // userId() {
+    //   return this.$store.state.userData.id
+    // },
+    userData() {
+      return this.$store.state.userData
     }
   },
   mounted() {

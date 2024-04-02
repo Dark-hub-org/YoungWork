@@ -66,9 +66,6 @@
     align-items: start;
     gap: 10px;
   }
-}
-
-@media(max-width: 450px) {
   .footer__list {
     flex-direction: column;
     margin-bottom: 40px;
@@ -83,3 +80,4 @@
 
   }
 }
+

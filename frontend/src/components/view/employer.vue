@@ -51,7 +51,7 @@
               class="profile__slider-item">
             <p class="profile__slider-title">{{vacancy.job_title}}</p>
             <div class="profile__slider-btns">
-              <router-link to="/" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
+              <router-link  :to="{ name: 'vacancy-edit', params: { id: vacancy.id} }" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
               <router-link to="/" tag="a" class="button-orange">Отклики</router-link>
               <button @click="changeStatusVacancy(vacancy, 'active')" type="button" class="button-orange">В архив</button>
             </div>
