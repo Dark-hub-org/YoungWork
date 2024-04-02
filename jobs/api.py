@@ -110,7 +110,7 @@ def upload_preview(request):
 
 
 @api_view(['DELETE'])
-def vacancy_delete(request):
-    vacancy = Vacancies.objects.get(pk=request.data.get('pk'))
+def vacancy_delete(request, pk):
+    vacancy = Vacancies.objects.filter(created_by=request.user.id).get(pk=pk)
     vacancy.delete()
     return JsonResponse({'message': 'post deleted'})
