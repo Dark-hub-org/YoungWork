@@ -6,7 +6,7 @@ By integrating Django and Vue, we want to show all the possible functionality of
 
 ## Preview :desktop_computer:
 
-![Young_work](https://i.ibb.co/xMFYfNv/image.png)
+![Young_work](https://i.ibb.co/jh1H3mk/image.png)
 
 ## General ⚙️
 This project includes: 
