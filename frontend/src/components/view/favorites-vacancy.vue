@@ -94,6 +94,11 @@ export default {
       }
     },
   },
+  computed: {
+    userData() {
+      return this.$store.state.userData
+    }
+  },
   mounted() {
     this.getFavoritesVacancy()
   }

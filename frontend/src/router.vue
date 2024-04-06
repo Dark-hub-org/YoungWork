@@ -13,6 +13,7 @@ import resume from "@/components/view/resume.vue";
 import editVacancy from "@/components/view/edit-vacancy.vue";
 import createVacancy from "@/components/view/create-vacancy.vue";
 import favoritesVacancy from "@/components/view/favorites-vacancy.vue";
+import response from "@/components/view/response.vue";
 
 
 Vue.use(VueRouter);
@@ -69,6 +70,17 @@ export default new VueRouter({
       },
     },// // вакансии хабовая
     {
+      path: '/response/:id',
+      name: 'response',
+      component: response,
+      meta: {
+        breadcrumb: {
+          label: 'отклики',
+          parent: 'home'
+        }
+      },
+    } , // отклики на вакансию
+    {
       path: '/favorites',
       name: "favorites-vacancy",
       component: favoritesVacancy,
@@ -104,12 +116,18 @@ export default new VueRouter({
       path: '/applicant/',
       name: 'applicant',
       props: true,
-      component: Applicant
+      component: Applicant,
+      meta: {
+        breadcrumb: 'Профиль'
+      }
     },//Профиль соискателя
     {
       path: '/applicant/edit/',
       name: 'applicant-edit',
-      component: UserEdit
+      component: UserEdit,
+      meta: {
+        breadcrumb: 'Профиль'
+      }
     },//Редактирование профиля соискателя
     {
       path: '/employer/',

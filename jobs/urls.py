@@ -7,7 +7,7 @@ from .views import *
 urlpatterns = [
     path('vacancy/', TemplateView.as_view(template_name='index.html')),
     path('vacancy/<str:pk>/', TemplateView.as_view(template_name='index.html')),
-    path('reponse/<str:pk>/', TemplateView.as_view(template_name='index.html')),
+    path('response/<str:pk>/', TemplateView.as_view(template_name='index.html')),
     path('api/vac/', VacanciesData.as_view()),
     path('api/vac/<str:pk>/', api.vacancy_detail_data, name="vacancy_data"),
     path('api/active/vac/', api.active_vacancy, name="active_vac"),
