@@ -11,6 +11,7 @@ from jobs.models import Vacancies
 from resume.models import Resume
 from jobs.serializers import VacanciesDataSerializer
 from django.core.files.base import ContentFile
+from .serializers import UserFromSerializer
 
 
 @permission_classes([IsAuthenticated])
@@ -34,6 +35,13 @@ def me(request):
         'website': request.user.website,
         'phoneNumber': request.user.phone_number,
     })
+
+
+@api_view(['GET'])
+def user_data(request, pk):
+    user_data = User.objects.filter(pk=pk)
+    serializer = UserFromSerializer(user_data)
+    return JsonResponse(serializer.data, safe=False)
 
 
 @api_view(['POST'])
