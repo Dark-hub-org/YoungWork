@@ -9,6 +9,7 @@ from .models import Vacancies, Response
 from .serializers import VacanciesDetailSerializer, VacanciesDataSerializer, ResponseDataSerializer
 from django.shortcuts import render
 from notification.utils import create_notification
+from accounts.serializers import UserSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -85,9 +86,13 @@ def response_on_vacancy(request):
 
 
 @api_view(['GET'])
-def all_response(request):
-    resp = Response.objects.filter(vacancy=request.data.get('pk'))
-    serializer = ResponseDataSerializer(resp, many=True)
+def all_response(request, pk):
+    responses = Response.objects.filter(vacancy=pk)
+
+    user_ids = responses.values_list('created_by', flat=True)
+    user_data = User.objects.filter(id__in=user_ids)
+
+    serializer = UserSerializer(user_data, many=True)
     return JsonResponse(serializer.data, safe=False)
 
 
