@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from rest_framework.response import Response
 
 from profiles.models import Applicant
 from accounts.models import User
@@ -10,6 +11,8 @@ from .serializers import VacanciesDetailSerializer, VacanciesDataSerializer, Res
 from django.shortcuts import render
 from notification.utils import create_notification
 from accounts.serializers import UserSerializer
+from resume.models import Resume
+from resume.serializers import ResumeDataSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -91,9 +94,17 @@ def all_response(request, pk):
 
     user_ids = responses.values_list('created_by', flat=True)
     user_data = User.objects.filter(id__in=user_ids)
+    resume_data = Resume.objects.filter(created_by__in=user_ids)
 
-    serializer = UserSerializer(user_data, many=True)
-    return JsonResponse(serializer.data, safe=False)
+    user_serializer = UserSerializer(user_data, many=True)
+    resume_serializer = ResumeDataSerializer(resume_data, many=True)
+
+    data = {
+        'users': user_serializer.data,
+        'resumes': resume_serializer.data
+    }
+
+    return JsonResponse(data, safe=False)
 
 
 @api_view(['GET'])
