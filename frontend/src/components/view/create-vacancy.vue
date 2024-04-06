@@ -331,8 +331,6 @@ export default {
         vacancyTitle: false,
         salary: false,
         employ: false,
-        // salaryMin: false,
-        // salaryMax: false,
         graph: false,
         description: false,
       }

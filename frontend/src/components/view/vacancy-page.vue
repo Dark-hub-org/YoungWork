@@ -17,7 +17,6 @@
           <div class="vacancy__info-block">
             <p class="vacancy__info-text">Опыт работы: {{vacancyData.required_experience}}</p>
             <p class="vacancy__info-text">{{vacancyData.type}}</p>
-<!--            <p class="vacancy__info-text text&#45;&#45;green">Сейчас эту вакансию смотрят 3 человека</p>-->
           </div>
           <div class="vacancy__info-btns">
             <button v-if="!vacancyData.response" @click="sendResponse" class="button-orange-another">Откликнуться</button>

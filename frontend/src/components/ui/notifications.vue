@@ -56,7 +56,6 @@ export default {
       try {
         const response = await axios.get('/api/not/notes/')
         this.notifications = response.data
-        console.log(response.data)
       } catch (error) {
         console.log(error)
       }

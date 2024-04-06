@@ -11,6 +11,7 @@
   &__list {
     display: flex;
     flex-direction: column;
+    gap: 30px;
     max-width: 1270px;
     width: 100%;
     margin-bottom: 32px;
@@ -38,7 +39,7 @@
     }
 
     &-img {
-      min-height: 400px;
+      height: 400px;
       max-width: 444px;
       width: 100%;
       margin-bottom: 32px;
@@ -268,10 +269,30 @@
       grid-template-columns: auto;
       &-left {
         max-width: none;
+        overflow: hidden;
         margin-bottom: 20px;
       }
       &-right {
+        overflow: hidden;
+      }
+    }
+  }
+}
 
+@media(max-width: 451px) {
+  .response {
+    &__quantity {
+      font-size: 20px;
+    }
+    &__item {
+      &-left {
+        padding: 15px;
+      }
+      &-profile {
+        height: 37px;
+        padding: 10px 14px;
+        font-size: 14px;
+        letter-spacing: -0.02em;
       }
     }
   }
