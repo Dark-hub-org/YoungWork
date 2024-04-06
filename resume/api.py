@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 
 from accounts.models import User
 from .models import Resume
@@ -14,9 +15,13 @@ from notification.utils import create_notification
 
 
 @permission_classes([IsAuthenticated])
-@api_view(['GET', 'DELETE'])
+@api_view(['GET'])
 def resume_detail_data(request, pk):
-    resume_detail = Resume.objects.get(pk=pk)
+    try:
+        resume_detail = Resume.objects.get(pk=pk)
+    except Resume.DoesNotExist:
+        return JsonResponse({'message': 'Resume not found'}, status=status.HTTP_404_NOT_FOUND)
+
     serializer = ResumeDetailSerializer(resume_detail)
     return JsonResponse(serializer.data)
 
