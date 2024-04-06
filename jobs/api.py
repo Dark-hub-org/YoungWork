@@ -10,7 +10,7 @@ from .models import Vacancies, Response
 from .serializers import VacanciesDetailSerializer, VacanciesDataSerializer, ResponseDataSerializer
 from django.shortcuts import render
 from notification.utils import create_notification
-from accounts.serializers import UserSerializer
+from accounts.serializers import UserFromSerializer
 from resume.models import Resume
 from resume.serializers import ResumeDataSerializer
 
@@ -96,7 +96,7 @@ def all_response(request, pk):
     user_data = User.objects.filter(id__in=user_ids)
     resume_data = Resume.objects.filter(created_by__in=user_ids)
 
-    user_serializer = UserSerializer(user_data, many=True)
+    user_serializer = UserFromSerializer(user_data, many=True)
     resume_serializer = ResumeDataSerializer(resume_data, many=True)
 
     data = {
