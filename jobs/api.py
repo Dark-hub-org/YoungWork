@@ -86,7 +86,8 @@ def response_on_vacancy(request):
 
 
 @api_view(['GET'])
-def all_response(request, pk):
+def all_response(request):
+    pk = request.data.get('pk')
     responses = Response.objects.filter(vacancy=pk)
 
     user_ids = responses.values_list('created_by', flat=True)
