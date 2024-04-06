@@ -39,7 +39,7 @@ def me(request):
 
 @api_view(['GET'])
 def user_data(request, pk):
-    user_data = User.objects.filter(pk=pk).get()
+    user_data = User.objects.get(pk=pk)
     serializer = UserFromSerializer(user_data)
     return JsonResponse(serializer.data, safe=False)
 
