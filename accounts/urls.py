@@ -3,7 +3,7 @@ from . import api
 
 urlpatterns = [
     path('me/', api.me, name='me'),
-    path('user-data/<str:pk>', api.user_data, name='user'),
+    path('user-data/<str:pk>/', api.user_data, name='user'),
     path('password-change/', api.editpassword, name='password_change'),
     path('upload-avatar/', api.upload_avatar, name='upload_avatar'),
     path('recommend/', api.recommend, name='recommend'),
