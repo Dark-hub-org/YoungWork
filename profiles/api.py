@@ -136,13 +136,19 @@ def upload_portfolio(request):
 @api_view(['POST'])
 def upload_photo_org(request):
     employer = Employer.objects.filter(user=request.data.get('pk')).get()
-    if 'photo_org' in request.FILES:
-        photo_org_file = request.FILES['photo_org']
-        photo_name = f"org_{employer.user.id}_photo.jpg"
-        employer.photo_org.save(photo_name, ContentFile(photo_org_file.read()), save=True)
+    if request.data.get('photo_org') == 1:
+        instance = Employer.objects.get(user=request.data.get('pk'))
+        instance.logo = None
+        instance.save()
         return JsonResponse({'message': 'success'})
     else:
-        return JsonResponse({'message': 'no avatar provided'}, status=400)
+        if 'photo_org' in request.FILES:
+            photo_org_file = request.FILES['photo_org']
+            photo_name = f"org_{employer.user.id}_photo.jpg"
+            employer.photo_org.save(photo_name, ContentFile(photo_org_file.read()), save=True)
+            return JsonResponse({'message': 'success'})
+        else:
+            return JsonResponse({'message': 'no avatar provided'}, status=400)
 
 
 @permission_classes([IsAuthenticated])
