@@ -43,6 +43,24 @@ def resume_reg(request):
     return render(request, "index.html")
 
 
+@api_view(['GET', 'POST'])
+def activate_resume(request):
+    if request.method == 'POST':
+        Resume.objects.filter(pk=request.data.get('pk')).update(active=True)
+    active_resume = Resume.objects.filter(created_by=request.user.id, active=True)
+    serializer = ResumeDataSerializer(active_resume, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET', 'POST'])
+def inactivate_resume(request):
+    if request.method == 'POST':
+        Resume.objects.filter(pk=request.data.get('pk')).update(active=False)
+    inactive_resume = Resume.objects.filter(created_by=request.user.id, active=False)
+    serializer = ResumeDataSerializer(inactive_resume, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
 @permission_classes([IsAuthenticated])
 @api_view(['POST', 'GET'])
 def favorites(request):
