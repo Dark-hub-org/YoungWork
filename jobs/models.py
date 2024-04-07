@@ -16,7 +16,7 @@ class Vacancies(models.Model):
     tax = models.CharField('Статус налога', blank=True, null=True, max_length=100, default='')
     employ = ArrayField(models.CharField(max_length=100), verbose_name="Тип занятости", default=list, blank=True,
                         null=True)
-    logo = models.ImageField('Прелоадер', null=True, blank=True, upload_to='movies/vacancies')
+    banner = models.ImageField('Баннер', null=True, blank=True, upload_to='movies/vacancies')
     required_experience = models.CharField('Требуемый опыт', blank=True, null=True, max_length=100, default='')
     graph = ArrayField(models.CharField('График', max_length=100), default=list, blank=False, null=False)
 
