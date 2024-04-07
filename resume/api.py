@@ -111,3 +111,17 @@ def ditail_data_of_user(request, pk):
         'citizenship': user.citizenship,
         'phone_number': user.phone_number,
     })
+
+
+@api_view(['PATCH'])
+def edit_resume(request, pk):
+    try:
+        resume = Resume.objects.get(pk=pk)
+    except Resume.DoesNotExist:
+        return JsonResponse({'message': 'Resume not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ResumeDataSerializer(instance=resume, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data)
+    return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
