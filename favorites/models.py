@@ -11,7 +11,7 @@ class Favorites(models.Model):
     vacancy = models.ManyToManyField(Vacancies, verbose_name="Вакансия", related_name='vacancies', null=True,
                                      blank=True)
 
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField("Время изменения", auto_now_add=True)
     created_by = models.ForeignKey(User, verbose_name="Создатель", related_name='user_favorites',
                                    on_delete=models.CASCADE)
 
