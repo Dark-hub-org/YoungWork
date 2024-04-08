@@ -28,9 +28,13 @@ def resume_detail_data(request, pk):
 
 @api_view(['GET'])
 def resume_of_users(request):
-    resume = Resume.objects.filter(created_by=request.user.id)
-    serializer = ResumeDataSerializer(resume)
-    return JsonResponse(serializer.data)
+    user = request.user.id
+    try:
+        resume = Resume.objects.filter(created_by=user).get()
+        serializer = ResumeDataSerializer(resume)
+        return JsonResponse(serializer.data)
+    except Resume.DoesNotExist:
+        return JsonResponse({'message': 'Resume not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
 @permission_classes([IsAuthenticated])
@@ -125,3 +129,10 @@ def edit_resume(request, pk):
         serializer.save()
         return JsonResponse(serializer.data)
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def resume_delete(request, pk):
+    resume = Resume.objects.filter(created_by=request.user.id).get(pk=pk)
+    resume.delete()
+    return JsonResponse({'message': 'resume deleted'})

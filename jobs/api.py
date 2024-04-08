@@ -38,7 +38,7 @@ def edit_vacancy(request, pk):
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'DELETE'])
+@api_view(['GET'])
 def vacancy_detail_data(request, pk):
     try:
         vacancy_detail = Vacancies.objects.get(pk=pk)
@@ -129,4 +129,4 @@ def upload_preview(request):
 def vacancy_delete(request, pk):
     vacancy = Vacancies.objects.filter(created_by=request.user.id).get(pk=pk)
     vacancy.delete()
-    return JsonResponse({'message': 'post deleted'})
+    return JsonResponse({'message': 'vacancy deleted'})
