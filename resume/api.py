@@ -5,13 +5,8 @@ from rest_framework import status
 
 from accounts.models import User
 from .models import Resume
-from jobs.models import Vacancies
 from .serializers import ResumeDataSerializer, ResumeDetailSerializer
 from django.shortcuts import render
-from .models import Favorites
-from jobs.serializers import VacanciesDataSerializer
-from django.core.exceptions import ObjectDoesNotExist
-from notification.utils import create_notification
 
 
 @permission_classes([IsAuthenticated])
@@ -63,44 +58,6 @@ def inactivate_resume(request):
     inactive_resume = Resume.objects.filter(created_by=request.user.id, active=False)
     serializer = ResumeDataSerializer(inactive_resume, many=True)
     return JsonResponse(serializer.data, safe=False)
-
-
-@permission_classes([IsAuthenticated])
-@api_view(['POST', 'GET'])
-def favorites(request):
-    user = request.user
-    vacancy = request.data.get('vacancy')
-    if request.method == 'POST':
-        if Favorites.objects.filter(created_by=user).exists():
-            instance = Favorites.objects.get(created_by=user)
-            instance.vacancy.add(request.data.get('vacancy'))
-            notification = create_notification(request, 'vacancy_favorites', vacancy_id=vacancy)
-            return JsonResponse({'message': 'add success'})
-        else:
-            instance = Favorites.objects.create(created_by=user)
-            instance.vacancy.set([request.data.get('vacancy')])
-            return JsonResponse({'message': 'success'})
-    elif Favorites.objects.filter(created_by=user).exists():
-        instance = Favorites.objects.get(created_by=user)
-        fav_vac = instance.vacancy.all()
-        serializer = VacanciesDataSerializer(fav_vac, many=True)
-        return JsonResponse(serializer.data, safe=False)
-    else:
-        return JsonResponse({'message': 'empty_space'})
-
-
-@api_view(['DELETE'])
-def favorite_delete(request, pk):
-    user = request.user
-    try:
-        fav = Favorites.objects.get(created_by=user)
-        vacancy = Vacancies.objects.get(pk=pk)
-        fav.vacancy.remove(vacancy)
-        return JsonResponse({'message': 'Vacancy removed from favorites'})
-    except ObjectDoesNotExist:
-        return JsonResponse({'message': 'Favorites not found'}, status=404)
-    except Vacancies.DoesNotExist:
-        return JsonResponse({'message': 'Vacancy not found'}, status=404)
 
 
 @permission_classes([IsAuthenticated])

@@ -2,7 +2,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Resume, Favorites
+from .models import Resume
 from rest_framework import generics
 from .serializers import ResumeDataSerializer
 from rest_framework.filters import SearchFilter

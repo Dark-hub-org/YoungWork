@@ -19,6 +19,7 @@ urlpatterns = [
                   path('', include('profiles.urls')),
                   path('', include('jobs.urls')),
                   path('', include('resume.urls')),
+                  path('', include('favorites.urls')),
                   path('api/chat/', include('chat.urls')),
                   path('api/not/', include('notification.urls')),
                   re_path(r'^media/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.VUE_ROOT, 'media')}),

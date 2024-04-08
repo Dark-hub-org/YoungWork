@@ -3,6 +3,8 @@ import uuid
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from profiles.models import Employer, Applicant
+from resume.models import Resume
+from accounts.models import User
 
 
 class Vacancies(models.Model):
@@ -64,3 +66,6 @@ class Response(models.Model):
     class Meta:
         verbose_name = 'Отклики'
         verbose_name_plural = 'Отклики'
+
+    def __str__(self):
+        return f"{self.id}"
