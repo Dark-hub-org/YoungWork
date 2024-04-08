@@ -225,6 +225,7 @@ export default {
       },
       userDataPortfolio: ['1212121', '121212aaa'],
       userData: {},
+      userPhotoOrg: '',
     }
   },
   methods: {
@@ -235,27 +236,34 @@ export default {
       path = `/img${path}`
       try {
         await axios.post(`/api/delete_photo/`, {file_path: path})
-        await axios.post('/api/upload-avatar/',
-            {
-              avatar: 1,
-              email: this.userData.email,
-              usertype: this.userData.usertype,
-            }
-        )
         if(type === 'avatar') {
           this.userData.avatar = ''
+          await axios.post(`/api/upload-avatar/`, {
+            avatar: 1,
+            email: this.userData.email
+          })
         } else if(type === 'logotype') {
           this.userData.photo_org = ''
+          await axios.post('/api/employer/upload-photorg/',
+              {
+                photo_org: 1,
+                pk: this.userData.id,
+              }
+          )
         }
       } catch (error) {
         console.log(error)
       }
     },
     async submitUserData() {
+      const data = {...this.userData}
+      if(this.userData.photo_org === null) {
+        data.photo_org = this.userPhotoOrg
+      }
       try {
         if (this.checkValidData()) {
-          await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, this.userData)
-          location.reload()
+          await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, data)
+          console.log(data)
         } else {
           this.checkValidData()
         }
@@ -330,6 +338,9 @@ export default {
       sending: (file, xhr, formData) => {
         formData.append("pk", this.userData.id);
         formData.append("usertype", this.userData.usertype);
+      },
+      success: (file, response) => {
+        this.userPhotoOrg = `/employer/${response.path}`
       },
     })
   },

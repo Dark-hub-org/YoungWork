@@ -88,18 +88,22 @@
                 </div>
                 <ul class="supernova-wrapper-sublist" :class="{active: isSubMenu}">
                   <template v-if="userData.usertype === 'employer'">
-                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">Создать
-                      вакансию
+                    <router-link class="supernova-wrapper-sublist__link" to="/create-vacancy" tag="li">
+                      <span>Создать вакансию</span>
                     </router-link>
-                    <li @click="routeEmployerVacancy" class="supernova-wrapper-sublist__link">Мои
-                      вакансии
+                    <li @click="routeUserData" class="supernova-wrapper-sublist__link">
+                      <span>Мои вакансии</span>
                     </li>
                   </template>
                   <template v-if="userData.usertype === 'applicant'">
-                    <router-link class="supernova-wrapper-sublist__link" to="/create-resume" tag="li">Создать резюме
-                    </router-link>
-                    <router-link class="supernova-wrapper-sublist__link" to="/api/res" tag="li">Мои резюме
-                    </router-link>
+                    <li class="supernova-wrapper-sublist__link">
+                      <router-link  to="/create-resume" tag="a">
+                        Создать резюме
+                      </router-link>
+                    </li>
+                    <li @click="routeUserData" class="supernova-wrapper-sublist__link">
+                      <span>Мои резюме</span>
+                    </li>
                   </template>
                 </ul>
               </li>
@@ -425,8 +429,12 @@ export default {
     }
   },
   methods: {
-    routeEmployerVacancy() {
-      this.$router.push({name: 'employer', params: {id: this.userData.id}})
+    routeUserData() {
+      if(this.userData.usertype === 'employer') {
+        this.$router.push({name: 'employer', params: {id: this.userData.id}})
+      } else {
+        this.$router.push({name: 'applicant', params: {id: this.userData.id}})
+      }
       localStorage.setItem('applicantTab', JSON.stringify(2));
     },
     validFormReg() {

@@ -69,6 +69,7 @@
     &-img {
       width: 172px;
       height: 172px;
+      object-fit: cover;
       border-radius: 20px;
       border: 4px solid $colorOrangeM;
     }
