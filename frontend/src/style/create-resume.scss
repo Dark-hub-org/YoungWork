@@ -1,371 +1,260 @@
 @import "main";
 
-.create-resume__error {
-  @include errorMessage;
-}
-
-.create-resume__form {
-  margin-bottom: 80px;
-}
-
-.create-resume__title {
-  text-align: center;
-  margin-bottom: 64px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 98.023%;
-  letter-spacing: -2px;
-}
-
-.create-resume-block__wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  max-width: 1190px;
-  margin-bottom: 64px;
-
-  .create-resume-block__title {
-    margin-bottom: 24px;
-    font-size: 32px;
+.create-resume {
+  &__title {
+    text-align: center;
+    margin-bottom: 64px;
+    font-size: 40px;
     font-weight: 600;
-    line-height: 31px;
-    letter-spacing: -1.6px;
+    line-height: 98.023%;
+    letter-spacing: -2px;
   }
 
-  .create-resume__input-text {
-    max-width: 1189px;
-    height: 73px;
-    padding: 20px;
-    border: 2px solid $colorInputBorder;
-    border-radius: 16px;
-    font-size: 24px;
-    font-weight: 400;
-    color: $colorGrey;
+  &__form {
+    margin-bottom: 80px;
+  }
 
-    &::placeholder {
+  &__section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 1190px;
+    margin-bottom: 64px;
+
+    &-title {
+      margin-bottom: 24px;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 31px;
+      letter-spacing: -1.6px;
+    }
+
+    &-input {
+      max-width: 1189px;
+      height: 73px;
+      padding: 20px;
+      border: 2px solid $colorInputBorder;
+      border-radius: 16px;
       font-size: 24px;
       font-weight: 400;
-      line-height: 29px;
-      letter-spacing: -1.2px;
-      color: $colorInputBorder;
+      color: $colorGrey;
+
+      &::placeholder {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 29px;
+        letter-spacing: -1.2px;
+        color: $colorInputBorder;
+      }
+
+      &:focus {
+        border-color: $colorGreenM;
+        color:  $colorGreenM;
+      }
+      &.error {
+        border-color: $colorError;
+      }
     }
-
-    &:focus {
-      border-color: $colorGreenM;
-      color:  $colorGreenM;
+    &__input {
+      &.small {
+        max-width: 384px;
+      }
+      &.margin-bottom {
+        margin-bottom: 20px;
+      }
     }
   }
 
-  .create-resume__input-text.error {
-    border-color: $colorError;
+  &__wrapper {
+    max-width: 330px;
+    &:not(:last-child) {
+      margin-bottom: 40px;
+    }
+    &-title {
+      margin-bottom: 24px;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 22px;
+    }
   }
 
-  .create-resume__input.small{
-    max-width: 384px;
-  }
-
-  .create-resume__input.margin-bottom {
-    margin-bottom: 20px;
-  }
-}
-
-.create-resume__wrapper {
-  max-width: 330px;
-
-  &:not(:last-child) {
-    margin-bottom: 40px;
-  }
-
-  .create-resume__name-filter{
-    margin-bottom: 24px;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 22px;
-  }
-
-  .create-resume__block {
-    @include displayFlex;
+  &__block {
+    display: flex;
     justify-content: start;
+    align-items: center;
     max-width: 220px;
+    width: 100%;
 
     &:not(:last-child) {
       margin-bottom: 16px;
     }
 
-    .create-resume__input {
-      display: none;
+    &.exp {
+      max-width: 220px;
     }
 
-    .create-resume__input {
-      height: 59px;
-      padding: 18px 16px;
-      border-radius: 8px;
-      border: 1px solid #DFDFDF;
-      margin-bottom: 16px;
-      font-size: 20px;
-      font-weight: 400;
+    &.employ {
+      max-width: 238px;
     }
 
-    .create-resume-filter-label {
+    &-label {
       @include displayFlex;
       font-size: 20px;
       font-weight: 400;
       line-height: 22px;
       color: $colorBlack;
-    }
+      &.error {
+        color: $colorError;
+      }
+      &.radio {
+        display: flex;
+        align-items: center;
 
-    .create-resume-filter-label.error {
-      color: $colorError;
-    }
+        &:before {
+          content: '';
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-right: 16px;
+          border-radius: 50%;
+          background-image: url("@/assets/vacancy/radio.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+      &.check {
+        display: flex;
+        align-items: center;
 
-    .create-resume-filter-label.radio {
-      display: flex;
-      align-items: center;
-
-      &:before {
-        content: '';
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        margin-right: 16px;
-        border-radius: 50%;
-        background-image: url("@/assets/vacancy/radio.svg");
-        background-repeat: no-repeat;
-        background-position: center;
+        &:before {
+          content: '';
+          display: block;
+          min-width: 20px;
+          min-height: 20px;
+          margin-right: 16px;
+          border-radius: 2px;
+          background-image: url("@/assets/vacancy/cheack.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
       }
     }
+  }
 
-    .create-resume__input:checked + .create-resume-filter-label.radio:before {
+  &__input {
+    display: none;
+    height: 59px;
+    padding: 18px 16px;
+    border-radius: 8px;
+    border: 1px solid #DFDFDF;
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 400;
+    &:checked + .create-resume__block-label.radio:before {
       background-image: url("@/assets/vacancy/radio-active.svg");
       background-repeat: no-repeat;
       background-position: center;
     }
-
-    .create-resume-filter-label.check {
-      display: flex;
-      align-items: center;
-
-      &:before {
-        content: '';
-        display: block;
-        min-width: 20px;
-        min-height: 20px;
-        margin-right: 16px;
-        border-radius: 2px;
-        background-image: url("@/assets/vacancy/cheack.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-    }
-
-    .create-resume__input:checked + .create-resume-filter-label.check:before {
+    &:checked + .create-resume__block-label.check:before {
       background-image: url("@/assets/vacancy/cheack-active.svg");
       background-repeat: no-repeat;
       background-position: center;
     }
   }
 
-  .create-resume__block.exp {
-    max-width: 220px;
+  &__tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    max-width: 100%;
   }
 
-  .create-resume__block.employ{
-    max-width: 238px;
-  }
-
-}
-
-.create-resume__tags-wrapper {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-  max-width: 100%;
-
-  .create-resume__tag {
+  &__tag {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 24px;
     border-radius: 16px;
     background-color: $colorGreenM;
+    &-text {
+      margin-right: 16px;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 29px;
+      letter-spacing: -1.2px;
+      color: $colorWhite;
+    }
+    &-btn {
+      width: 24px;
+      height: 24px;
+      background-image: url("@/assets/xmark-icon.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   }
 
-  .create-resume__tag-text {
-    margin-right: 16px;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 29px;
-    letter-spacing: -1.2px;
-    color: $colorWhite;
+  &__error {
+    @include errorMessage;
   }
-
-  .create-resume__tag-btn {
-    width: 24px;
-    height: 24px;
-    background-image: url("@/assets/xmark-icon.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-}
-
-.create-resume-about {
-  min-width: 100%;
-  max-width: 1190px;
-  min-height: 139px;
-  padding: 40px;
-  border-radius: 16px;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 29px;
-  letter-spacing: -1.2px;
-  border: 2px solid $colorGreenM;
-
-  &::placeholder {
-    color: $colorGreyLight
-  }
-}
-
-.create-resume-about.error {
-  border-color: $colorError;
-}
-
-.create-resume-block__wrapper.connection {
-  position: relative;
-
-  &:not(:last-child) {
-    margin-bottom: 24px;
-  }
-
-  &:last-child {
-    margin-bottom: 0px;
-  }
-
-  .create-resume__connection__img {
-    position: absolute;
-    left: 24px;
-    transform: translateY(60%);
-    width: 32px;
-    height: 32px;
-  }
-}
-
-.create-resume__input-text.connect {
-  max-width: 382px;
-  padding: 20px 24px 20px 72px;
-}
-
-.upload-image {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 200px;
-  margin-bottom: 16px;
-  border-radius: 16px;
-  background-color: #202020;
-
-  &:hover .upload-image__cross{
-    transform: scale(120%);
-  }
-
-  .upload-image__wrapper {
+  &__bottom {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
-  .upload-image-title {
-    margin-bottom: 24px;
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 98.023%;
-    letter-spacing: -2px;
-    color: $colorWhite;
-  }
-
-  .upload-image-input {
-    z-index: 2;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0.01;
-    cursor: pointer;
-  }
-
-  .upload-image__cross {
-    z-index: 1;
-    width: 64px;
-    height: 64px;
-    background-image: url("@/assets/create/cross-icon.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: transform .15s ease-in-out;
-    cursor: pointer;
+    gap: 10px;
   }
 }
-
-.upload-image__description {
-  font-size: 16px;
-  font-weight: 400;
-  color: $colorGreyMedium;
-}
-
-.create-resume__submit {
-  position: relative;
-  left: 50%;
-  @include buttonOrangeAnother;
-  transform: translateX(-50%);
-}
-
 
 @media (max-width: 1024px) {
-  .create-resume__title {
-    font-size: 32px;
-  }
-
-  .create-resume-block__wrapper {
-    .create-resume-block__title {
-      font-size: 24px;
+  .create-resume {
+    &__title {
+      font-size: 32px;
+    }
+    &__section {
+      &-title {
+        font-size: 24px;
+      }
     }
   }
 }
 
 @media(max-width: 788px) {
+
+  .create-resume__section {
+    margin-bottom: 32px;
+  }
+
   .create-resume__error {
     padding: 10px 20px;
   }
 }
 
 @media (max-width: 360px) {
-  .create-resume__title {
-    font-size: 24px;
-  }
 
-  .create-resume__input-text {
-
-    &::placeholder {
-      font-size: 20px;
+  .create-resume {
+    &__title {
+      font-size: 24px;
+    }
+    &__section {
+      &-title {
+        margin-bottom: 16px;
+        font-size: 20px;
+      }
+      &-input {
+        &::placeholder {
+          font-size: 20px;
+        }
+      }
+    }
+    &__tag {
+      &-text {
+        font-size: 20px;
+      }
+    }
+    &__error {
+      font-size: 18px;
     }
   }
 
-  .create-resume-block__wrapper {
-    .create-resume-block__title {
-      font-size: 20px;
-    }
-  }
-
-  .create-resume__tag-text {
-    font-size: 20px;
-  }
-
-  .create-resume__error {
-    font-size: 18px;
-  }
 }
 

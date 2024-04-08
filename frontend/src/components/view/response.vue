@@ -16,35 +16,58 @@
             <div class="response__item-social">
               <div class="response__item-social__block">
                 <img src="@/assets/telegram-icon.svg" alt="" class="response__item-social__img">
-                <a v-if="response.telegram" :href="'https://t.me/' + response.telegram" class="response__item-social__link">@{{response.telegram}}</a>
-                <p v-else class="response__item-social__link">Не указанно</p>
+                <a :href="'https://t.me/' + response.telegram" class="response__item-social__link">
+                  <template v-if="response.telegram">@{{response.telegram}}</template>
+                  <template v-else>Не указанно</template>
+                </a>
               </div>
               <div class="response__item-social__block">
                 <img src="@/assets/email-icon.svg" alt="" class="response__item-social__img">
-                <a v-if="response.email" :href="'mailto:' + response.email" class="response__item-social__link">sasha-andreeva-1998@list.ru</a>
-                <p v-else class="response__item-social__link">Не указанно</p>
+                <a :href="'mailto:' + response.email" class="response__item-social__link">
+                  <template v-if="response.email">{{response.email}}</template>
+                  <template v-else>Не указанно</template>
+                </a>
               </div>
               <div class="response__item-social__block">
                 <img src="@/assets/phone-icon.svg" alt="" class="response__item-social__img">
-                <a v-if="response.phone_number" :href="'tel:' + response.phone_number" class="response__item-social__link">{{response.phone_number}}</a>
-                <p v-else class="response__item-social__link">Не указанно</p>
+                <a :href="'tel:' + response.phone_number" class="response__item-social__link">
+                  <template v-if="response.phone_number">{{response.phone_number}}</template>
+                  <template v-else>Не указанно</template>
+                </a>
               </div>
               <div class="response__item-social__block">
                 <img src="@/assets/link-icon.svg" alt="" class="response__item-social__img">
-                <a v-if="response.website" :href="response.website" target="_blank" class="response__item-social__link response__item-social__site">https://dprofile.ru/andreeva_design</a>
-                <p v-else class="response__item-social__link">Не указанно</p>
+                <a :href="response.website" target="_blank" class="response__item-social__link response__item-social__site">
+                  <template v-if="response.website">{{response.website}}</template>
+                  <template v-else>Не указанно</template>
+                </a>
+
               </div>
             </div>
           </div>
           <div class="response__item-right">
             <div class="response__item-top">
-              <p class="response__item-title">Дизайнер UI/UX</p>
-              <p class="response__item-exp">Опыт: 2 года</p>
+              <p class="response__item-title">
+                <template v-if="response.resume?.resume_title">{{response.resume?.resume_title}}</template>
+                <template v-else>Не заданно</template>
+                {{response.resume?.resume_title}}
+              </p>
+              <p class="response__item-exp">Опыт:
+                <template v-if="response.resume?.experience">{{response.resume?.experience}}</template>
+                <template v-else>Не заданно</template>
+              </p>
             </div>
             <div class="response__item-block">
               <p class="response__item-subtitle">Навыки:</p>
               <div class="response__item-about">
-
+                <ul class="response__item-skills">
+                  <li
+                      class="response__item-skill"
+                      v-for="skill in response.resume?.skills"
+                      :key="skill">
+                    <p>{{skill}}</p>
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="response__item-block">
@@ -58,7 +81,7 @@
             <div class="response__item-bottom">
               <button type="button" class="button-orange-another response__item-response">Откликнуться</button>
               <button type="button" class="button-orange-another response__item-response">В избранное</button>
-              <router-link to="/" tag="a" class="response__item-profile">Перейти в профиль</router-link>
+              <router-link :to="{ name: 'resume', params: { id: response.resume?.id} }" tag="a" class="response__item-profile">Перейти в профиль</router-link>
             </div>
           </div>
         </div>
@@ -83,15 +106,22 @@ export default {
     async getResponse(id) {
       try {
         const response = await axios.get(`/api/all-response/${id}`)
-        this.addedAgeUser(response.data)
+        console.log(response)
+        this.formatterResponseUsers(response.data)
       } catch (error) {
         console.log(error)
       }
     },
-    addedAgeUser(response) {
-      this.responseUser = response.map(item => {
+    formatterResponseUsers(response) {
+      this.responseUser = response.users.map(item => {
         const age = this.computedUserAge(item)
         return {...item, age: age}
+      })
+      this.responseUser.map(item => {
+        const matchingResume = response.resumes.find(resume => resume.created_by === item.id);
+        if (matchingResume) {
+          item.resume = matchingResume;
+        }
       })
     },
     computedUserAge(user) {

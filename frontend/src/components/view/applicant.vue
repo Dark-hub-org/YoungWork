@@ -1,102 +1,101 @@
 <template>
   <user-profile :userData="userData" :profileText="profileText" :userAge="userAge">
     <template v-slot:twoTub>
-      <div class="profile__main-block data block__full-name">
-        <div class="profile__field">
-          <p class="profile__field-name">Фамилия:</p>
-          <div class="profile__value">
-            <p class="profile__value-text">{{userData.lastName}}</p>
-          </div>
-        </div>
-        <div class="profile__field">
-          <p class="profile__field-name">Имя:</p>
-          <div class="profile__value">
-            <p class="profile__value-text">{{userData.firstName}}</p>
-          </div>
-        </div>
-        <div class="profile__field">
-          <p class="profile__field-name">Отчество:</p>
-          <div class="profile__value">
-            <p class="profile__value-text">{{userData.surname}}</p>
-          </div>
-        </div>
+      <div class="profile__vacancy">
+        <p class="profile__subtitle">Активные:</p>
+        <swiper
+            :slides-per-view="2"
+            :space-between="16"
+            :loop="false"
+            :navigation="true"
+            class="profile__slider">
+          <swiper-slide
+              v-for="resume in activeResume"
+              :key="resume.id"
+              class="profile__slider-item">
+            <p class="profile__slider-title">{{resume.resume_title}}</p>
+            <div class="profile__slider-btns">
+              <router-link :to="{name: 'edit-resume', params: {id: resume.id}}" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
+              <button @click="changeStatusResume(resume, 'active')" type="button" class="button-orange">В архив</button>
+            </div>
+          </swiper-slide>
+        </swiper>
       </div>
-      <div class="profile__main-block">
-        <div class="profile__field">
-          <p class="profile__field-name">Дата рождения:</p>
-          <div class="profile__value">
-            <p class="profile__value-text">{{userData.dateOfBirth}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="profile__main-block">
-        <div class="profile__field">
-          <p class="profile__field-name">Пол:</p>
-          <div class="profile__value">
-            <p class="profile__value-text">
-              <template v-if="userData.gender === 'men'">
-                Мужской
-              </template>
-              <template v-else-if="userData.gender === 'women'">
-                Женский
-              </template>
-              <template v-else>
-                Не заданно
-              </template>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="profile__main-block data start">
-        <div class="profile__field">
-          <p class="profile__field-name">Гражданство:</p>
-          <div class="profile__value">
-            <p class="profile__value-text">{{userData.citizenship}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="profile__main-block data start">
-        <div class="profile__field">
-          <p class="profile__field-name">Регион:</p>
-          <div class="profile__value">
-            <p class="profile__value-text">{{userData.region}}</p>
-          </div>
-        </div>
-        <div class="profile__field">
-          <p class="profile__field-name">Город проживания:</p>
-          <div class="profile__value">
-            <p class="profile__value-text">{{userData.city}}</p>
-          </div>
-        </div>
+      <div class="profile__vacancy">
+        <p class="profile__subtitle">Завершенные:</p>
+        <swiper
+            :slides-per-view="2"
+            :space-between="16"
+            :loop="false"
+            :navigation="true"
+            class="profile__slider">
+          <swiper-slide
+              v-for="resume in inactiveResume"
+              :key="resume.id"
+              class="profile__slider-item profile__slider-item--inactive">
+            <p class="profile__slider-title">{{resume.resume_title}}</p>
+            <div class="profile__slider-btns">
+              <router-link :to="{name: 'edit-resume', params: {id: resume.id}}" tag="a" class="profile__slider-link button-orange-another">Редактировать</router-link>
+              <button @click="changeStatusResume(resume, 'inactive')" type="button" class="button-orange">В актив</button>
+            </div>
+          </swiper-slide>
+        </swiper>
       </div>
     </template>
   </user-profile>
 </template>
 
 <script>
-// import Vue from "vue";
-// import VueTheMask from 'vue-the-mask';
 import UserProfile from "@/components/ui/userProfile.vue";
 
-// Vue.use(VueTheMask);
+import { Navigation} from 'swiper'
+import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
+import axios from "axios";
+SwiperCore.use([Navigation])
 
 export default {
   name: 'applicant-profile',
-  components: {UserProfile},
+  components: {UserProfile, Swiper, SwiperSlide},
   data() {
     return {
       profileText: {
-        buttonText: 'Личные данные',
+        buttonText: 'Резюме',
         placeholders: {
           about: 'Расскажите, где работали, какие у вас качества, которые могли бы заинтересовать работодателя',
           aboutWork: 'Описание выполненных работ',
         },
         portfolioTitle: 'Примеры выполненных работ:',
       },
+      activeResume: [],
+      inactiveResume: [],
     }
   },
   methods: {
-
+    async getResumeUser() {
+      try {
+        const activeResume = await axios.get('/api/active/res/')
+        const inactiveResume = await axios.get('/api/inactive/res/')
+        this.activeResume = activeResume.data
+        this.inactiveResume = inactiveResume.data
+      } catch(error) {
+        console.log(error)
+      }
+    },
+    async changeStatusResume(resume, status) {
+      try {
+        if(status === 'active') {
+          await axios.post('/api/inactive/res/', {pk: resume.id})
+          this.activeResume = this.activeResume.filter(item => item.id !== resume.id)
+          this.inactiveResume.push(resume)
+        } else {
+          await axios.post('/api/active/res/', {pk: resume.id})
+          this.inactiveResume = this.inactiveResume.filter(item => item.id !== resume.id)
+          this.activeResume.push(resume)
+        }
+      } catch(error) {
+        console.log(error)
+      }
+    },
   },
   computed: {
     userAge() {
@@ -112,6 +111,9 @@ export default {
       return this.$store.state.userData
     },
   },
+  mounted() {
+    this.getResumeUser()
+  }
 }
 </script>
 

@@ -19,10 +19,10 @@
           </div>
         </div>
         <div class="resume__contacts">
-          <div class="resume__contacts-img"></div>
+          <img :src='"/img" + applicantData.avatar' alt="" class="resume__contacts-img">
           <p class="resume__contacts-name">{{applicantData.last_name}} {{applicantData.first_name}} {{applicantData?.surname}}</p>
           <div class="resume__contacts-block">
-            <p class="resume__contacts-text">
+            <p v-if="applicantData.region || applicantData.citizenship" class="resume__contacts-text">
               {{applicantData.region}} {{applicantData.citizenship}}</p>
             <a href="tel:+89998887766" class="resume__contacts-text">{{applicantData.phone_number}}</a>
           </div>
@@ -68,10 +68,10 @@ export default {
     }
   },
   methods: {
-    async getResumeData() {
+    async getResumeData(id) {
       try {
-        const response = await axios.get('/api/res/52d8fe75-579b-4f3e-a4d0-93b465501bf1/')
-        const applicantData = await axios.get(`/detail-data/${response.data.created_by}`);
+        const response = await axios.get(`/api/res/${id}`)
+        const applicantData = await axios.get(`/api/user-data/${response.data.created_by}/`);
         this.applicantData = applicantData.data
         this.resumeData = response.data
 
@@ -88,7 +88,7 @@ export default {
     }
   },
   mounted() {
-    this.getResumeData()
+    this.getResumeData(this.$route.params.id)
   }
 }
 </script>

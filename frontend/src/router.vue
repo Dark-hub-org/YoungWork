@@ -14,6 +14,7 @@ import editVacancy from "@/components/view/edit-vacancy.vue";
 import createVacancy from "@/components/view/create-vacancy.vue";
 import favoritesVacancy from "@/components/view/favorites-vacancy.vue";
 import response from "@/components/view/response.vue";
+import editResume from "@/components/view/edit-resume.vue";
 
 
 Vue.use(VueRouter);
@@ -112,6 +113,11 @@ export default new VueRouter({
         }
       },
     },// Детальная резюме
+    {
+      path: '/edit-resume/:id',
+      name: "edit-resume",
+      component: editResume,
+    },
     {
       path: '/applicant/',
       name: 'applicant',
