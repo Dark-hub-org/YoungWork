@@ -29,8 +29,9 @@ class Vacancies(models.Model):
                                    on_delete=models.CASCADE)
 
     com_logo = models.CharField('Фото компании', null=True, blank=True)
-    citizenship = models.CharField('Гражданство', blank=True, null=True, max_length=50, default='')
+    citizenship = models.CharField('Страна', blank=True, null=True, max_length=50, default='')
     region = models.CharField('Регион', blank=True, null=True, max_length=50, default='')
+    city = models.CharField('Город', blank=True, null=True, max_length=50, default='')
     phone_number = models.CharField('Номер телефона', blank=True, null=True, max_length=100, default='')
     first_name = models.CharField('Имя', blank=True, null=True, max_length=100, default='')
     last_name = models.CharField('Фамилия', blank=True, null=True, max_length=100, default='')
