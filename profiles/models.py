@@ -30,8 +30,8 @@ class Employer(models.Model):
     vacancy_count = models.IntegerField('Счетчик вакансий', default=0)
 
     class Meta:
-        verbose_name = 'Заказчик'
-        verbose_name_plural = 'Заказчик'
+        verbose_name = 'Работодатель'
+        verbose_name_plural = 'Работодатель'
 
     def __str__(self):
         return f"{self.user}"

@@ -17,9 +17,11 @@ def favorites(request):
     user_type = request.user.usertype
     if user_type == "employer":
         if request.method == 'POST':
+            resume = request.data.get('resume')
             if Favorites.objects.filter(created_by=user).exists():
                 instance = Favorites.objects.get(created_by=user)
                 instance.resume.add(request.data.get('resume'))
+                create_notification(request, 'resume_favorites', resume_id=resume)
                 return JsonResponse({'message': 'add success'})
             else:
                 instance = Favorites.objects.create(created_by=user)
