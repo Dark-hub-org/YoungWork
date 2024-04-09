@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class ResumeConfig(AppConfig):
+class ResponseConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'resume'
-    verbose_name = 'Соискатель'
+    name = 'response'
+    verbose_name = 'Отклик'

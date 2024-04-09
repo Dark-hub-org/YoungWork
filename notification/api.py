@@ -9,7 +9,6 @@ from .serializers import NotificationSerializer
 def notifications(request):
     received_notifications = request.user.received_notifications.filter(is_read=False)
     serializer = NotificationSerializer(received_notifications, many=True)
-
     return JsonResponse(serializer.data, safe=False)
 
 
@@ -24,6 +23,6 @@ def read_notification(request, pk):
 
 @api_view(['GET'])
 def view_notification(request):
-    notifications = Notification.objects.filter(created_for=request.user.id)
+    notifications = Notification.objects.filter(created_for=request.user.id, is_read=False)
     serializer = NotificationSerializer(notifications, many=True)
     return JsonResponse(serializer.data, safe=False)

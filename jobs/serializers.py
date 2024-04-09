@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Vacancies, Response
+from .models import Vacancies
 
 
 class VacanciesDataSerializer(serializers.ModelSerializer):
@@ -12,10 +12,4 @@ class VacanciesDataSerializer(serializers.ModelSerializer):
 class VacanciesDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vacancies
-        fields = "__all__"
-
-
-class ResponseDataSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Response
         fields = "__all__"

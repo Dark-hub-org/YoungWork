@@ -12,6 +12,7 @@ from resume.models import Resume
 from jobs.serializers import VacanciesDataSerializer
 from django.core.files.base import ContentFile
 from .serializers import UserFromSerializer
+from resume.serializers import ResumeDataSerializer
 
 
 @permission_classes([IsAuthenticated])
@@ -108,18 +109,36 @@ def switch_profile(request):
 def recommend(request):
     user = request.user.id
     vac = Vacancies.objects.all()
-    if Resume.objects.filter(created_by=user).exists():
-        user_resume = Resume.objects.filter(created_by=user).first()
-        user_resume_skills = user_resume.skills
-        vacancies = Vacancies.objects.all()
-        recommended_vacancies = []
-        for vacancy in vacancies:
-            if all(skill in vacancy.description for skill in user_resume_skills):
-                recommended_vacancies.append(vacancy)
-        serializer = VacanciesDataSerializer(recommended_vacancies, many=True)
-        if serializer.data == []:
+    res = Resume.objects.all()
+    usertype = request.user.usertype
+    if usertype == 'applicant':
+        if Resume.objects.filter(created_by=user).exists():
+            user_resume = Resume.objects.filter(created_by=user).first()
+            user_resume_skills = user_resume.skills
+            recommended_vacancies = []
+            for vacancy in vac:
+                if all(skill in vacancy.description for skill in user_resume_skills):
+                    recommended_vacancies.append(vacancy)
+            serializer = VacanciesDataSerializer(recommended_vacancies, many=True)
+            if serializer.data == []:
+                serializer = VacanciesDataSerializer(vac, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
             serializer = VacanciesDataSerializer(vac, many=True)
-        return JsonResponse(serializer.data, safe=False)
+            return JsonResponse(serializer.data, safe=False)
     else:
-        serializer = VacanciesDataSerializer(vac, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        # TODO
+        if Vacancies.objects.filter(created_by=user).exists():
+            vacancy = Vacancies.objects.filter(created_by=user).first()
+            vacancy_description = vacancy.description
+            recommended_resume = []
+            for resume in res:
+                if all(skill in vacancy.description for skill in vacancy_description):
+                    recommended_resume.append(resume)
+            serializer = VacanciesDataSerializer(recommended_resume, many=True)
+            if serializer.data == []:
+                serializer = ResumeDataSerializer(res, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            serializer = ResumeDataSerializer(res, many=True)
+            return JsonResponse(serializer.data, safe=False)
