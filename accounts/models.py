@@ -47,7 +47,7 @@ class User(AbstractBaseUser):
     last_name = models.CharField('Фамилия', blank=True, null=True, max_length=100, default='')
     surname = models.CharField('Отчество', blank=True, null=True, max_length=100, default='')
     date_of_birth = models.CharField('Дата рождения', blank=True, null=True, default='', help_text="Пример: 1999-10-12")
-    citizenship = models.CharField('Гражданство', blank=True, null=True, max_length=50, default='')
+    citizenship = models.CharField('Страна', blank=True, null=True, max_length=50, default='')
     region = models.CharField('Регион', blank=True, null=True, max_length=50, default='')
     city = models.CharField('Город', blank=True, null=True, max_length=50, default='')
     about = models.CharField('О вас', blank=True, null=True, default='')
