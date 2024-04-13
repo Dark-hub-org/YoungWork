@@ -74,6 +74,7 @@
               Посмотреть резюме
             </router-link>
             <button
+                @click="addedFavorites(response.id)"
                 type="button"
                 class="vacancy-card__favourites button-orange">
               В избранное
@@ -94,7 +95,7 @@ export default {
 
   data() {
     return {
-      recommendedVacancy: [],
+      recommendedList: [],
     }
   },
   methods: {
@@ -107,7 +108,7 @@ export default {
           created_by: this.userData.usertype,
         }
         await axios.post('/api/response/', data)
-        this.recommendedVacancy = this.recommendedVacancy.map(item => item.id === vacancy.id ? {...item, response: true} : {...item})
+        this.recommendedList = this.recommendedList.map(item => item.id === vacancy.id ? {...item, response: true} : {...item})
       } catch(error) {
         console.log(error)
       }
@@ -115,21 +116,25 @@ export default {
 
     async addedFavorites(id) {
       try {
-        await axios.post('/data-favorites/', {vacancy: id})
-        this.recommendedVacancy = this.recommendedVacancy.map(item => item.id === id ? {...item, favorite: true} : {...item})
+        if(this.userData.usertype === 'applicant') {
+          await axios.post('/data-favorites/', {vacancy: id})
+        } else {
+          await axios.post('/data-favorites/', {resume: id})
+        }
+        this.recommendedList = this.recommendedList.map(item => item.id === id ? {...item, favorite: true} : {...item})
       } catch (error) {
         console.log(error)
       }
     },
 
     convertVacancies(vacancy, responseVacancy, favoriteVacancy) {
-      this.recommendedVacancy = vacancy.map(item => {
+      this.recommendedList = vacancy.map(item => {
         const isVacancy = responseVacancy.includes(item.id)
         const isFavorite = favoriteVacancy.includes(item.id)
         return { ...item, response: isVacancy, favorite: isFavorite};
       });
     },
-    async getRecommendedVacancy() {
+    async getRecommended() {
       try {
         const response = await axios.get('/api/recommend/')
         if(this.userData.usertype === 'applicant') {
@@ -140,7 +145,7 @@ export default {
 
           this.convertVacancies(response.data, responseVacancy.data.response, favoritesVacancy)
         } else {
-          this.recommendedVacancy = response.data
+          this.recommendedList = response.data
         }
       } catch(error) {
         console.log(error)
@@ -153,13 +158,13 @@ export default {
     },
     ListLength() {
       if (window.innerWidth > 1440) {
-        return this.recommendedVacancy.slice(0, 6)
+        return this.recommendedList.slice(0, 6)
       }
-      return this.recommendedVacancy.slice(0, 4)
+      return this.recommendedList.slice(0, 4)
     },
   },
   mounted() {
-    this.getRecommendedVacancy()
+    this.getRecommended()
   }
 }
 </script>
