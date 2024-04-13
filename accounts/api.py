@@ -128,7 +128,6 @@ def recommend(request):
                 serializer = VacanciesDataSerializer(vac, many=True)
                 return JsonResponse(serializer.data, safe=False)
         else:
-            # TODO
             if Vacancies.objects.filter(created_by=user).exists():
                 vacancy = Vacancies.objects.filter(created_by=user).first()
                 vacancy_description = vacancy.description

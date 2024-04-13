@@ -1,12 +1,17 @@
 from .models import Notification
 
 from jobs.models import Vacancies
+from resume.models import Resume
 from response.models import Response
 
 
 def create_notification(request, type_of_notification, vacancy_id=None, resume_id=None, vacancyresponse_id=None):
-    created_for = Vacancies.objects.filter(id=vacancy_id).get()
-    created_for = created_for.created_by.user
+    try:
+        created_for = Vacancies.objects.filter(id=vacancy_id).get()
+        created_for = created_for.created_by.user
+    except Exception as e:
+        created_for = Resume.objects.filter(id=resume_id).get()
+        created_for = created_for.created_by.user
 
     if type_of_notification == 'vacancy_favorites':
         created_for = request.user

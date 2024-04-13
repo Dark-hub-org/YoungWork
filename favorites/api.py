@@ -20,7 +20,7 @@ def favorites(request):
             resume = request.data.get('resume')
             if Favorites.objects.filter(created_by=user).exists():
                 instance = Favorites.objects.get(created_by=user)
-                instance.resume.add(request.data.get('resume'))
+                instance.resume.add(resume)
                 create_notification(request, 'resume_favorites', resume_id=resume)
                 return JsonResponse({'message': 'add success'})
             else:
@@ -39,7 +39,7 @@ def favorites(request):
         if request.method == 'POST':
             if Favorites.objects.filter(created_by=user).exists():
                 instance = Favorites.objects.get(created_by=user)
-                instance.vacancy.add(request.data.get('vacancy'))
+                instance.vacancy.add(vacancy)
                 create_notification(request, 'vacancy_favorites', vacancy_id=vacancy)
                 return JsonResponse({'message': 'add success'})
             else:
