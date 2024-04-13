@@ -21,7 +21,7 @@ class Resume(models.Model):
     created_by = models.ForeignKey(Applicant, verbose_name="Создатель", related_name='applicant_resume',
                                    on_delete=models.CASCADE)
 
-    avatar = models.ImageField('Фото профиля', upload_to='avatars', null=True, blank=True)
+    avatar = models.CharField('Аватар', null=True, blank=True)
     first_name = models.CharField('Имя', blank=True, null=True, max_length=100, default='')
     last_name = models.CharField('Фамилия', blank=True, null=True, max_length=100, default='')
     surname = models.CharField('Отчество', blank=True, null=True, max_length=100, default='')
