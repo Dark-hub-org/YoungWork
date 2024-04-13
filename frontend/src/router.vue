@@ -76,7 +76,7 @@ export default new VueRouter({
       component: response,
       meta: {
         breadcrumb: {
-          label: 'отклики',
+          label: 'Отклики',
           parent: 'home'
         }
       },

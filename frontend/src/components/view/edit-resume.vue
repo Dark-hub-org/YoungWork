@@ -172,7 +172,7 @@
         </div>
         <div class="create-resume__bottom">
           <button @click="submitForm(resumeData.id)" type="button" class="button-orange-another">Сохранить</button>
-          <button @click="deleteResume" type="button" class="button-orange">Удалить</button>
+          <button @click="deleteResume(resumeData.id)" type="button" class="button-orange">Удалить</button>
         </div>
       </form>
     </div>
@@ -225,7 +225,7 @@ export default {
     async submitForm(id) {
       try {
         if(this.validationDataResume()) {
-          await axios.patch(`/api/edit-resume/${id}`, this.resumeData)
+          await axios.patch(`/api/edit-resume/${id}/`, this.resumeData)
           location.reload()
         } else {
           this.validationDataResume()
@@ -234,9 +234,10 @@ export default {
         console.log(error)
       }
     },
-    async deleteResume() {
+    async deleteResume(id) {
       try {
-        console.log(1)
+        await axios.delete(`/api/resume/delete/${id}/`)
+        this.$router.push({name: 'applicant', params: {id: this.userId}})
       } catch (error) {
         console.log(error)
       }
@@ -265,7 +266,7 @@ export default {
       }
     },
     deleteQuality(skill) {
-      this.resumeQuality.length = this.resumeQuality.length.filter((item) => item !== skill)
+      this.resumeData.quality = this.resumeData.quality.filter((item) => item !== skill)
     },
   },
   computed: {

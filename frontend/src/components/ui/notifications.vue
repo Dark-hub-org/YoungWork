@@ -4,7 +4,8 @@
       <div
           v-for="item in notifications"
           :key="item.id"
-          @click.stop="fullText"
+          @click.stop="fullText(item, $event)"
+          :class="{read: item.is_read}"
           class="notification__item">
         <p class="notification__item-text">{{item.body}}</p>
       </div>
@@ -35,16 +36,24 @@ export default {
   data() {
     return {
       notifications: [],
-      items: [
-        {text: "на вашу вакансию откликнулись"},
-        {text: "на вашу вакансию откликнулись"},
-        {text: "на вашу вакансию откликнулись"}
-      ]
     }
   },
   methods: {
-    fullText(event) {
-      event.currentTarget.classList.toggle('active');
+    async fullText(item, event) {
+      try {
+        if(!item.is_read) {
+          await axios.post(`/api/not/read/${item.id}/`)
+          this.notifications = this.notifications.map(item => {
+            if (item.id === item.id) {
+              return { ...item, is_read: true };
+            }
+            return item;
+          });
+        }
+        event.currentTarget.classList.toggle('active');
+      } catch (error) {
+        console.log(error)
+      }
     },
     closeOnOutsideClick(event) {
       const notification = this.$refs.notification
@@ -55,7 +64,7 @@ export default {
     async getNotifications() {
       try {
         const response = await axios.get('/api/not/notes/')
-        this.notifications = response.data
+        this.notifications = response.data.reverse()
       } catch (error) {
         console.log(error)
       }

@@ -72,7 +72,7 @@
         </div>
         <div class="edit__data-block">
           <div class="edit__data-field">
-            <p class="edit__data-field__name">Гражданство:</p>
+            <p class="edit__data-field__name">Страна:</p>
             <input v-model.trim="userData.citizenship" type="text" class="edit__data-input">
           </div>
         </div>
@@ -263,7 +263,7 @@ export default {
       try {
         if (this.checkValidData()) {
           await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, data)
-          console.log(data)
+          location.reload()
         } else {
           this.checkValidData()
         }

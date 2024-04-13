@@ -435,6 +435,9 @@ export default {
       } else {
         this.$router.push({name: 'applicant', params: {id: this.userData.id}})
       }
+      if(this.$route.path === '/applicant/' || this.$route.path === '/employer/') {
+        window.location.reload()
+      }
       localStorage.setItem('applicantTab', JSON.stringify(2));
     },
     validFormReg() {
@@ -510,6 +513,7 @@ export default {
     async switchType() {
       try {
         await axios.post('/api/switch/')
+        this.$router.push('/')
         window.location.reload()
       } catch (error) {
         console.log(error)

@@ -360,6 +360,7 @@ export default {
           first_name: this.userData.firstName,
           last_name: this.userData.lastName,
           com_logo: this.userData.photo_org,
+          region: this.userData.region,
         };
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)

@@ -18,7 +18,7 @@
             <p class="vacancy__info-text">Опыт работы: {{vacancyData.required_experience}}</p>
             <p class="vacancy__info-text">{{vacancyData.type}}</p>
           </div>
-          <div class="vacancy__info-btns">
+          <div v-if="userData.usertype === 'applicant'" class="vacancy__info-btns">
             <button v-if="!vacancyData.response" @click="sendResponse" class="button-orange-another">Откликнуться</button>
             <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
             <button v-if="!vacancyData.favorite" @click="addedFavorites(vacancyData.id)" class="button-orange">В избранное</button>
@@ -35,8 +35,10 @@
         <div class="vacancy__description" v-html="vacancyData.description"></div>
         <div class="vacancy__bottom">
           <p class="vacancy__bottom-date">Вакансия была опубликована {{vacancyData.timestamp}}</p>
-          <button v-if="!vacancyData.response" class="button-orange-another">Откликнуться</button>
-          <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
+          <template v-if="userData.usertype === 'applicant'">
+            <button v-if="!vacancyData.response" class="button-orange-another">Откликнуться</button>
+            <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
+          </template>
         </div>
       </div>
       <h3 class="section-title">Рекомендуем вам</h3>
@@ -68,11 +70,6 @@ export default {
       try {
         const response = await axios.get(`/api/vac/${id}`);
         this.vacancyData = response.data
-        // const responseVacancy = await axios.get(`/applicant/data/${this.userId}/`)
-        //
-        // this.convertVacancy(response.data, responseVacancy.data.response)
-
-
       } catch (error) {
         console.log(error)
       }
@@ -81,7 +78,7 @@ export default {
       const data = {
         vacancy: this.vacancyData.id,
         org: this.vacancyData.created_by,
-        created_by: this.userId
+        created_by: this.userData
       }
       try {
         await axios.post('/api/response/', data)
@@ -100,8 +97,8 @@ export default {
     },
   },
   computed: {
-    userId() {
-      return this.$store.state.userData.id
+    userData() {
+      return this.$store.state.userData
     }
   },
   mounted() {

@@ -59,7 +59,7 @@
               <div class="vacancy__item-info">
                 <div class="vacancy__item-block">
                   <p class="vacancy__item-text vacancy__item-company">{{ vacancy.company_name }}</p>
-                  <p class="vacancy__item-text">Владивосток</p>
+                  <p class="vacancy__item-text">{{vacancy.region}}</p>
                 </div>
                 <div class="vacancy__item-block">
                   <p class="vacancy__item-text">Опыт работы: {{ vacancy.required_experience }}</p>

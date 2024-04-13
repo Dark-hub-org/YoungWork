@@ -281,7 +281,7 @@ export default {
       }
     },
     deleteQuality(skill) {
-      this.qualityTags = this.skillsTags.filter((item) => item !== skill)
+      this.qualityTags = this.qualityTags.filter((item) => item !== skill)
     },
   },
   computed: {

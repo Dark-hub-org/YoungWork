@@ -28,6 +28,15 @@
     &:hover {
       color: $colorOrangeM;
     }
+    &--resume {
+      margin-bottom: 18px;
+      font-weight: 600;
+      font-size: 20px;
+    }
+  }
+  &__salary {
+    margin-bottom: 20px;
+    font-size: 18px;
   }
   &__list {
     position: relative;

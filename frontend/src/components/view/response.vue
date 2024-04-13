@@ -79,7 +79,7 @@
               </div>
             </div>
             <div class="response__item-bottom">
-              <button type="button" class="button-orange-another response__item-response">Откликнуться</button>
+              <button type="button" class="button-orange-another response__item-response">Пригласить на интервью</button>
               <button type="button" class="button-orange-another response__item-response">В избранное</button>
               <router-link :to="{ name: 'resume', params: { id: response.resume?.id} }" tag="a" class="response__item-profile">Перейти в профиль</router-link>
             </div>
