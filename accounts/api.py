@@ -13,6 +13,7 @@ from jobs.serializers import VacanciesDataSerializer
 from django.core.files.base import ContentFile
 from .serializers import UserFromSerializer
 from resume.serializers import ResumeDataSerializer
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @permission_classes([IsAuthenticated])
@@ -108,41 +109,43 @@ def switch_profile(request):
 @api_view(['GET'])
 def recommend(request):
     try:
-        user = request.user.id
+        user = request.user
+        usertype = user.usertype
         vac = Vacancies.objects.all()
         res = Resume.objects.all()
-        usertype = request.user.usertype
         if usertype == 'applicant':
-            if Resume.objects.filter(created_by=user).exists():
-                user_resume = Resume.objects.filter(created_by=user).first()
-                user_resume_skills = user_resume.skills
-                recommended_vacancies = []
-                for vacancy in vac:
-                    if all(skill in vacancy.description for skill in user_resume_skills):
-                        recommended_vacancies.append(vacancy)
+            try:
+                user_resume = Resume.objects.get(created_by=user)
+                user_resume_skills = user_resume.skills.split(",")
+                recommended_vacancies = Vacancies.objects.filter(description__icontains=user_resume_skills[0])
+
+                for skill in user_resume_skills[1:]:
+                    recommended_vacancies = recommended_vacancies.filter(description__icontains=skill)
+
                 serializer = VacanciesDataSerializer(recommended_vacancies, many=True)
-                if serializer.data == []:
-                    serializer = VacanciesDataSerializer(vac, many=True)
-                return JsonResponse(serializer.data, safe=False)
-            else:
-                serializer = VacanciesDataSerializer(vac, many=True)
-                return JsonResponse(serializer.data, safe=False)
+                return Response(serializer.data)
+            except ObjectDoesNotExist:
+                serializer = VacanciesDataSerializer(Vacancies.objects.all(), many=True)
+                return Response(serializer.data)
         else:
-            if Vacancies.objects.filter(created_by=user).exists():
-                vacancy = Vacancies.objects.filter(created_by=user).first()
-                vacancy_description = vacancy.description.split(",")
-                recommended_resume = []
-                for resume in res:
-                    resume_skills = resume.skills.split(",")
-                    if all(skill in vacancy_description for skill in resume_skills):
-                        recommended_resume.append(resume)
-                serializer = VacanciesDataSerializer(recommended_resume, many=True)
-                if serializer.data == []:
-                    serializer = ResumeDataSerializer(res, many=True)
-                return JsonResponse(serializer.data, safe=False)
-            else:
-                serializer = ResumeDataSerializer(res, many=True)
-                return JsonResponse(serializer.data, safe=False)
+            try:
+                user_vacancy = Vacancies.objects.get(created_by=user)
+                user_vacancy_description = user_vacancy.description.split(" ")
+                recommended_resumes = Resume.objects.filter(skills__icontains=user_vacancy_description[0])
+
+                for skill in user_vacancy_description[1:]:
+                    recommended_resumes = recommended_resumes.filter(skills__icontains=skill)
+
+                serializer = ResumeDataSerializer(recommended_resumes, many=True)
+                return Response(serializer.data)
+            except ObjectDoesNotExist:
+                serializer = ResumeDataSerializer(Resume.objects.all(), many=True)
+                return Response(serializer.data)
+
     except Exception as e:
-        serializer = VacanciesDataSerializer(vac, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        if usertype == 'applicant':
+            serializer = VacanciesDataSerializer(vac, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            serializer = ResumeDataSerializer(res, many=True)
+            return JsonResponse(serializer.data, safe=False)
