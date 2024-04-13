@@ -130,10 +130,11 @@ def recommend(request):
         else:
             if Vacancies.objects.filter(created_by=user).exists():
                 vacancy = Vacancies.objects.filter(created_by=user).first()
-                vacancy_description = vacancy.description
+                vacancy_description = vacancy.description.split(",")
                 recommended_resume = []
                 for resume in res:
-                    if all(skill in vacancy.description for skill in vacancy_description):
+                    resume_skills = resume.skills.split(",")
+                    if all(skill in vacancy_description for skill in resume_skills):
                         recommended_resume.append(resume)
                 serializer = VacanciesDataSerializer(recommended_resume, many=True)
                 if serializer.data == []:
