@@ -19,11 +19,13 @@
               Посмотреть резюме
             </router-link>
             <button
+                v-if="!response.favorite"
                 @click="addedFavorites(response.id)"
                 type="button"
                 class="vacancy-card__favourites button-orange">
               В избранное
             </button>
+            <span v-else class="vacancy-card__favourites button-orange">В избранном</span>
           </template>
         </div>
       </div>
@@ -109,15 +111,18 @@ export default {
           created_by: this.userData.usertype,
         }
         await axios.post('/api/response/', data)
-        this.recommendedList = this.recommendedList.map(item => item.id === vacancy.id ? {...item, response: true} : {...item})
-      } catch(error) {
+        this.recommendedList = this.recommendedList.map(item => item.id === vacancy.id ? {
+          ...item,
+          response: true
+        } : {...item})
+      } catch (error) {
         console.log(error)
       }
     },
 
     async addedFavorites(id) {
       try {
-        if(this.userData.usertype === 'applicant') {
+        if (this.userData.usertype === 'applicant') {
           await axios.post('/data-favorites/', {vacancy: id})
         } else {
           await axios.post('/data-favorites/', {resume: id})
@@ -132,23 +137,32 @@ export default {
       this.recommendedList = vacancy.map(item => {
         const isVacancy = responseVacancy.includes(item.id)
         const isFavorite = favoriteVacancy.includes(item.id)
-        return { ...item, response: isVacancy, favorite: isFavorite};
+        return {...item, response: isVacancy, favorite: isFavorite};
       });
+    },
+    convertResume(resume, favoriteResume) {
+      this.recommendedList = resume.map(item => {
+        const isFavorite = favoriteResume.includes(item.id)
+        return {...item, favorite: isFavorite};
+      })
     },
     async getRecommended() {
       try {
         const response = await axios.get('/api/recommend/')
-        if(this.userData.usertype === 'applicant') {
-          const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
-          const responseFavoriteVacancy  = await axios.get('/data-favorites/')
-
-          const favoritesVacancy = responseFavoriteVacancy.data.length ? responseFavoriteVacancy.data.map(vacancy => vacancy.id) : []
-
-          this.convertVacancies(response.data, responseVacancy.data.response, favoritesVacancy)
-        } else {
+        if(!localStorage.getItem('isAuthorization')) {
           this.recommendedList = response.data
+        } else {
+          const responseFavorite = await axios.get('/data-favorites/')
+          const favoritesList = responseFavorite.data.length ? responseFavorite.data.map(item => item.id) : []
+          if (this.userData.usertype === 'applicant') {
+            const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
+            this.convertVacancies(response.data, responseVacancy.data.response, favoritesList)
+          }
+          if(this.userData.usertype === 'employer') {
+            this.convertResume(response.data, favoritesList)
+          }
         }
-      } catch(error) {
+      } catch (error) {
         console.log(error)
       }
     },

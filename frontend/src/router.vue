@@ -12,7 +12,7 @@ import UserEdit from '@/components/view/userEdit.vue';
 import resume from "@/components/view/resume.vue";
 import editVacancy from "@/components/view/edit-vacancy.vue";
 import createVacancy from "@/components/view/create-vacancy.vue";
-import favoritesVacancy from "@/components/view/favorites-vacancy.vue";
+import favorites from "@/components/view/the-favorites.vue";
 import response from "@/components/view/response.vue";
 import editResume from "@/components/view/edit-resume.vue";
 
@@ -84,7 +84,7 @@ export default new VueRouter({
     {
       path: '/favorites',
       name: "favorites-vacancy",
-      component: favoritesVacancy,
+      component: favorites,
       meta: {
         breadcrumb: {
           label: 'Избранное',

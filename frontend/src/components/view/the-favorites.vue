@@ -151,6 +151,7 @@
                 </div>
                 <div class="response__item-bottom">
                   <button type="button" class="button-orange-another response__item-response">Пригласить на интервью</button>
+                  <button @click="deleteFavorite(response.id)" type="button" class="button-orange response__item-response">Удалить</button>
                   <router-link :to="{ name: 'resume', params: { id: response.id} }" tag="a" class="response__item-profile">Перейти в профиль</router-link>
                 </div>
               </div>
@@ -169,7 +170,7 @@ import axios from "axios";
 import TheHeading from "@/components/ui/heading.vue";
 
 export default {
-  name: 'favorites-vacancy',
+  name: 'the-favorites',
   components: {TheHeading},
   data() {
     return {
