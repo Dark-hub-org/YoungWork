@@ -19,12 +19,13 @@
           </div>
         </div>
         <div class="resume__contacts">
-          <img :src='"/img" + applicantData.avatar' alt="" class="resume__contacts-img">
-          <p class="resume__contacts-name">{{applicantData.last_name}} {{applicantData.first_name}} {{applicantData?.surname}}</p>
+          <img v-if="resumeData.avatar" :src='"/img" + resumeData.avatar' alt="фото соискателя" class="resume__contacts-img">
+          <img v-else src="@/assets/header/anonim-logo.svg" class="resume__contacts-img resume__contacts-img--anonymous" alt="фото соискателя">
+          <p class="resume__contacts-name">{{resumeData.last_name}} {{resumeData.first_name}} {{resumeData?.surname}}</p>
           <div class="resume__contacts-block">
-            <p v-if="applicantData.region || applicantData.citizenship" class="resume__contacts-text">
-              {{applicantData.region}} {{applicantData.citizenship}}</p>
-            <a href="tel:+89998887766" class="resume__contacts-text">{{applicantData.phone_number}}</a>
+            <p v-if="resumeData.region || resumeData.citizenship" class="resume__contacts-text">
+              {{resumeData.region}} {{resumeData.citizenship}}</p>
+            <a href="tel:+89998887766" class="resume__contacts-text">{{resumeData.phone_number}}</a>
           </div>
         </div>
         <div class="resume__content">
@@ -64,18 +65,13 @@ export default {
   data() {
     return {
       resumeData: {},
-      applicantData: {},
     }
   },
   methods: {
     async getResumeData(id) {
       try {
         const response = await axios.get(`/api/res/${id}`)
-        const applicantData = await axios.get(`/api/user-data/${response.data.created_by}/`);
-        this.applicantData = applicantData.data
         this.resumeData = response.data
-
-
       } catch (error) {
         console.log(error)
       }

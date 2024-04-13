@@ -1,12 +1,12 @@
 <template>
   <section class="constructor">
     <div class="wrapper constructor-wrapper">
-      <div ref="banner" class="dropzone constructor__banner">
-        <div class="constructor__banner-wrapper">
-          <p class="constructor__banner-title">Загрузите тизер</p>
-          <div class="constructor__banner-cross"></div>
-        </div>
-      </div>
+<!--      <div ref="banner" class="dropzone constructor__banner">-->
+<!--        <div class="constructor__banner-wrapper">-->
+<!--          <p class="constructor__banner-title">Загрузите тизер</p>-->
+<!--          <div class="constructor__banner-cross"></div>-->
+<!--        </div>-->
+<!--      </div>-->
       <h2 class="constructor__title">Создание вакансии</h2>
       <form class="constructor__form">
         <div class="constructor__form-block">

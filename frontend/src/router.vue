@@ -87,7 +87,7 @@ export default new VueRouter({
       component: favoritesVacancy,
       meta: {
         breadcrumb: {
-          label: 'Избранные',
+          label: 'Избранное',
           parent: 'home'
         }
       },

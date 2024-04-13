@@ -15,33 +15,44 @@
             <p class="response__item-age">{{response.age}} лет</p>
             <div class="response__item-social">
               <div class="response__item-social__block">
-                <img src="@/assets/telegram-icon.svg" alt="" class="response__item-social__img">
-                <a :href="'https://t.me/' + response.telegram" class="response__item-social__link">
-                  <template v-if="response.telegram">@{{response.telegram}}</template>
-                  <template v-else>Не указанно</template>
+                <a v-if="response.telegram" :href="'https://t.me/' + response.telegram" class="response__item-social__link">
+                  <img src="@/assets/telegram-icon.svg" alt="" class="response__item-social__img">
+                  <span>@{{response.telegram}}</span>
                 </a>
+                <div v-else class="response__item-social__link">
+                  <img src="@/assets/telegram-icon.svg" alt="" class="response__item-social__img">
+                  <span>Не указанно</span>
+                </div>
               </div>
               <div class="response__item-social__block">
-                <img src="@/assets/email-icon.svg" alt="" class="response__item-social__img">
-                <a :href="'mailto:' + response.email" class="response__item-social__link">
-                  <template v-if="response.email">{{response.email}}</template>
-                  <template v-else>Не указанно</template>
+                <a v-if="response.email" :href="'mailto:' + response.email" class="response__item-social__link">
+                  <img src="@/assets/email-icon.svg" alt="" class="response__item-social__img">
+                  <span>{{response.email}}</span>
                 </a>
+                <div v-else class="response__item-social__link">
+                  <img src="@/assets/email-icon.svg" alt="" class="response__item-social__img">
+                  <span>Не указанно</span>
+                </div>
               </div>
               <div class="response__item-social__block">
-                <img src="@/assets/phone-icon.svg" alt="" class="response__item-social__img">
-                <a :href="'tel:' + response.phone_number" class="response__item-social__link">
-                  <template v-if="response.phone_number">{{response.phone_number}}</template>
-                  <template v-else>Не указанно</template>
+                <a v-if="response.phone_number" :href="'tel:' + response.phone_number" class="response__item-social__link">
+                  <img src="@/assets/phone-icon.svg" alt="" class="response__item-social__img">
+                  <span>{{response.phone_number}}</span>
                 </a>
+                <div v-else class="response__item-social__link">
+                  <img src="@/assets/phone-icon.svg" alt="" class="response__item-social__img">
+                  <span>Не указанно</span>
+                </div>
               </div>
               <div class="response__item-social__block">
-                <img src="@/assets/link-icon.svg" alt="" class="response__item-social__img">
-                <a :href="response.website" target="_blank" class="response__item-social__link response__item-social__site">
-                  <template v-if="response.website">{{response.website}}</template>
-                  <template v-else>Не указанно</template>
+                <a v-if="response.website" :href="response.website" target="_blank" class="response__item-social__link response__item-social__site">
+                  <img src="@/assets/link-icon.svg" alt="" class="response__item-social__img">
+                  <span>{{response.website}}</span>
                 </a>
-
+                <div v-else class="response__item-social__link">
+                  <img src="@/assets/link-icon.svg" alt="" class="response__item-social__img">
+                  <span>Не указанно</span>
+                </div>
               </div>
             </div>
           </div>
@@ -50,7 +61,6 @@
               <p class="response__item-title">
                 <template v-if="response.resume?.resume_title">{{response.resume?.resume_title}}</template>
                 <template v-else>Не заданно</template>
-                {{response.resume?.resume_title}}
               </p>
               <p class="response__item-exp">Опыт:
                 <template v-if="response.resume?.experience">{{response.resume?.experience}}</template>

@@ -236,7 +236,7 @@ export default {
     async submitForm() {
       try {
         const resume = {
-          created_by: this.userId,
+          created_by: this.userData.id,
           resume_title: this.resumeName,
           salary: this.resumeSalary,
           employ: this.resumeEmploy,
@@ -244,10 +244,18 @@ export default {
           quality: this.qualityTags,
           experience: this.resumeExperience,
           about_us: this.resumeAbout,
+          avatar: this.userData.avatar,
+          first_name: this.userData.firstName,
+          last_name: this.userData.lastName,
+          surname: this.userData.surname,
+          telegram: this.userData.telegram,
+          website: this.userData.website,
+          phone_number: this.userData.phoneNumber,
+          date_of_birth: this.userData.dateOfBirth,
         };
         if(this.validationDataResume()) {
           await axios.post('/create-resume/', resume)
-          location.reload()
+          // location.reload()
         } else {
           this.validationDataResume()
         }
@@ -285,8 +293,8 @@ export default {
     },
   },
   computed: {
-    userId() {
-      return this.$store.state.userData.id
+    userData() {
+      return this.$store.state.userData
     }
   },
 }

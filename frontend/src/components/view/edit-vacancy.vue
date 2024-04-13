@@ -1,13 +1,13 @@
 <template>
   <section class="constructor">
     <div class="wrapper constructor-wrapper">
-      <div class="constructor__banner">
-        <div class="constructor__banner-wrapper">
-          <p class="constructor__banner-title">Загрузите тизер</p>
-          <input type="file" name="image" class="constructor__banner-input">
-          <div class="constructor__banner-cross"></div>
-        </div>
-      </div>
+<!--      <div class="constructor__banner">-->
+<!--        <div class="constructor__banner-wrapper">-->
+<!--          <p class="constructor__banner-title">Загрузите тизер</p>-->
+<!--          <input type="file" name="image" class="constructor__banner-input">-->
+<!--          <div class="constructor__banner-cross"></div>-->
+<!--        </div>-->
+<!--      </div>-->
       <h2 class="constructor__title">Создание вакансии</h2>
       <form class="constructor__form">
         <div class="constructor__form-block">
@@ -392,9 +392,6 @@ export default {
     },
   },
   computed: {
-    // userId() {
-    //   return this.$store.state.userData.id
-    // },
     userData() {
       return this.$store.state.userData
     }

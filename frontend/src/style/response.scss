@@ -46,6 +46,7 @@
       max-height: 400px;
       border-radius: 30px;
       background-color: $colorGreenLight;
+      object-fit: cover;
     }
     &-name {
       margin-bottom: 20px;
@@ -73,6 +74,8 @@
         margin-right: 16px;
       }
       &__link {
+        display: flex;
+        align-items: center;
         font-family: $fontInter;
         font-size: 20px;
         font-weight: 500;

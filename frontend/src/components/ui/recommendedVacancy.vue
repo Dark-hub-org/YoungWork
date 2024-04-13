@@ -1,6 +1,34 @@
 <template>
   <div class="vacancy-list">
-    <template v-if="userData.usertype === 'applicant'">
+    <template v-if="userData.usertype === 'employer'">
+      <div
+          v-for="response in ListLength"
+          :key="response.id"
+          class="vacancy-card">
+        <p class="vacancy-card__title--resume">{{response.resume_title}}</p>
+        <p class="vacancy-card__title--resume">{{response.last_name}} {{response.first_name}}</p>
+        <p class="vacancy-card__salary">Ожидаемый доход:
+          <template v-if="response.salary">{{response.salary}}</template>
+          <template v-else>не указанно</template>
+        </p>
+        <div class="vacancy-card__btns">
+          <template v-if="userData.usertype === 'employer'">
+            <router-link
+                :to="{ name: 'resume', params: { id: response.id} }"
+                class="vacancy-card__response button-orange-another">
+              Посмотреть резюме
+            </router-link>
+            <button
+                @click="addedFavorites(response.id)"
+                type="button"
+                class="vacancy-card__favourites button-orange">
+              В избранное
+            </button>
+          </template>
+        </div>
+      </div>
+    </template>
+    <template v-else>
       <div
           v-for="vacancy in ListLength"
           :key="vacancy.id"
@@ -52,33 +80,6 @@
               В избранное
             </button>
             <span v-else class="button-orange vacancy__item-btn">В избранном</span>
-          </template>
-        </div>
-      </div>
-    </template>
-    <template v-if="userData.usertype === 'employer'">
-      <div
-          v-for="response in ListLength"
-          :key="response.id"
-          class="vacancy-card">
-        <p class="vacancy-card__title--resume">{{response.resume_title}}</p>
-        <p class="vacancy-card__salary">Ожидаемый доход:
-          <template v-if="response.salary">{{response.salary}}</template>
-          <template v-else>не указанно</template>
-        </p>
-        <div class="vacancy-card__btns">
-          <template v-if="userData.usertype === 'employer'">
-            <router-link
-                :to="{ name: 'resume', params: { id: response.id} }"
-                class="vacancy-card__response button-orange-another">
-              Посмотреть резюме
-            </router-link>
-            <button
-                @click="addedFavorites(response.id)"
-                type="button"
-                class="vacancy-card__favourites button-orange">
-              В избранное
-            </button>
           </template>
         </div>
       </div>
