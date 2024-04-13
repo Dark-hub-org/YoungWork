@@ -111,11 +111,9 @@ def recommend(request):
     try:
         user = request.user
         usertype = user.usertype
-        vac = Vacancies.objects.all()
-        res = Resume.objects.all()
         if usertype == 'applicant':
             try:
-                user_resume = Resume.objects.get(created_by=user)
+                user_resume = Resume.objects.all()
                 user_resume_skills = user_resume.skills.split(",")
                 recommended_vacancies = Vacancies.objects.filter(description__icontains=user_resume_skills[0])
 
@@ -123,29 +121,31 @@ def recommend(request):
                     recommended_vacancies = recommended_vacancies.filter(description__icontains=skill)
 
                 serializer = VacanciesDataSerializer(recommended_vacancies, many=True)
-                return Response(serializer.data)
+                if serializer.data == []:
+                    serializer = VacanciesDataSerializer(Vacancies.objects.all(), many=True)
+                    return JsonResponse(serializer.data, safe=False)
+                return JsonResponse(serializer.data, safe=False)
             except ObjectDoesNotExist:
                 serializer = VacanciesDataSerializer(Vacancies.objects.all(), many=True)
-                return Response(serializer.data)
+                return JsonResponse(serializer.data, safe=False)
         else:
             try:
-                user_vacancy = Vacancies.objects.get(created_by=user)
-                user_vacancy_description = user_vacancy.description.split(" ")
+                user_vacancy = Vacancies.objects.get()
+                user_vacancy_description = user_vacancy.requirements.split(' ')
                 recommended_resumes = Resume.objects.filter(skills__icontains=user_vacancy_description[0])
 
                 for skill in user_vacancy_description[1:]:
                     recommended_resumes = recommended_resumes.filter(skills__icontains=skill)
 
                 serializer = ResumeDataSerializer(recommended_resumes, many=True)
-                return Response(serializer.data)
+                if serializer.data == []:
+                    serializer = ResumeDataSerializer(Resume.objects.all(), many=True)
+                    return JsonResponse(serializer.data, safe=False)
+                return JsonResponse(serializer.data, safe=False)
             except ObjectDoesNotExist:
                 serializer = ResumeDataSerializer(Resume.objects.all(), many=True)
-                return Response(serializer.data)
+                return JsonResponse(serializer.data, safe=False)
 
     except Exception as e:
-        if usertype == 'applicant':
-            serializer = VacanciesDataSerializer(vac, many=True)
-            return JsonResponse(serializer.data, safe=False)
-        else:
-            serializer = ResumeDataSerializer(res, many=True)
-            return JsonResponse(serializer.data, safe=False)
+        serializer = VacanciesDataSerializer(Vacancies.objects.all(), many=True)
+        return JsonResponse(serializer.data, safe=False)
