@@ -129,8 +129,20 @@ def applicant_data(self, pk):
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_portfolio(request):
-    Applicant.objects.filter(user=request.data.get('pk')).update(portfolio=request.data.get('portfolio'))
-    return JsonResponse({'message': 'success'})
+    applicant = Applicant.objects.filter(user=request.data.get('pk')).get()
+    if request.data.get('profile') == 1:
+        instance = Applicant.objects.get(user=request.data.get('pk'))
+        instance.profile = None
+        instance.save()
+        return JsonResponse({'message': 'success'})
+    else:
+        if 'profile' in request.FILES:
+            photo_profile = request.FILES['profile']
+            photo_name = f"org_{applicant.user.id}_photo"
+            applicant.profile.save(photo_name, ContentFile(photo_profile.read()), save=True)
+            return JsonResponse({"path": photo_name})
+        else:
+            return JsonResponse({'message': 'no avatar provided'}, status=400)
 
 
 @permission_classes([IsAuthenticated])
@@ -154,6 +166,18 @@ def upload_photo_org(request):
 
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
-def upload_job_example(request):
-    example = Employer.objects.filter(user=request.data.get('pk')).update(job_example=request.data.get('job_example'))
-    return JsonResponse({'user': example})
+def upload_achievements(request):
+    employer = Employer.objects.filter(user=request.data.get('pk')).get()
+    if request.data.get('achievements') == 1:
+        instance = Employer.objects.get(user=request.data.get('pk'))
+        instance.achievements = None
+        instance.save()
+        return JsonResponse({'message': 'success'})
+    else:
+        if 'achievements' in request.FILES:
+            photo_achievements = request.FILES['achievements']
+            photo_name = f"achievements_{employer.user.id}_photo"
+            employer.achievements.save(photo_name, ContentFile(photo_achievements.read()), save=True)
+            return JsonResponse({"path": photo_name})
+        else:
+            return JsonResponse({'message': 'no avatar provided'}, status=400)
