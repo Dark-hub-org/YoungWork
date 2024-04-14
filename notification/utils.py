@@ -30,7 +30,7 @@ def create_notification(request, type_of_notification, vacancy_id=None, resume_i
         body = f'{vacancy_response.org.title_org} компания не готова вас приглосить!'
     elif type_of_notification == 'view_resume':
         vacancy_response = Response.objects.filter(pk=vacancyresponse_id).get()
-        created_for = vacancy_response.created_by
+        created_for = User.objects.get(pk=vacancy_response.created_by.pk)
         body = f'{vacancy_response.org.title_org}, просмотрела, ваше резюме'
 
     notification = Notification.objects.create(

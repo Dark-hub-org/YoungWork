@@ -54,3 +54,8 @@ def all_response(request, pk):
 @api_view(['GET'])
 def accepted(request):
     create_notification(request, 'accepted_vacancy_response', vacancyresponse_id=request.data.get('vacancy_response'))
+
+
+@api_view(['GET'])
+def view(request):
+    create_notification(request, 'view_resume', vacancyresponse_id=request.data.get('vacancy_response'))
