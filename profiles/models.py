@@ -29,6 +29,12 @@ class Employer(models.Model):
     job_example = models.ImageField('Достижения', upload_to='employer', blank=True, null=True)
     vacancy_count = models.IntegerField('Счетчик вакансий', default=0)
 
+    def get_photos_org(self):
+        if self.photo_org:
+            return self.photo_org
+        else:
+            return ''
+
     class Meta:
         verbose_name = 'Работодатель'
         verbose_name_plural = 'Работодатель'

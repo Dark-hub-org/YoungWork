@@ -70,7 +70,6 @@ def edit_employer_view(request):
 def edit_employer(request, pk):
     employer_data = {
         "title_org": request.data.get('title_org'),
-        "photo_org": request.data.get('photo_org'),
         "inn": request.data.get('inn'),
         "status_valid": request.data.get('status_valid'),
         "job_example": request.data.get('job_example'),
@@ -146,7 +145,7 @@ def upload_photo_org(request):
             photo_org_file = request.FILES['photo_org']
             photo_name = f"org_{employer.user.id}_photo.jpg"
             employer.photo_org.save(photo_name, ContentFile(photo_org_file.read()), save=True)
-            return JsonResponse({'path': photo_name})
+            return JsonResponse({"data": photo_name})
         else:
             return JsonResponse({'message': 'no avatar provided'}, status=400)
 
