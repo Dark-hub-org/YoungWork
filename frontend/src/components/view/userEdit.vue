@@ -144,7 +144,10 @@
               <img :src="image" alt="" class="edit__data-portfolio__image">
               <button @click="deleteImage(image)" type="button" class="edit__data-portfolio__delete"></button>
             </div>
-            <div ref="dropzonePortfolio" class="dropzone edit__data-portfolio__item">
+            <div v-if="userData.usertype === 'employer'" ref="dropzoneEmployerPortfolio" class="dropzone edit__data-portfolio__item">
+              <img class="edit__data-portfolio__button" src="@/assets/btn-add.svg" alt="кнопка добавления">
+            </div>
+            <div v-if="userData.usertype === 'applicant'" ref="dropzoneApplicantPortfolio" class="dropzone edit__data-portfolio__item">
               <img class="edit__data-portfolio__button" src="@/assets/btn-add.svg" alt="кнопка добавления">
             </div>
           </form>
@@ -326,14 +329,27 @@ export default {
       self.deletePhotoAvatar(logotype, 'avatar')
     });
 
-    this.dropzone = new Dropzone(this.$refs.dropzonePortfolio, {
+    this.dropzone = new Dropzone(this.$refs.dropzoneEmployerPortfolio, {
       url: "/api/employer/upload-achievements/",
       method: 'post',
       maxFiles: 1,
       maxFilesize: 2,
       addRemoveLinks: true,
       acceptedFiles: "image/jpeg,image/png,image/webp",
-      paramName: "achievements",
+      paramName: "employer_image",
+      sending: (file, xhr, formData) => {
+        formData.append("pk", this.userData.id);
+      },
+    })
+    this.dropzone = new Dropzone(this.$refs.dropzoneApplicantPortfolio, {
+      url: "api/applicant/upload-portfolio/",
+      method: 'post',
+      maxFiles: 1,
+      maxFilesize: 2,
+      addRemoveLinks: true,
+      acceptedFiles: "image/jpeg,image/png,image/webp",
+      // уточнить
+      paramName: "portfolio",
       sending: (file, xhr, formData) => {
         formData.append("pk", this.userData.id);
       },
