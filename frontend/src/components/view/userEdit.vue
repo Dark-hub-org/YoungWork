@@ -142,13 +142,23 @@
 
         <div class="edit__data-field about">
           <form class="edit__data-portfolio">
-            <div v-for="image in userDataPortfolio" :key="image" class="edit__data-portfolio__item">
-              <img :src="image" alt="" class="edit__data-portfolio__image">
-              <button @click="deleteImage(image)" type="button" class="edit__data-portfolio__delete"></button>
-            </div>
+            <template v-if="userData.usertype === 'employer'">
+              <div  v-for="image in userData.achievements" :key="image.id" class="edit__data-portfolio__item">
+                <img :src='"/img" + image.employer_image' alt="" class="edit__data-portfolio__image">
+                <button @click="deleteImage(image)" type="button" class="edit__data-portfolio__delete"></button>
+              </div>
+            </template>
+
             <div v-show="userData.usertype === 'employer'" ref="dropzoneEmployerPortfolio" class="dropzone edit__data-portfolio__item">
               <img class="edit__data-portfolio__button" src="@/assets/btn-add.svg" alt="кнопка добавления">
             </div>
+
+            <template v-if="userData.usertype === 'applicant'">
+              <div v-for="image in userData.portfolio" :key="image.id" class="edit__data-portfolio__item">
+                <img :src='"/img" + image.applicant_image' alt="" class="edit__data-portfolio__image">
+                <button @click="deleteImage(image)" type="button" class="edit__data-portfolio__delete"></button>
+              </div>
+            </template>
             <div v-show="userData.usertype === 'applicant'" ref="dropzoneApplicantPortfolio" class="dropzone edit__data-portfolio__item">
               <img class="edit__data-portfolio__button" src="@/assets/btn-add.svg" alt="кнопка добавления">
             </div>
@@ -230,7 +240,6 @@ export default {
         isValidBirth: false,
         titleOrg: false,
       },
-      userDataPortfolio: ['1212121', '121212aaa'],
       userData: {},
       userPhotoOrg: '',
       userAvatar: '',
@@ -297,8 +306,30 @@ export default {
     checkValidDateOfBirth(date) {
       return !/[a-za-яё]/i.test(date) && !/^\d{4}-\d{2}-\d{2}$/.test(date)
     },
-    deleteImage(image) {
-      this.userDataPortfolio = this.userDataPortfolio.filter(item => item !== image)
+    async deleteImage(image) {
+      try {
+        const imagePath = this.userData.usertype === 'employer' ? image.employer_image : image.applicant_image
+        await axios.post('/api/delete_photo/', {
+          file_path: `/img${imagePath}`,
+        })
+        if(this.userData.usertype === 'employer') {
+          await axios.post('/api/employer/upload-achievements/', {
+            employer_image: 1,
+            pk: image.id
+          })
+          this.userData.achievements = this.userData.achievements.filter(item => item.id !== image.id)
+        }
+        if(this.userData.usertype === 'applicant') {
+          await axios.post('/api/applicant/upload-portfolio/', {
+            applicant_image: 1,
+            pk: image.id
+          })
+          this.userData.portfolio = this.userData.portfolio.filter(item => item.id !== image.id)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+
     }
   },
   watch: {
@@ -307,6 +338,9 @@ export default {
       immediate: true,
     },
   },
+  // updated() {
+  //   this.$store.dispatch('setUserData')
+  // },
   mounted() {
     const self = this;
 
@@ -336,7 +370,7 @@ export default {
     this.dropzone = new Dropzone(this.$refs.dropzoneEmployerPortfolio, {
       url: "/api/employer/upload-achievements/",
       method: 'post',
-      maxFiles: 1,
+      maxFiles: 5,
       maxFilesize: 2,
       addRemoveLinks: true,
       acceptedFiles: "image/jpeg,image/png,image/webp",
@@ -344,20 +378,37 @@ export default {
       sending: (file, xhr, formData) => {
         formData.append("pk", this.userData.id);
       },
+      success: () => {
+        this.$store.dispatch('setUserData')
+      },
     })
-    // this.dropzone = new Dropzone(this.$refs.dropzoneApplicantPortfolio, {
-    //   url: "api/applicant/upload-portfolio/",
-    //   method: 'post',
-    //   maxFiles: 1,
-    //   maxFilesize: 2,
-    //   addRemoveLinks: true,
-    //   acceptedFiles: "image/jpeg,image/png,image/webp",
-    //   // уточнить
-    //   paramName: "portfolio",
-    //   sending: (file, xhr, formData) => {
-    //     formData.append("pk", this.userData.id);
-    //   },
-    // })
+
+    this.dropzone.on("addedfile", function(file) {
+      // Удаляем превью
+      file.previewElement.remove();
+    });
+
+    this.dropzone = new Dropzone(this.$refs.dropzoneApplicantPortfolio, {
+      url: "/api/applicant/upload-portfolio/",
+      method: 'post',
+      maxFiles: 1,
+      maxFilesize: 2,
+      addRemoveLinks: true,
+      acceptedFiles: "image/jpeg,image/png,image/webp",
+      paramName: "applicant_image",
+      sending: (file, xhr, formData) => {
+        formData.append("pk", this.userData.id);
+      },
+      success: () => {
+        this.$store.dispatch('setUserData')
+      },
+    })
+
+    this.dropzone.on("addedfile", function(file) {
+      // Удаляем превью
+      file.previewElement.remove();
+    });
+
     this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
       url: "/api/employer/upload-photorg/",
       methods: "post",
