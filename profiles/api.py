@@ -86,15 +86,18 @@ def edit_employer(request, pk):
 @permission_classes([IsAuthenticated])
 @api_view(['PATCH'])
 def edit_applicant(request, pk):
-    portfolio = request.data.get('portfolio')
+    try:
+        portfolio = request.data.get('portfolio')
 
-    edit_user_data(request)
-    applicant = Applicant.objects.filter(pk=pk).update(portfolio=portfolio)
-    serializer = ApplicantDataSerializer(data=applicant)
-    if serializer.is_valid():
-        serializer.save()
+        edit_user_data(request)
+        applicant = Applicant.objects.filter(pk=pk).update(portfolio=portfolio)
+        serializer = ApplicantDataSerializer(data=applicant)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
         return JsonResponse(serializer.data)
-    return JsonResponse(serializer.data)
+    except Exception as e:
+        return JsonResponse({"message": "Can't be saved"})
 
 
 @api_view(['GET'])
