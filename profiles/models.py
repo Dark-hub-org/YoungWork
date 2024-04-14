@@ -3,13 +3,26 @@ from accounts.models import User
 from django.contrib.postgres.fields import ArrayField
 
 
+class Applicant_image(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name='image_applicant_user', verbose_name='Пользователь')
+    applicant_image = models.ImageField("Фото", null=True, blank=True, upload_to='applicant/portfolio')
+
+
+class Employer_image(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name='image_employer_user', verbose_name='Пользователь')
+    employer_image = models.ImageField("Фото", null=True, blank=True, upload_to='employer/achievements')
+
+
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
                                 related_name='applicant_user', verbose_name='Пользователь')
     response = ArrayField(models.CharField(max_length=100), verbose_name="Отклики", default=list, blank=True, null=True)
     resume_count = models.IntegerField('Счетчик резюме', default=0)
 
-    portfolio = models.ImageField('Портфолио', null=True, blank=True, upload_to='movies/applicant_portfolio')
+    portfolio = models.ManyToManyField(Applicant_image, related_name='portfolio',
+                                       verbose_name='Портфолио', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Соискатель'
@@ -26,7 +39,8 @@ class Employer(models.Model):
     photo_org = models.ImageField('Логотип', upload_to='employer', blank=True, null=True)
     inn = models.CharField('ИНН', blank=True, null=True, max_length=100, default='')
     status_valid = models.BooleanField('Статус проверки ИНН', null=True, default=False)
-    job_example = models.ImageField('Достижения', upload_to='employer', blank=True, null=True)
+    achievements = models.ManyToManyField(Employer_image, related_name='achievements',
+                                          verbose_name='Достижения', blank=True, null=True)
     vacancy_count = models.IntegerField('Счетчик вакансий', default=0)
 
     class Meta:

@@ -72,7 +72,6 @@ def edit_employer(request, pk):
         "title_org": request.data.get('title_org'),
         "inn": request.data.get('inn'),
         "status_valid": request.data.get('status_valid'),
-        "job_example": request.data.get('job_example'),
     }
 
     edit_user_data(request)
