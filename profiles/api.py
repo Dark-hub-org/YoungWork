@@ -129,20 +129,39 @@ def applicant_data(self, pk):
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_portfolio(request):
-    applicant_data = Applicant_image.objects.filter(user=request.data.get('pk')).get()
-    if request.data.get('portfolio') == 1:
-        instance = applicant_data
-        instance.applicant_image = None
-        instance.save()
+    if request.data.get('applicant_image') == 1:
+        instance = Applicant_image.objects.filter(pk=request.data.get('pk')).get()
+        instance.delete()
         return JsonResponse({'message': 'success'})
     else:
-        if 'applicant_image' in request.FILES:
-            photo_applicant_image = request.FILES['applicant_image']
-            photo_name = f"org_{applicant_data.user.id}_photo"
-            applicant_data.applicant_image.save(photo_name, ContentFile(photo_applicant_image.read()), save=True)
-            return JsonResponse({"path": photo_name})
+        if Applicant_image.objects.filter(user=request.data.get('pk')).exists():
+            instance = User.objects.get(pk=request.data.get('pk'))
+            applicant_data = Applicant_image.objects.create(user=instance)
+            applicant = Applicant.objects.filter(user=request.data.get('pk')).get()
+
+            if 'applicant_image' in request.FILES:
+                photo_applicant_image = request.FILES['applicant_image']
+                photo_name = f"applicant_image_{applicant_data.user.id}_photo"
+                applicant_data.applicant_image.save(photo_name, ContentFile(photo_applicant_image.read()), save=True)
+                applicant.portfolio.add(applicant_data.id)
+                return JsonResponse({'message': photo_name})
+
+            else:
+                return JsonResponse({'message': 'no avatar provided'}, status=400)
         else:
-            return JsonResponse({'message': 'no avatar provided'}, status=400)
+            instance = User.objects.get(pk=request.data.get('pk'))
+            applicant_data = Applicant_image.objects.create(user=instance)
+            applicant = Applicant.objects.filter(user=request.data.get('pk')).get()
+
+            if 'applicant_image' in request.FILES:
+                photo_applicant_image = request.FILES['applicant_image']
+                photo_name = f"applicant_image_{applicant_data.user.id}_photo"
+                applicant_data.applicant_image.save(photo_name, ContentFile(photo_applicant_image.read()), save=True)
+                applicant.portfolio.set([applicant_data])
+                return JsonResponse({'message': photo_name})
+
+            else:
+                return JsonResponse({'message': 'no avatar provided'}, status=400)
 
 
 @permission_classes([IsAuthenticated])
