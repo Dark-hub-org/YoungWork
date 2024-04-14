@@ -138,7 +138,7 @@ def upload_photo_org(request):
     employer = Employer.objects.filter(user=request.data.get('pk')).get()
     if request.data.get('photo_org') == 1:
         instance = Employer.objects.get(user=request.data.get('pk'))
-        instance.logo = None
+        instance.photo_org = None
         instance.save()
         return JsonResponse({'message': 'success'})
     else:
