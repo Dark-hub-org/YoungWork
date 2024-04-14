@@ -143,7 +143,7 @@ def upload_photo_org(request):
     else:
         if 'photo_org' in request.FILES:
             photo_org_file = request.FILES['photo_org']
-            photo_name = f"org_{employer.user.id}_photo.jpg"
+            photo_name = f"org_{employer.user.id}_photo"
             employer.photo_org.save(photo_name, ContentFile(photo_org_file.read()), save=True)
             return JsonResponse({"path": photo_name})
         else:
