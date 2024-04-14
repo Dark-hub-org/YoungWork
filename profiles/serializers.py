@@ -2,7 +2,15 @@ from rest_framework import serializers
 from .models import Applicant, Employer, Employer_image, Applicant_image
 
 
+class ApplicantrImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Applicant_image
+        fields = ['id', 'applicant_image']
+
+
 class ApplicantDetailSerializer(serializers.ModelSerializer):
+    portfolio = ApplicantrImageSerializer(many=True, read_only=True)
+
     class Meta:
         model = Applicant
         fields = ["portfolio", "response"]
