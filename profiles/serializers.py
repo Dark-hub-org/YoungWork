@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Applicant, Employer
+from .models import Applicant, Employer, Employer_image, Applicant_image
 
 
 class ApplicantDetailSerializer(serializers.ModelSerializer):
@@ -14,7 +14,15 @@ class ApplicantDataSerializer(serializers.ModelSerializer):
         fields = ["portfolio", "response"]
 
 
+class EmployerImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employer_image
+        fields = ['employer_image']
+
+
 class EmployerDetailSerializer(serializers.ModelSerializer):
+    achievements = EmployerImageSerializer(many=True, read_only=True)
+
     class Meta:
         model = Employer
         fields = ["title_org", "photo_org", "inn", "status_valid", "achievements", ]
