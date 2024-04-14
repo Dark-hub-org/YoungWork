@@ -167,31 +167,36 @@ def upload_photo_org(request):
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_achievements(request):
-    if Employer_image.objects.filter(user=request.data.get('pk')).exists():
-        instance = User.objects.get(pk=request.data.get('pk'))
-        employer_data = Employer_image.objects.create(user=instance)
-        employer = Employer.objects.filter(user=request.data.get('pk')).get()
-
-        if 'employer_image' in request.FILES:
-            photo_employer_image = request.FILES['employer_image']
-            photo_name = f"employer_image_{employer_data.user.id}_photo"
-            employer_data.employer_image.save(photo_name, ContentFile(photo_employer_image.read()), save=True)
-            employer.achievements.add(employer_data.id)
-            return JsonResponse({'message': photo_name})
-
-        else:
-            return JsonResponse({'message': 'no avatar provided'}, status=400)
+    if request.data.get('employer_image') == 1:
+        instance = Employer_image.objects.filter(pk=request.data.get('pk')).get()
+        instance.delete()
+        return JsonResponse({'message': 'success'})
     else:
-        instance = User.objects.get(pk=request.data.get('pk'))
-        employer_data = Employer_image.objects.create(user=instance)
-        employer = Employer.objects.filter(user=request.data.get('pk')).get()
+        if Employer_image.objects.filter(user=request.data.get('pk')).exists():
+            instance = User.objects.get(pk=request.data.get('pk'))
+            employer_data = Employer_image.objects.create(user=instance)
+            employer = Employer.objects.filter(user=request.data.get('pk')).get()
 
-        if 'employer_image' in request.FILES:
-            photo_employer_image = request.FILES['employer_image']
-            photo_name = f"employer_image_{employer_data.user.id}_photo"
-            employer_data.employer_image.save(photo_name, ContentFile(photo_employer_image.read()), save=True)
-            employer.achievements.set([employer_data])
-            return JsonResponse({'message': photo_name})
+            if 'employer_image' in request.FILES:
+                photo_employer_image = request.FILES['employer_image']
+                photo_name = f"employer_image_{employer_data.user.id}_photo"
+                employer_data.employer_image.save(photo_name, ContentFile(photo_employer_image.read()), save=True)
+                employer.achievements.add(employer_data.id)
+                return JsonResponse({'message': photo_name})
 
+            else:
+                return JsonResponse({'message': 'no avatar provided'}, status=400)
         else:
-            return JsonResponse({'message': 'no avatar provided'}, status=400)
+            instance = User.objects.get(pk=request.data.get('pk'))
+            employer_data = Employer_image.objects.create(user=instance)
+            employer = Employer.objects.filter(user=request.data.get('pk')).get()
+
+            if 'employer_image' in request.FILES:
+                photo_employer_image = request.FILES['employer_image']
+                photo_name = f"employer_image_{employer_data.user.id}_photo"
+                employer_data.employer_image.save(photo_name, ContentFile(photo_employer_image.read()), save=True)
+                employer.achievements.set([employer_data])
+                return JsonResponse({'message': photo_name})
+
+            else:
+                return JsonResponse({'message': 'no avatar provided'}, status=400)
