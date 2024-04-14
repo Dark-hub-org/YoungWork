@@ -54,7 +54,7 @@
                     рублей
                   </p>
                 </div>
-                <img class="vacancy__item-logo" :src='"/img/" + vacancy.com_logo' alt="логотип компании">
+                <img v-if="vacancy.com_logo" class="vacancy__item-logo" :src='"/img/" + vacancy.com_logo' alt="логотип компании">
               </div>
               <div class="vacancy__item-info">
                 <div class="vacancy__item-block">

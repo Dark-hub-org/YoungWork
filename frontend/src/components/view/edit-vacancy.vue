@@ -259,6 +259,7 @@
               class="button-orange-another constructor__form-submit"
           >Сохранить
           </button>
+          <button @click="previewVacancy(vacancyData.id)" type="button" class="button-orange-another" >Превью</button>
           <button
               @click="switchVacancyActive(vacancyData.active = !vacancyData.active)"
               type="button"
@@ -310,6 +311,10 @@ export default {
     }
   },
   methods: {
+    previewVacancy(id) {
+      this.$router.push(`/vacancy/${id}`)
+      window.scrollTo(0, 0);
+    },
     async getVacancyData() {
       try {
         const vacancyData  = await axios(`/api/vac/${this.vacancyId}`)

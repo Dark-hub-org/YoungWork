@@ -154,7 +154,7 @@
           <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization">
             <button v-if="userData.photo_org" type="button" @click="deletePhotoAvatar(userData.photo_org, 'logotype')" class="edit__data-photo__delete"></button>
             <img v-if="!userData.photo_org" src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
-            <img v-else :src='"/img" + userData.photo_org' alt="" class="edit__data-photo__upload">
+            <img v-else :src='"/img" + userData.photo_org' alt="логотип компании" class="edit__data-photo__upload">
           </div>
         </div>
         <div v-if="userData.usertype === 'employer'" class="edit__data-block about">
@@ -226,6 +226,7 @@ export default {
       userDataPortfolio: ['1212121', '121212aaa'],
       userData: {},
       userPhotoOrg: '',
+      userAvatar: '',
     }
   },
   methods: {
@@ -300,6 +301,8 @@ export default {
     },
   },
   mounted() {
+    const self = this;
+
     this.dropzone = new Dropzone(this.$refs.dropzone, {
       url: "/api/upload-avatar/",
       method: 'post',
@@ -312,19 +315,27 @@ export default {
         formData.append("email", this.userData.email);
         formData.append("usertype", this.userData.usertype);
       },
+      success: (file, response) => {
+        this.userAvatar = `/avatars/${response.path}`
+      },
     })
 
+    this.dropzone.on("removedfile", function() {
+      const logotype = `/media${self.userAvatar}`
+      console.log(logotype)
+      self.deletePhotoAvatar(logotype, 'avatar')
+    });
+
     this.dropzone = new Dropzone(this.$refs.dropzonePortfolio, {
-      url: "/api/applicant/upload-portfolio/",
+      url: "/api/employer/upload-achievements/",
       method: 'post',
       maxFiles: 1,
       maxFilesize: 2,
       addRemoveLinks: true,
       acceptedFiles: "image/jpeg,image/png,image/webp",
-      paramName: "portfolio",
+      paramName: "achievements",
       sending: (file, xhr, formData) => {
         formData.append("pk", this.userData.id);
-        formData.append("usertype", this.userData.usertype);
       },
     })
     this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
@@ -337,12 +348,19 @@ export default {
       paramName: "photo_org",
       sending: (file, xhr, formData) => {
         formData.append("pk", this.userData.id);
-        formData.append("usertype", this.userData.usertype);
       },
       success: (file, response) => {
+        console.log(response)
         this.userPhotoOrg = `/employer/${response.path}`
       },
     })
+
+
+    this.dropzone.on("removedfile", function() {
+      const logotype = `/media${self.userPhotoOrg}`
+      console.log(logotype)
+      self.deletePhotoAvatar(logotype, 'logotype')
+    });
   },
 }
 </script>

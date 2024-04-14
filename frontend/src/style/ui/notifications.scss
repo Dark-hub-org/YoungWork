@@ -5,24 +5,24 @@
   position: absolute;
   right: 11%;
   top: 85px;
-  max-width: 300px;
+  max-width: 330px;
   width: 100%;
   padding: 15px;
   border-radius: 10px;
   background-color: $colorWhite;
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.06);
   &__list {
-    width: 300px;
-    height: 100px;
-    padding-right: 10px;
+    width: 290px;
+    height: 130px;
+    //padding-right: 10px;
     overflow: auto;
 
     &::-webkit-scrollbar {
       width: 5px;
-      border-radius: 5px;
     }
     &::-webkit-scrollbar-thumb {
       background-color: $colorOrangeM;
+      border-radius: 5px;
     }
   }
   &__item {

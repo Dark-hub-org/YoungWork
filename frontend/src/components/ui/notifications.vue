@@ -4,8 +4,8 @@
       <div
           v-for="item in notifications"
           :key="item.id"
-          @click.stop="fullText(item, $event)"
-          :class="{read: item.is_read}"
+          @click="toggleActive(item);"
+          :class="{ 'active': item.isActive, 'read': item.is_read }"
           class="notification__item">
         <p class="notification__item-text">{{item.body}}</p>
       </div>
@@ -39,20 +39,15 @@ export default {
     }
   },
   methods: {
-    async fullText(item, event) {
+    async toggleActive(item) {
       try {
-        if(!item.is_read) {
-          await axios.post(`/api/not/read/${item.id}/`)
-          this.notifications = this.notifications.map(item => {
-            if (item.id === item.id) {
-              return { ...item, is_read: true };
-            }
-            return item;
-          });
+        if (!item.is_read) {
+          await axios.post(`/api/not/read/${item.id}/`);
+          item.is_read = true;
         }
-        event.currentTarget.classList.toggle('active');
+        item.isActive = !item.isActive;
       } catch (error) {
-        console.log(error)
+        console.error(error);
       }
     },
     closeOnOutsideClick(event) {
