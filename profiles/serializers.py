@@ -17,7 +17,7 @@ class ApplicantDataSerializer(serializers.ModelSerializer):
 class EmployerImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer_image
-        fields = ['employer_image']
+        fields = ['id', 'employer_image']
 
 
 class EmployerDetailSerializer(serializers.ModelSerializer):
