@@ -145,7 +145,7 @@ def upload_photo_org(request):
             photo_org_file = request.FILES['photo_org']
             photo_name = f"org_{employer.user.id}_photo.jpg"
             employer.photo_org.save(photo_name, ContentFile(photo_org_file.read()), save=True)
-            return JsonResponse({"data": photo_name})
+            return JsonResponse({"path": photo_name})
         else:
             return JsonResponse({'message': 'no avatar provided'}, status=400)
 
