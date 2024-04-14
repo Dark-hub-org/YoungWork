@@ -71,7 +71,7 @@ def upload_avatar(request):
             avatar_file = request.FILES['avatar']
             photo_name = f"{user.id}"
             user.avatar.save(photo_name, ContentFile(avatar_file.read()), save=True)
-            return JsonResponse({'path': 'photo_name'})
+            return JsonResponse({'path': photo_name})
         else:
             return JsonResponse({'message': 'no avatar provided'}, status=400)
 
