@@ -5,8 +5,10 @@
         <h2 class="edit__data-title">Личные данные</h2>
         <div class="edit__data-block">
           <div ref="dropzone" class="dropzone edit__data-photo">
-            <button v-if="userData.avatar" type="button" @click="deletePhotoAvatar(userData.avatar, 'avatar')" class="edit__data-photo__delete"></button>
-            <img v-if="!userData.avatar" src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+            <button v-if="userData.avatar" type="button" @click="deletePhotoAvatar(userData.avatar, 'avatar')"
+                    class="edit__data-photo__delete"></button>
+            <img v-if="!userData.avatar" src="@/assets/create/cross-icon.svg" alt="иконка загрузки"
+                 class="edit__data-photo__icon">
             <img v-else :src='"/img" + userData.avatar' alt="" class="edit__data-photo__upload">
           </div>
         </div>
@@ -144,10 +146,10 @@
               <img :src="image" alt="" class="edit__data-portfolio__image">
               <button @click="deleteImage(image)" type="button" class="edit__data-portfolio__delete"></button>
             </div>
-            <div v-if="userData.usertype === 'employer'" ref="dropzoneEmployerPortfolio" class="dropzone edit__data-portfolio__item">
+            <div v-show="userData.usertype === 'employer'" ref="dropzoneEmployerPortfolio" class="dropzone edit__data-portfolio__item">
               <img class="edit__data-portfolio__button" src="@/assets/btn-add.svg" alt="кнопка добавления">
             </div>
-            <div v-if="userData.usertype === 'applicant'" ref="dropzoneApplicantPortfolio" class="dropzone edit__data-portfolio__item">
+            <div v-show="userData.usertype === 'applicant'" ref="dropzoneApplicantPortfolio" class="dropzone edit__data-portfolio__item">
               <img class="edit__data-portfolio__button" src="@/assets/btn-add.svg" alt="кнопка добавления">
             </div>
           </form>
@@ -155,8 +157,10 @@
         <h2 class="edit__data-title">О вас</h2>
         <div v-show="userData.usertype === 'employer'" class="edit__data-block">
           <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization">
-            <button v-if="userData.photo_org" type="button" @click="deletePhotoAvatar(userData.photo_org, 'logotype')" class="edit__data-photo__delete"></button>
-            <img v-if="!userData.photo_org" src="@/assets/create/cross-icon.svg" alt="иконка загрузки" class="edit__data-photo__icon">
+            <button v-if="userData.photo_org" type="button" @click="deletePhotoAvatar(userData.photo_org, 'logotype')"
+                    class="edit__data-photo__delete"></button>
+            <img v-if="!userData.photo_org" src="@/assets/create/cross-icon.svg" alt="иконка загрузки"
+                 class="edit__data-photo__icon">
             <img v-else :src='"/img" + userData.photo_org' alt="логотип компании" class="edit__data-photo__upload">
           </div>
         </div>
@@ -240,13 +244,13 @@ export default {
       path = `/img${path}`
       try {
         await axios.post(`/api/delete_photo/`, {file_path: path})
-        if(type === 'avatar') {
+        if (type === 'avatar') {
           this.userData.avatar = ''
           await axios.post(`/api/upload-avatar/`, {
             avatar: 1,
             email: this.userData.email
           })
-        } else if(type === 'logotype') {
+        } else if (type === 'logotype') {
           this.userData.photo_org = ''
           await axios.post('/api/employer/upload-photorg/',
               {
@@ -261,7 +265,7 @@ export default {
     },
     async submitUserData() {
       const data = {...this.userData}
-      if(this.userData.photo_org === null) {
+      if (this.userData.photo_org === null) {
         data.photo_org = this.userPhotoOrg
       }
       try {
@@ -323,7 +327,7 @@ export default {
       },
     })
 
-    this.dropzone.on("removedfile", function() {
+    this.dropzone.on("removedfile", function () {
       const logotype = `/media${self.userAvatar}`
       console.log(logotype)
       self.deletePhotoAvatar(logotype, 'avatar')
@@ -341,19 +345,19 @@ export default {
         formData.append("pk", this.userData.id);
       },
     })
-    this.dropzone = new Dropzone(this.$refs.dropzoneApplicantPortfolio, {
-      url: "api/applicant/upload-portfolio/",
-      method: 'post',
-      maxFiles: 1,
-      maxFilesize: 2,
-      addRemoveLinks: true,
-      acceptedFiles: "image/jpeg,image/png,image/webp",
-      // уточнить
-      paramName: "portfolio",
-      sending: (file, xhr, formData) => {
-        formData.append("pk", this.userData.id);
-      },
-    })
+    // this.dropzone = new Dropzone(this.$refs.dropzoneApplicantPortfolio, {
+    //   url: "api/applicant/upload-portfolio/",
+    //   method: 'post',
+    //   maxFiles: 1,
+    //   maxFilesize: 2,
+    //   addRemoveLinks: true,
+    //   acceptedFiles: "image/jpeg,image/png,image/webp",
+    //   // уточнить
+    //   paramName: "portfolio",
+    //   sending: (file, xhr, formData) => {
+    //     formData.append("pk", this.userData.id);
+    //   },
+    // })
     this.dropzone = new Dropzone(this.$refs.dropzoneSmall, {
       url: "/api/employer/upload-photorg/",
       methods: "post",
@@ -372,7 +376,7 @@ export default {
     })
 
 
-    this.dropzone.on("removedfile", function() {
+    this.dropzone.on("removedfile", function () {
       const logotype = `/media${self.userPhotoOrg}`
       console.log(logotype)
       self.deletePhotoAvatar(logotype, 'logotype')
