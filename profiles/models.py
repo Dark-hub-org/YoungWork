@@ -14,6 +14,9 @@ class Employer_image(models.Model):
                              related_name='image_employer_user', verbose_name='Пользователь')
     employer_image = models.ImageField("Фото", null=True, blank=True, upload_to='employer/achievements')
 
+    def __str__(self):
+        return f"{self.employer_image}"
+
 
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,
