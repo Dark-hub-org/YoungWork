@@ -49,3 +49,8 @@ def all_response(request, pk):
     }
 
     return JsonResponse(data, safe=False)
+
+
+@api_view(['GET'])
+def accepted(request):
+    create_notification(request, 'accepted_vacancy_response', vacancyresponse_id=request.data.get('vacancy_response'))
