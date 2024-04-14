@@ -5,6 +5,7 @@ from .serializers import VacanciesDataSerializer
 from rest_framework.filters import SearchFilter
 from django_filters import rest_framework as filters
 from rest_framework.permissions import IsAuthenticated
+from accounts.models import User
 
 
 class LargeResultsSetPagination(PageNumberPagination):
@@ -24,10 +25,13 @@ class VacancyFilter(filters.FilterSet):
 
 
 class VacanciesData(generics.ListAPIView):
-    queryset = Vacancies.objects.filter(active=True).all()
     serializer_class = VacanciesDataSerializer
     pagination_class = LargeResultsSetPagination
     filter_backends = [filters.DjangoFilterBackend, SearchFilter]
     filterset_class = VacancyFilter
-
     search_fields = ['job_title', 'description', 'tasks', 'requirements', 'company_name']
+
+    def get_queryset(self):
+        user = self.request.user.id
+        queryset = Vacancies.objects.filter(active=True).exclude(created_by=user)
+        return queryset

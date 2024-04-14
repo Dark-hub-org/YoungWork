@@ -126,7 +126,7 @@ def recommend(request):
             #         return JsonResponse(serializer.data, safe=False)
             #     return JsonResponse(serializer.data, safe=False)
             # except ObjectDoesNotExist:
-            serializer = VacanciesDataSerializer(Vacancies.objects.all(), many=True)
+            serializer = VacanciesDataSerializer(Vacancies.objects.exclude(created_by=request.user.id).all(), many=True)
             return JsonResponse(serializer.data, safe=False)
         else:
             # try:
@@ -143,9 +143,9 @@ def recommend(request):
             #         return JsonResponse(serializer.data, safe=False)
             #     return JsonResponse(serializer.data, safe=False)
             # except ObjectDoesNotExist:
-            serializer = ResumeDataSerializer(Resume.objects.all(), many=True)
+            serializer = ResumeDataSerializer(Resume.objects.exclude(created_by=request.user.id).all(), many=True)
             return JsonResponse(serializer.data, safe=False)
 
     except Exception as e:
-        serializer = VacanciesDataSerializer(Vacancies.objects.all(), many=True)
+        serializer = VacanciesDataSerializer(Vacancies.objects.exclude(created_by=request.user.id).all(), many=True)
         return JsonResponse(serializer.data, safe=False)
