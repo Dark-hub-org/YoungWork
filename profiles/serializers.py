@@ -17,7 +17,7 @@ class ApplicantDataSerializer(serializers.ModelSerializer):
 class EmployerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employer
-        fields = ["title_org", "photo_org", "inn", "status_valid", "job_example", ]
+        fields = ["title_org", "photo_org", "inn", "status_valid", "achievements", ]
 
 
 class EmployerDataSerializer(serializers.ModelSerializer):
