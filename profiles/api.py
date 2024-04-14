@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from .serializers import CreateApplicantSerializer, CreateEmployerSerializer, EmployerDetailSerializer, \
     ApplicantDetailSerializer, EmployerDataSerializer, ApplicantDataSerializer
-from .models import Employer, Applicant
+from .models import Employer, Applicant, Employer_image, Applicant_image
 from accounts.models import User
 from accounts.serializers import EditProfileSerializer
 from django.shortcuts import render
@@ -129,17 +129,17 @@ def applicant_data(self, pk):
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_portfolio(request):
-    applicant = Applicant.objects.filter(user=request.data.get('pk')).get()
-    if request.data.get('profile') == 1:
-        instance = Applicant.objects.get(user=request.data.get('pk'))
-        instance.profile = None
+    applicant_data = Applicant_image.objects.filter(user=request.data.get('pk')).get()
+    if request.data.get('portfolio') == 1:
+        instance = applicant_data
+        instance.applicant_image = None
         instance.save()
         return JsonResponse({'message': 'success'})
     else:
-        if 'profile' in request.FILES:
-            photo_profile = request.FILES['profile']
-            photo_name = f"org_{applicant.user.id}_photo"
-            applicant.profile.save(photo_name, ContentFile(photo_profile.read()), save=True)
+        if 'applicant_image' in request.FILES:
+            photo_applicant_image = request.FILES['applicant_image']
+            photo_name = f"org_{applicant_data.user.id}_photo"
+            applicant_data.applicant_image.save(photo_name, ContentFile(photo_applicant_image.read()), save=True)
             return JsonResponse({"path": photo_name})
         else:
             return JsonResponse({'message': 'no avatar provided'}, status=400)
@@ -167,17 +167,31 @@ def upload_photo_org(request):
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def upload_achievements(request):
-    employer = Employer.objects.filter(user=request.data.get('pk')).get()
-    if request.data.get('achievements') == 1:
-        instance = Employer.objects.get(user=request.data.get('pk'))
-        instance.achievements = None
-        instance.save()
-        return JsonResponse({'message': 'success'})
+    if Employer_image.objects.filter(user=request.data.get('pk')).exists():
+        instance = User.objects.get(pk=request.data.get('pk'))
+        employer_data = Employer_image.objects.create(user=instance)
+        employer = Employer.objects.filter(user=request.data.get('pk')).get()
+
+        if 'employer_image' in request.FILES:
+            photo_employer_image = request.FILES['employer_image']
+            photo_name = f"employer_image_{employer_data.user.id}_photo"
+            employer_data.employer_image.save(photo_name, ContentFile(photo_employer_image.read()), save=True)
+            employer.achievements.add(employer_data.id)
+            return JsonResponse({'message': photo_name})
+
+        else:
+            return JsonResponse({'message': 'no avatar provided'}, status=400)
     else:
-        if 'achievements' in request.FILES:
-            photo_achievements = request.FILES['achievements']
-            photo_name = f"achievements_{employer.user.id}_photo"
-            employer.achievements.save(photo_name, ContentFile(photo_achievements.read()), save=True)
-            return JsonResponse({"path": photo_name})
+        instance = User.objects.get(pk=request.data.get('pk'))
+        employer_data = Employer_image.objects.create(user=instance)
+        employer = Employer.objects.filter(user=request.data.get('pk')).get()
+
+        if 'employer_image' in request.FILES:
+            photo_employer_image = request.FILES['employer_image']
+            photo_name = f"employer_image_{employer_data.user.id}_photo"
+            employer_data.employer_image.save(photo_name, ContentFile(photo_employer_image.read()), save=True)
+            employer.achievements.set([employer_data])
+            return JsonResponse({'message': photo_name})
+
         else:
             return JsonResponse({'message': 'no avatar provided'}, status=400)
