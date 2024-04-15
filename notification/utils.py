@@ -1,34 +1,37 @@
 from .models import Notification
 
+from response.models import Response
+from accounts.models import User
 from jobs.models import Vacancies
 from resume.models import Resume
-from response.models import Response
 
 
-def create_notification(request, type_of_notification, vacancy_id=None, resume_id=None, vacancyresponse_id=None):
-    try:
-        created_for = Vacancies.objects.filter(id=vacancy_id).get()
-        created_for = created_for.created_by.user
-    except Exception as e:
-        created_for = Resume.objects.filter(id=resume_id).get()
-        created_for = created_for.created_by.user
-
+def create_notification(request, type_of_notification, vacancy_id=None, resume_id=None, vacancyresponse_id=None,
+                        created_for=None):
     if type_of_notification == 'vacancy_favorites':
         created_for = request.user
-        body = f'Вы добавили вакансию в избранное!'
+        body = f'Вы добавили вакансию в избранное'
     elif type_of_notification == 'new_vacancy_response':
-        body = f'На вашу вакансию откликнулись!'
+        created_for = Vacancies.objects.filter(id=vacancy_id).get()
+        created_for = created_for.created_by.user
+        body = f'На вашу вакансию откликнулись'
     elif type_of_notification == 'resume_favorites':
-        created_for = request.user
-        body = f'Вы добавили резюме в избранное!'
+        created_for = Resume.objects.filter(id=resume_id).get()
+        created_for = created_for.created_by.user
+        body = f'Вы добавили резюме в избранное'
     elif type_of_notification == 'accepted_vacancy_response':
-        vacancy_response = Response.objects.get(pk=vacancyresponse_id)
-        created_for = vacancy_response.created_by
-        body = f'{Response.org} хочет пригласить вас на интервью. Ожидайте уведомления в социальных сетях!'
+        vacancy_response = Response.objects.filter(pk=vacancyresponse_id).get()
+        created_for = User.objects.get(pk=vacancy_response.created_by.pk)
+        body = f'{vacancy_response.org.title_org}, хочет пригласить вас на интервью.' \
+               f' Ожидайте уведомления в социальных сетях!'
     elif type_of_notification == 'rejected_vacancy_response':
-        vacancy_response = Response.objects.get(pk=vacancyresponse_id)
+        vacancy_response = Response.objects.filter(pk=vacancyresponse_id).get()
         created_for = vacancy_response.created_by
-        body = f'{Response.org} компания не готова вас приглосить!'
+        body = f'{vacancy_response.org.title_org} компания не готова вас приглосить!'
+    elif type_of_notification == 'view_resume':
+        vacancy_response = Response.objects.filter(pk=vacancyresponse_id).get()
+        created_for = User.objects.get(pk=vacancy_response.created_by.pk)
+        body = f'{vacancy_response.org.title_org}, просмотрела, ваше резюме'
 
     notification = Notification.objects.create(
         body=body,
