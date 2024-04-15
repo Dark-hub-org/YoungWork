@@ -391,7 +391,7 @@ export default {
     this.dropzone = new Dropzone(this.$refs.dropzoneApplicantPortfolio, {
       url: "/api/applicant/upload-portfolio/",
       method: 'post',
-      maxFiles: 1,
+      maxFiles: 5,
       maxFilesize: 2,
       addRemoveLinks: true,
       acceptedFiles: "image/jpeg,image/png,image/webp",

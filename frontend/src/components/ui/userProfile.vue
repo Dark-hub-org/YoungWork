@@ -62,17 +62,28 @@
               </div>
               <div class="profile__main-block">
                 <h3 class="profile__subtitle">{{ profileText.portfolioTitle }}</h3>
-                <div class="profile__portfolio">
-                  <div class="profile__portfolio-block profile__portfolio-block--add">
-                    <button class="profile__btn-edit btn--work btn--add"></button>
-                  </div>
-                  <div
-                      v-for="item of userData.portfolio"
-                      :key="item.id"
-                      class="profile__portfolio-block">
-                    <button class="profile__btn-edit btn--work btn--add"></button>
-                  </div>
-                </div>
+                <ul class="profile__portfolio">
+                  <template v-if="userData.usertype === 'employer'">
+                    <li
+                        v-for="image in userData.achievements"
+                        :key="image.id"
+                        class="profile__portfolio-block">
+                      <img
+                          :src='"/img" + image.employer_image'
+                          class="profile__portfolio-img">
+                    </li>
+                  </template>
+                  <template v-if="userData.usertype === 'applicant'">
+                    <li
+                        v-for="image in userData.portfolio"
+                        :key="image.id"
+                        class="profile__portfolio-block">
+                      <img
+                          :src='"/img" + image.applicant_image'
+                          class="profile__portfolio-img">
+                    </li>
+                  </template>
+                </ul>
                 <div class="profile__portfolio-about" v-html="userData.aboutWork"></div>
               </div>
             </template>
