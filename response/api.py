@@ -40,10 +40,12 @@ def all_response(request, pk):
     user_data = User.objects.filter(id__in=user_ids)
     resume_data = Resume.objects.filter(created_by__in=user_ids)
 
+    response_serializer = ResponseDataSerializer(responses, many=True)
     user_serializer = UserFromSerializer(user_data, many=True)
     resume_serializer = ResumeDataSerializer(resume_data, many=True)
 
     data = {
+        'response': response_serializer.data,
         'users': user_serializer.data,
         'resumes': resume_serializer.data
     }
