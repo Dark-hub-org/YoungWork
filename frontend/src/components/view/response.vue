@@ -89,9 +89,13 @@
               </div>
             </div>
             <div class="response__item-bottom">
-              <button type="button" class="button-orange-another response__item-response">Пригласить на интервью</button>
-              <button type="button" class="button-orange-another response__item-response">В избранное</button>
-              <router-link :to="{ name: 'resume', params: { id: response.resume?.id} }" tag="a" class="response__item-profile">Перейти в профиль</router-link>
+              <button
+                  @click="SendInvitation(response.response.id, response.resume.id)"
+                  type="button"
+                  class="button-orange-another response__item-response">Пригласить на интервью</button>
+              <button  type="button" class="button-orange-another response__item-response">В избранное</button>
+              <button @click="goResume(response.response.id)" class="response__item-profile">Резюме</button>
+<!--              <router-link :to="{ name: 'resume', params: { id: response.resume?.id} }" tag="a" class="response__item-profile">Резюме</router-link>-->
             </div>
           </div>
         </div>
@@ -110,6 +114,7 @@ export default {
   data() {
     return {
       responseUser: [],
+      vacancyId: this.$route.params.id,
     }
   },
   methods: {
@@ -129,10 +134,29 @@ export default {
       })
       this.responseUser.map(item => {
         const matchingResume = response.resumes.find(resume => resume.created_by === item.id);
+        const matchingResponse = response.response.find(response => response.created_by === item.id)
         if (matchingResume) {
           item.resume = matchingResume;
         }
+        if (matchingResponse) {
+          item.response = matchingResponse
+        }
       })
+    },
+    async SendInvitation(id) {
+      try {
+        await axios.post('/api/accept/', {vacancy_response: id})
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async goResume(id, resumeId) {
+      try {
+        await axios.post('/api/view/', {vacancy_response: id})
+        this.$router.push(`/resume/${resumeId}`)
+      } catch (error) {
+        console.log(error)
+      }
     },
     computedUserAge(user) {
       const now = new Date();
