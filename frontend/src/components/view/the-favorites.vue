@@ -28,7 +28,7 @@
                     рублей
                   </p>
                 </div>
-                <img src="@/assets/vacancy/company-logo.svg" alt="логотип компании" class="favorites__item-logo">
+                <img v-if="vacancy.com_logo" class="favorites__item-logo" :src='"/img/" + vacancy.com_logo' alt="логотип компании">
               </div>
               <div class="favorites__item-info">
                 <div class="favorites__item-block">

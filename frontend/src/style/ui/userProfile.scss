@@ -220,17 +220,17 @@
     &-block {
       position: relative;
       min-width: 280px;
-      width: 100%;
       height: 373px;
       border-radius: 10px;
       border: 1px solid #DEE2E5;
+      overflow: hidden;
       background: #FFF1EB;
-      &--add {
-        cursor: pointer;
-        &:hover .profile__btn-edit.btn--add {
-          transform: scale(120%);
-        }
-      }
+    }
+    &-img {
+      max-width: 280px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     &-about {
       min-height: 109px;
@@ -522,16 +522,6 @@
             }
           }
         }
-      }
-    }
-    &__portfolio {
-      justify-content: space-evenly;
-      flex-wrap: wrap;
-      gap: 8px;
-      &-block {
-        min-width: unset;
-        max-width: 139px;
-        height: 189px;
       }
     }
     &__portfolio-about {
