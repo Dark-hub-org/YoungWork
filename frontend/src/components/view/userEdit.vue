@@ -280,7 +280,7 @@ export default {
       try {
         if (this.checkValidData()) {
           await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, data)
-          location.reload()
+          this.$store.dispatch('setUserData')
         } else {
           this.checkValidData()
         }
@@ -330,6 +330,15 @@ export default {
         console.log(error)
       }
 
+    },
+    async getEmployerData(id) {
+      try {
+        const gallery = await axios.get(`/employer/data/${id}`)
+        this.userData.achievements = gallery.data.achievements
+        // console.log(gallery.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   watch: {
@@ -379,7 +388,7 @@ export default {
         formData.append("pk", this.userData.id);
       },
       success: () => {
-        this.$store.dispatch('setUserData')
+        this.getEmployerData(this.userData.id)
       },
     })
 
@@ -400,12 +409,12 @@ export default {
         formData.append("pk", this.userData.id);
       },
       success: () => {
+
         this.$store.dispatch('setUserData')
       },
     })
 
     this.dropzone.on("addedfile", function(file) {
-      // Удаляем превью
       file.previewElement.remove();
     });
 
@@ -421,7 +430,6 @@ export default {
         formData.append("pk", this.userData.id);
       },
       success: (file, response) => {
-        console.log(response)
         this.userPhotoOrg = `/employer/${response.path}`
       },
     })
@@ -429,7 +437,6 @@ export default {
 
     this.dropzone.on("removedfile", function () {
       const logotype = `/media${self.userPhotoOrg}`
-      console.log(logotype)
       self.deletePhotoAvatar(logotype, 'logotype')
     });
   },
