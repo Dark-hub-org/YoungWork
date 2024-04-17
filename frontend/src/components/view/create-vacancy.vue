@@ -364,7 +364,8 @@ export default {
         };
         if (this.validateFormVacancy()) {
           await axios.post('/create-vacancy/', vacancyData)
-          window.location.reload()
+          this.$router.push('/employer')
+          localStorage.setItem('applicantTab', JSON.stringify(2));
         }
       } catch (error) {
         console.log(error)

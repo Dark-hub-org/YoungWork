@@ -329,7 +329,8 @@ export default {
       try {
         if(this.validateFormVacancy) {
           await axios.patch(`/api/edit-vacancy/${this.vacancyData.id}/`, this.vacancyData)
-          window.location.reload()
+          await axios(`/api/vac/${this.vacancyId}`)
+          // window.location.reload()
         }
       } catch(error) {
         console.log(error)
