@@ -331,10 +331,16 @@ export default {
       }
 
     },
-    async getEmployerData(id) {
+    async getGallery(id) {
       try {
-        const gallery = await axios.get(`/employer/data/${id}`)
-        this.userData.achievements = gallery.data.achievements
+        if(this.userData.usertype === 'employer') {
+          const gallery = await axios.get(`/employer/data/${id}`)
+          this.userData.achievements = gallery.data.achievements
+        }
+        if(this.userData.usertype === 'applicant') {
+          const gallery = await axios.get(`/applicant/data/${id}`)
+          this.userData.portfolio = gallery.data.portfolio
+        }
         // console.log(gallery.data)
       } catch (error) {
         console.log(error)
@@ -388,7 +394,7 @@ export default {
         formData.append("pk", this.userData.id);
       },
       success: () => {
-        this.getEmployerData(this.userData.id)
+        this.getGallery(this.userData.id)
       },
     })
 
@@ -409,8 +415,7 @@ export default {
         formData.append("pk", this.userData.id);
       },
       success: () => {
-
-        this.$store.dispatch('setUserData')
+        this.getGallery(this.userData.id)
       },
     })
 
