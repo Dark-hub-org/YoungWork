@@ -436,7 +436,8 @@ export default {
         this.$router.push({name: 'applicant', params: {id: this.userData.id}})
       }
       if(this.$route.path === '/applicant/' || this.$route.path === '/employer/') {
-        window.location.reload()
+        this.$store.dispatch('setUserData')
+        // window.location.reload()
       }
       localStorage.setItem('applicantTab', JSON.stringify(2));
     },

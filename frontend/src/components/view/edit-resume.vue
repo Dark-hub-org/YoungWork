@@ -172,6 +172,14 @@
         </div>
         <div class="create-resume__bottom">
           <button @click="submitForm(resumeData.id)" type="button" class="button-orange-another">Сохранить</button>
+          <button @click="changeStatusResume(resumeData)" type="button" class="button-orange">
+            <template v-if="resumeData.active">
+              Добавить в архив
+            </template>
+            <template v-else>
+              Сделать активной
+            </template>
+          </button>
           <button @click="deleteResume(resumeData.id)" type="button" class="button-orange">Удалить</button>
         </div>
       </form>
@@ -226,10 +234,25 @@ export default {
       try {
         if(this.validationDataResume()) {
           await axios.patch(`/api/edit-resume/${id}/`, this.resumeData)
-          location.reload()
+          await axios.get(`/api/res/${id}`)
+          // location.reload()
         } else {
           this.validationDataResume()
         }
+      } catch(error) {
+        console.log(error)
+      }
+    },
+    async changeStatusResume(resume) {
+      try {
+        if(resume.active) {
+          await axios.post('/api/inactive/res/', {pk: resume.id})
+          this.resumeData.active = false
+        } else {
+          await axios.post('/api/active/res/', {pk: resume.id})
+          this.resumeData.active = true
+        }
+        await axios.get(`/api/res/${resume.id}`)
       } catch(error) {
         console.log(error)
       }
