@@ -13,7 +13,6 @@ from jobs.serializers import VacanciesDataSerializer
 from django.core.files.base import ContentFile
 from .serializers import UserFromSerializer
 from resume.serializers import ResumeDataSerializer
-from django.core.exceptions import ObjectDoesNotExist
 
 
 @permission_classes([IsAuthenticated])
