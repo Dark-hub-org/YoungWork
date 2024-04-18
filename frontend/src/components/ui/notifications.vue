@@ -46,6 +46,7 @@ export default {
           item.is_read = true;
         }
         item.isActive = !item.isActive;
+        this.notifications.push()
       } catch (error) {
         console.error(error);
       }
@@ -65,7 +66,6 @@ export default {
       }
     }
   },
-
   mounted() {
     this.getNotifications()
     document.addEventListener('click', this.closeOnOutsideClick);
