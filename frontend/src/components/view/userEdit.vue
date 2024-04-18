@@ -339,7 +339,7 @@ export default {
         }
         if(this.userData.usertype === 'applicant') {
           const gallery = await axios.get(`/applicant/data/${id}`)
-          this.userData.portfolio = gallery.data.portfolio
+          this.userData.portfolio = gallery.data.portfoliod
         }
         // console.log(gallery.data)
       } catch (error) {

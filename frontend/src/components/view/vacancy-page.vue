@@ -58,18 +58,21 @@ export default {
   data() {
     return {
       vacancyData: {},
-      employerData: {},
     };
   },
   methods: {
-    convertVacancy(vacancy, responseVacancy) {
+    convertVacancy(vacancy, responseVacancy, favoriteVacancy) {
       const isVacancy = responseVacancy.includes(vacancy.id)
-      this.vacancyData = {...vacancy, response: isVacancy}
+      const isFavorite = favoriteVacancy.includes(vacancy.id)
+      this.vacancyData = {...vacancy, response: isVacancy, favorite: isFavorite}
     },
     async getVacancyData(id) {
       try {
         const response = await axios.get(`/api/vac/${id}`);
-        this.vacancyData = response.data
+        const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
+        const responseFavoriteVacancy  = await axios.get('/data-favorites/')
+        const favoritesVacancy = responseFavoriteVacancy.data.length ? responseFavoriteVacancy.data.map(vacancy => vacancy.id) : []
+        this.convertVacancy(response.data, responseVacancy.data.response, favoritesVacancy)
       } catch (error) {
         console.log(error)
       }
