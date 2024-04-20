@@ -1,11 +1,5 @@
 <template>
   <div class="profile-contacts">
-    <div v-if="userContact.avatar" class="profile-contacts__img-wrapper">
-      <div class="profile-contacts__img"></div>
-      <div class="profile-contacts__img-control">
-        <input type="file" class="profile-contacts__img-input">
-      </div>
-    </div>
     <h3 class="profile-contacts__subtitle">Контакты</h3>
     <div class="profile-contacts__block">
       <img src="@/assets/telegram-icon.svg" alt="телеграмм иконка" class="profile-contacts__block-img">

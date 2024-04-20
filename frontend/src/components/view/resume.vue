@@ -14,7 +14,7 @@
 
           </div>
           <div class="resume__top-btns">
-            <button class="button-orange-another">Связаться</button>
+<!--            <button class="button-orange-another">Связаться</button>-->
             <button class="button-orange">В избранное</button>
           </div>
         </div>
@@ -47,7 +47,7 @@
           </div>
           <div class="resume__bottom">
             <p class="resume__bottom-date">Резюме было опубликовано {{resumeData.timestamp}}</p>
-            <button class="button-orange-another">Связаться</button>
+<!--            <button class="button-orange-another">Связаться</button>-->
           </div>
         </div>
       </div>

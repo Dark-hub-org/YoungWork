@@ -150,9 +150,8 @@
                   </div>
                 </div>
                 <div class="response__item-bottom">
-                  <button type="button" class="button-orange-another response__item-response">Пригласить на интервью</button>
+                  <router-link :to="{ name: 'resume', params: { id: response.id} }" tag="a" class="response__item-profile">Перейти резюме</router-link>
                   <button @click="deleteFavorite(response.id)" type="button" class="button-orange response__item-response">Удалить</button>
-                  <router-link :to="{ name: 'resume', params: { id: response.id} }" tag="a" class="response__item-profile">Перейти в профиль</router-link>
                 </div>
               </div>
             </div>
@@ -190,6 +189,14 @@ export default {
       try {
         const response = await axios.get('/data-favorites/')
         this.favoriteList = response.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async SendInvitation(id, resumeId) {
+      try {
+        await axios.patch('/api/accept/', {vacancy_response: id, resume: resumeId, result: 'accepted_response',})
+        this.favoriteList = this.favoriteList.map(item => item.id === id ? {...item, favorite: true} : {...item})
       } catch (error) {
         console.log(error)
       }

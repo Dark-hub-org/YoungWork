@@ -257,11 +257,9 @@ export default {
           await axios.post('/create-resume/', resume)
           this.$router.push('/applicant')
           localStorage.setItem('applicantTab', JSON.stringify(2));
-          // location.reload()
         } else {
           this.validationDataResume()
         }
-
       } catch(error) {
         console.log(error)
       }

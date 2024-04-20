@@ -259,7 +259,7 @@
               class="button-orange-another constructor__form-submit"
           >Сохранить
           </button>
-          <button @click="previewVacancy(vacancyData.id)" type="button" class="button-orange-another" >Превью</button>
+          <button @click="previewVacancy(vacancyData.id)" type="button" class="button-orange-another" >Предпросмотр</button>
           <button
               @click="switchVacancyActive(vacancyData.active = !vacancyData.active)"
               type="button"
@@ -318,6 +318,7 @@ export default {
     async getVacancyData() {
       try {
         const vacancyData  = await axios(`/api/vac/${this.vacancyId}`)
+        console.log(vacancyData.data)
         this.vacancyData = vacancyData.data
       } catch (error) {
         console.log(error)
@@ -328,12 +329,31 @@ export default {
       this.parseResponsibilities(this.vacancyData.description, 'Требования')
       try {
         if(this.validateFormVacancy) {
-          await axios.patch(`/api/edit-vacancy/${this.vacancyData.id}/`, this.vacancyData)
+          const vacancyData = {
+            job_title: this.vacancyData.job_title,
+            company_name: this.userData.title_org,
+            salary_min: this.vacancyData.salaryMin,
+            salary_max: this.vacancyData.salaryMax,
+            description: this.vacancyData.description,
+            tasks: this.vacancyData.tasks,
+            requirements: this.vacancyData.requirements,
+            tax: this.vacancyData.tax,
+            employ: this.vacancyData.employ,
+            required_experience: this.vacancyData.experience,
+            created_by: this.userData.id,
+            graph: this.vacancyData.graph,
+            title_org: this.userData.title_org,
+            citizenship: this.userData.city,
+            phone_number: this.userData.phoneNumber,
+            first_name: this.userData.firstName,
+            last_name: this.userData.lastName,
+            com_logo: this.userData.photo_org,
+            region: this.userData.region,
+          };
+          await axios.patch(`/api/edit-vacancy/${this.vacancyData.id}/`, vacancyData)
           await axios(`/api/vac/${this.vacancyId}`)
-          // window.location.reload()
         }
       } catch(error) {
-        console.log(error)
         console.log(this.vacancyData)
       }
     },

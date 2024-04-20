@@ -59,7 +59,7 @@
             </div>
           </swiper-slide>
         </swiper>
-        <a href="#" class="reviews__more">Смотреть все</a>
+<!--        <a href="#" class="reviews__more">Смотреть все</a>-->
       </div>
     </section>
     <section class="recommendation">
