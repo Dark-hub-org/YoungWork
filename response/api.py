@@ -9,6 +9,7 @@ from jobs.models import Vacancies
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from accounts.models import User
+from datetime import datetime, timedelta
 
 
 @api_view(['POST'])
@@ -53,8 +54,13 @@ def all_response(request, pk):
     return JsonResponse(data, safe=False)
 
 
-@api_view(['POST'])
+@api_view(['PATCH'])
 def accepted(request):
+    resp = request.data.get('vacancy_response')
+    instance = Response.objects.get(pk=resp)
+    instance.result = 'accepted_response'
+    instance.data_end = datetime.now()
+    instance.save()
     create_notification(request, 'accepted_vacancy_response', vacancyresponse_id=request.data.get('vacancy_response'))
     return JsonResponse({"message": "Accepted"})
 
