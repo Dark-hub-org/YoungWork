@@ -14,7 +14,7 @@ class Resume(models.Model):
                         null=True)
     quality = ArrayField(models.CharField(max_length=100), verbose_name="Качества", default=list, blank=True, null=True)
     experience = models.CharField('Опыт', blank=True, null=True, default='')
-    about_us = models.TextField('О вам', blank=True, null=True, default='')
+    about_us = models.TextField('О ваc', blank=True, null=True, default='')
     active = models.BooleanField(default=True)
 
     timestamp = models.DateField('Дата вызова', auto_now_add=False, auto_now=True)

@@ -9,11 +9,11 @@ from response.models import Response
 
 class Notification(models.Model):
     type_of_notification = (
-        ("VacancyResponse", 'new_vacancy_response'),
-        ("AcceptedVacancy", 'accepted_vacancy_response'),
-        ("RejectedVacancy", 'rejected_vacancy_response'),
-        ("VacancyFavorites", 'vacancy_favorites'),
-        ("ResumeFavorites", 'resume_favorites'),
+        ("new_vacancy_response", 'new_vacancy_response'),
+        ("accepted_vacancy_response", 'accepted_vacancy_response'),
+        ("rejected_vacancy_response", 'rejected_vacancy_response'),
+        ("vacancy_favorites", 'vacancy_favorites'),
+        ("resume_favorites", 'resume_favorites'),
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     body = models.TextField()

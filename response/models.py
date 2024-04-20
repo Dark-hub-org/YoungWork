@@ -6,9 +6,9 @@ import uuid
 
 class Response(models.Model):
     resp = (
-        ("Response", 'new_response'),
-        ("Accepted", 'accepted_response'),
-        ("Rejected", 'rejected_response'),
+        ("new_response", 'new_response'),
+        ("accepted_response", 'accepted_response'),
+        ("rejected_response", 'rejected_response'),
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
