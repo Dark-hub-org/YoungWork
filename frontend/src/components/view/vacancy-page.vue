@@ -69,10 +69,15 @@ export default {
     async getVacancyData(id) {
       try {
         const response = await axios.get(`/api/vac/${id}`);
-        const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
-        const responseFavoriteVacancy  = await axios.get('/data-favorites/')
-        const favoritesVacancy = responseFavoriteVacancy.data.length ? responseFavoriteVacancy.data.map(vacancy => vacancy.id) : []
-        this.convertVacancy(response.data, responseVacancy.data.response, favoritesVacancy)
+        if(this.userData.usertype === 'applicant') {
+          const responseVacancy = await axios.get(`/applicant/data/${this.userData.id}/`)
+          const responseFavoriteVacancy  = await axios.get('/data-favorites/')
+          const favoritesVacancy = responseFavoriteVacancy.data.length ? responseFavoriteVacancy.data.map(vacancy => vacancy.id) : []
+          this.convertVacancy(response.data, responseVacancy.data.response, favoritesVacancy)
+        } else {
+          this.vacancyData = response.data
+        }
+
       } catch (error) {
         console.log(error)
       }
@@ -81,7 +86,8 @@ export default {
       const data = {
         vacancy: this.vacancyData.id,
         org: this.vacancyData.created_by,
-        created_by: this.userData
+        created_by: this.userData.id,
+        result: 'new_response',
       }
       try {
         await axios.post('/api/response/', data)

@@ -36,9 +36,9 @@
             <button @click="isVisibleNotifications = !isVisibleNotifications" class="header__alerts" ref="alert">
               <img src="@/assets/alerts.svg" alt="кнопка оповещений">
             </button>
-            <button class="header__alerts">
-              <img src="@/assets/message.svg" alt="кнопка чата">
-            </button>
+<!--            <button class="header__alerts">-->
+<!--              <img src="@/assets/message.svg" alt="кнопка чата">-->
+<!--            </button>-->
           </template>
         </ul>
         <div v-if="isAuthorization" class="header-supernova">
@@ -65,12 +65,12 @@
                   <span class="supernova-wrapper-text">Избранное</span>
                 </router-link>
               </li>
-              <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
-                <div class="supernova-wrapper-block">
-                  <img src="@/assets/message.svg" alt="кнопка избранное" class="supernova-wrapper-image">
-                  <span class="supernova-wrapper-text">Чат</span>
-                </div>
-              </li>
+<!--              <li class="supernova-wrapper-item supernova-wrapper-item&#45;&#45;mobile">-->
+<!--                <div class="supernova-wrapper-block">-->
+<!--                  <img src="@/assets/message.svg" alt="кнопка избранное" class="supernova-wrapper-image">-->
+<!--                  <span class="supernova-wrapper-text">Чат</span>-->
+<!--                </div>-->
+<!--              </li>-->
               <li class="supernova-wrapper-item supernova-wrapper-item--mobile supernova-wrapper-item--padding-bottom">
                 <div @click="isVisibleNotifications = !isVisibleNotifications" ref="mobileAlert"
                      class="supernova-wrapper-block">

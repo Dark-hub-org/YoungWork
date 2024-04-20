@@ -108,7 +108,8 @@ export default {
         const data = {
           vacancy: vacancy.id,
           org: vacancy.created_by,
-          created_by: this.userData.usertype,
+          created_by: this.userData.id,
+          result: 'new_response',
         }
         await axios.post('/api/response/', data)
         this.recommendedList = this.recommendedList.map(item => item.id === vacancy.id ? {

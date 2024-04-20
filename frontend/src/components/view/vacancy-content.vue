@@ -233,6 +233,7 @@ export default {
         vacancy: vacancy.id,
         org: vacancy.created_by,
         created_by: this.userData.id,
+        result: 'new_response',
       }
       try {
         await axios.post('/api/response/', data)

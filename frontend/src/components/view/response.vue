@@ -145,7 +145,7 @@ export default {
     },
     async SendInvitation(id) {
       try {
-        await axios.post('/api/accept/', {vacancy_response: id})
+        await axios.patch('/api/accept/', {vacancy_response: id, result: 'accepted_response',})
       } catch (error) {
         console.log(error)
       }
