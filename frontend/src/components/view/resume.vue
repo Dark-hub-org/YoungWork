@@ -47,7 +47,7 @@
           </div>
           <div class="resume__bottom">
             <p class="resume__bottom-date">Резюме было опубликовано {{resumeData.timestamp}}</p>
-<!--            <button class="button-orange-another">Связаться</button>-->
+<!--            Y -->
           </div>
         </div>
       </div>
