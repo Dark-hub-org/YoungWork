@@ -93,9 +93,8 @@
                   @click="SendInvitation(response.response.id, response.resume.id)"
                   type="button"
                   class="button-orange-another response__item-response">Пригласить на интервью</button>
-              <button  type="button" class="button-orange-another response__item-response">В избранное</button>
-              <button @click="goResume(response.response.id)" class="response__item-profile">Резюме</button>
-<!--              <router-link :to="{ name: 'resume', params: { id: response.resume?.id} }" tag="a" class="response__item-profile">Резюме</router-link>-->
+              <button @click="addedFavorites(response.response.id)" type="button" class="button-orange-another response__item-response">В избранное</button>
+              <button @click="goResume(response.response.id, response.resume.id)" class="response__item-profile">Резюме</button>
             </div>
           </div>
         </div>
@@ -121,7 +120,7 @@ export default {
     async getResponse(id) {
       try {
         const response = await axios.get(`/api/all-response/${id}`)
-        console.log(response)
+        console.log(response.data)
         this.formatterResponseUsers(response.data)
       } catch (error) {
         console.log(error)
@@ -143,9 +142,18 @@ export default {
         }
       })
     },
-    async SendInvitation(id) {
+    async SendInvitation(id, resumeId) {
       try {
-        await axios.patch('/api/accept/', {vacancy_response: id, result: 'accepted_response',})
+        await axios.patch('/api/accept/', {vacancy_response: id, resume: resumeId, result: 'accepted_response',})
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async addedFavorites(id) {
+      try {
+        await axios.post('/data-favorites/', {resume: id})
+        this.responseUser = this.responseUser.map(item => item.response.id === id ? {...item, favorite: true} : {...item})
+        // this.vacancies = this.vacancies.map(item => item.id === id ? {...item, favorite: true} : {...item})
       } catch (error) {
         console.log(error)
       }
