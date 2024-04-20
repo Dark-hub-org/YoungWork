@@ -90,10 +90,18 @@
             </div>
             <div class="response__item-bottom">
               <button
+                  v-if="response.response.result !== 'accepted_response'"
                   @click="SendInvitation(response.response.id, response.resume.id)"
                   type="button"
                   class="button-orange-another response__item-response">Пригласить на интервью</button>
-              <button @click="addedFavorites(response.response.id)" type="button" class="button-orange-another response__item-response">В избранное</button>
+              <span v-else class="button-orange response__item-response">Приглашение отправленно</span>
+              <button
+                  v-if="!response.favorite"
+                  @click="addedFavorites(response.resume.id)"
+                  type="button"
+                  class="button-orange-another response__item-response">В избранное
+              </button>
+              <span v-else class="button-orange response__item-response">В избранном</span>
               <button @click="goResume(response.response.id, response.resume.id)" class="response__item-profile">Резюме</button>
             </div>
           </div>
@@ -120,17 +128,20 @@ export default {
     async getResponse(id) {
       try {
         const response = await axios.get(`/api/all-response/${id}`)
-        console.log(response.data)
-        this.formatterResponseUsers(response.data)
+        const responseFavorite = await axios.get('/data-favorites/')
+        const favoritesList = responseFavorite.data.length ? responseFavorite.data.map(item => item.id) : []
+        console.log(favoritesList)
+        this.formatterResponseUsers(response.data, favoritesList)
       } catch (error) {
         console.log(error)
       }
     },
-    formatterResponseUsers(response) {
+    formatterResponseUsers(response, favorite) {
       this.responseUser = response.users.map(item => {
         const age = this.computedUserAge(item)
         return {...item, age: age}
       })
+
       this.responseUser.map(item => {
         const matchingResume = response.resumes.find(resume => resume.created_by === item.id);
         const matchingResponse = response.response.find(response => response.created_by === item.id)
@@ -140,6 +151,9 @@ export default {
         if (matchingResponse) {
           item.response = matchingResponse
         }
+        const isFavorite = favorite.includes(item.resume.id)
+        item.favorite = isFavorite
+        console.log(isFavorite)
       })
     },
     async SendInvitation(id, resumeId) {
@@ -152,7 +166,7 @@ export default {
     async addedFavorites(id) {
       try {
         await axios.post('/data-favorites/', {resume: id})
-        this.responseUser = this.responseUser.map(item => item.response.id === id ? {...item, favorite: true} : {...item})
+        this.responseUser = this.responseUser.map(item => item.resume.id === id ? {...item, favorite: true} : {...item})
         // this.vacancies = this.vacancies.map(item => item.id === id ? {...item, favorite: true} : {...item})
       } catch (error) {
         console.log(error)
