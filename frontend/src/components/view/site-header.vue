@@ -288,12 +288,12 @@
                   <i v-else @click="isHidePassword = true" class="bx bx-show modal-form__hide"></i>
                 </div>
               </div>
-              <button
-                  type="button"
-                  @click="openModalWinReset()"
-                  class="modal-form-password-reset">
-                Забыли пароль?
-              </button>
+<!--              <button-->
+<!--                  type="button"-->
+<!--                  @click="openModalWinReset()"-->
+<!--                  class="modal-form-password-reset">-->
+<!--                Забыли пароль?-->
+<!--              </button>-->
               <button
                   type="submit"
                   @click="checkRegFields(); logIn()"

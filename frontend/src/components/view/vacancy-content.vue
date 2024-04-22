@@ -115,7 +115,7 @@
                   to="/"
                   tag="a"
                   active-class="active"
-                  class="button-orange-another top__block-content__link">
+                  class="button-orange-another recommendation__block-content__link">
                 Перейти
               </router-link>
               <h3 class="recommendation__block-content__title">IT-профессии</h3>
