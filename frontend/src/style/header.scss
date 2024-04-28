@@ -271,27 +271,7 @@
   }
 }
 
-.modal-switch-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 64px;
-}
 
-.modal-switch__block {
-  @include displayFlex;
-  gap: 16px;
-}
-
-.modal-switch__btn {
-  padding: 28px 20px;
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 167%;
-  color: $colorWhite;
-  background-color: $colorOrangeM;
-}
 
 .btn--green {
   background-color: $colorGreenM;
@@ -309,14 +289,6 @@
 
 @media(max-width: 768px) {
 
-  .header {
-    &__nav {
-
-      &-list {
-        display: none;
-      }
-    }
-  }
   .header-supernova .supernova-wrapper .supernova-wrapper-list .supernova-wrapper-item--mobile  {
     display: block;
   }

@@ -1,4 +1,4 @@
-
+@import "../main";
 .modal-wrapper {
   z-index: 999;
   position: fixed;
@@ -14,6 +14,8 @@
 
 .modal-window {
   position: relative;
+  max-width: fit-content;
+  width: calc(100vw - 20px);
   border-radius: 20px;
   background-color: #ffffff;
 }
@@ -33,11 +35,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 36px 60px 36px;
+  padding: 60px 36px;
 }
 
 .modal-title {
   margin-bottom: 45px;
+  text-align: center;
   font-weight: 800;
   font-size: 25px;
   line-height: 42px;
@@ -46,7 +49,8 @@
 .modal-form {
   display: flex;
   flex-direction: column;
-  width: 319px;
+  width: 100%;
+  max-width: 319px;
 }
 
 .modal-form-block {
@@ -199,3 +203,60 @@
 }
 
 //modal reset end
+
+// modal switch start
+
+.modal-switch {
+  &-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 477px;
+  width: calc(100vw - 20px);
+  padding: 64px;
+  }
+  &__block {
+    @include displayFlex;
+    gap: 16px;
+  }
+  &__btn {
+    padding: 28px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 167%;
+    color: $colorWhite;
+    background-color: $colorOrangeM;
+  }
+}
+
+// modal switch end
+
+@media (max-width: 551px) {
+
+  .modal {
+    &-title {
+      margin-bottom: 20px;
+      line-height: 28px;
+    }
+  }
+
+  .modal-switch {
+    &-wrapper {
+      padding: 48px;
+    }
+    &__block {
+      flex-direction: column;
+    }
+    &__btn {
+      padding: 18px 10px;
+    }
+  }
+
+}
+
+@media (max-width: 451px) {
+  .modal-reg-wrapper {
+    padding: 48px 28px;
+  }
+}

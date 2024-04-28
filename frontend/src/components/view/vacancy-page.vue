@@ -19,7 +19,7 @@
             <p class="vacancy__info-text">{{vacancyData.type}}</p>
           </div>
           <div v-if="userData.usertype === 'applicant'" class="vacancy__info-btns">
-            <button v-if="!vacancyData.response" @click="sendResponse" class="button-orange-another">Откликнуться</button>
+            <button v-if="!vacancyData.response" @click="sendResponse(vacancyData)" class="button-orange-another">Откликнуться</button>
             <span v-else class="button-orange vacancy__item-btn">Вы уже откликнулись</span>
             <button v-if="!vacancyData.favorite" @click="addedFavorites(vacancyData.id)" class="button-orange">В избранное</button>
             <span v-else class="button-orange vacancy__item-btn">Добавленно в избранное</span>
@@ -42,18 +42,18 @@
         </div>
       </div>
       <h3 class="section-title">Рекомендуем вам</h3>
-      <recommended-vacancy></recommended-vacancy>
+      <the-recommendations></the-recommendations>
     </div>
   </section>
 </template>
 <script>
 import axios from "axios";
 import TheHeading from "@/components/ui/heading.vue";
-import RecommendedVacancy from "@/components/ui/recommendedVacancy.vue";
+import TheRecommendations from "@/components/ui/recommendations.vue";
 
 export default {
   name: 'vacancy-page',
-  components: {RecommendedVacancy, TheHeading},
+  components: {TheRecommendations, TheHeading},
   props: ['id'],
   data() {
     return {
@@ -82,15 +82,9 @@ export default {
         console.log(error)
       }
     },
-    async sendResponse() {
-      const data = {
-        vacancy: this.vacancyData.id,
-        org: this.vacancyData.created_by,
-        created_by: this.userData.id,
-        result: 'new_response',
-      }
+    async sendResponse(vacancy) {
       try {
-        await axios.post('/api/response/', data)
+        this.$store.dispatch('sendResponse', vacancy)
         this.vacancyData = {...this.vacancyData, response: true}
       } catch(error) {
         console.log(error)

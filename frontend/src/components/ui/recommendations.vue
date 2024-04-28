@@ -94,7 +94,7 @@
 import axios from "axios";
 
 export default {
-  name: 'recommended-vacancy',
+  name: 'the-recommendations',
 
   data() {
     return {
@@ -105,13 +105,7 @@ export default {
 
     async sendResponse(vacancy) {
       try {
-        const data = {
-          vacancy: vacancy.id,
-          org: vacancy.created_by,
-          created_by: this.userData.id,
-          result: 'new_response',
-        }
-        await axios.post('/api/response/', data)
+        this.$store.dispatch('sendResponse', vacancy)
         this.recommendedList = this.recommendedList.map(item => item.id === vacancy.id ? {
           ...item,
           response: true

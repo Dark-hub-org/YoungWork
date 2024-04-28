@@ -65,7 +65,7 @@
     <section class="recommendation">
       <div class="wrapper">
         <h2 class="section-title">Рекомендуем вам</h2>
-        <recommended-vacancy></recommended-vacancy>
+        <the-recommendations></the-recommendations>
         <a href="/vacancy" class="reviews__more">Смотреть все</a>
       </div>
     </section>
@@ -81,11 +81,11 @@ SwiperCore.use([Navigation])
 import 'swiper/swiper-bundle.css'
 import TheHeading from "@/components/ui/heading.vue";
 import TheSearch from "@/components/ui/searchInput.vue";
-import RecommendedVacancy from "@/components/ui/recommendedVacancy.vue";
+import TheRecommendations from "@/components/ui/recommendations.vue";
 export default {
   name: "landing-content",
   components: {
-    RecommendedVacancy,
+    TheRecommendations,
     TheSearch,
     TheHeading,
     Swiper,

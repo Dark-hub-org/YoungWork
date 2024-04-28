@@ -66,53 +66,53 @@
           <div class="constructor__form-parameter">
             <input
                 v-model="vacancyData.employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Полная занятость"
                 class="constructor__form-parameter__input"
                 id="fullEmploy"
                 checked>
-            <label for="fullEmploy" class="constructor__form-parameter__label radio">Полная занятость</label>
+            <label for="fullEmploy" class="constructor__form-parameter__label check">Полная занятость</label>
           </div>
           <div class="constructor__form-parameter">
             <input
                 v-model="vacancyData.employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Частичная занятость"
                 class="constructor__form-parameter__input"
                 id="partialEmploy">
-            <label for="partialEmploy" class="constructor__form-parameter__label radio">Частичная занятость</label>
+            <label for="partialEmploy" class="constructor__form-parameter__label check">Частичная занятость</label>
           </div>
           <div class="constructor__form-parameter">
             <input
                 v-model="vacancyData.employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Стажировка"
                 class="constructor__form-parameter__input"
                 id="internship">
-            <label for="internship" class="constructor__form-parameter__label radio">Стажировка</label>
+            <label for="internship" class="constructor__form-parameter__label check">Стажировка</label>
           </div>
           <div class="constructor__form-parameter">
             <input
                 v-model="vacancyData.employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Проектная работа"
                 class="constructor__form-parameter__input"
                 id="projectWork">
-            <label for="projectWork" class="constructor__form-parameter__label radio">Проектная работа</label>
+            <label for="projectWork" class="constructor__form-parameter__label check">Проектная работа</label>
           </div>
           <div class="constructor__form-parameter">
             <input
                 v-model="vacancyData.employ"
-                type="radio"
+                type="checkbox"
                 name="employ"
                 value="Волонтерство"
                 class="constructor__form-parameter__input"
                 id="volunteering">
-            <label for="volunteering" class="constructor__form-parameter__label radio">Волонтерство</label>
+            <label for="volunteering" class="constructor__form-parameter__label check">Волонтерство</label>
           </div>
         </div>
         <div class="constructor__form-block">
@@ -332,17 +332,16 @@ export default {
           const vacancyData = {
             job_title: this.vacancyData.job_title,
             company_name: this.userData.title_org,
-            salary_min: this.vacancyData.salaryMin,
-            salary_max: this.vacancyData.salaryMax,
+            salary_min: this.vacancyData.salary_min,
+            salary_max: this.vacancyData.salary_max,
             description: this.vacancyData.description,
             tasks: this.vacancyData.tasks,
             requirements: this.vacancyData.requirements,
             tax: this.vacancyData.tax,
             employ: this.vacancyData.employ,
-            required_experience: this.vacancyData.experience,
+            required_experience: this.vacancyData.required_experience,
             created_by: this.userData.id,
             graph: this.vacancyData.graph,
-            title_org: this.userData.title_org,
             citizenship: this.userData.city,
             phone_number: this.userData.phoneNumber,
             first_name: this.userData.firstName,

@@ -191,7 +191,6 @@ export default {
       });
 
     },
-
     async fetchVacancies(searchValue, filtersValue, pageNum = 1) {
       try {
         const route = searchValue ? `search=${searchValue}&` : '';
@@ -228,20 +227,16 @@ export default {
 
       this.fetchVacancies(this.$route.query.search, filterRoute, pageNum);
     },
+
     async sendResponse(vacancy) {
-      const data = {
-        vacancy: vacancy.id,
-        org: vacancy.created_by,
-        created_by: this.userData.id,
-        result: 'new_response',
-      }
       try {
-        await axios.post('/api/response/', data)
+        this.$store.dispatch('sendResponse', vacancy)
         this.vacancies = this.vacancies.map(item => item.id === vacancy.id ? {...item, response: true} : {...item})
       } catch(error) {
         console.log(error)
       }
     },
+
     async addedFavorites(id) {
       try {
         await axios.post('/data-favorites/', {vacancy: id})
@@ -250,6 +245,9 @@ export default {
         console.log(error)
       }
     },
+    test() {
+      console.log(1)
+    }
   },
   computed: {
     totalPage() {

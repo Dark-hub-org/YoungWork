@@ -74,6 +74,19 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
+        async sendResponse({state}, vacancy){
+            const data = {
+                vacancy: vacancy.id,
+                org: vacancy.created_by,
+                created_by: state.userData.id,
+                result: 'new_response',
+            }
+            try {
+                await axios.post('/api/response/', data)
+            } catch(error) {
+                console.log(error)
+            }
+        }
     },
     getters: {},
     modules: {}
