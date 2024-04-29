@@ -7,15 +7,30 @@
   right: 40px;
   max-width: 1026px;
   width: 100%;
-  height: 855px;
+  height: 756px;
+  overflow: hidden;
   border-radius: 30px;
   background-color: $colorWhite;
   box-shadow: 0px 17px 40px 0px rgba(0, 128, 144, 0.12);
 
   &__wrapper {
-    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    padding: 40px 0 24px 0;
   }
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+  }
+
   &__title {
+    min-width: 45%;
     font-size: 40px;
     font-weight: 400;
     line-height: 115%;
@@ -25,14 +40,30 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
     width: 100%;
+    padding: 0 40px;
+    margin-bottom: 40px;
+  }
+  &__return{
+    display: none;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-top: 4px solid $colorOrangeM;
+    border-right: 4px solid $colorOrangeM;
+    transform: rotate(-135deg);
   }
   &__current-user {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 16px;
     max-width: 491px;
     width: 100%;
+
+    &.visible {
+      display: flex;
+    }
 
     &-img {
       width: 75px;
@@ -48,6 +79,7 @@
       margin-bottom: 2px;
     }
     &-link {
+      margin-bottom: 4px;
       padding-bottom: 1px;
       border-bottom: 1px solid $colorOrangeM;
       font-size: 14px;
@@ -60,5 +92,356 @@
         border-color: transparent;
       }
     }
+    &-visit {
+      font-family: $fontInter;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 140%;
+    }
   }
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    gap: 44px;
+    padding: 0 40px;
+    overflow: hidden;
+    border-top: 1px solid $colorGreenM;
+
+    &-left {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 417px;
+
+      &.hide {
+        display: none;
+      }
+    }
+    &-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        background: $colorGreenM;
+        cursor: pointer;
+      }
+
+      &::-webkit-scrollbar-track {
+        border-radius: 8px;
+        background: rgba(36, 142, 155, 0.13);
+      }
+
+      &__item {
+        position: relative;
+        width: 100%;
+        cursor: pointer;
+        transition: all .15s ease;
+        &:hover {
+          background: rgba(36, 142, 155, 0.16);
+        }
+        &.active {
+          background: rgba(36, 142, 155, 0.16);
+        }
+      }
+
+      &__wrapper {
+        display: flex;
+        gap: 6px;
+        width: 100%;
+        max-width: 345px;
+      }
+
+      &__element {
+        position: absolute;
+        top: 4px;
+        right: 25px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      &__delete {
+        width: 14px;
+        height: 14px;
+        background-image: url("@/assets/delete.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      &__new-massage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: $colorGreenM;
+        font-size: 8px;
+        font-weight: 500;
+        line-height: 115%;
+        letter-spacing: -3%;
+        color: $colorWhite;
+      }
+
+      &__image {
+        min-width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        background-color: $colorGreenM;
+      }
+      &__name {
+        margin-bottom: 8px;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 115%;
+        letter-spacing: -3%;
+      }
+      &__massage {
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+        font-size: 16px;
+        height: 40.04px;
+        line-height: 140%;
+        letter-spacing: -3%;
+      }
+    }
+    &-right {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &.visible {
+        display: flex;
+
+      }
+
+      &__wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 24px;
+        height: 100vh;
+        margin-top: 30px;
+        padding-right: 10px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          border-radius: 8px;
+          background: $colorGreenM;
+          cursor: pointer;
+        }
+
+        &::-webkit-scrollbar-track {
+          border-radius: 8px;
+          background: rgba(36, 142, 155, 0.13);
+        }
+      }
+    }
+    &-massage {
+      display: block;
+      max-width: 225px;
+      padding: 16px 8px 8px 8px;
+      border-radius: 10px;
+      background: rgba(36, 142, 155, .3);
+
+      &__avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background-color: $colorGreenM;
+      }
+
+      &__text {
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 140%;
+        letter-spacing: -3%;
+      }
+
+      &__link {
+        text-align: end;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 98.02%;
+        letter-spacing: -3%;
+        color: $colorGreenM;
+      }
+
+      &-wrapper {
+        display: flex;
+        align-items: end;
+        justify-content: end;
+        gap: 16px;
+        width: 100%;
+        &.another {
+          justify-content: start;
+        }
+      }
+    }
+    &-send {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid $colorGreenM;
+
+      &__error {
+        position: absolute;
+        left: 0;
+        bottom: -20px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 140%;
+        letter-spacing: -2%;
+        color: $colorError;
+        pointer-events: none;
+      }
+
+      &__input {
+        width: calc(100% - 18px);
+        height: 20px;
+        max-height: 200px;
+        //max-width: 461px;
+        margin-right: 11px;
+        border-right: 1px solid $colorGreenM;
+        resize: none;
+        overflow-y: auto;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 140%;
+        letter-spacing: -2%;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          border-radius: 8px;
+          background: $colorGreenM;
+          cursor: pointer;
+        }
+
+        &::-webkit-scrollbar-track {
+          border-radius: 8px;
+          background: rgba(36, 142, 155, 0.13);
+        }
+
+        &::placeholder {
+          opacity: .6;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 140%;
+          letter-spacing: -2%;
+          color: $colorGreenM;
+        }
+      }
+      &__button {
+        width: 19px;
+        height: 19px;
+        background-image: url("@/assets/sent.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+  }
+}
+
+@media(max-width: 1124px) {
+
+  .chat {
+    width: 90%;
+    max-width: unset;
+  }
+
+}
+
+
+@media(max-width: 851px) {
+
+  .chat {
+    &__top {
+      padding: 0 20px;
+    }
+    &__main {
+      padding: 0 20px;
+    }
+  }
+
+}
+
+@media(max-width: 769px) {
+
+  .chat {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    border-radius: 0;
+    &__return {
+      display: block;
+    }
+    &__current-user {
+      display: none;
+    }
+    &__main {
+      &-list {
+        flex-grow: 1;
+        max-height: 100%;
+      }
+      &-left {
+        max-width: 100%;
+      }
+      &-right {
+        display: none;
+      }
+    }
+  }
+
+}
+
+@media(max-width: 551px) {
+
+  .chat {
+    //top: 96px;
+
+    &__top {
+      flex-direction: column;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    &__main {
+      &-list {
+        &__image {
+          min-width: 60px;
+          height: 60px;
+        }
+      }
+      &-massage {
+        &__avatar {
+          display: none;
+        }
+      }
+    }
+
+  }
+
 }

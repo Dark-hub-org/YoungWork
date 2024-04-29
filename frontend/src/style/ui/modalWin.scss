@@ -56,6 +56,8 @@
 .modal-form-block {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 289px;
 }
 
 .modal-form-name {

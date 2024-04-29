@@ -36,9 +36,9 @@
             <button @click="isVisibleNotifications = !isVisibleNotifications" class="header__alerts" ref="alert">
               <img src="@/assets/alerts.svg" alt="кнопка оповещений">
             </button>
-<!--            <button class="header__alerts">-->
-<!--              <img src="@/assets/message.svg" alt="кнопка чата">-->
-<!--            </button>-->
+            <button ref="buttonChat" @click="isChatActive = !isChatActive" class="header__alerts">
+              <img src="@/assets/message.svg" alt="кнопка чата">
+            </button>
           </template>
         </ul>
         <div v-if="isAuthorization" class="header-supernova">
@@ -65,12 +65,12 @@
                   <span class="supernova-wrapper-text">Избранное</span>
                 </router-link>
               </li>
-<!--              <li class="supernova-wrapper-item supernova-wrapper-item&#45;&#45;mobile">-->
-<!--                <div class="supernova-wrapper-block">-->
-<!--                  <img src="@/assets/message.svg" alt="кнопка избранное" class="supernova-wrapper-image">-->
-<!--                  <span class="supernova-wrapper-text">Чат</span>-->
-<!--                </div>-->
-<!--              </li>-->
+              <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
+                <div ref="buttonChatMobile" @click="isChatActive = !isChatActive" class="supernova-wrapper-block">
+                  <img src="@/assets/message.svg" alt="кнопка избранное" class="supernova-wrapper-image">
+                  <span class="supernova-wrapper-text">Чат</span>
+                </div>
+              </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--mobile supernova-wrapper-item--padding-bottom">
                 <div @click="isVisibleNotifications = !isVisibleNotifications" ref="mobileAlert"
                      class="supernova-wrapper-block">
@@ -368,7 +368,14 @@
           </div>
         </modal-window>
       </Transition>
-      <the-chat v-if="isChatActive"/>
+      <Transition name="chat">
+        <the-chat
+            :is-visible="isChatActive"
+            :chat-button="this.$refs.buttonChat"
+            :chat-button-mobile="this.$refs.buttonChatMobile"
+            @close-chat="closeChat()"
+            />
+      </Transition>
       <button
           @click="openItem"
           :class="{active: isMenuActive}"
@@ -613,6 +620,9 @@ export default {
       if (menu && menuBtn) {
         return !menu.contains(event.target) && !menuBtn.contains(event.target) ? this.isSupernovaMenuActive = false : this.isSupernovaMenuActive
       }
+    },
+    closeChat() {
+      this.isChatActive = false
     }
   },
   watch: {
@@ -651,10 +661,18 @@ export default {
 <style>
 
 .modal-enter-active, .modal-leave-active {
-  transition: opacity .3s;
+  transition: opacity .2s;
 }
 
 .modal-enter, .modal-leave-to {
+  opacity: 0;
+}
+
+.chat-enter-active, .chat-leave-active {
+  transition: opacity .2s ease, height .2s ease;
+}
+
+.chat-enter, .chat-leave-to {
   opacity: 0;
 }
 

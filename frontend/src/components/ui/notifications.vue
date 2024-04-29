@@ -22,7 +22,7 @@ export default {
   props: {
     isVisible: {
       type: Boolean,
-      required: false,
+      required: true,
     },
     alertsButton: {
       type: HTMLButtonElement ,
@@ -66,6 +66,7 @@ export default {
       }
     }
   },
+
   mounted() {
     this.getNotifications()
     document.addEventListener('click', this.closeOnOutsideClick);
