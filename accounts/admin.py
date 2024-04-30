@@ -5,6 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 from .models import User
+from djoser.signals import *
 
 
 class UserCreationForm(forms.ModelForm):
@@ -45,7 +46,7 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ["email", "usertype", "first_name", "last_name", "surname", "is_admin"]
+    list_display = ["email", "usertype", "first_name", "last_name", "surname", "last_login", "is_admin"]
     list_filter = ["usertype", "is_admin"]
     fieldsets = [
         (None,

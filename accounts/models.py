@@ -77,11 +77,6 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
-    def update_last_login(sender, user, **kwargs):
-        profile, created = User.objects.get_or_create(user=user)
-        profile.last_login = user.last_login
-        profile.save()
-
     @property
     def is_staff(self):
         return self.is_admin
