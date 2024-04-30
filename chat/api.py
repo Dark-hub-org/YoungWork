@@ -5,15 +5,23 @@ from rest_framework.decorators import api_view, permission_classes
 from accounts.models import User
 
 from .models import Conversation, ConversationMessage
-from .serializers import ConversationSerializer, ConversationDetailSerializer, ConversationMessageSerializer
+from .serializers import UserChatSerializer, ConversationDetailSerializer, ConversationMessageSerializer
 
 
 @api_view(['GET'])
 def conversation_list(request):
-    conversations = Conversation.objects.filter(users__in=list([request.user]))
-    serializer = ConversationSerializer(conversations, many=True)
+    conversations = Conversation.objects.filter(users=request.user)
+    serialized_data = []
 
-    return JsonResponse(serializer.data, safe=False)
+    for conversation in conversations:
+        users = conversation.users.exclude(id=request.user.id)  # Исключаем пользователя, отправившего запрос
+        serialized_data.append({
+            'id': conversation.id,
+            'users': UserChatSerializer(users, many=True).data,
+            'modified_at_formatted': str(conversation.modified_at_formatted)  # Преобразуем дату в строку
+        })
+
+    return JsonResponse(serialized_data, safe=False)
 
 
 @api_view(['GET'])

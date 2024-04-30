@@ -6,7 +6,11 @@ from .models import Conversation, ConversationMessage
 
 
 class ConversationSerializer(serializers.ModelSerializer):
-    users = UserChatSerializer(read_only=True, many=True)
+    users = serializers.SerializerMethodField()
+
+    def get_users(self, obj):
+        user_to_exclude_id = self.context.get('user_id_to_exclude')
+        return UserChatSerializer(obj.users.exclude(id=user_to_exclude_id), many=True).data
 
     class Meta:
         model = Conversation

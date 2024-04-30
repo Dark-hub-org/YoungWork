@@ -41,5 +41,5 @@ class UserChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'first_name', 'avatar'
+            'id', 'first_name', 'avatar'
         ]
