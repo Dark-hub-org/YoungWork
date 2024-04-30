@@ -20,7 +20,7 @@ class ConversationSerializer(serializers.ModelSerializer):
 class ConversationMessageSerializer(serializers.ModelSerializer):
     sent_to = UserChatSerializer(read_only=True)
     created_by = UserChatSerializer(read_only=True)
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+    created_at = serializers.DateTimeField(format="%d-%m-%Y %H:%M")
 
     class Meta:
         model = ConversationMessage
@@ -29,7 +29,7 @@ class ConversationMessageSerializer(serializers.ModelSerializer):
 
 class ConversationDetailSerializer(serializers.ModelSerializer):
     messages = ConversationMessageSerializer(read_only=True, many=True)
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+    created_at = serializers.DateTimeField(format="%d-%m-%Y %H:%M")
 
     class Meta:
         model = Conversation
