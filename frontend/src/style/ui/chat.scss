@@ -30,7 +30,7 @@
   }
 
   &__title {
-    min-width: 45%;
+    min-width: 45% ;
     font-size: 40px;
     font-weight: 400;
     line-height: 115%;
@@ -69,7 +69,7 @@
       width: 75px;
       height: 75px;
       border-radius: 75px;
-      background-color: $colorGreyLight;
+      object-fit: cover;
     }
     &-name {
       font-size: 20px;
@@ -103,7 +103,6 @@
     display: flex;
     justify-content: space-between;
     gap: 44px;
-    padding: 0 40px;
     overflow: hidden;
     border-top: 1px solid $colorGreenM;
 
@@ -141,6 +140,7 @@
       &__item {
         position: relative;
         width: 100%;
+        padding-left: 40px;
         cursor: pointer;
         transition: all .15s ease;
         &:hover {
@@ -193,8 +193,8 @@
       &__image {
         min-width: 75px;
         height: 75px;
+        object-fit: cover;
         border-radius: 50%;
-        background-color: $colorGreenM;
       }
       &__name {
         margin-bottom: 8px;
@@ -220,6 +220,7 @@
       display: flex;
       flex-direction: column;
       width: 100%;
+      padding: 0 40px 0 20px;
 
       &.visible {
         display: flex;
@@ -232,8 +233,8 @@
         gap: 24px;
         height: 100vh;
         margin-top: 30px;
-        padding-right: 10px;
         overflow-y: auto;
+        overflow-x: hidden;
 
         &::-webkit-scrollbar {
           width: 8px;
@@ -250,19 +251,32 @@
           background: rgba(36, 142, 155, 0.13);
         }
       }
+
+      &__choice {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        font-size: 30px;
+        line-height: 30px;
+        letter-spacing: -0.03em;
+      }
     }
     &-massage {
       display: block;
-      max-width: 225px;
+      max-width: 325px;
       padding: 16px 8px 8px 8px;
       border-radius: 10px;
+      word-break: break-word;
       background: rgba(36, 142, 155, .3);
 
       &__avatar {
         width: 44px;
         height: 44px;
+        object-fit: cover;
         border-radius: 50%;
-        background-color: $colorGreenM;
+        //background-color: $colorGreenM;
       }
 
       &__text {
@@ -381,7 +395,16 @@
       padding: 0 20px;
     }
     &__main {
-      padding: 0 20px;
+
+      &-right {
+        padding-right: 20px;
+      }
+
+      &-list {
+        &__item {
+          padding-left: 20px;
+        }
+      }
     }
   }
 
@@ -398,9 +421,9 @@
     &__return {
       display: block;
     }
-    &__current-user {
-      display: none;
-    }
+    //&__current-user {
+    //  display: none;
+    //}
     &__main {
       &-list {
         flex-grow: 1;

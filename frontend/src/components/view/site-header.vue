@@ -59,25 +59,25 @@
                     userData.firstName
                   }}</a>
               </li>
-              <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
-                <router-link to="/favorites" tag="div" class="supernova-wrapper-block">
-                  <img src="@/assets/star.svg" alt="кнопка избранное" class="supernova-wrapper-image">
-                  <span class="supernova-wrapper-text">Избранное</span>
-                </router-link>
-              </li>
-              <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
-                <div ref="buttonChatMobile" @click="isChatActive = !isChatActive" class="supernova-wrapper-block">
-                  <img src="@/assets/message.svg" alt="кнопка избранное" class="supernova-wrapper-image">
-                  <span class="supernova-wrapper-text">Чат</span>
-                </div>
-              </li>
-              <li class="supernova-wrapper-item supernova-wrapper-item--mobile supernova-wrapper-item--padding-bottom">
-                <div @click="isVisibleNotifications = !isVisibleNotifications" ref="mobileAlert"
-                     class="supernova-wrapper-block">
-                  <img src="@/assets/alerts.svg" alt="кнопка избранное" class="supernova-wrapper-image">
-                  <button class="supernova-wrapper-text">Уведомления</button>
-                </div>
-              </li>
+<!--              <li class="supernova-wrapper-item supernova-wrapper-item&#45;&#45;mobile">-->
+<!--                <router-link to="/favorites" tag="div" class="supernova-wrapper-block">-->
+<!--                  <img src="@/assets/star.svg" alt="кнопка избранное" class="supernova-wrapper-image">-->
+<!--                  <span class="supernova-wrapper-text">Избранное</span>-->
+<!--                </router-link>-->
+<!--              </li>-->
+<!--              <li class="supernova-wrapper-item supernova-wrapper-item&#45;&#45;mobile">-->
+<!--                <div ref="buttonChatMobile" @click="isChatActive = !isChatActive" class="supernova-wrapper-block">-->
+<!--                  <img src="@/assets/message.svg" alt="кнопка избранное" class="supernova-wrapper-image">-->
+<!--                  <span class="supernova-wrapper-text">Чат</span>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--              <li class="supernova-wrapper-item supernova-wrapper-item&#45;&#45;mobile supernova-wrapper-item&#45;&#45;padding-bottom">-->
+<!--                <div @click="isVisibleNotifications = !isVisibleNotifications" ref="mobileAlert"-->
+<!--                     class="supernova-wrapper-block">-->
+<!--                  <img src="@/assets/alerts.svg" alt="кнопка избранное" class="supernova-wrapper-image">-->
+<!--                  <button class="supernova-wrapper-text">Уведомления</button>-->
+<!--                </div>-->
+<!--              </li>-->
               <li class="supernova-wrapper-item supernova-wrapper-item--section">
                 <div @click.stop="openSubMenu" class="supernova-wrapper-block">
                   <img src="@/assets/vacancy.svg" alt="кнопка избранное" class="supernova-wrapper-image">
@@ -124,7 +124,6 @@
         <the-notification
             @close-notification="onCloseNotification"
             :alerts-button="this.$refs.alert"
-            :alerts-button-mobile="this.$refs.mobileAlert"
             :is-visible="isVisibleNotifications">
         </the-notification>
       </transition>
@@ -372,7 +371,6 @@
         <the-chat
             :is-visible="isChatActive"
             :chat-button="this.$refs.buttonChat"
-            :chat-button-mobile="this.$refs.buttonChatMobile"
             @close-chat="closeChat()"
             />
       </Transition>
@@ -444,7 +442,6 @@ export default {
       }
       if(this.$route.path === '/applicant/' || this.$route.path === '/employer/') {
         this.$store.dispatch('setUserData')
-        // window.location.reload()
       }
       localStorage.setItem('applicantTab', JSON.stringify(2));
     },
@@ -505,6 +502,7 @@ export default {
           this.$store.commit('setAccess', response.data.access)
           this.$store.commit('setRefresh', response.data.refresh)
           this.$store.commit('changeAuthorization', true)
+          await axios.get('/api/update_last_log_in/')
           window.location.reload();
         }
       } catch (error) {
@@ -534,14 +532,6 @@ export default {
         return;
       }
     },
-    // openNextStep() {
-    //   this.checkRegFields();
-    //
-    //   if (this.isEmptyName || this.isEmptyPassword || this.isEmptyName || this.isCheckPassword || this.isCheckEmail) {
-    //     return;
-    //   }
-    //   this.ModalWinRegCurrentStep++
-    // },
     openModalWinLog() {
       this.clearModalData();
       this.isModalWinLog = true;
