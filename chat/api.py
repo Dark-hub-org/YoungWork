@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from rest_framework.response import Response
 
 from rest_framework.decorators import api_view, permission_classes
 
@@ -23,6 +24,22 @@ def conversation_list(request):
     return JsonResponse(serialized_data, safe=False)
 
 
+@api_view(['DELETE'])
+def conversation_remove(request, pk):
+    try:
+        conversation = Conversation.objects.get(id=pk)
+        user_to_remove = User.objects.get(id=request.user.id)
+        conversation.users.remove(user_to_remove)
+        conversation.history.add(user_to_remove)
+        return Response({"success": True, "message": "Пользователь успешно удален из беседы."})
+    except Conversation.DoesNotExist:
+        return Response({"success": False, "message": "Беседа с указанным ID не существует."})
+    except User.DoesNotExist:
+        return Response({"success": False, "message": "Пользователь с указанным ID не существует."})
+    except Exception as e:
+        return Response({"success": False, "message": f"Произошла ошибка: {str(e)}"})
+
+
 @api_view(['GET'])
 def conversation_detail(request, pk):
     conversation = Conversation.objects.filter(users__in=list([request.user])).get(pk=pk)
@@ -35,9 +52,15 @@ def conversation_detail(request, pk):
 def conversation_get_or_create(request, pk):
     user = User.objects.get(pk=pk)
     conversations = Conversation.objects.filter(users__in=list([request.user])).filter(users__in=list([user]))
+    conversations_history = Conversation.objects.filter(history__in=list([request.user])).filter(users__in=list([user]))
 
     if conversations.exists():
         conversation = conversations.first()
+    elif conversations_history.exists():
+        conversation = Conversation.objects.filter(history__in=list([request.user])).filter(
+            users__in=list([user])).get()
+        conversation.users.add(request.user)
+        conversation.history.remove(request.user)
     else:
         conversation = Conversation.objects.create()
         conversation.users.add(user, request.user)
