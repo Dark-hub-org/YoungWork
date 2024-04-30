@@ -35,3 +35,11 @@ class AvatarSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'usertype', 'avatar']
+
+
+class UserChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'first_name', 'avatar'
+        ]

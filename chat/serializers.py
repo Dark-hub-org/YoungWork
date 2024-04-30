@@ -1,12 +1,12 @@
 from rest_framework import serializers
 
-from accounts.serializers import UserSerializer
+from accounts.serializers import UserChatSerializer
 
 from .models import Conversation, ConversationMessage
 
 
 class ConversationSerializer(serializers.ModelSerializer):
-    users = UserSerializer(read_only=True, many=True)
+    users = UserChatSerializer(read_only=True, many=True)
 
     class Meta:
         model = Conversation
@@ -14,8 +14,8 @@ class ConversationSerializer(serializers.ModelSerializer):
 
 
 class ConversationMessageSerializer(serializers.ModelSerializer):
-    sent_to = UserSerializer(read_only=True)
-    created_by = UserSerializer(read_only=True)
+    sent_to = UserChatSerializer(read_only=True)
+    created_by = UserChatSerializer(read_only=True)
 
     class Meta:
         model = ConversationMessage
