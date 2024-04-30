@@ -38,8 +38,10 @@ class AvatarSerializer(serializers.ModelSerializer):
 
 
 class UserChatSerializer(serializers.ModelSerializer):
+    last_login = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+
     class Meta:
         model = User
         fields = [
-            'id', 'first_name', 'avatar'
+            'id', 'first_name', 'avatar', 'last_login'
         ]

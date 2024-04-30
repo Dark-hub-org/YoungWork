@@ -14,11 +14,10 @@ def conversation_list(request):
     serialized_data = []
 
     for conversation in conversations:
-        users = conversation.users.exclude(id=request.user.id)  # Исключаем пользователя, отправившего запрос
+        users = conversation.users.exclude(id=request.user.id)
         serialized_data.append({
             'id': conversation.id,
             'users': UserChatSerializer(users, many=True).data,
-            'modified_at_formatted': str(conversation.modified_at_formatted)  # Преобразуем дату в строку
         })
 
     return JsonResponse(serialized_data, safe=False)

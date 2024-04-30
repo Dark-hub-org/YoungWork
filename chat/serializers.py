@@ -14,21 +14,23 @@ class ConversationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Conversation
-        fields = ('id', 'users', 'modified_at_formatted',)
+        fields = ('id', 'users',)
 
 
 class ConversationMessageSerializer(serializers.ModelSerializer):
     sent_to = UserChatSerializer(read_only=True)
     created_by = UserChatSerializer(read_only=True)
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 
     class Meta:
         model = ConversationMessage
-        fields = ('id', 'sent_to', 'created_by', 'created_at_formatted', 'body',)
+        fields = ('id', 'sent_to', 'created_by', 'created_at', 'body',)
 
 
 class ConversationDetailSerializer(serializers.ModelSerializer):
     messages = ConversationMessageSerializer(read_only=True, many=True)
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 
     class Meta:
         model = Conversation
-        fields = ('id', 'users', 'modified_at_formatted', 'messages',)
+        fields = ('id', 'users', 'created_at', 'messages',)
