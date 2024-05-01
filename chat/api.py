@@ -33,7 +33,7 @@ def conversation_remove(request, pk):
         user_to_remove = User.objects.get(id=request.user.id)
         conversation.users.remove(user_to_remove)
         conversation.history.add(user_to_remove)
-        return Response({"success": True, "message": "Пользователь успешно удален из беседы."})
+        return Response({"success": True, "message": "Пользователь вышел из беседы!"})
     except Conversation.DoesNotExist:
         return Response({"success": False, "message": "Беседа с указанным ID не существует."})
     except User.DoesNotExist:
