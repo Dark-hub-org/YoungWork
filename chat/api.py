@@ -16,9 +16,11 @@ def conversation_list(request):
 
     for conversation in conversations:
         users = conversation.users.exclude(id=request.user.id)
+        history = conversation.history.exclude(id=request.user.id)
         serialized_data.append({
             'id': conversation.id,
             'users': UserChatSerializer(users, many=True).data,
+            'history': UserChatSerializer(history, many=True).data,
         })
 
     return JsonResponse(serialized_data, safe=False)
