@@ -29,15 +29,12 @@ def conversation_list(request):
 @api_view(['GET'])
 def last_message(request, pk):
     conversation_last = Conversation.objects.filter(pk=pk).get()
-    serialized_data = []
     message = conversation_last.messages.all()
     last_message = message.first()
 
-    serialized_data.append({
-        'last_message': ConversationMessageSerializer(last_message).data if last_message else None,
-    })
+    serialized = {'last_message': ConversationMessageSerializer(last_message).data if last_message else None}
 
-    return JsonResponse(serialized_data, safe=False)
+    return JsonResponse(serialized, safe=False)
 
 
 @api_view(['DELETE'])
