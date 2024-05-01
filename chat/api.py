@@ -26,6 +26,20 @@ def conversation_list(request):
     return JsonResponse(serialized_data, safe=False)
 
 
+@api_view(['GET'])
+def last_message(request, pk):
+    conversation_last = Conversation.objects.filter(pk=pk).get()
+    serialized_data = []
+    message = conversation_last.messages.all()
+    last_message = message.first()
+
+    serialized_data.append({
+        'last_message': ConversationMessageSerializer(last_message).data if last_message else None,
+    })
+
+    return JsonResponse(serialized_data, safe=False)
+
+
 @api_view(['DELETE'])
 def conversation_remove(request, pk):
     try:
