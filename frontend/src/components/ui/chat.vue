@@ -8,13 +8,24 @@
         <span ref="title" class="chat__title">Чат</span>
         <div v-if="currentDialog?.id" ref="currentUser" class="chat__current-user">
           <button @click.stop="returnDialog()" class="chat__return"></button>
-          <img v-if="activeInterlocutor.users[0].avatar !== null" class="chat__current-user-img" :src='"/img/" + activeInterlocutor.users[0].avatar' alt="">
-          <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
-          <div class="chat__current-user-data">
-            <p class="chat__current-user-name">{{activeInterlocutor.users[0].first_name}}</p>
-            <a href="#" class="chat__current-user-link">Дизайнер UI/UX</a>
-            <p class="chat__current-user-visit">Последний визит: {{activeInterlocutor.users[0].last_login}}</p>
-          </div>
+          <template v-if="activeInterlocutor.users.length">
+            <img v-if="activeInterlocutor.users[0].avatar !== null" class="chat__current-user-img" :src='"/img/" + activeInterlocutor.users[0].avatar' alt="">
+            <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
+            <div class="chat__current-user-data">
+              <p class="chat__current-user-name">{{activeInterlocutor.users[0].first_name}}</p>
+              <a href="#" class="chat__current-user-link">Дизайнер UI/UX</a>
+              <p class="chat__current-user-visit">Последний визит: {{activeInterlocutor.users[0].last_login}}</p>
+            </div>
+          </template>
+          <template v-else>
+            <img v-if="activeInterlocutor.history[0].avatar !== null" class="chat__current-user-img" :src='"/img/" + activeInterlocutor.history[0].avatar' alt="">
+            <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
+            <div class="chat__current-user-data">
+              <p class="chat__current-user-name">{{activeInterlocutor.history[0].first_name}}</p>
+              <a href="#" class="chat__current-user-link">Дизайнер UI/UX</a>
+              <p class="chat__current-user-visit">Последний визит: {{activeInterlocutor.history[0].last_login}}</p>
+            </div>
+          </template>
         </div>
       </div>
       <div class="chat__main">
@@ -27,28 +38,28 @@
                   @click="openDialog(item)"
                   :class="{'active': currentDialog.id === item.id}"
                   class="chat__main-list__item">
-                <div v-if="item.users.length" class="chat__main-list__wrapper">
+                <div class="chat__main-list__wrapper">
                   <div class="chat__main-list__element">
                     <span class="chat__main-list__new-massage">1</span>
-                    <button @click.stop="deleteChat(item.id)" class="chat__main-list__delete"></button>
+                    <button v-if="userData.usertype === 'employer'" @click.stop="deleteChat(item.id)" class="chat__main-list__delete"></button>
                   </div>
-                  <img v-if="item.users[0].avatar !== null" class="chat__main-list__image" :src='"/img/" + item.users[0].avatar' alt="">
-                  <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
+                  <template v-if="item.users.length">
+                    <img v-if="item.users[0].avatar !== null" class="chat__main-list__image" :src='"/img/" + item.users[0].avatar' alt="">
+                    <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
+                  </template>
+                  <template v-else>
+                    <img v-if="item.history[0].avatar !== null" class="chat__main-list__image" :src='"/img/" + item.history[0].avatar' alt="">
+                    <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
+                  </template>
                   <div class="chat__main-list__info">
-                    <p class="chat__main-list__name">{{item.users[0].first_name}}</p>
-                    <p class="chat__main-list__massage">{{item.massage}}</p>
-                  </div>
-                </div>
-                <div v-else class="chat__main-list__wrapper">
-                  <div class="chat__main-list__element">
-                    <span class="chat__main-list__new-massage">1</span>
-                    <button @click.stop="deleteChat(item.id)" class="chat__main-list__delete"></button>
-                  </div>
-                  <img v-if="item.history[0].avatar !== null" class="chat__main-list__image" :src='"/img/" + item.history[0].avatar' alt="">
-                  <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
-                  <div class="chat__main-list__info">
-                    <p class="chat__main-list__name">{{item.history[0].first_name}}</p>
-                    <p class="chat__main-list__massage">{{item.massage}}</p>
+                    <template v-if="item.users.length">
+                      <p class="chat__main-list__name">{{item.users[0].first_name}}</p>
+                      <p class="chat__main-list__massage">{{item.massage}}</p>
+                    </template>
+                    <template v-else>
+                      <p class="chat__main-list__name">{{item.history[0].first_name}}</p>
+                      <p class="chat__main-list__massage">{{item.massage}}</p>
+                    </template>
                   </div>
                 </div>
               </li>
@@ -57,6 +68,7 @@
           <div ref="dialog" class="chat__main-right">
             <template v-if="currentDialog?.id">
               <div class="chat__main-right__wrapper">
+                <p v-if="!activeInterlocutor.users.length" class="chat__main-massage__leave">Работодатель вышел из чата</p>
                 <div
                     v-for="message in currentDialog.messages"
                     :key="message.id"
@@ -71,8 +83,9 @@
                     <p class="chat__main-massage__link">{{message.created_at}}</p>
                   </div>
                 </div>
+
               </div>
-              <div class="chat__main-send">
+              <div class="chat__main-send" :class="{'disabled': !activeInterlocutor.users.length}">
             <textarea
                 ref="send"
                 v-model="message"
@@ -80,10 +93,11 @@
                 @blur="resetStyle"
                 @keydown.enter="sendMessage(activeInterlocutor.id, $event)"
                 class="chat__main-send__input"
+                :class="{'disabled': !activeInterlocutor.users.length}"
                 placeholder="Введите ваше сообщение..." >
             </textarea>
                 <span v-if="message.length === 2000" class="chat__main-send__error">Максимальное количество символов</span>
-                <button @click="sendMessage(activeInterlocutor.id)" type="submit" class="chat__main-send__button"></button>
+                <button @click="sendMessage(activeInterlocutor.id, $event)" type="submit" class="chat__main-send__button"></button>
               </div>
             </template>
             <template v-else>
@@ -159,7 +173,7 @@ export default {
     },
     async sendMessage(id, event) {
       try {
-        if(this.message.length && !event.shiftKey) {
+        if(this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
           event.preventDefault()
           await axios.post(`/api/chat/${id}/send/`, {body: this.message})
           const chat = await axios.get(`/api/chat/${id}`)
@@ -186,6 +200,7 @@ export default {
       try {
         await axios.delete(`/api/chat/${id}/remove/`)
         this.chatsList = this.chatsList.filter(item => item.id !== id)
+        this.currentDialog = []
       } catch (error) {
         console.log(error)
       }
