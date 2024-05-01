@@ -91,7 +91,7 @@
             <div class="response__item-bottom">
               <button
                   v-if="response.response.result !== 'accepted_response'"
-                  @click="SendInvitation(response.response.id, response.resume.id)"
+                  @click="SendInvitation(response.id, response.response.id, response.resume.id)"
                   type="button"
                   class="button-orange-another response__item-response">Пригласить на интервью</button>
               <span v-else class="button-orange response__item-response">Приглашение отправленно</span>
@@ -130,7 +130,6 @@ export default {
         const response = await axios.get(`/api/all-response/${id}`)
         const responseFavorite = await axios.get('/data-favorites/')
         const favoritesList = responseFavorite.data.length ? responseFavorite.data.map(item => item.id) : []
-        console.log(favoritesList)
         this.formatterResponseUsers(response.data, favoritesList)
       } catch (error) {
         console.log(error)
@@ -156,10 +155,12 @@ export default {
         console.log(isFavorite)
       })
     },
-    async SendInvitation(id, resumeId) {
+    async SendInvitation(applicantId, id, resumeId) {
       try {
+        await axios.post(`/api/chat/${applicantId}/get-or-create/`)
         await axios.patch('/api/accept/', {vacancy_response: id, resume: resumeId, result: 'accepted_response',})
       } catch (error) {
+        console.log(applicantId)
         console.log(error)
       }
     },
@@ -167,7 +168,6 @@ export default {
       try {
         await axios.post('/data-favorites/', {resume: id})
         this.responseUser = this.responseUser.map(item => item.resume.id === id ? {...item, favorite: true} : {...item})
-        // this.vacancies = this.vacancies.map(item => item.id === id ? {...item, favorite: true} : {...item})
       } catch (error) {
         console.log(error)
       }

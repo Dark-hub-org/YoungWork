@@ -103,6 +103,7 @@
     display: flex;
     justify-content: space-between;
     gap: 44px;
+    height: -webkit-fill-available;
     overflow: hidden;
     border-top: 1px solid $colorGreenM;
 
@@ -257,6 +258,22 @@
         align-items: center;
         justify-content: center;
         height: 100vh;
+        text-align: center;
+        font-size: 30px;
+        line-height: 30px;
+        letter-spacing: -0.03em;
+      }
+    }
+    &-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 100%;
+
+      &__title {
+        margin-bottom: 20px;
         text-align: center;
         font-size: 30px;
         line-height: 30px;
@@ -421,9 +438,6 @@
     &__return {
       display: block;
     }
-    //&__current-user {
-    //  display: none;
-    //}
     &__main {
       &-list {
         flex-grow: 1;

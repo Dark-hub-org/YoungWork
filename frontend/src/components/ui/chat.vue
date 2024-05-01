@@ -18,48 +18,61 @@
         </div>
       </div>
       <div class="chat__main">
-        <div ref="users" class="chat__main-left">
-          <ul class="chat__main-list">
-            <li
-                v-for="item in chatsList"
-                :key="item.id"
-                @click="openDialog(item)"
-                :class="{'active': currentDialog.id === item.id}"
-                class="chat__main-list__item">
-              <div class="chat__main-list__wrapper">
-                <div class="chat__main-list__element">
-                  <span class="chat__main-list__new-massage">1</span>
-                  <button @click.stop="deleteChat(item.id)" class="chat__main-list__delete"></button>
+        <template v-if="chatsList.length">
+          <div ref="users" class="chat__main-left">
+            <ul class="chat__main-list">
+              <li
+                  v-for="item in chatsList"
+                  :key="item.id"
+                  @click="openDialog(item)"
+                  :class="{'active': currentDialog.id === item.id}"
+                  class="chat__main-list__item">
+                <div v-if="item.users.length" class="chat__main-list__wrapper">
+                  <div class="chat__main-list__element">
+                    <span class="chat__main-list__new-massage">1</span>
+                    <button @click.stop="deleteChat(item.id)" class="chat__main-list__delete"></button>
+                  </div>
+                  <img v-if="item.users[0].avatar !== null" class="chat__main-list__image" :src='"/img/" + item.users[0].avatar' alt="">
+                  <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
+                  <div class="chat__main-list__info">
+                    <p class="chat__main-list__name">{{item.users[0].first_name}}</p>
+                    <p class="chat__main-list__massage">{{item.massage}}</p>
+                  </div>
                 </div>
-                <img v-if="item.users[0].avatar !== null" class="chat__main-list__image" :src='"/img/" + item.users[0].avatar' alt="">
-                <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
-                <div class="chat__main-list__info">
-                  <p class="chat__main-list__name">{{item.users[0].first_name}}</p>
-                  <p class="chat__main-list__massage">{{item.massage}}</p>
+                <div v-else class="chat__main-list__wrapper">
+                  <div class="chat__main-list__element">
+                    <span class="chat__main-list__new-massage">1</span>
+                    <button @click.stop="deleteChat(item.id)" class="chat__main-list__delete"></button>
+                  </div>
+                  <img v-if="item.history[0].avatar !== null" class="chat__main-list__image" :src='"/img/" + item.history[0].avatar' alt="">
+                  <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
+                  <div class="chat__main-list__info">
+                    <p class="chat__main-list__name">{{item.history[0].first_name}}</p>
+                    <p class="chat__main-list__massage">{{item.massage}}</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div ref="dialog" class="chat__main-right">
+            <template v-if="currentDialog?.id">
+              <div class="chat__main-right__wrapper">
+                <div
+                    v-for="message in currentDialog.messages"
+                    :key="message.id"
+                    class="chat__main-massage-wrapper"
+                    :class="{'another': userData.id !== message.created_by.id}">
+                  <template v-if="userData.id !== message.created_by.id">
+                    <img v-if="message.created_by.avatar !== null" class="chat__main-massage__avatar" :src='"/img/" + message.created_by.avatar' alt="аватар">
+                    <img v-else class="chat__main-massage__avatar" src="@/assets/header/anonim-logo.svg" alt="анонимный аватар">
+                  </template>
+                  <div class="chat__main-massage">
+                    <p class="chat__main-massage__text">{{message.body}}</p>
+                    <p class="chat__main-massage__link">{{message.created_at}}</p>
+                  </div>
                 </div>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div ref="dialog" class="chat__main-right">
-          <template v-if="currentDialog?.id">
-            <div class="chat__main-right__wrapper">
-              <div
-                  v-for="message in currentDialog.messages"
-                  :key="message.id"
-                  class="chat__main-massage-wrapper"
-                  :class="{'another': userData.id !== message.created_by.id}">
-                <template v-if="userData.id !== message.created_by.id">
-                  <img v-if="message.created_by.avatar !== null" class="chat__main-massage__avatar" :src='"/img/" + message.created_by.avatar' alt="аватар">
-                  <img v-else class="chat__main-massage__avatar" src="@/assets/header/anonim-logo.svg" alt="анонимный аватар">
-                </template>
-                <div class="chat__main-massage">
-                  <p class="chat__main-massage__text">{{message.body}}</p>
-                  <p class="chat__main-massage__link">{{message.created_at}}</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat__main-send">
+              <div class="chat__main-send">
             <textarea
                 ref="send"
                 v-model="message"
@@ -69,14 +82,21 @@
                 class="chat__main-send__input"
                 placeholder="Введите ваше сообщение..." >
             </textarea>
-              <span v-if="message.length === 2000" class="chat__main-send__error">Максимальное количество символов</span>
-              <button @click="sendMessage(activeInterlocutor.id)" type="submit" class="chat__main-send__button"></button>
-            </div>
-          </template>
-          <template v-else>
-            <span class="chat__main-right__choice">Выберите чат, чтобы начать диалог</span>
-          </template>
-        </div>
+                <span v-if="message.length === 2000" class="chat__main-send__error">Максимальное количество символов</span>
+                <button @click="sendMessage(activeInterlocutor.id)" type="submit" class="chat__main-send__button"></button>
+              </div>
+            </template>
+            <template v-else>
+              <span class="chat__main-right__choice">Выберите чат, чтобы начать диалог</span>
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <div class="chat__main-empty">
+            <p class="chat__main-empty__title">Сообщений пока нет</p>
+            <a class="button-orange" href="/vacancy">Перейти к вакансиям</a>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -162,8 +182,13 @@ export default {
         this.$refs.send.style= '';
       }
     },
-    deleteChat(id) {
-      this.dialogList = this.dialogList.filter(item => item.id !== id)
+    async deleteChat(id) {
+      try {
+        await axios.delete(`/api/chat/${id}/remove/`)
+        this.chatsList = this.chatsList.filter(item => item.id !== id)
+      } catch (error) {
+        console.log(error)
+      }
     },
     returnDialog() {
       this.$refs.users.classList.remove('hide')
