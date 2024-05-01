@@ -16,25 +16,19 @@ def conversation_list(request):
 
     for conversation in conversations:
         users = conversation.users.exclude(id=request.user.id)
+        pk = conversation.id
+        conversation_last = Conversation.objects.filter(pk=pk).get()
+        message = conversation_last.messages.all()
         history = conversation.history.exclude(id=request.user.id)
+        last_message = message.first()
         serialized_data.append({
             'id': conversation.id,
             'users': UserChatSerializer(users, many=True).data,
             'history': UserChatSerializer(history, many=True).data,
+            'last_message': ConversationMessageSerializer(last_message).data if last_message else None,
         })
 
     return JsonResponse(serialized_data, safe=False)
-
-
-@api_view(['GET'])
-def last_message(request, pk):
-    conversation_last = Conversation.objects.filter(pk=pk).get()
-    message = conversation_last.messages.all()
-    last_message = message.first()
-
-    serialized = {'last_message': ConversationMessageSerializer(last_message).data if last_message else None}
-
-    return JsonResponse(serialized, safe=False)
 
 
 @api_view(['DELETE'])
