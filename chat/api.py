@@ -54,13 +54,13 @@ def conversation_detail(request, pk, user_id, usertype):
     conversation = Conversation.objects.filter(users=request.user).get(pk=pk)
 
     if usertype == "employer":
-        resume = Resume.objects.get(created_by=user_id)
+        resume = Resume.objects.filter(created_by=user_id).first()
         serialized_data = {
             'conversation': ConversationDetailSerializer(conversation).data,
             'resume': ResumeConDetailSerializer(resume).data
         }
     else:
-        vacancy = Vacancies.objects.get(created_by=user_id)
+        vacancy = Vacancies.objects.filter(created_by=user_id).first()
         serialized_data = {
             'conversation': ConversationDetailSerializer(conversation).data,
             'vacancy': VacancyConDetailSerializer(vacancy).data
