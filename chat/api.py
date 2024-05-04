@@ -51,20 +51,21 @@ def conversation_remove(request, pk):
 
 @api_view(['GET'])
 def conversation_detail(request, pk, user_id, usertype):
-    conversation = Conversation.objects.filter(users__in=list([request.user])).get(pk=pk)
-    serialized_data = []
+    conversation = Conversation.objects.filter(users=request.user).get(pk=pk)
+
     if usertype == "employer":
-        resume = Resume.objects.filter(created_by=user_id).first()
-        serialized_data.append({
+        resume = Resume.objects.get(created_by=user_id)
+        serialized_data = {
             'conversation': ConversationDetailSerializer(conversation).data,
-            'resume': ResumeConDetailSerializer(resume).data,
-        })
+            'resume': ResumeConDetailSerializer(resume).data
+        }
     else:
-        vacancy = Vacancies.objects.filter(created_by=user_id).first()
-        serialized_data.append({
+        vacancy = Vacancies.objects.get(created_by=user_id)
+        serialized_data = {
             'conversation': ConversationDetailSerializer(conversation).data,
-            'vacancy': VacancyConDetailSerializer(vacancy).data,
-        })
+            'vacancy': VacancyConDetailSerializer(vacancy).data
+        }
+
     return JsonResponse(serialized_data, safe=False)
 
 
