@@ -13,7 +13,7 @@
             <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
             <div class="chat__current-user-data">
               <p class="chat__current-user-name">{{activeInterlocutor.users[0].first_name}}</p>
-              <a href="#" class="chat__current-user-link">Дизайнер UI/UX</a>
+<!--              <a href="#" class="chat__current-user-link">Дизайнер UI/UX</a>-->
               <p class="chat__current-user-visit">Последний визит: {{activeInterlocutor.users[0].last_login}}</p>
             </div>
           </template>
@@ -22,7 +22,7 @@
             <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
             <div class="chat__current-user-data">
               <p class="chat__current-user-name">{{activeInterlocutor.history[0].first_name}}</p>
-              <a href="#" class="chat__current-user-link">Дизайнер UI/UX</a>
+<!--              <a href="#" class="chat__current-user-link">Дизайнер UI/UX</a>-->
               <p class="chat__current-user-visit">Последний визит: {{activeInterlocutor.history[0].last_login}}</p>
             </div>
           </template>
@@ -54,11 +54,20 @@
                   <div class="chat__main-list__info">
                     <template v-if="item.users.length">
                       <p class="chat__main-list__name">{{item.users[0].first_name}}</p>
-                      <p class="chat__main-list__massage">{{item.massage}}</p>
+                      <p class="chat__main-list__massage">
+                        <template v-if="item.last_message.created_by.id === userData.id">
+                          Вы:
+                        </template>
+                        {{item.last_message.body}}</p>
                     </template>
                     <template v-else>
                       <p class="chat__main-list__name">{{item.history[0].first_name}}</p>
-                      <p class="chat__main-list__massage">{{item.massage}}</p>
+                      <p class="chat__main-list__massage">
+                        <template v-if="item.last_message.created_by.id ===userData.id">
+                          Вы:
+                        </template>
+                        {{item.last_message.body}}
+                      </p>
                     </template>
                   </div>
                 </div>
@@ -137,6 +146,7 @@ export default {
       activeInterlocutor: null,
       chatsList: [],
       currentDialog: [],
+      lastMessages: '',
     }
   },
   methods: {
@@ -158,14 +168,16 @@ export default {
     },
     async openDialog(user) {
       try {
-        const chat = await axios.get(`/api/chat/${user.id}`)
-        chat.data.messages = chat.data.messages.reverse()
-        this.currentDialog = chat.data
-        this.activeInterlocutor = user
-        if(window.innerWidth <= 769) {
-          this.$refs.users.classList.add('hide')
-          this.$refs.dialog.classList.add('visible')
-          this.$refs.title.style.display = "none";
+        if(this.currentDialog?.id !== user.id) {
+          const chat = await axios.get(`/api/chat/${user.id}`)
+          chat.data.messages = chat.data.messages.reverse()
+          this.currentDialog = chat.data
+          this.activeInterlocutor = user
+          if(window.innerWidth <= 769) {
+            this.$refs.users.classList.add('hide')
+            this.$refs.dialog.classList.add('visible')
+            this.$refs.title.style.display = "none";
+          }
         }
       } catch (error) {
         console.log(error)
@@ -217,7 +229,7 @@ export default {
   computed: {
     userData() {
       return this.$store.state.userData
-    }
+    },
   },
   watch: {
     message() {
@@ -247,7 +259,9 @@ export default {
   },
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
-    this.getChats()
+    if(localStorage.getItem('isAuthorization') !== null) {
+      this.getChats()
+    }
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleClickOutside);
