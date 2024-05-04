@@ -64,7 +64,9 @@ export default {
   },
 
   mounted() {
-    this.getNotifications()
+    if(localStorage.getItem('isAuthorization') !== null) {
+      this.getNotifications()
+    }
     document.addEventListener('click', this.closeOnOutsideClick);
   },
   beforeDestroy() {
