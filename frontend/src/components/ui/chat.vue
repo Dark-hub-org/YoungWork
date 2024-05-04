@@ -7,14 +7,31 @@
       <template v-if="!isLoader">
         <div class="chat__top">
           <span ref="title" class="chat__title">Чат</span>
-          <div v-if="currentDialog?.id" ref="currentUser" class="chat__current-user">
+          <div v-if="currentDialog?.conversation?.id" ref="currentUser" class="chat__current-user">
             <button @click.stop="returnDialog()" class="chat__return"></button>
             <template v-if="activeInterlocutor.users.length">
               <img v-if="activeInterlocutor.users[0].avatar !== null" class="chat__current-user-img" :src='"/img/" + activeInterlocutor.users[0].avatar' alt="">
               <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
               <div class="chat__current-user-data">
                 <p class="chat__current-user-name">{{activeInterlocutor.users[0].first_name}}</p>
-                <!--              <a href="#" class="chat__current-user-link">Дизайнер UI/UX</a>-->
+                <template v-if="currentDialog.vacancy">
+                  <router-link
+                      :to="{ name: 'vacancy', params: { id: currentDialog.vacancy.id} }"
+                      tag="a"
+                      target="_blank"
+                      class="chat__current-user-link">
+                      {{currentDialog.vacancy.job_title}}
+                  </router-link>
+                </template>
+                <template v-else>
+                  <router-link
+                      :to="{ name: 'resume', params: { id: currentDialog.resume.id} }"
+                      tag="a"
+                      target="_blank"
+                      class="chat__current-user-link">
+                      {{currentDialog.resume.resume_title}}
+                  </router-link>
+                </template>
                 <p class="chat__current-user-visit">Последний визит: {{activeInterlocutor.users[0].last_login}}</p>
               </div>
             </template>
@@ -23,7 +40,6 @@
               <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
               <div class="chat__current-user-data">
                 <p class="chat__current-user-name">{{activeInterlocutor.history[0].first_name}}</p>
-                <!--              <a href="#" class="chat__current-user-link">Дизайнер UI/UX</a>-->
                 <p class="chat__current-user-visit">Последний визит: {{activeInterlocutor.history[0].last_login}}</p>
               </div>
             </template>
@@ -56,15 +72,15 @@
                       <template v-if="item.users.length">
                         <p class="chat__main-list__name">{{item.users[0].first_name}}</p>
                         <p class="chat__main-list__massage">
-                          <template v-if="item.last_message.created_by.id === userData.id">
+                          <template v-if="item.last_message?.created_by.id === userData.id">
                             Вы:
                           </template>
-                          {{item.last_message.body}}</p>
+                          {{item.last_message?.body}}</p>
                       </template>
                       <template v-else>
                         <p class="chat__main-list__name">{{item.history[0].first_name}}</p>
                         <p class="chat__main-list__massage">
-                          <template v-if="item.last_message.created_by.id ===userData.id">
+                          <template v-if="item.last_message?.created_by.id ===userData.id">
                             Вы:
                           </template>
                           {{item.last_message.body}}
@@ -76,11 +92,11 @@
               </ul>
             </div>
             <div ref="dialog" class="chat__main-right">
-              <template v-if="currentDialog?.id">
+              <template v-if="currentDialog?.conversation?.id">
                 <div class="chat__main-right__wrapper">
                   <p v-if="!activeInterlocutor.users.length" class="chat__main-massage__leave">Работодатель вышел из чата</p>
                   <div
-                      v-for="message in currentDialog.messages"
+                      v-for="message in currentDialog.conversation.messages"
                       :key="message.id"
                       class="chat__main-massage-wrapper"
                       :class="{'another': userData.id !== message.created_by.id}">
@@ -101,13 +117,13 @@
                 v-model="message"
                 @input="autoResize"
                 @blur="resetStyle"
-                @keydown.enter="sendMessage(activeInterlocutor.id, $event)"
+                @keydown.enter="sendMessage(activeInterlocutor.id, activeInterlocutor.users[0], $event)"
                 class="chat__main-send__input"
                 :class="{'disabled': !activeInterlocutor.users.length}"
                 placeholder="Введите ваше сообщение..." >
             </textarea>
                   <span v-if="message.length === 2000" class="chat__main-send__error">Максимальное количество символов</span>
-                  <button @click="sendMessage(activeInterlocutor.id, $event)" type="submit" class="chat__main-send__button"></button>
+                  <button @click="sendMessage(activeInterlocutor.id, activeInterlocutor.users[0], $event)" type="submit" class="chat__main-send__button"></button>
                 </div>
               </template>
               <template v-else>
@@ -124,7 +140,9 @@
         </div>
       </template>
       <template v-else>
-        <div class="chat__loader"></div>
+        <div class="chat__loader">
+          <div class="chat__loader-spinner"></div>
+        </div>
       </template>
     </div>
   </div>
@@ -159,7 +177,7 @@ export default {
   methods: {
     closeChat() {
       this.$emit('close-chat')
-      this.isLoader = true
+      // this.isLoader = true
     },
     handleClickOutside(event) {
       if (this.isVisible && !this.$refs.chat.contains(event.target) && !this.chatButton.contains(event.target)) {
@@ -181,9 +199,8 @@ export default {
       try {
         if(this.currentDialog?.id !== user.id) {
           const chat = await axios.get(`/api/chat/${user.id}/${user.users[0].id}/${ this.userData.usertype}/`)
-          console.log(chat.data)
           chat.data.conversation.messages = chat.data.conversation.messages.reverse()
-          this.currentDialog = chat.data.conversation
+          this.currentDialog = chat.data
           this.activeInterlocutor = user
           if(window.innerWidth <= 769) {
             this.$refs.users.classList.add('hide')
@@ -195,13 +212,13 @@ export default {
         console.log(error)
       }
     },
-    async sendMessage(id, event) {
+    async sendMessage(id, user, event) {
       try {
         if(this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
           event.preventDefault()
           await axios.post(`/api/chat/${id}/send/`, {body: this.message})
-          const chat = await axios.get(`/api/chat/${id}`)
-          chat.data.messages = chat.data.messages.reverse()
+          const chat = await axios.get(`/api/chat/${id}/${user.id}/${ this.userData.usertype}/`)
+          chat.data.conversation.messages = chat.data.conversation.messages.reverse()
           this.currentDialog = chat.data
           this.message = ''
           this.resetStyle()
