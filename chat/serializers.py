@@ -3,6 +3,8 @@ from rest_framework import serializers
 from accounts.serializers import UserChatSerializer
 
 from .models import Conversation, ConversationMessage
+from jobs.models import Vacancies
+from resume.models import Resume
 
 
 class ConversationSerializer(serializers.ModelSerializer):
@@ -34,3 +36,15 @@ class ConversationDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conversation
         fields = ('id', 'users', 'created_at', 'messages',)
+
+
+class ResumeConDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resume
+        fields = ('id', 'resume_title',)
+
+
+class VacancyConDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vacancies
+        fields = ('id', 'job_title',)

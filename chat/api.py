@@ -1,12 +1,14 @@
 from django.http import JsonResponse
 from rest_framework.response import Response
-
-from rest_framework.decorators import api_view, permission_classes
+from jobs.models import Vacancies
+from resume.models import Resume
+from rest_framework.decorators import api_view
 
 from accounts.models import User
 
 from .models import Conversation, ConversationMessage
-from .serializers import UserChatSerializer, ConversationDetailSerializer, ConversationMessageSerializer
+from .serializers import UserChatSerializer, ConversationDetailSerializer, ConversationMessageSerializer, \
+    VacancyConDetailSerializer, ResumeConDetailSerializer
 
 
 @api_view(['GET'])
@@ -20,7 +22,7 @@ def conversation_list(request):
         conversation_last = Conversation.objects.filter(pk=pk).get()
         message = conversation_last.messages.all()
         history = conversation.history.exclude(id=request.user.id)
-        last_message = message.order_by('-created_at').first()  # Сортировка по дате создания
+        last_message = message.order_by('-created_at').first()
         serialized_data.append({
             'id': conversation.id,
             'users': UserChatSerializer(users, many=True).data,
@@ -47,12 +49,23 @@ def conversation_remove(request, pk):
         return Response({"success": False, "message": f"Произошла ошибка: {str(e)}"})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def conversation_detail(request, pk):
     conversation = Conversation.objects.filter(users__in=list([request.user])).get(pk=pk)
-    serializer = ConversationDetailSerializer(conversation)
-
-    return JsonResponse(serializer.data, safe=False)
+    serialized_data = []
+    if request.data.get('usertype') == "employer":
+        resume = Resume.objects.filter(created_by=request.data.get('user_id')).first()
+        serialized_data.append({
+            'conversation': ConversationDetailSerializer(conversation).data,
+            'resume': ResumeConDetailSerializer(resume).data,
+        })
+    else:
+        vacancy = Vacancies.objects.filter(created_by=request.data.get('user_id')).first()
+        serialized_data.append({
+            'conversation': ConversationDetailSerializer(conversation).data,
+            'vacancy': VacancyConDetailSerializer(vacancy).data,
+        })
+    return JsonResponse(serialized_data, safe=False)
 
 
 @api_view(['GET'])
