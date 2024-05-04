@@ -49,18 +49,18 @@ def conversation_remove(request, pk):
         return Response({"success": False, "message": f"Произошла ошибка: {str(e)}"})
 
 
-@api_view(['POST'])
-def conversation_detail(request, pk):
+@api_view(['GET'])
+def conversation_detail(request, pk, user_id, usertype):
     conversation = Conversation.objects.filter(users__in=list([request.user])).get(pk=pk)
     serialized_data = []
-    if request.data.get('usertype') == "employer":
-        resume = Resume.objects.filter(created_by=request.data.get('user_id')).first()
+    if usertype == "employer":
+        resume = Resume.objects.filter(created_by=user_id).first()
         serialized_data.append({
             'conversation': ConversationDetailSerializer(conversation).data,
             'resume': ResumeConDetailSerializer(resume).data,
         })
     else:
-        vacancy = Vacancies.objects.filter(created_by=request.data.get('user_id')).first()
+        vacancy = Vacancies.objects.filter(created_by=user_id).first()
         serialized_data.append({
             'conversation': ConversationDetailSerializer(conversation).data,
             'vacancy': VacancyConDetailSerializer(vacancy).data,
