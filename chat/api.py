@@ -20,7 +20,7 @@ def conversation_list(request):
         conversation_last = Conversation.objects.filter(pk=pk).get()
         message = conversation_last.messages.all()
         history = conversation.history.exclude(id=request.user.id)
-        last_message = message.first()
+        last_message = message.order_by('-created_at').first()  # Сортировка по дате создания
         serialized_data.append({
             'id': conversation.id,
             'users': UserChatSerializer(users, many=True).data,
