@@ -1,12 +1,12 @@
 <template>
   <section class="constructor">
     <div class="wrapper constructor-wrapper">
-<!--      <div ref="banner" class="dropzone constructor__banner">-->
-<!--        <div class="constructor__banner-wrapper">-->
-<!--          <p class="constructor__banner-title">Загрузите тизер</p>-->
-<!--          <div class="constructor__banner-cross"></div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div ref="banner" class="dropzone constructor__banner">-->
+      <!--        <div class="constructor__banner-wrapper">-->
+      <!--          <p class="constructor__banner-title">Загрузите тизер</p>-->
+      <!--          <div class="constructor__banner-cross"></div>-->
+      <!--        </div>-->
+      <!--      </div>-->
       <h2 class="constructor__title">Создание вакансии</h2>
       <form class="constructor__form">
         <div class="constructor__form-block">
@@ -287,8 +287,6 @@
 import axios from "axios";
 import Vue from 'vue';
 
-import {Dropzone} from "dropzone";
-
 Vue.directive('restrict-input-length', {
   bind(el, binding) {
     el.addEventListener('input', (event) => {
@@ -414,40 +412,9 @@ export default {
     },
   },
   mounted() {
-    this.dropzone = new Dropzone(this.$refs.banner, {
-      url: "/api/vacancy/upload_preview/",
-      method: 'post',
-      maxFiles: 1,
-      maxFilesize: 3,
-      addRemoveLinks: true,
-      paramName: "logo",
-      sending: (file, xhr, formData) => {
-        formData.append("email", this.userData.email);
-        formData.append("usertype", this.userData.usertype);
-      },
-    })
   }
 }
 </script>
 <style src="@/style/create.scss" lang="scss" scoped>
-
-</style>
-<style>
-
-.dropzone.constructor__banner {
-  .dz-preview {
-    & .dz-remove {
-      width: 50px;
-      height: 50px;
-      background-size: cover;
-    }
-
-    .dz-image {
-      img {
-        object-fit: fill;
-      }
-    }
-  }
-}
 
 </style>

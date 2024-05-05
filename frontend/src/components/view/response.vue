@@ -94,8 +94,8 @@
             </div>
             <div class="response__item-bottom">
               <button
-                  v-if="response.response.result !== 'accepted_response'"
-                  @click="SendInvitation(response.id, response.response.id, response.resume.id)"
+                  v-if="response.response.result === 'new_response'"
+                  @click="SendInvitation(response)"
                   type="button"
                   class="button-orange-another response__item-response">Пригласить на интервью
               </button>
@@ -162,12 +162,20 @@ export default {
         console.log(isFavorite)
       })
     },
-    async SendInvitation(applicantId, id, resumeId) {
+    async SendInvitation(response) {
       try {
-        await axios.get(`/api/chat/${applicantId}/get-or-create/`)
-        await axios.patch('/api/accept/', {vacancy_response: id, resume: resumeId, result: 'accepted_response',})
+        await axios.get(`/api/chat/${response.id}/get-or-create/`)
+        await axios.patch('/api/accept/', {vacancy_response: response.response.id, resume: response.resume.id, result: 'accepted_response',})
+        this.responseUser = this.responseUser.map(item => {
+          if (item.id === response.id) {
+            return { ...item, response: { ...item.response, result: 'accepted_response' } };
+          } else {
+            return item;
+          }
+        });
+        console.log(response)
       } catch (error) {
-        console.log(applicantId)
+        console.log(response)
         console.log(error)
       }
     },

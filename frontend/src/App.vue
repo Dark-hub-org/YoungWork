@@ -19,6 +19,7 @@ export default {
   name: 'App',
   data() {
     return {
+      connection: null,
     }
   },
   methods: {
