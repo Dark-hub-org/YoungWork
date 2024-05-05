@@ -112,3 +112,11 @@ def conversation_send_message(request, pk):
     serializer = ConversationMessageSerializer(conversation_message)
 
     return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['PATCH'])
+def read_message(request):
+    conversation_id = request.data.get('pk')
+    ConversationMessage.objects.filter(conversation=conversation_id).update(is_read=True)
+
+    return JsonResponse({'message': 'message read'})
