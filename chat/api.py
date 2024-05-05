@@ -23,11 +23,13 @@ def conversation_list(request):
         message = conversation_last.messages.all()
         history = conversation.history.exclude(id=request.user.id)
         last_message = message.order_by('-created_at').first()
+        unread_count = message.filter(is_read=False).count()
         serialized_data.append({
             'id': conversation.id,
             'users': UserChatSerializer(users, many=True).data,
             'history': UserChatSerializer(history, many=True).data,
             'last_message': ConversationMessageSerializer(last_message).data if last_message else None,
+            'unread_count': unread_count,
         })
 
     return JsonResponse(serialized_data, safe=False)
