@@ -6,12 +6,17 @@ import store from './store'
 import axios from 'axios'
 import CKEditor from 'ckeditor4-vue';
 import VueMaskedInput from 'vue-masked-input'
+// import io from 'socket.io-client';
 
 axios.defaults.baseUrl = "http://127.0.0.1:8080"
 
 Vue.config.productionTip = false
 Vue.component('vue-masked-input', VueMaskedInput)
 Vue.use( CKEditor );
+
+// const socket = io('http://127.0.0.1:8080');
+//
+// Vue.prototype.$socket = socket;
 
 new Vue({
     router,

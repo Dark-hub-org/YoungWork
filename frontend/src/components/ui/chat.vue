@@ -57,7 +57,7 @@
                     class="chat__main-list__item">
                   <div class="chat__main-list__wrapper">
                     <div class="chat__main-list__element">
-                      <span class="chat__main-list__new-massage">1</span>
+<!--                      <span v-if="item.unread_count" class="chat__main-list__new-massage">{{item.unread_count}}</span>-->
                       <button v-if="userData.usertype === 'employer'" @click.stop="deleteChat(item.id)" class="chat__main-list__delete"></button>
                     </div>
                     <template v-if="item.users.length">
@@ -197,9 +197,9 @@ export default {
     },
     async openDialog(user) {
       try {
-        if(this.currentDialog?.id !== user.id) {
+        if(this.currentDialog.conversation?.id !== user.id) {
           const chat = await axios.get(`/api/chat/${user.id}/${user.users[0].id}/${ this.userData.usertype}/`)
-          chat.data.conversation.messages = chat.data.conversation.messages.reverse()
+          this.readItMessage(chat.data.conversation.messages)
           this.currentDialog = chat.data
           this.activeInterlocutor = user
           if(window.innerWidth <= 769) {
@@ -211,6 +211,14 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    async readItMessage(messages) {
+      try {
+        return messages.map(item => item.is_read = true).reverse()
+      } catch (error) {
+        console.log(error)
+      }
+
     },
     async sendMessage(id, user, event) {
       try {

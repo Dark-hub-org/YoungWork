@@ -22,7 +22,7 @@
   }
 
   &__close {
-    z-index: 2cd ;
+    z-index: 2;
     position: absolute;
     top: 20px;
     right: 20px;
@@ -224,7 +224,8 @@
       }
 
       &__image {
-        min-width: 75px;
+        width: 100%;
+        max-width: 75px;
         height: 75px;
         object-fit: cover;
         border-radius: 50%;
@@ -525,7 +526,7 @@
     &__main {
       &-list {
         &__image {
-          min-width: 60px;
+          max-width: 60px;
           height: 60px;
         }
       }
