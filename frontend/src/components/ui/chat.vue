@@ -309,7 +309,10 @@ export default {
     }
   },
   created() {
-    this.socket = new WebSocket('ws://localhost:8080/wss/?token=' + [localStorage.getItem('access')]);
+    this.socket = new WebSocket('ws://127.0.0.1:8080/ws');
+    this.socket.onopen = function () {
+      console.log('1212')
+    }
   },
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
