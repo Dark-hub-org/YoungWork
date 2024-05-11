@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'notification',
     'favorites',
     'response',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,17 @@ TEMPLATES = [
     },
 ]
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 WSGI_APPLICATION = 'backend.wsgi.application'
+ASGI_APPLICATION = 'backend.asgi.application'
 
 DATABASES = {
     'default': {
