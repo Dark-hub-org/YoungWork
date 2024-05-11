@@ -6,7 +6,7 @@
       </button>
       <template v-if="!isLoader">
         <div class="chat__top">
-          <span ref="title" class="chat__title">Чат</span>
+          <span @click="getUser" ref="title" class="chat__title">Чат</span>
           <div v-if="currentDialog?.conversation?.id" ref="currentUser" class="chat__current-user">
             <button @click.stop="returnDialog()" class="chat__return"></button>
             <template v-if="activeInterlocutor.users.length">
@@ -271,7 +271,7 @@ export default {
       this.currentDialog = []
     },
     getUser() {
-      this.WebSocket.send(JSON.stringify({
+      this.socket.send(JSON.stringify({
         action: "list",
         request_id: new Date().getTime()
       }))
@@ -281,6 +281,9 @@ export default {
     userData() {
       return this.$store.state.userData
     },
+    userToken() {
+      return localStorage.getItem('access')
+    }
   },
   watch: {
     message() {
@@ -309,7 +312,7 @@ export default {
     }
   },
   created() {
-    this.socket = new WebSocket('ws://127.0.0.1:8080/ws');
+    this.socket = new WebSocket('ws://127.0.0.1:8080/ws' + this.userToken);
     this.socket.onopen = function () {
       console.log('1212')
     }
