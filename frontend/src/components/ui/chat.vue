@@ -10,17 +10,18 @@
           <div v-if="currentDialog?.conversation?.id" ref="currentUser" class="chat__current-user">
             <button @click.stop="returnDialog()" class="chat__return"></button>
             <template v-if="activeInterlocutor.users.length">
-              <img v-if="activeInterlocutor.users[0].avatar !== null" class="chat__current-user-img" :src='"/img/" + activeInterlocutor.users[0].avatar' alt="">
+              <img v-if="activeInterlocutor.users[0].avatar !== null" class="chat__current-user-img"
+                   :src='"/img/" + activeInterlocutor.users[0].avatar' alt="">
               <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
               <div class="chat__current-user-data">
-                <p class="chat__current-user-name">{{activeInterlocutor.users[0].first_name}}</p>
+                <p class="chat__current-user-name">{{ activeInterlocutor.users[0].first_name }}</p>
                 <template v-if="currentDialog.vacancy">
                   <router-link
                       :to="{ name: 'vacancy', params: { id: currentDialog.vacancy.id} }"
                       tag="a"
                       target="_blank"
                       class="chat__current-user-link">
-                      {{currentDialog.vacancy.job_title}}
+                    {{ currentDialog.vacancy.job_title }}
                   </router-link>
                 </template>
                 <template v-else>
@@ -29,18 +30,19 @@
                       tag="a"
                       target="_blank"
                       class="chat__current-user-link">
-                      {{currentDialog.resume.resume_title}}
+                    {{ currentDialog.resume.resume_title }}
                   </router-link>
                 </template>
-                <p class="chat__current-user-visit">Последний визит: {{activeInterlocutor.users[0].last_login}}</p>
+                <p class="chat__current-user-visit">Последний визит: {{ activeInterlocutor.users[0].last_login }}</p>
               </div>
             </template>
             <template v-else>
-              <img v-if="activeInterlocutor.history[0].avatar !== null" class="chat__current-user-img" :src='"/img/" + activeInterlocutor.history[0].avatar' alt="">
+              <img v-if="activeInterlocutor.history[0].avatar !== null" class="chat__current-user-img"
+                   :src='"/img/" + activeInterlocutor.history[0].avatar' alt="">
               <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
               <div class="chat__current-user-data">
-                <p class="chat__current-user-name">{{activeInterlocutor.history[0].first_name}}</p>
-                <p class="chat__current-user-visit">Последний визит: {{activeInterlocutor.history[0].last_login}}</p>
+                <p class="chat__current-user-name">{{ activeInterlocutor.history[0].first_name }}</p>
+                <p class="chat__current-user-visit">Последний визит: {{ activeInterlocutor.history[0].last_login }}</p>
               </div>
             </template>
           </div>
@@ -57,33 +59,37 @@
                     class="chat__main-list__item">
                   <div class="chat__main-list__wrapper">
                     <div class="chat__main-list__element">
-<!--                      <span v-if="item.unread_count" class="chat__main-list__new-massage">{{item.unread_count}}</span>-->
-                      <button v-if="userData.usertype === 'employer'" @click.stop="deleteChat(item.id)" class="chat__main-list__delete"></button>
+                      <!--                      <span v-if="item.unread_count" class="chat__main-list__new-massage">{{item.unread_count}}</span>-->
+                      <button v-if="userData.usertype === 'employer'" @click.stop="deleteChat(item.id)"
+                              class="chat__main-list__delete"></button>
                     </div>
                     <template v-if="item.users.length">
-                      <img v-if="item.users[0].avatar !== null" class="chat__main-list__image" :src='"/img/" + item.users[0].avatar' alt="">
+                      <img v-if="item.users[0].avatar !== null" class="chat__main-list__image"
+                           :src='"/img/" + item.users[0].avatar' alt="">
                       <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
                     </template>
                     <template v-else>
-                      <img v-if="item.history[0].avatar !== null" class="chat__main-list__image" :src='"/img/" + item.history[0].avatar' alt="">
+                      <img v-if="item.history[0].avatar !== null" class="chat__main-list__image"
+                           :src='"/img/" + item.history[0].avatar' alt="">
                       <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
                     </template>
                     <div class="chat__main-list__info">
                       <template v-if="item.users.length">
-                        <p class="chat__main-list__name">{{item.users[0].first_name}}</p>
+                        <p class="chat__main-list__name">{{ item.users[0].first_name }}</p>
                         <p class="chat__main-list__massage">
                           <template v-if="item.last_message?.created_by.id === userData.id">
                             Вы:
                           </template>
-                          {{item.last_message?.body}}</p>
+                          {{ item.last_message?.body }}
+                        </p>
                       </template>
                       <template v-else>
-                        <p class="chat__main-list__name">{{item.history[0].first_name}}</p>
+                        <p class="chat__main-list__name">{{ item.history[0].first_name }}</p>
                         <p class="chat__main-list__massage">
                           <template v-if="item.last_message?.created_by.id ===userData.id">
                             Вы:
                           </template>
-                          {{item.last_message.body}}
+                          {{ item.last_message.body }}
                         </p>
                       </template>
                     </div>
@@ -94,19 +100,22 @@
             <div ref="dialog" class="chat__main-right">
               <template v-if="currentDialog?.conversation?.id">
                 <div class="chat__main-right__wrapper">
-                  <p v-if="!activeInterlocutor.users.length" class="chat__main-massage__leave">Работодатель вышел из чата</p>
+                  <p v-if="!activeInterlocutor.users.length" class="chat__main-massage__leave">Работодатель вышел из
+                    чата</p>
                   <div
                       v-for="message in currentDialog.conversation.messages"
                       :key="message.id"
                       class="chat__main-massage-wrapper"
                       :class="{'another': userData.id !== message.created_by.id}">
                     <template v-if="userData.id !== message.created_by.id">
-                      <img v-if="message.created_by.avatar !== null" class="chat__main-massage__avatar" :src='"/img/" + message.created_by.avatar' alt="аватар">
-                      <img v-else class="chat__main-massage__avatar" src="@/assets/header/anonim-logo.svg" alt="анонимный аватар">
+                      <img v-if="message.created_by.avatar !== null" class="chat__main-massage__avatar"
+                           :src='"/img/" + message.created_by.avatar' alt="аватар">
+                      <img v-else class="chat__main-massage__avatar" src="@/assets/header/anonim-logo.svg"
+                           alt="анонимный аватар">
                     </template>
                     <div class="chat__main-massage">
-                      <p class="chat__main-massage__text">{{message.body}}</p>
-                      <p class="chat__main-massage__link">{{message.created_at}}</p>
+                      <p class="chat__main-massage__text">{{ message.body }}</p>
+                      <p class="chat__main-massage__link">{{ message.created_at }}</p>
                     </div>
                   </div>
                 </div>
@@ -119,10 +128,12 @@
                 @keydown.enter="sendMessage(activeInterlocutor.id, activeInterlocutor.users[0], $event)"
                 class="chat__main-send__input"
                 :class="{'disabled': !activeInterlocutor.users.length}"
-                placeholder="Введите ваше сообщение..." >
+                placeholder="Введите ваше сообщение...">
             </textarea>
-                  <span v-if="message.length === 2000" class="chat__main-send__error">Максимальное количество символов</span>
-                  <button @click="sendMessage(activeInterlocutor.id, activeInterlocutor.users[0], $event)" type="submit" class="chat__main-send__button"></button>
+                  <span v-if="message.length === 2000"
+                        class="chat__main-send__error">Максимальное количество символов</span>
+                  <button @click="sendMessage(activeInterlocutor.id, activeInterlocutor.users[0], $event)" type="submit"
+                          class="chat__main-send__button"></button>
                 </div>
               </template>
               <template v-else>
@@ -156,7 +167,7 @@ export default {
       default: false,
     },
     chatButton: {
-      type: HTMLButtonElement ,
+      type: HTMLButtonElement,
       required: false,
     },
   },
@@ -184,7 +195,7 @@ export default {
     },
     async getChats() {
       try {
-        if(this.isVisible) {
+        if (this.isVisible) {
           const response = await axios.get('/api/chat/can')
           this.chatsList = response.data
           this.isLoader = false
@@ -195,12 +206,12 @@ export default {
     },
     async openDialog(user) {
       try {
-        if(this.currentDialog.conversation?.id !== user.id) {
-          const chat = await axios.get(`/api/chat/${user.id}/${user.users[0].id}/${ this.userData.usertype}/`)
+        if (this.currentDialog.conversation?.id !== user.id) {
+          const chat = await axios.get(`/api/chat/${user.id}/${user.users[0].id}/${this.userData.usertype}/`)
           this.readItMessage(chat.data.conversation.messages)
           this.currentDialog = chat.data
           this.activeInterlocutor = user
-          if(window.innerWidth <= 769) {
+          if (window.innerWidth <= 769) {
             this.$refs.users.classList.add('hide')
             this.$refs.dialog.classList.add('visible')
             this.$refs.title.style.display = "none";
@@ -220,10 +231,10 @@ export default {
     },
     async sendMessage(id, user, event) {
       try {
-        if(this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
+        if (this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
           event.preventDefault()
           await axios.post(`/api/chat/${id}/send/`, {body: this.message})
-          const chat = await axios.get(`/api/chat/${id}/${user.id}/${ this.userData.usertype}/`)
+          const chat = await axios.get(`/api/chat/${id}/${user.id}/${this.userData.usertype}/`)
           chat.data.conversation.messages = chat.data.conversation.messages.reverse()
           this.currentDialog = chat.data
           this.message = ''
@@ -239,8 +250,8 @@ export default {
       this.$refs.send.scrollTop = 0;
     },
     resetStyle() {
-      if(!this.message.length) {
-        this.$refs.send.style= '';
+      if (!this.message.length) {
+        this.$refs.send.style = '';
       }
     },
     async deleteChat(id) {
@@ -273,13 +284,13 @@ export default {
   },
   watch: {
     message() {
-      if(this.message.length >= 2000) {
+      if (this.message.length >= 2000) {
         this.message = this.message.slice(0, 2000)
       }
     },
     isVisible: {
       handler(val) {
-        if(window.innerWidth <= 769) {
+        if (window.innerWidth <= 769) {
           if (val) {
             document.body.style.overflow = 'hidden'
             document.body.classList.add('manual-overflow-padding')
@@ -298,12 +309,12 @@ export default {
     }
   },
   created() {
-    this.socket = new WebSocket('ws://127.0.0.1:8000/');
+    this.socket = new WebSocket('ws://localhost:8080/wss/?token=' + [localStorage.getItem('access')]);
   },
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
-    if(localStorage.getItem('isAuthorization'))
-    this.intervalChat = setInterval(this.getChats, 1000)
+    if (localStorage.getItem('isAuthorization'))
+      this.intervalChat = setInterval(this.getChats, 1000)
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleClickOutside);
