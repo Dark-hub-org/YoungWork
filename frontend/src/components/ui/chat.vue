@@ -271,7 +271,7 @@ export default {
       this.currentDialog = []
     },
     getUser() {
-      this.socket.send(JSON.stringify({
+      this.$socket.send(JSON.stringify({
         action: "list",
         request_id: new Date().getTime()
       }))
@@ -312,10 +312,14 @@ export default {
     }
   },
   created() {
-    this.socket = new WebSocket('ws://127.0.0.1:8080/ws/?token=' + this.userToken);
-    this.socket.onopen = function () {
-      console.log('1212')
-    }
+    // this.socket = new WebSocket('ws://127.0.0.1:8080/ws/?token=' + this.userToken);
+    // this.socket.onopen = function () {
+    //   console.log('1212')
+    // }
+    this.$socket.onopen = () => {
+      console.log('WebSocket connected!');
+    };
+
   },
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
