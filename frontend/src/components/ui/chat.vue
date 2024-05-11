@@ -312,7 +312,7 @@ export default {
     }
   },
   created() {
-    this.socket = new WebSocket('ws://127.0.0.1:8080/ws' + this.userToken);
+    this.socket = new WebSocket('ws://127.0.0.1:8080/ws/?token=' + this.userToken);
     this.socket.onopen = function () {
       console.log('1212')
     }
