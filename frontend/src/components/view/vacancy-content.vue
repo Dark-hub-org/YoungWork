@@ -30,11 +30,11 @@
               @filter-vacancy="fetchVacancies"
               class="vacancy__filters">
           </the-filters>
-          <div class="vacancy__list" :class="{hidden: isFilterVisible}">
+          <div v-if="!isLoader" class="vacancy__list" :class="{hidden: isFilterVisible}">
             <div
-                class="vacancy__item"
                 v-for="vacancy in vacancies"
-                :key="vacancy.id">
+                :key="vacancy.id"
+                class="vacancy__item">
               <div class="vacancy__item-header">
                 <div class="vacancy__item-content">
                   <router-link
@@ -102,6 +102,7 @@
                 :next-class="'vacancy__pagination-next'">
             </paginate>
           </div>
+          <the-loader :is-visible="isLoader" class="vacancy__list-loader"></the-loader>
         </div>
       </div>
     </section>
@@ -160,10 +161,11 @@ import Paginate from 'vuejs-paginate'
 import axios from "axios";
 import TheHeading from "@/components/ui/heading.vue";
 import TheSearch from "@/components/ui/searchInput.vue";
+import TheLoader from "@/components/ui/loader.vue";
 
 export default {
   name: 'vacancy-content',
-  components: {TheSearch, TheHeading, TheFilters, Paginate},
+  components: {TheLoader, TheSearch, TheHeading, TheFilters, Paginate},
 
   data() {
     return {
@@ -174,6 +176,7 @@ export default {
       currentPage: 1,
       pageQuantityMax: 10,
       requestValue: '',
+      isLoader: true,
     }
   },
   methods: {
@@ -206,6 +209,7 @@ export default {
         } else {
           this.vacancies = response.data.results
         }
+        this.isLoader = false
         this.quantityVacancies = response.data.count;
         this.currentPage = pageNum;
         this.requestValue = searchValue;

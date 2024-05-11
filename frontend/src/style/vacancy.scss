@@ -86,6 +86,7 @@
 //vacancy start
 
 .vacancy {
+  min-height: 100px;
   &__quantity {
     margin-bottom: 64px;
     font-size: 40px;
@@ -104,6 +105,7 @@
   }
 
   &__content {
+    position: relative;
     display: flex;
     gap: 64px;
     margin-bottom: 80px;
@@ -117,6 +119,10 @@
     width: 100%;
     &.hidden {
       display: none;
+    }
+
+    &-loader {
+      position: initial;
     }
   }
 

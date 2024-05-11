@@ -109,7 +109,6 @@
                       <p class="chat__main-massage__link">{{message.created_at}}</p>
                     </div>
                   </div>
-
                 </div>
                 <div class="chat__main-send" :class="{'disabled': !activeInterlocutor.users.length}">
             <textarea
@@ -139,20 +138,18 @@
           </template>
         </div>
       </template>
-      <template v-else>
-        <div class="chat__loader">
-          <div class="chat__loader-spinner"></div>
-        </div>
-      </template>
+      <the-loader :is-visible="isLoader"></the-loader>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import TheLoader from "@/components/ui/loader.vue";
 
 export default {
   name: 'the-chat',
+  components: {TheLoader},
   props: {
     isVisible: {
       type: Boolean,
@@ -172,6 +169,7 @@ export default {
       lastMessages: '',
       intervalChat: null,
       isLoader: true,
+      socket: null,
     }
   },
   methods: {
@@ -261,7 +259,12 @@ export default {
       this.activeInterlocutor = null;
       this.currentDialog = []
     },
-
+    getUser() {
+      this.WebSocket.send(JSON.stringify({
+        action: "list",
+        request_id: new Date().getTime()
+      }))
+    }
   },
   computed: {
     userData() {
@@ -293,6 +296,9 @@ export default {
       },
       immediate: true,
     }
+  },
+  created() {
+    this.socket = new WebSocket('ws://127.0.0.1:8000/');
   },
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
