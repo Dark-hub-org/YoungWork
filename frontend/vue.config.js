@@ -7,9 +7,6 @@ module.exports = defineConfig({
 })
 
 module.exports = {
-    // Paths
-    // Рабочая директория сборки
-    // приложения django, отвеает за фронт
     outputDir: (process.env.NODE_ENV === "production" ? 'dist' : 'static'),
     publicPath: '/',
     devServer: {
