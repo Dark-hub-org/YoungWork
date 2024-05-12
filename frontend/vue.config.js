@@ -1,6 +1,6 @@
 const {defineConfig} = require('@vue/cli-service')
-var BundleTracker = require('webpack-bundle-tracker')
-var WriteFilePlugin = require('write-file-webpack-plugin')
+let BundleTracker = require('webpack-bundle-tracker')
+let WriteFilePlugin = require('write-file-webpack-plugin')
 
 module.exports = defineConfig({
     transpileDependencies: true

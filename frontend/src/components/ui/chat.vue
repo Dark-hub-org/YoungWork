@@ -271,7 +271,7 @@ export default {
       this.currentDialog = []
     },
     getUser() {
-      this.socket.send(JSON.stringify({
+      this.$socket.send(JSON.stringify({
         action: "list",
         request_id: new Date().getTime()
       }))
