@@ -6,7 +6,7 @@
       </button>
       <template v-if="!isLoader">
         <div class="chat__top">
-          <span @click="getUser" ref="title" class="chat__title">Чат</span>
+          <span @click="getUserTest" ref="title" class="chat__title">Чат</span>
           <div v-if="currentDialog?.conversation?.id" ref="currentUser" class="chat__current-user">
             <button @click.stop="returnDialog()" class="chat__return"></button>
             <template v-if="activeInterlocutor.users.length">
@@ -270,9 +270,9 @@ export default {
       this.activeInterlocutor = null;
       this.currentDialog = []
     },
-    getUser() {
+    getUserTest() {
       this.$socket.send(JSON.stringify({
-        action: "list",
+        action: "conversation_list",
         request_id: new Date().getTime()
       }))
     }
@@ -317,7 +317,7 @@ export default {
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
     if (localStorage.getItem('isAuthorization'))
-      this.intervalChat = setInterval(this.getChats, 1000)
+      this.intervalChat = setInterval(this.getChats, 10000)
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleClickOutside);
