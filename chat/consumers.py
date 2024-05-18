@@ -47,16 +47,16 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
     @action()
     async def conversation_list(self, **kwargs):
         user = self.scope["user"]
-        conversations = await database_sync_to_async(Conversation.objects.filter)(users=user)
+        conversations = await self.get_conversations_for_user(user)
         serialized_data = []
 
         for conversation in conversations:
-            users = await database_sync_to_async(conversation.users.exclude)(id=user.id)
-            history = await database_sync_to_async(conversation.history.exclude)(id=user.id)
-            last_message = await database_sync_to_async(conversation.messages.order_by('-created_at').first)()
-            unread_count = await database_sync_to_async(conversation.messages.filter(is_read=False).count)()
+            users = await self.exclude_user(conversation.users, user.id)
+            history = await self.exclude_user(conversation.history, user.id)
+            last_message = await self.get_last_message(conversation)
+            unread_count = await self.get_unread_count(conversation)
             serialized_data.append({
-                'id': conversation.id,
+                'id': str(conversation.id),
                 'users': UserChatSerializer(users, many=True).data,
                 'history': UserChatSerializer(history, many=True).data,
                 'last_message': ConversationMessageSerializer(last_message).data if last_message else None,
@@ -64,6 +64,22 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
             })
 
         await self.send_json({'action': 'conversation_list', 'data': serialized_data})
+
+    @database_sync_to_async
+    def get_conversations_for_user(self, user):
+        return list(Conversation.objects.filter(users=user))
+
+    @database_sync_to_async
+    def exclude_user(self, queryset, user_id):
+        return list(queryset.exclude(id=user_id))
+
+    @database_sync_to_async
+    def get_last_message(self, conversation):
+        return conversation.messages.order_by('-created_at').first()
+
+    @database_sync_to_async
+    def get_unread_count(self, conversation):
+        return conversation.messages.filter(is_read=False).count()
 
     @action()
     async def conversation_remove(self, pk, **kwargs):
@@ -102,7 +118,7 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
 
     @database_sync_to_async
     def current_users(self, room: Conversation):
-        return [UserSerializer(user).data for user in room.users.all()]
+        return list(room.users.all())
 
     @database_sync_to_async
     def remove_user_from_room(self, pk):
@@ -121,9 +137,9 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
         if hasattr(self, "room_subscribe"):
             room = await self.get_room(self.room_subscribe)
             users = await self.current_users(room)
-            await self.send_json({'type': 'users_update', 'users': users})
+            await self.send_json({'type': 'users_update', 'users': UserSerializer(users, many=True).data})
 
     async def notify_room_users(self, room):
         users = await self.current_users(room)
         for user in users:
-            await self.send_json({'type': 'message_update', 'user': user})
+            await self.send_json({'type': 'message_update', 'user': UserSerializer(user).data})

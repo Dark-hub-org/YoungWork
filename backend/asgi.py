@@ -8,6 +8,7 @@ from chat.middleware import JwtAuthMiddlewareStack
 from chat import routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings.prod')
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 django.setup()
 
 application = ProtocolTypeRouter({
