@@ -4,12 +4,8 @@ from djangochannelsrestframework.observer.generics import (ObserverModelInstance
 from djangochannelsrestframework.observer import model_observer
 
 from .models import Conversation, ConversationMessage
-
-from .serializers import ConversationSerializer, ConversationMessageSerializer, ConversationDetailSerializer, \
-    ResumeConDetailSerializer, VacancyConDetailSerializer
+from .serializers import ConversationSerializer, ConversationMessageSerializer, ConversationDetailSerializer
 from accounts.models import User
-from jobs.models import Vacancies
-from resume.models import Resume
 from accounts.serializers import UserSerializer, UserChatSerializer
 
 
@@ -27,10 +23,12 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
     async def join_room(self, pk, **kwargs):
         self.room_subscribe = pk
         await self.add_user_to_room(pk)
+        await self.notify_users()
 
     @action()
     async def leave_room(self, pk, **kwargs):
         await self.remove_user_from_room(pk)
+        await self.notify_users()
 
     @action()
     async def create_message(self, message, **kwargs):
@@ -40,6 +38,7 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
             created_by=self.scope["user"],
             body=message
         )
+        await self.notify_room_users(room)
 
     @action()
     async def subscribe_to_messages_in_room(self, pk, **kwargs):
@@ -47,17 +46,15 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
 
     @action()
     async def conversation_list(self, **kwargs):
-        conversations = await database_sync_to_async(Conversation.objects.filter)(users=self.scope["user"])
+        user = self.scope["user"]
+        conversations = await database_sync_to_async(Conversation.objects.filter)(users=user)
         serialized_data = []
 
         for conversation in conversations:
-            users = conversation.users.exclude(id=self.scope["user"].id)
-            pk = conversation.id
-            conversation_last = await database_sync_to_async(Conversation.objects.get)(pk=pk)
-            message = await database_sync_to_async(conversation_last.messages.all)()
-            history = conversation.history.exclude(id=self.scope["user"].id)
-            last_message = await database_sync_to_async(message.order_by('-created_at').first)()
-            unread_count = await database_sync_to_async(message.filter(is_read=False).count)()
+            users = await database_sync_to_async(conversation.users.exclude)(id=user.id)
+            history = await database_sync_to_async(conversation.history.exclude)(id=user.id)
+            last_message = await database_sync_to_async(conversation.messages.order_by('-created_at').first)()
+            unread_count = await database_sync_to_async(conversation.messages.filter(is_read=False).count)()
             serialized_data.append({
                 'id': conversation.id,
                 'users': UserChatSerializer(users, many=True).data,
@@ -66,7 +63,7 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
                 'unread_count': unread_count,
             })
 
-        await self.send_json(serialized_data)
+        await self.send_json({'action': 'conversation_list', 'data': serialized_data})
 
     @action()
     async def conversation_remove(self, pk, **kwargs):
@@ -80,68 +77,6 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
             await self.send_json({"success": False, "message": "Беседа с указанным ID не существует."})
         except Exception as e:
             await self.send_json({"success": False, "message": f"Произошла ошибка: {str(e)}"})
-
-    @action()
-    async def conversation_detail(self, pk, user_id, usertype, **kwargs):
-        conversation = await database_sync_to_async(Conversation.objects.filter(users=self.scope["user"]).get)(pk=pk)
-
-        if usertype == "employer":
-            resume = await database_sync_to_async(Resume.objects.filter(created_by=user_id).first)()
-            serialized_data = {
-                'conversation': ConversationDetailSerializer(conversation).data,
-                'resume': ResumeConDetailSerializer(resume).data
-            }
-        else:
-            vacancy = await database_sync_to_async(Vacancies.objects.filter(created_by=user_id).first)()
-            serialized_data = {
-                'conversation': ConversationDetailSerializer(conversation).data,
-                'vacancy': VacancyConDetailSerializer(vacancy).data
-            }
-
-        await self.send_json(serialized_data)
-
-    @action()
-    async def conversation_get_or_create(self, pk, **kwargs):
-        user = await database_sync_to_async(User.objects.get)(pk=pk)
-        current_user = self.scope["user"]
-
-        conversation = await database_sync_to_async(
-            Conversation.objects.filter(users=current_user).filter(users=user).first)()
-        if not conversation:
-            conversation = await database_sync_to_async(Conversation.objects.create)()
-            await database_sync_to_async(conversation.users.add)(current_user, user)
-            await database_sync_to_async(conversation.save)()
-        elif current_user in await database_sync_to_async(conversation.history.all)():
-            await database_sync_to_async(conversation.users.add)(current_user)
-            await database_sync_to_async(conversation.history.remove)(current_user)
-
-        serializer = ConversationDetailSerializer(conversation)
-        await self.send_json(serializer.data)
-
-    @action()
-    async def conversation_send_message(self, pk, message, **kwargs):
-        conversation = await database_sync_to_async(Conversation.objects.filter(users=self.scope["user"]).get)(pk=pk)
-
-        sent_to = None
-        for user in await database_sync_to_async(conversation.users.all)():
-            if user != self.scope["user"]:
-                sent_to = user
-
-        conversation_message = await database_sync_to_async(ConversationMessage.objects.create)(
-            conversation=conversation,
-            body=message,
-            created_by=self.scope["user"],
-            sent_to=sent_to
-        )
-
-        serializer = ConversationMessageSerializer(conversation_message)
-        await self.send_json(serializer.data)
-
-    @action()
-    async def read_message(self, conversation_id, **kwargs):
-        await database_sync_to_async(ConversationMessage.objects.filter(conversation=conversation_id).update)(
-            is_read=True)
-        await self.send_json({'message': 'message read'})
 
     @model_observer(ConversationMessage)
     async def message_activity(self, message, observer=None, **kwargs):
@@ -181,3 +116,14 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
         room = Conversation.objects.get(pk=pk)
         if not room.users.filter(pk=user.pk).exists():
             room.users.add(user)
+
+    async def notify_users(self):
+        if hasattr(self, "room_subscribe"):
+            room = await self.get_room(self.room_subscribe)
+            users = await self.current_users(room)
+            await self.send_json({'type': 'users_update', 'users': users})
+
+    async def notify_room_users(self, room):
+        users = await self.current_users(room)
+        for user in users:
+            await self.send_json({'type': 'message_update', 'user': user})
