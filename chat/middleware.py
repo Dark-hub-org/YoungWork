@@ -3,7 +3,7 @@ from datetime import datetime
 
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings.prod')
 django.setup()
 
 import jwt
@@ -12,7 +12,7 @@ from django.contrib.auth.models import AnonymousUser
 from channels.db import database_sync_to_async
 from channels.middleware import BaseMiddleware
 
-from django.contrib.auth.models import User
+from accounts.models import User
 from django.db import close_old_connections
 
 ALGORITHM = "HS256"

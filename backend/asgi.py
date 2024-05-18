@@ -7,7 +7,7 @@ from django.core.asgi import get_asgi_application
 from chat.middleware import JwtAuthMiddlewareStack
 from chat import routing
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings.prod')
 django.setup()
 
 application = ProtocolTypeRouter({

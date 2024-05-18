@@ -312,13 +312,7 @@ export default {
     }
   },
   created() {
-    this.socket = new WebSocket('ws://127.0.0.1:8080/ws/?token=' + this.userToken);
-    this.socket.onopen = function () {
-      console.log('1212')
-    }
-    this.$socket.onopen = () => {
-      console.log('WebSocket connected!');
-    };
+    this.socket = new WebSocket('ws://127.0.0.1:8000/ws/?token=' + this.userToken);
   },
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
