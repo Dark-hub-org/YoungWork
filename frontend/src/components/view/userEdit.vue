@@ -62,6 +62,8 @@
                 @input="errorFields.dateOfBirth = false, errorFields.isValidBirth = false"
                 :class="{'error': errorFields.dateOfBirth || errorFields.isValidBirth}"
                 :format="'YYYY-MM-DD'"
+                :weekdays="['Пон', 'Вто', 'Сре', 'Чет', 'Пят', 'Суб', 'Вос']"
+                :months="['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']"
                 class="edit__data-input--date">
             </date-pick>
             <span

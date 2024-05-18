@@ -1,6 +1,5 @@
 @import "../main";
 
-
 .text-margin {
   margin-bottom: 10px;
 }
@@ -10,7 +9,7 @@
     @include displayFlex;
     align-items: flex-start;
     max-width: 1650px;
-    margin-bottom: 80px;
+    margin: 0 40px 80px 40px;
   }
   &__left {
     width: 100%;
@@ -341,10 +340,13 @@
       padding: 20px 24px 20px 72px;
     }
   }
-  &__vacancy {
-    &:not(:last-child) {
-      margin-bottom: 64px;
-    }
+  &__items {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 32px;
+    min-height: 330px;
   }
   &__value {
     width: 100%;
@@ -490,7 +492,7 @@
 
   .profile {
     &__wrapper {
-      margin-bottom: 40px;
+      margin: 0 20px 40px 20px;
     }
     &__subtitle {
       font-size: 20px;

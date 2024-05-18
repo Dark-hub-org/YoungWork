@@ -1,0 +1,18 @@
+@import "../main";
+
+.alert {
+  z-index: 1001;
+  position: fixed;
+  top: 100px;
+  right: 50px;
+  width: 300px;
+  height: 100px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: $colorErrorBagk;
+
+  &__text {
+    font-size: 20px;
+    color: $colorError;
+  }
+}

@@ -13,7 +13,7 @@ axios.defaults.baseUrl = "http://127.0.0.1:8080"
 Vue.config.productionTip = false
 Vue.component('vue-masked-input', VueMaskedInput)
 Vue.use(CKEditor)
-Vue.use(VueNativeSock,'ws://localhost:8080/ws', {
+Vue.use(VueNativeSock,'ws://localhost:8000/ws/', {
     format: 'json',
     reconnection: true,
 });
