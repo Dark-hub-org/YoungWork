@@ -41,7 +41,7 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
                 return
 
             sent_to = None
-            async for participant in conversation.users.all():
+            async for participant in database_sync_to_async(lambda: conversation.users.all(), thread_sensitive=True)():
                 if participant != user:
                     sent_to = participant
                     break
@@ -123,7 +123,6 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
             conversation = await database_sync_to_async(
                 lambda: Conversation.objects.filter(users=user).get(pk=pk)
             )()
-
             if usertype == "employer":
                 resume = await database_sync_to_async(
                     lambda: Resume.objects.filter(created_by=user_id).first()
@@ -141,6 +140,7 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
                     'vacancy': VacancyConDetailSerializer(vacancy).data if vacancy else None
                 }
 
+            # Преобразуем UUID в строку для корректной сериализации JSON
             if 'conversation' in serialized_data:
                 serialized_data['conversation']['id'] = str(serialized_data['conversation']['id'])
             if 'resume' in serialized_data and serialized_data['resume']:
