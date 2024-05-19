@@ -103,7 +103,7 @@
   &__main {
     display: flex;
     justify-content: space-between;
-    gap: 44px;
+    gap: 24px;
     height: -webkit-fill-available;
     overflow: hidden;
     border-top: 1px solid $colorGreenM;
@@ -465,6 +465,11 @@
     &__return {
       display: block;
     }
+    &__top {
+      flex-direction: column;
+      align-items: start;
+      margin-bottom: 20px;
+    }
     &__main {
       &-list {
         flex-grow: 1;
@@ -484,13 +489,6 @@
 @media(max-width: 551px) {
 
   .chat {
-    //top: 96px;
-
-    &__top {
-      flex-direction: column;
-      align-items: start;
-      margin-bottom: 20px;
-    }
 
     &__main {
       &-list {

@@ -6,7 +6,7 @@
       </button>
       <template v-if="!isLoader">
         <div class="chat__top">
-          <span @click="getUserTest" ref="title" class="chat__title">Чат</span>
+          <span ref="title" class="chat__title">Чат</span>
           <div v-if="currentDialog?.conversation?.id" ref="currentUser" class="chat__current-user">
             <button @click.stop="returnDialog()" class="chat__return"></button>
             <template v-if="activeInterlocutor.users.length">
@@ -55,12 +55,12 @@
                     v-for="item in chatsList"
                     :key="item.id"
                     @click="openDialog(item)"
-                    :class="{'active': currentDialog.id === item.id}"
+                    :class="{'active': currentDialog.conversation?.id === item.id}"
                     class="chat__main-list__item">
                   <div class="chat__main-list__wrapper">
                     <div class="chat__main-list__element">
                       <!--                      <span v-if="item.unread_count" class="chat__main-list__new-massage">{{item.unread_count}}</span>-->
-                      <button v-if="userData.usertype === 'employer'" @click.stop="deleteChat(item.id)"
+                      <button v-if="userData.usertype === 'employer'" @click.stop="deleteDialog(item.id)"
                               class="chat__main-list__delete"></button>
                     </div>
                     <template v-if="item.users.length">
@@ -157,6 +157,7 @@
 <script>
 import axios from "axios";
 import TheLoader from "@/components/ui/loader.vue";
+import WebSocketComponent from "@/services/websocket";
 
 export default {
   name: 'the-chat',
@@ -175,33 +176,43 @@ export default {
     return {
       message: '',
       activeInterlocutor: null,
-      chatsList: [],
+      chatsList: null,
       currentDialog: [],
       lastMessages: '',
       intervalChat: null,
-      isLoader: true,
-      socket: null,
+
+      chatSocket: null,
+      userToken: localStorage.getItem('access'),
     }
   },
   methods: {
     closeChat() {
       this.$emit('close-chat')
-      // this.isLoader = true
     },
     handleClickOutside(event) {
       if (this.isVisible && !this.$refs.chat.contains(event.target) && !this.chatButton.contains(event.target)) {
         this.closeChat();
       }
     },
-    async getChats() {
+    openWebSocket() {
+      if (this.isVisible) {
+        this.chatSocket = new WebSocketComponent(this.socketUrl, this.getChats, this.handleSocketChat)
+      }
+    },
+    closeWebSocket() {
+      if (this.chatSocket && this.chatSocket.readyState === WebSocket.OPEN) {
+        this.chatSocket.close();
+      }
+    },
+
+    getChats() {
       try {
-        if (this.isVisible) {
-          const response = await axios.get('/api/chat/can')
-          this.chatsList = response.data
-          this.isLoader = false
-        }
+        this.chatSocket.send(JSON.stringify({
+          action: "conversation_list",
+          request_id: new Date().getTime()
+        }));
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
     async openDialog(user) {
@@ -221,40 +232,7 @@ export default {
         console.log(error)
       }
     },
-    async readItMessage(messages) {
-      try {
-        return messages.map(item => item.is_read = true).reverse()
-      } catch (error) {
-        console.log(error)
-      }
-
-    },
-    async sendMessage(id, user, event) {
-      try {
-        if (this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
-          event.preventDefault()
-          await axios.post(`/api/chat/${id}/send/`, {body: this.message})
-          const chat = await axios.get(`/api/chat/${id}/${user.id}/${this.userData.usertype}/`)
-          chat.data.conversation.messages = chat.data.conversation.messages.reverse()
-          this.currentDialog = chat.data
-          this.message = ''
-          this.resetStyle()
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    },
-    autoResize() {
-      this.$refs.send.style.height = 'auto';
-      this.$refs.send.style.height = this.$refs.send.scrollHeight + 'px';
-      this.$refs.send.scrollTop = 0;
-    },
-    resetStyle() {
-      if (!this.message.length) {
-        this.$refs.send.style = '';
-      }
-    },
-    async deleteChat(id) {
+    async deleteDialog(id) {
       try {
         await axios.delete(`/api/chat/${id}/remove/`)
         this.chatsList = this.chatsList.filter(item => item.id !== id)
@@ -270,29 +248,77 @@ export default {
       this.activeInterlocutor = null;
       this.currentDialog = []
     },
-    getUserTest() {
-      this.$socket.send(JSON.stringify({
-        action: "conversation_list",
-        request_id: new Date().getTime()
-      }))
+    async sendMessage(id, user, event) {
+      try {
+        if (this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
+          event.preventDefault()
+
+          this.chatSocket.send(JSON.stringify({
+            message: this.message,
+            action: 'create_message',
+            request_id: new Date().getTime()
+          }))
+          const chat = await axios.get(`/api/chat/${id}/${user.id}/${this.userData.usertype}/`)
+          chat.data.conversation.messages = chat.data.conversation.messages.reverse()
+          this.currentDialog = chat.data
+
+          console.log(chat.data)
+          this.message = ''
+          this.getChats()
+          this.resetStyle()
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async readItMessage(messages) {
+      try {
+        return messages.reverse().map(item => item.is_read = true)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    autoResize() {
+      this.$refs.send.style.height = 'auto';
+      this.$refs.send.style.height = this.$refs.send.scrollHeight + 'px';
+      this.$refs.send.scrollTop = 0;
+    },
+    resetStyle() {
+      if (!this.message.length) {
+        this.$refs.send.style = '';
+      }
+    },
+
+    handleSocketChat(data) {
+      const response = JSON.parse(data)
+      switch (response.action) {
+        case "conversation_list":
+          this.chatsList = response.data
+      }
+
     }
+
   },
   computed: {
     userData() {
       return this.$store.state.userData
     },
-    userToken() {
-      return localStorage.getItem('access')
+    socketUrl() {
+      return `ws://127.0.0.1:8000/ws/?token=${this.userToken}`;
+    },
+    isLoader() {
+      return Boolean(!this.chatsList)
     }
   },
   watch: {
-    message() {
-      if (this.message.length >= 2000) {
-        this.message = this.message.slice(0, 2000)
-      }
-    },
     isVisible: {
       handler(val) {
+        if(val === true) {
+          this.openWebSocket()
+        } else {
+          // this.chatSocket.close();
+        }
+        // this.closeWebSocket()
         if (window.innerWidth <= 769) {
           if (val) {
             document.body.style.overflow = 'hidden'
@@ -309,19 +335,23 @@ export default {
         }
       },
       immediate: true,
-    }
-  },
-  created() {
-    this.socket = new WebSocket('ws://127.0.0.1:8000/ws/?token=' + this.userToken);
+    },
+    userToken(newToken, oldToken) {
+      if (newToken !== oldToken) {
+        this.openWebSocket()
+      }
+    },
+    message() {
+      if (this.message.length >= 2000) {
+        this.message = this.message.slice(0, 2000)
+      }
+    },
   },
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
-    if (localStorage.getItem('isAuthorization'))
-      this.intervalChat = setInterval(this.getChats, 10000)
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleClickOutside);
-    clearInterval(this.intervalChat);
   }
 }
 </script>
