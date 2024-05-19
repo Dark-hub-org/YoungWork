@@ -23,22 +23,41 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
     async def join_room(self, pk, **kwargs):
         self.room_subscribe = pk
         await self.add_user_to_room(pk)
-        await self.notify_users()
 
     @action()
     async def leave_room(self, pk, **kwargs):
         await self.remove_user_from_room(pk)
-        await self.notify_users()
 
     @action()
     async def create_message(self, message, **kwargs):
-        room = await self.get_room(pk=self.room_subscribe)
-        await database_sync_to_async(ConversationMessage.objects.create)(
-            conversation=room,
-            created_by=self.scope["user"],
-            body=message
-        )
-        await self.notify_room_users(room)
+        user = self.scope["user"]
+        try:
+            conversation = await database_sync_to_async(Conversation.objects.filter(users=user).first)()
+            if not conversation:
+                await self.send_json({"success": False, "message": "Беседа не найдена."})
+                return
+
+            sent_to = None
+            async for participant in conversation.users.all():
+                if participant != user:
+                    sent_to = participant
+                    break
+
+            if sent_to is None:
+                await self.send_json({"success": False, "message": "Нет других пользователей в беседе."})
+                return
+
+            await database_sync_to_async(ConversationMessage.objects.create)(
+                conversation=conversation,
+                created_by=user,
+                body=message,
+                sent_to=sent_to,
+            )
+
+            await self.send_json({"success": True, "message": "Сообщение отправлено."})
+
+        except Exception as e:
+            await self.send_json({"success": False, "message": f"Произошла ошибка: {str(e)}"})
 
     @action()
     async def subscribe_to_messages_in_room(self, pk, **kwargs):
@@ -132,14 +151,3 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
         room = Conversation.objects.get(pk=pk)
         if not room.users.filter(pk=user.pk).exists():
             room.users.add(user)
-
-    async def notify_users(self):
-        if hasattr(self, "room_subscribe"):
-            room = await self.get_room(self.room_subscribe)
-            users = await self.current_users(room)
-            await self.send_json({'type': 'users_update', 'users': UserSerializer(users, many=True).data})
-
-    async def notify_room_users(self, room):
-        users = await self.current_users(room)
-        for user in users:
-            await self.send_json({'type': 'message_update', 'user': UserSerializer(user).data})
