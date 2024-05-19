@@ -120,18 +120,24 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
     async def conversation_detail(self, pk, user_id, usertype, **kwargs):
         user = self.scope["user"]
         try:
-            conversation = await database_sync_to_async(Conversation.objects.filter(users=user).get)(pk=pk)
+            conversation = await database_sync_to_async(
+                lambda: Conversation.objects.filter(users=user).get(pk=pk)
+            )()
             if usertype == "employer":
-                resume = await database_sync_to_async(Resume.objects.filter(created_by=user_id).first)()
+                resume = await database_sync_to_async(
+                    lambda: Resume.objects.filter(created_by=user_id).first()
+                )()
                 serialized_data = {
-                    'conversation': await database_sync_to_async(ConversationDetailSerializer(conversation).data)(),
-                    'resume': await database_sync_to_async(ResumeConDetailSerializer(resume).data)()
+                    'conversation': ConversationDetailSerializer(conversation).data,
+                    'resume': ResumeConDetailSerializer(resume).data if resume else None
                 }
             else:
-                vacancy = await database_sync_to_async(Vacancies.objects.filter(created_by=user_id).first)()
+                vacancy = await database_sync_to_async(
+                    lambda: Vacancies.objects.filter(created_by=user_id).first()
+                )()
                 serialized_data = {
-                    'conversation': await database_sync_to_async(ConversationDetailSerializer(conversation).data)(),
-                    'vacancy': await database_sync_to_async(VacancyConDetailSerializer(vacancy).data)()
+                    'conversation': ConversationDetailSerializer(conversation).data,
+                    'vacancy': VacancyConDetailSerializer(vacancy).data if vacancy else None
                 }
 
             await self.send_json(serialized_data)
