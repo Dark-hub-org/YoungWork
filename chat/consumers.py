@@ -41,7 +41,10 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
                 return
 
             sent_to = None
-            async for participant in database_sync_to_async(lambda: conversation.users.all(), thread_sensitive=True)():
+
+            users = await database_sync_to_async(lambda: list(conversation.users.all()))()
+
+            for participant in users:
                 if participant != user:
                     sent_to = participant
                     break
