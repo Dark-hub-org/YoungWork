@@ -4,9 +4,12 @@ from djangochannelsrestframework.observer.generics import (ObserverModelInstance
 from djangochannelsrestframework.observer import model_observer
 
 from .models import Conversation, ConversationMessage
-from .serializers import ConversationSerializer, ConversationMessageSerializer, ConversationDetailSerializer
+from .serializers import ConversationSerializer, ConversationMessageSerializer, ConversationDetailSerializer, \
+    ResumeConDetailSerializer, VacancyConDetailSerializer
 from accounts.models import User
 from accounts.serializers import UserSerializer, UserChatSerializer
+from resume.models import Resume
+from jobs.models import Vacancies
 
 
 class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
@@ -110,6 +113,30 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
             await self.send_json({"success": True, "message": "Пользователь вышел из беседы!"})
         except Conversation.DoesNotExist:
             await self.send_json({"success": False, "message": "Беседа с указанным ID не существует."})
+        except Exception as e:
+            await self.send_json({"success": False, "message": f"Произошла ошибка: {str(e)}"})
+
+    @action()
+    async def conversation_detail(self, pk, user_id, usertype, **kwargs):
+        user = self.scope["user"]
+        try:
+            conversation = await database_sync_to_async(Conversation.objects.filter(users=user).get)(pk=pk)
+            if usertype == "employer":
+                resume = await database_sync_to_async(Resume.objects.filter(created_by=user_id).first)()
+                serialized_data = {
+                    'conversation': await database_sync_to_async(ConversationDetailSerializer(conversation).data)(),
+                    'resume': await database_sync_to_async(ResumeConDetailSerializer(resume).data)()
+                }
+            else:
+                vacancy = await database_sync_to_async(Vacancies.objects.filter(created_by=user_id).first)()
+                serialized_data = {
+                    'conversation': await database_sync_to_async(ConversationDetailSerializer(conversation).data)(),
+                    'vacancy': await database_sync_to_async(VacancyConDetailSerializer(vacancy).data)()
+                }
+
+            await self.send_json(serialized_data)
+        except Conversation.DoesNotExist:
+            await self.send_json({"success": False, "message": "Беседа не найдена."})
         except Exception as e:
             await self.send_json({"success": False, "message": f"Произошла ошибка: {str(e)}"})
 
