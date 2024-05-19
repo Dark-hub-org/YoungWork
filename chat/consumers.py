@@ -123,6 +123,7 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
             conversation = await database_sync_to_async(
                 lambda: Conversation.objects.filter(users=user).get(pk=pk)
             )()
+
             if usertype == "employer":
                 resume = await database_sync_to_async(
                     lambda: Resume.objects.filter(created_by=user_id).first()
@@ -140,13 +141,10 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
                     'vacancy': VacancyConDetailSerializer(vacancy).data if vacancy else None
                 }
 
-            # Преобразуем UUID в строку для корректной сериализации JSON
-            if 'conversation' in serialized_data:
-                serialized_data['conversation']['id'] = str(serialized_data['conversation']['id'])
-            if 'resume' in serialized_data and serialized_data['resume']:
-                serialized_data['resume']['id'] = str(serialized_data['resume']['id'])
-            if 'vacancy' in serialized_data and serialized_data['vacancy']:
-                serialized_data['vacancy']['id'] = str(serialized_data['vacancy']['id'])
+            serialized_data['conversation']['id'] = str(conversation.id)
+            serialized_data['conversation']['users'] = [str(user) for user in conversation.users.all()]
+
+            print("Serialized Data:", serialized_data)
 
             await self.send_json(serialized_data)
         except Conversation.DoesNotExist:
