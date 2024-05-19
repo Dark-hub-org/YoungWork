@@ -200,7 +200,7 @@ export default {
       }
     },
     closeWebSocket() {
-      if (this.chatSocket && this.chatSocket.readyState === WebSocket.OPEN) {
+      if (this.chatSocket) {
         this.chatSocket.close();
       }
     },
@@ -218,9 +218,18 @@ export default {
     async openDialog(user) {
       try {
         if (this.currentDialog.conversation?.id !== user.id) {
-          const chat = await axios.get(`/api/chat/${user.id}/${user.users[0].id}/${this.userData.usertype}/`)
-          this.readItMessage(chat.data.conversation.messages)
-          this.currentDialog = chat.data
+          this.chatSocket.send(JSON.stringify({
+            action: "conversation_detail",
+            pk: user.id,
+            user_id: user.users[0].id,
+            usertype: this.userData.usertype,
+            request_id: new Date().getTime()
+          }))
+
+          // const chat = await axios.get(`/api/chat/${user.id}/${user.users[0].id}/${this.userData.usertype}/`)
+          // this.readItMessage(chat.data.conversation.messages)
+          // this.currentDialog = chat.data
+
           this.activeInterlocutor = user
           if (window.innerWidth <= 769) {
             this.$refs.users.classList.add('hide')
@@ -252,19 +261,19 @@ export default {
       try {
         if (this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
           event.preventDefault()
-
           this.chatSocket.send(JSON.stringify({
-            message: this.message,
             action: 'create_message',
+            message: this.message,
             request_id: new Date().getTime()
           }))
+
+
           const chat = await axios.get(`/api/chat/${id}/${user.id}/${this.userData.usertype}/`)
           chat.data.conversation.messages = chat.data.conversation.messages.reverse()
           this.currentDialog = chat.data
-
-          console.log(chat.data)
-          this.message = ''
           this.getChats()
+
+          this.message = ''
           this.resetStyle()
         }
       } catch (error) {
@@ -294,6 +303,10 @@ export default {
       switch (response.action) {
         case "conversation_list":
           this.chatsList = response.data
+          break;
+        case "conversation_detail":
+          this.readItMessage(response.data.conversation.messages)
+          this.currentDialog = response.data
       }
 
     }
@@ -313,9 +326,10 @@ export default {
   watch: {
     isVisible: {
       handler(val) {
-        if(val === true) {
+        if(val) {
           this.openWebSocket()
         } else {
+          this.closeWebSocket()
           // this.chatSocket.close();
         }
         // this.closeWebSocket()
@@ -352,7 +366,7 @@ export default {
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleClickOutside);
-  }
+  },
 }
 </script>
 
