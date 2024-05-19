@@ -144,7 +144,7 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
             serialized_data['conversation']['id'] = str(conversation.id)
             serialized_data['conversation']['users'] = [str(user) for user in conversation.users.all()]
 
-            await self.send_json({'action': 'conversation_ditail', 'data': serialized_data})
+            await self.send_json({'action': 'conversation_detail', 'data': serialized_data})
         except Conversation.DoesNotExist:
             await self.send_json({"success": False, "message": "Беседа не найдена."})
         except Exception as e:
