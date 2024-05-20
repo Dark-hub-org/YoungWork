@@ -125,7 +125,7 @@
                 v-model="message"
                 @input="autoResize"
                 @blur="resetStyle"
-                @keydown.enter="sendMessage(activeInterlocutor.id, activeInterlocutor.users[0], $event)"
+                @keydown.enter="sendMessage(activeInterlocutor, $event)"
                 class="chat__main-send__input"
                 :class="{'disabled': !activeInterlocutor.users.length}"
                 placeholder="Введите ваше сообщение...">
@@ -204,7 +204,6 @@ export default {
         this.chatSocket.close();
       }
     },
-
     getChats() {
       try {
         this.chatSocket.send(JSON.stringify({
@@ -215,7 +214,7 @@ export default {
         console.log(error);
       }
     },
-    async openDialog(user) {
+    openDialog(user) {
       try {
         if (this.currentDialog.conversation?.id !== user.id) {
           this.chatSocket.send(JSON.stringify({
@@ -225,11 +224,6 @@ export default {
             usertype: this.userData.usertype,
             request_id: new Date().getTime()
           }))
-
-          // const chat = await axios.get(`/api/chat/${user.id}/${user.users[0].id}/${this.userData.usertype}/`)
-          // this.readItMessage(chat.data.conversation.messages)
-          // this.currentDialog = chat.data
-
           this.activeInterlocutor = user
           if (window.innerWidth <= 769) {
             this.$refs.users.classList.add('hide')
@@ -257,20 +251,23 @@ export default {
       this.activeInterlocutor = null;
       this.currentDialog = []
     },
-    async sendMessage(id, user, event) {
+    sendMessage(user, event) {
       try {
         if (this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
           event.preventDefault()
+          this.cleanMessage()
           this.chatSocket.send(JSON.stringify({
             action: 'create_message',
             message: this.message,
             request_id: new Date().getTime()
           }))
-
-
-          const chat = await axios.get(`/api/chat/${id}/${user.id}/${this.userData.usertype}/`)
-          chat.data.conversation.messages = chat.data.conversation.messages.reverse()
-          this.currentDialog = chat.data
+          this.chatSocket.send(JSON.stringify({
+            action: "conversation_detail",
+            pk: user.id,
+            user_id: user.users[0].id,
+            usertype: this.userData.usertype,
+            request_id: new Date().getTime()
+          }))
           this.getChats()
 
           this.message = ''
@@ -280,12 +277,8 @@ export default {
         console.log(error)
       }
     },
-    async readItMessage(messages) {
-      try {
-        return messages.reverse().map(item => item.is_read = true)
-      } catch (error) {
-        console.log(error)
-      }
+    readItMessage(messages) {
+      return messages.reverse().map(item => item.is_read = true)
     },
     autoResize() {
       this.$refs.send.style.height = 'auto';
@@ -297,6 +290,9 @@ export default {
         this.$refs.send.style = '';
       }
     },
+    cleanMessage() {
+      this.message =  this.message.replace(/^\s*\n*/, '');
+    },
 
     handleSocketChat(data) {
       const response = JSON.parse(data)
@@ -307,10 +303,9 @@ export default {
         case "conversation_detail":
           this.readItMessage(response.data.conversation.messages)
           this.currentDialog = response.data
+          break;
       }
-
     }
-
   },
   computed: {
     userData() {
@@ -330,9 +325,7 @@ export default {
           this.openWebSocket()
         } else {
           this.closeWebSocket()
-          // this.chatSocket.close();
         }
-        // this.closeWebSocket()
         if (window.innerWidth <= 769) {
           if (val) {
             document.body.style.overflow = 'hidden'
