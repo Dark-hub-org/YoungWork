@@ -24,5 +24,5 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/sliderItem.scss" lang="scss" scoped>
-</style>
+<!--<style src="@/style/components/sliderItem.scss" lang="scss" scoped>-->
+<!--</style>-->

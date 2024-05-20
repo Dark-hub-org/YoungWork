@@ -1,5 +1,3 @@
-@import "../main";
-
 .text-margin {
   margin-bottom: 10px;
 }
@@ -9,7 +7,7 @@
     @include displayFlex;
     align-items: flex-start;
     max-width: 1650px;
-    margin: 0 40px 80px 40px;
+    margin: 0 auto 80px auto;
   }
   &__left {
     width: 100%;

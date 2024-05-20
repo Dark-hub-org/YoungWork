@@ -5,19 +5,12 @@ import store from './store'
 import axios from 'axios'
 import CKEditor from 'ckeditor4-vue';
 import VueMaskedInput from 'vue-masked-input'
-// import VueNativeSock from 'vue-native-websocket'
-
 
 axios.defaults.baseUrl = "http://127.0.0.1:8080"
 
 Vue.config.productionTip = false
 Vue.component('vue-masked-input', VueMaskedInput)
 Vue.use(CKEditor)
-// Vue.use(VueNativeSock,'ws://localhost:8000/ws/', {
-//     format: 'json',
-//     reconnection: true,
-// });
-
 
 new Vue({
     router,

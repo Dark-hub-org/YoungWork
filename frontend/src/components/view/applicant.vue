@@ -136,6 +136,6 @@ export default {
 }
 </script>
 
-<style src="@/style/applicant.scss" lang="scss" scoped>
+<!--<style src="@/style/page/applicant.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

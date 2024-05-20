@@ -284,11 +284,11 @@ export default {
 
 </script>
 
-<style src="@/style/vacancy.scss" lang="scss" scoped>
+<!--<style src="@/style/page/vacancy.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->
 <style lang="scss">
-@import "../../style/varibles";
+@import "@/style/abstracts/varibles";
 
 .vacancy__pagination-page {
   height: 45px;

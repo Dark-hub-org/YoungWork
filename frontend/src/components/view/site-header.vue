@@ -636,11 +636,11 @@ export default {
 }
 </script>
 
-<style src="@/style/header.scss" lang="scss" scoped>
+<!--<style src="@/style/layout/header.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->
 
-<style>
+<style lang="scss">
 
 .modal-enter-active, .modal-leave-active {
   transition: opacity .2s;

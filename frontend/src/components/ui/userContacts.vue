@@ -50,6 +50,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/userContacts.scss" lang="scss" scoped>
+<!--<style src="@/style/components/userContacts.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

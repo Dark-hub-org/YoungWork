@@ -1,9 +1,3 @@
-//@import "varibles";
-//@import "mixin";
-@import "main";
-
-// constructor start
-
 .constructor {
     &__banner {
         position: relative;
@@ -219,10 +213,6 @@
             }
         }
 
-        //&-submit {
-        //    margin-left: 50%;
-        //    transform: translateX(-50%);
-        //}
         &-btns {
             display: flex;
             align-items: center;

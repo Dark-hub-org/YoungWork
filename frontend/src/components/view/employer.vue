@@ -231,6 +231,6 @@ export default {
 }
 </script>
 
-<style src="@/style/employer.scss" lang="scss" scoped>
+<!--<style src="@/style/page/employer.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

@@ -450,8 +450,6 @@ export default {
 }
 </script>
 
-<style src="@/style/userEdit.scss" lang="scss" scoped>
-
-</style>
+<!--<style src="@/style/page/userEdit.scss" lang="scss" scoped>-->
 
 <!--</style>-->

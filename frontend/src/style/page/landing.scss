@@ -1,7 +1,3 @@
-//@import "varibles";
-//@import "mixin";
-@import "main";
-
 //inner start
 
 .inner {
@@ -183,10 +179,12 @@
   margin-bottom: 80px;
   overflow: hidden;
 
-  &__slider {
+  &__slider{
     margin-bottom: 24px;
-    overflow: visible;
-    &-item {
+    &.swiper-container {
+      overflow: visible;
+    }
+    &-item.swiper-slide {
       position: relative;
       width: 100%;
       height: 325px;

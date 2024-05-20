@@ -16,6 +16,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/loader.scss" scoped lang="scss">
+<!--<style src="@/style/components/loader.scss" scoped lang="scss">-->
 
-</style>
+<!--</style>-->

@@ -73,7 +73,7 @@
                 class="vacancy-card__response button-orange-another">
               Откликнуться
             </button>
-            <span v-else class="button-orange vacancy__item-btn">Откликнулись</span>
+            <span v-else class="button-orange vacancy-card__favourites">Откликнулись</span>
             <button
                 v-if="!vacancy.favorite"
                 @click="addedFavorites(vacancy.id)"
@@ -81,7 +81,7 @@
                 class="vacancy-card__favourites button-orange">
               В избранное
             </button>
-            <span v-else class="button-orange vacancy__item-btn">В избранном</span>
+            <span v-else class="button-orange vacancy-card__favourites">В избранном</span>
           </template>
         </div>
       </div>
@@ -179,6 +179,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/recommendedVacancy.scss" lang="scss" scoped>
+<!--<style src="@/style/components/recommendedVacancy.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

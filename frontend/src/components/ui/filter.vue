@@ -189,6 +189,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/filters.scss" lang="scss" scoped>
+<!--<style src="@/style/components/filters.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

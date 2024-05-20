@@ -1,5 +1,3 @@
-@import "main";
-
 .profile {
   &__slider {
     width: 100%;
@@ -73,7 +71,7 @@
     height: 40px;
     margin-right: 8px;
     transform: translateY(30%);
-    background-image: url('../assets/employer-profile/verification-icon.png');
+    background-image: url("@/assets/employer-profile/verification-icon.png");
     background-repeat: no-repeat;
     background-position: center;
   }

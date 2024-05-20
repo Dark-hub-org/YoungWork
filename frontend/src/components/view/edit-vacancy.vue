@@ -427,6 +427,6 @@ export default {
   }
 }
 </script>
-<style src="@/style/create.scss" lang="scss" scoped>
+<!--<style src="@/style/page/create.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

@@ -363,6 +363,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/chat.scss" lang="scss" scoped>
+<!--<style src="@/style/components/chat.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

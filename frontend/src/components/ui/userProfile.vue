@@ -1,6 +1,6 @@
 <template>
   <section class="profile">
-    <div class="profile__wrapper">
+    <div class="wrapper profile__wrapper">
       <div class="profile__left">
         <template v-if="!this.$store.state.isProfileEdit">
           <div class="profile__top">
@@ -179,6 +179,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/userProfile.scss" lang="scss">
+<!--<style src="@/style/page/userProfile.scss" lang="scss">-->
 
-</style>
+<!--</style>-->

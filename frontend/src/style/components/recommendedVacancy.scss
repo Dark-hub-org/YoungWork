@@ -1,7 +1,3 @@
-//@import "../varibles";
-//@import "../mixin";
-@import "../main";
-
 .vacancy-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(300px, 405px));

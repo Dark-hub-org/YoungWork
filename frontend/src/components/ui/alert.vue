@@ -21,6 +21,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/alert.scss" lang="scss" scoped>
+<!--<style src="@/style/components/alert.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->
