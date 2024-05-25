@@ -293,7 +293,7 @@ export default {
       }
     },
     cleanMessage() {
-      this.message =  this.message.replace(/^\s*\n*/, '');
+      this.message = this.message.replace(/^\s*\n*/, '');
     },
 
     handleSocketChat(data) {
@@ -314,7 +314,7 @@ export default {
       return this.$store.state.userData
     },
     socketUrl() {
-      return `ws://127.0.0.1:8080/ws/?token=${this.userToken}`;
+      return `ws://127.0.0.1:8000/ws/?token=${this.userToken}`;
     },
     isLoader() {
       return Boolean(!this.chatsList)
@@ -323,7 +323,7 @@ export default {
   watch: {
     isVisible: {
       handler(val) {
-        if(val) {
+        if (val) {
           this.openWebSocket()
         } else {
           this.closeWebSocket()
