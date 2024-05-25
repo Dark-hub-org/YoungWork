@@ -217,10 +217,11 @@ export default {
     openDialog(user) {
       try {
         if (this.currentDialog.conversation?.id !== user.id) {
+          const userId = user.users.length ? user.users[0].id : user.history[0].id
           this.chatSocket.send(JSON.stringify({
             action: "conversation_detail",
             pk: user.id,
-            user_id: user.users[0].id,
+            user_id: userId,
             usertype: this.userData.usertype,
             request_id: new Date().getTime()
           }))
@@ -233,6 +234,7 @@ export default {
         }
       } catch (error) {
         console.log(error)
+        console.log(user.users.length)
       }
     },
     async deleteDialog(id) {
@@ -312,7 +314,7 @@ export default {
       return this.$store.state.userData
     },
     socketUrl() {
-      return `ws://127.0.0.1:8000/ws/?token=${this.userToken}`;
+      return `ws://127.0.0.1:8080/ws/?token=${this.userToken}`;
     },
     isLoader() {
       return Boolean(!this.chatsList)
