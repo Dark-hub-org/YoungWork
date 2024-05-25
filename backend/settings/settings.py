@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'webpack_loader',
     'rest_framework',
     'djoser',
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
     'chat',
     'notification',
     'favorites',
+    'daphne',
     'response',
 ]
 
@@ -89,6 +91,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
+ASGI_APPLICATION = 'backend.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+    },
+}
 
 DATABASES = {
     'default': {

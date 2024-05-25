@@ -22,16 +22,12 @@ export default {
   props: {
     isVisible: {
       type: Boolean,
-      required: false,
+      required: true,
     },
     alertsButton: {
       type: HTMLButtonElement ,
       required: false,
     },
-    alertsButtonMobile: {
-      type: HTMLDivElement,
-      required: false,
-    }
   },
   data() {
     return {
@@ -53,7 +49,7 @@ export default {
     },
     closeOnOutsideClick(event) {
       const notification = this.$refs.notification
-      if(notification && !notification.contains(event.target) && !this.alertsButton.contains(event.target) && !this.alertsButtonMobile.contains(event.target)) {
+      if(notification && !notification.contains(event.target) && !this.alertsButton.contains(event.target)) {
         this.$emit('close-notification');
       }
     },
@@ -66,8 +62,11 @@ export default {
       }
     }
   },
+
   mounted() {
-    this.getNotifications()
+    if(localStorage.getItem('isAuthorization') !== null) {
+      this.getNotifications()
+    }
     document.addEventListener('click', this.closeOnOutsideClick);
   },
   beforeDestroy() {
@@ -76,6 +75,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/notifications.scss" lang="scss" scoped>
+<!--<style src="@/style/components/notifications.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

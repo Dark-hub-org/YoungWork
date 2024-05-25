@@ -303,6 +303,6 @@ export default {
 }
 </script>
 
-<style src="@/style/create-resume.scss" lang="scss" scoped>
+<!--<style src="@/style/page/createResume.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

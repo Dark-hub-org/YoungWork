@@ -13,6 +13,7 @@ from jobs.serializers import VacanciesDataSerializer
 from django.core.files.base import ContentFile
 from .serializers import UserFromSerializer
 from resume.serializers import ResumeDataSerializer
+from django.utils import timezone
 
 
 @permission_classes([IsAuthenticated])
@@ -36,6 +37,14 @@ def me(request):
         'website': request.user.website,
         'phoneNumber': request.user.phone_number,
     })
+
+
+@api_view(['GET'])
+def update_last_login(request):
+    user = request.user
+    user.last_login = timezone.now()
+    user.save(update_fields=['last_login'])
+    return JsonResponse({'message': "success"})
 
 
 @api_view(['GET'])

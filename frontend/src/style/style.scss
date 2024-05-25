@@ -1,0 +1,40 @@
+//abstracts
+@import "abstracts/varibles";
+@import "abstracts/mixin";
+
+//base
+@import "base/reset";
+@import "base/main";
+
+//components
+@import "components/sliderComponent";
+@import "components/dropzone";
+@import "components/chat";
+@import "components/filters";
+@import "components/modalWin";
+@import "components/recommendedVacancy";
+@import "components/searchInput";
+@import "components/notifications";
+@import "components/heading";
+@import "components/userContacts";
+@import "components/alert";
+@import "components/loader";
+@import "components/sliderItem";
+
+//layout
+@import "layout/header";
+@import "layout/footer";
+
+//page
+@import "page/landing";
+@import "page/applicant";
+@import "page/create";
+@import "page/createResume";
+@import "page/employer";
+@import "page/favorites";
+@import "page/response";
+@import "page/resume";
+@import "page/vacancy";
+@import "page/vacancyPage";
+@import "page/userEdit";
+@import "page/userProfile";

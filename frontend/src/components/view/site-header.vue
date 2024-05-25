@@ -36,9 +36,9 @@
             <button @click="isVisibleNotifications = !isVisibleNotifications" class="header__alerts" ref="alert">
               <img src="@/assets/alerts.svg" alt="кнопка оповещений">
             </button>
-<!--            <button class="header__alerts">-->
-<!--              <img src="@/assets/message.svg" alt="кнопка чата">-->
-<!--            </button>-->
+            <button ref="buttonChat" @click="isChatActive = !isChatActive" class="header__alerts">
+              <img src="@/assets/message.svg" alt="кнопка чата">
+            </button>
           </template>
         </ul>
         <div v-if="isAuthorization" class="header-supernova">
@@ -58,25 +58,6 @@
                 <a :href="`/${userData.usertype}/`" class="supernova-wrapper__name">{{
                     userData.firstName
                   }}</a>
-              </li>
-              <li class="supernova-wrapper-item supernova-wrapper-item--mobile">
-                <router-link to="/favorites" tag="div" class="supernova-wrapper-block">
-                  <img src="@/assets/star.svg" alt="кнопка избранное" class="supernova-wrapper-image">
-                  <span class="supernova-wrapper-text">Избранное</span>
-                </router-link>
-              </li>
-<!--              <li class="supernova-wrapper-item supernova-wrapper-item&#45;&#45;mobile">-->
-<!--                <div class="supernova-wrapper-block">-->
-<!--                  <img src="@/assets/message.svg" alt="кнопка избранное" class="supernova-wrapper-image">-->
-<!--                  <span class="supernova-wrapper-text">Чат</span>-->
-<!--                </div>-->
-<!--              </li>-->
-              <li class="supernova-wrapper-item supernova-wrapper-item--mobile supernova-wrapper-item--padding-bottom">
-                <div @click="isVisibleNotifications = !isVisibleNotifications" ref="mobileAlert"
-                     class="supernova-wrapper-block">
-                  <img src="@/assets/alerts.svg" alt="кнопка избранное" class="supernova-wrapper-image">
-                  <button class="supernova-wrapper-text">Уведомления</button>
-                </div>
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--section">
                 <div @click.stop="openSubMenu" class="supernova-wrapper-block">
@@ -124,7 +105,6 @@
         <the-notification
             @close-notification="onCloseNotification"
             :alerts-button="this.$refs.alert"
-            :alerts-button-mobile="this.$refs.mobileAlert"
             :is-visible="isVisibleNotifications">
         </the-notification>
       </transition>
@@ -288,12 +268,6 @@
                   <i v-else @click="isHidePassword = true" class="bx bx-show modal-form__hide"></i>
                 </div>
               </div>
-<!--              <button-->
-<!--                  type="button"-->
-<!--                  @click="openModalWinReset()"-->
-<!--                  class="modal-form-password-reset">-->
-<!--                Забыли пароль?-->
-<!--              </button>-->
               <button
                   type="submit"
                   @click="checkRegFields(); logIn()"
@@ -368,7 +342,13 @@
           </div>
         </modal-window>
       </Transition>
-      <the-chat v-if="isChatActive"/>
+      <Transition name="chat">
+        <the-chat
+            :is-visible="isChatActive"
+            :chat-button="this.$refs.buttonChat"
+            @close-chat="closeChat()"
+            />
+      </Transition>
       <button
           @click="openItem"
           :class="{active: isMenuActive}"
@@ -378,6 +358,12 @@
         <span class="header__menu-btn__line"></span>
       </button>
     </div>
+    <transition name="alert">
+      <the-alert
+          v-if="isAlert"
+          :text="alertText"
+      ></the-alert>
+    </transition>
   </header>
 </template>
 
@@ -387,10 +373,12 @@ import _ from 'lodash';
 import axios from "axios"
 import TheChat from "@/components/ui/chat.vue";
 import TheNotification from "@/components/ui/notifications.vue";
+import TheAlert from "@/components/ui/alert.vue";
 
 export default {
   name: 'SiteHeader',
   components: {
+    TheAlert,
     TheNotification,
     TheChat,
     ModalWindow
@@ -426,6 +414,9 @@ export default {
       isChatActive: false,
 
       isVisibleNotifications: false,
+
+      isAlert: false,
+      alertText: '',
     }
   },
   methods: {
@@ -437,7 +428,6 @@ export default {
       }
       if(this.$route.path === '/applicant/' || this.$route.path === '/employer/') {
         this.$store.dispatch('setUserData')
-        // window.location.reload()
       }
       localStorage.setItem('applicantTab', JSON.stringify(2));
     },
@@ -464,7 +454,7 @@ export default {
           this.onCloseModalReg();
         }
       } catch (error) {
-        console.error(error);
+        this.showAlert(error.request.response.email)
       }
     },
     async authentication(presentUser) {
@@ -498,6 +488,7 @@ export default {
           this.$store.commit('setAccess', response.data.access)
           this.$store.commit('setRefresh', response.data.refresh)
           this.$store.commit('changeAuthorization', true)
+          await axios.get('/api/update_last_log_in/')
           window.location.reload();
         }
       } catch (error) {
@@ -527,14 +518,6 @@ export default {
         return;
       }
     },
-    // openNextStep() {
-    //   this.checkRegFields();
-    //
-    //   if (this.isEmptyName || this.isEmptyPassword || this.isEmptyName || this.isCheckPassword || this.isCheckEmail) {
-    //     return;
-    //   }
-    //   this.ModalWinRegCurrentStep++
-    // },
     openModalWinLog() {
       this.clearModalData();
       this.isModalWinLog = true;
@@ -572,7 +555,6 @@ export default {
     onCloseNotification() {
       this.isVisibleNotifications = false
     },
-
     clearModalData() {
       this.email = '';
       this.password = '';
@@ -613,6 +595,16 @@ export default {
       if (menu && menuBtn) {
         return !menu.contains(event.target) && !menuBtn.contains(event.target) ? this.isSupernovaMenuActive = false : this.isSupernovaMenuActive
       }
+    },
+    closeChat() {
+      this.isChatActive = false
+    },
+    showAlert(text) {
+      this.alertText = text
+      this.isAlert = true;
+      setTimeout(() => {
+        this.isAlert = false
+      }, 5000)
     }
   },
   watch: {
@@ -644,18 +636,35 @@ export default {
 }
 </script>
 
-<style src="@/style/header.scss" lang="scss" scoped>
+<!--<style src="@/style/layout/header.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->
 
-<style>
+<style lang="scss">
 
 .modal-enter-active, .modal-leave-active {
-  transition: opacity .3s;
+  transition: opacity .2s;
 }
 
 .modal-enter, .modal-leave-to {
   opacity: 0;
+}
+
+.chat-enter-active, .chat-leave-active {
+  transition: opacity .2s ease, height .2s ease;
+}
+
+.chat-enter, .chat-leave-to {
+  opacity: 0;
+}
+
+.alert-enter-active, .alert-leave-active {
+  transition: all .2s ease;
+}
+
+.alert-enter, .alert-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 
 </style>

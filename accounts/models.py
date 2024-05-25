@@ -54,6 +54,7 @@ class User(AbstractBaseUser):
     telegram = models.CharField('Телеграм', blank=True, null=True, max_length=100, default='')
     website = models.CharField('Сайт', blank=True, null=True, max_length=100, default='')
     phone_number = models.CharField('Номер телефона', blank=True, null=True, max_length=100, default='')
+    last_login = models.DateTimeField(null=True, blank=True, auto_now=True)
 
     objects = UserManager()
 

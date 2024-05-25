@@ -19,6 +19,7 @@ export default {
   name: 'App',
   data() {
     return {
+      connection: null,
     }
   },
   methods: {
@@ -68,3 +69,4 @@ export default {
   },
 }
 </script>
+<style src="@/style/style.scss" lang="scss"></style>

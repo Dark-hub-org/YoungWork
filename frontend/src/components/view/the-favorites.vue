@@ -216,6 +216,6 @@ export default {
 }
 </script>
 
-<style src="@/style/favorites.scss" lang="scss" scoped>
+<!--<style src="@/style/page/favorites.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

@@ -35,3 +35,13 @@ class AvatarSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'usertype', 'avatar']
+
+
+class UserChatSerializer(serializers.ModelSerializer):
+    last_login = serializers.DateTimeField(format="%d-%m-%Y %H:%M")
+
+    class Meta:
+        model = User
+        fields = [
+            'id', 'first_name', 'avatar', 'last_login'
+        ]
