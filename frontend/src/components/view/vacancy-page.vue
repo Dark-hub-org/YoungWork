@@ -110,10 +110,10 @@ export default {
   },
 }
 </script>
-<style src="@/style/vacancy-page.scss" lang="scss" scoped>
+<!--<style src="@/style/page/vacancyPage.scss" lang="scss" scoped>-->
 
-</style>
-<style>
+<!--</style>-->
+<style lang="scss">
 .vacancy__description {
   h2 {
     font-size: 32px;

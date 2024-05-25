@@ -211,6 +211,6 @@ export default {
 }
 </script>
 
-<style src="@/style/response.scss" lang="scss">
+<!--<style src="@/style/page/response.scss" lang="scss">-->
 
-</style>
+<!--</style>-->

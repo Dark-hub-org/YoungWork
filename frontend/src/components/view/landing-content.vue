@@ -171,6 +171,6 @@ export default {
 }
 </script>
 
-<style src="@/style/landing.scss" lang="scss" scoped>
+<!--<style src="@/style/page/landing.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->

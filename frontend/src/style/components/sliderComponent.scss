@@ -1,0 +1,15 @@
+.slider-wrapper {
+    width: 100%;
+}
+
+.swiper-container {
+    .swiper-slide {
+        height: initial;
+    }
+
+    .swiper-button-prev, .swiper-button-next {
+        font-size: 35px;
+        color: $colorOrangeM;
+    }
+}
+

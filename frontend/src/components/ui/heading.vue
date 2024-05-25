@@ -20,11 +20,11 @@ export default {
 }
 </script>
 
-<style lang="scss" src="@/style/ui/heading.scss" scoped>
+<!--<style lang="scss" src="@/style/components/heading.scss" scoped>-->
 
-</style>
+<!--</style>-->
 <style lang="scss">
-@import "@/style/varibles";
+@import "@/style/abstracts/varibles";
 
 @function calculate-offset($n) {
   @return 30px * $n;

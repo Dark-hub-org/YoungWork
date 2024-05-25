@@ -1,15 +1,12 @@
 const {defineConfig} = require('@vue/cli-service')
-var BundleTracker = require('webpack-bundle-tracker')
-var WriteFilePlugin = require('write-file-webpack-plugin')
+let BundleTracker = require('webpack-bundle-tracker')
+let WriteFilePlugin = require('write-file-webpack-plugin')
 
 module.exports = defineConfig({
     transpileDependencies: true
 })
 
 module.exports = {
-    // Paths
-    // Рабочая директория сборки
-    // приложения django, отвеает за фронт
     outputDir: (process.env.NODE_ENV === "production" ? 'dist' : 'static'),
     publicPath: '/',
     devServer: {
@@ -59,3 +56,4 @@ module.exports = {
         ]
     }
 }
+

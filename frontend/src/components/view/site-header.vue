@@ -59,25 +59,6 @@
                     userData.firstName
                   }}</a>
               </li>
-<!--              <li class="supernova-wrapper-item supernova-wrapper-item&#45;&#45;mobile">-->
-<!--                <router-link to="/favorites" tag="div" class="supernova-wrapper-block">-->
-<!--                  <img src="@/assets/star.svg" alt="кнопка избранное" class="supernova-wrapper-image">-->
-<!--                  <span class="supernova-wrapper-text">Избранное</span>-->
-<!--                </router-link>-->
-<!--              </li>-->
-<!--              <li class="supernova-wrapper-item supernova-wrapper-item&#45;&#45;mobile">-->
-<!--                <div ref="buttonChatMobile" @click="isChatActive = !isChatActive" class="supernova-wrapper-block">-->
-<!--                  <img src="@/assets/message.svg" alt="кнопка избранное" class="supernova-wrapper-image">-->
-<!--                  <span class="supernova-wrapper-text">Чат</span>-->
-<!--                </div>-->
-<!--              </li>-->
-<!--              <li class="supernova-wrapper-item supernova-wrapper-item&#45;&#45;mobile supernova-wrapper-item&#45;&#45;padding-bottom">-->
-<!--                <div @click="isVisibleNotifications = !isVisibleNotifications" ref="mobileAlert"-->
-<!--                     class="supernova-wrapper-block">-->
-<!--                  <img src="@/assets/alerts.svg" alt="кнопка избранное" class="supernova-wrapper-image">-->
-<!--                  <button class="supernova-wrapper-text">Уведомления</button>-->
-<!--                </div>-->
-<!--              </li>-->
               <li class="supernova-wrapper-item supernova-wrapper-item--section">
                 <div @click.stop="openSubMenu" class="supernova-wrapper-block">
                   <img src="@/assets/vacancy.svg" alt="кнопка избранное" class="supernova-wrapper-image">
@@ -287,12 +268,6 @@
                   <i v-else @click="isHidePassword = true" class="bx bx-show modal-form__hide"></i>
                 </div>
               </div>
-<!--              <button-->
-<!--                  type="button"-->
-<!--                  @click="openModalWinReset()"-->
-<!--                  class="modal-form-password-reset">-->
-<!--                Забыли пароль?-->
-<!--              </button>-->
               <button
                   type="submit"
                   @click="checkRegFields(); logIn()"
@@ -383,6 +358,12 @@
         <span class="header__menu-btn__line"></span>
       </button>
     </div>
+    <transition name="alert">
+      <the-alert
+          v-if="isAlert"
+          :text="alertText"
+      ></the-alert>
+    </transition>
   </header>
 </template>
 
@@ -392,10 +373,12 @@ import _ from 'lodash';
 import axios from "axios"
 import TheChat from "@/components/ui/chat.vue";
 import TheNotification from "@/components/ui/notifications.vue";
+import TheAlert from "@/components/ui/alert.vue";
 
 export default {
   name: 'SiteHeader',
   components: {
+    TheAlert,
     TheNotification,
     TheChat,
     ModalWindow
@@ -431,6 +414,9 @@ export default {
       isChatActive: false,
 
       isVisibleNotifications: false,
+
+      isAlert: false,
+      alertText: '',
     }
   },
   methods: {
@@ -468,7 +454,7 @@ export default {
           this.onCloseModalReg();
         }
       } catch (error) {
-        console.error(error);
+        this.showAlert(error.request.response.email)
       }
     },
     async authentication(presentUser) {
@@ -569,7 +555,6 @@ export default {
     onCloseNotification() {
       this.isVisibleNotifications = false
     },
-
     clearModalData() {
       this.email = '';
       this.password = '';
@@ -613,6 +598,13 @@ export default {
     },
     closeChat() {
       this.isChatActive = false
+    },
+    showAlert(text) {
+      this.alertText = text
+      this.isAlert = true;
+      setTimeout(() => {
+        this.isAlert = false
+      }, 5000)
     }
   },
   watch: {
@@ -644,11 +636,11 @@ export default {
 }
 </script>
 
-<style src="@/style/header.scss" lang="scss" scoped>
+<!--<style src="@/style/layout/header.scss" lang="scss" scoped>-->
 
-</style>
+<!--</style>-->
 
-<style>
+<style lang="scss">
 
 .modal-enter-active, .modal-leave-active {
   transition: opacity .2s;
@@ -664,6 +656,15 @@ export default {
 
 .chat-enter, .chat-leave-to {
   opacity: 0;
+}
+
+.alert-enter-active, .alert-leave-active {
+  transition: all .2s ease;
+}
+
+.alert-enter, .alert-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 
 </style>

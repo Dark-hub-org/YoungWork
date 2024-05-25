@@ -1,6 +1,6 @@
 <template>
   <section class="profile">
-    <div class="profile__wrapper wrapper">
+    <div class="wrapper profile__wrapper">
       <div class="profile__left">
         <template v-if="!this.$store.state.isProfileEdit">
           <div class="profile__top">
@@ -130,7 +130,6 @@ export default {
     };
   },
   methods: {
-
     switchingTabs(tab) {
       this.applicantStab = tab
       localStorage.setItem('applicantTab', JSON.stringify(tab));
@@ -147,9 +146,6 @@ export default {
           .catch(error => {
             console.log(error)
           });
-    },
-    onCloseModalWin() {
-      this.modalVisible = false
     },
     openEditProfile() {
       this.$router.push(`/${this.userData.usertype}/edit/`)
@@ -183,6 +179,6 @@ export default {
 }
 </script>
 
-<style src="@/style/ui/userProfile.scss" lang="scss">
+<!--<style src="@/style/page/userProfile.scss" lang="scss">-->
 
-</style>
+<!--</style>-->
