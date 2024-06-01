@@ -188,6 +188,8 @@ export default {
   methods: {
     closeChat() {
       this.$emit('close-chat')
+      this.currentDialog = [],
+      this.activeInterlocutor = null
     },
     handleClickOutside(event) {
       if (this.isVisible && !this.$refs.chat.contains(event.target) && !this.chatButton.contains(event.target)) {
@@ -308,6 +310,9 @@ export default {
           this.readItMessage(response.data.conversation.messages)
           this.currentDialog = response.data
           break;
+        case "new_message":
+          this.currentDialog.conversation.messages.push(response.data.message)
+          this.getChats()
       }
     }
   },
