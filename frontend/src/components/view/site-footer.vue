@@ -9,11 +9,11 @@
           <a href="/vacancy/" class="footer__list-link">
             Вакансии
           </a>
-          <a href="#" class="footer__list-link">Отзывы</a>
+          <a href="/" class="footer__list-link">Отзывы</a>
         </li>
         <li class="footer__list-item">
           <a href="#" class="footer__list-link">Служба поддержки</a>
-          <a href="#" class="footer__list-link">О сервисе</a>
+          <a href="/about" class="footer__list-link">О сервисе</a>
         </li>
         <li class="footer__list-item">
           <a href="#" class="footer__list-link">Пользовательское соглашение</a>

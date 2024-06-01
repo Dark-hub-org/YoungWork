@@ -15,6 +15,7 @@ import createVacancy from "@/components/view/create-vacancy.vue";
 import favorites from "@/components/view/the-favorites.vue";
 import response from "@/components/view/response.vue";
 import editResume from "@/components/view/edit-resume.vue";
+import about from "@/components/view/about.vue";
 
 
 Vue.use(VueRouter);
@@ -146,6 +147,17 @@ export default new VueRouter({
       name: 'employer-edit',
       component: UserEdit
     },//Редактирование профиля работодателя
+    {
+      path: '/about/',
+      name: 'the-about',
+      component: about,
+      meta: {
+        breadcrumb: {
+          label: 'О сервисе',
+          parent: 'home',
+        }
+      },
+    },// о сервисе
   ],
 });
 

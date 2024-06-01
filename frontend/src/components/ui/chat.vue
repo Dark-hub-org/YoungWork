@@ -132,7 +132,7 @@
             </textarea>
                   <span v-if="message.length === 2000"
                         class="chat__main-send__error">Максимальное количество символов</span>
-                  <button @click="sendMessage(activeInterlocutor.id, activeInterlocutor.users[0], $event)" type="submit"
+                  <button @click="sendMessage(activeInterlocutor, $event)" type="submit"
                           class="chat__main-send__button"></button>
                 </div>
               </template>
@@ -256,8 +256,9 @@ export default {
     sendMessage(user, event) {
       try {
         if (this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
-          event.preventDefault()
-          this.cleanMessage()
+          if(event.key === 'Enter') {
+            event.preventDefault()
+          }
           this.chatSocket.send(JSON.stringify({
             action: 'create_message',
             message: this.message,
@@ -273,6 +274,7 @@ export default {
           this.getChats()
 
           this.message = ''
+          this.cleanMessage()
           this.resetStyle()
         }
       } catch (error) {

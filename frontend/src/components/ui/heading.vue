@@ -86,7 +86,7 @@ export default {
 }
 @media(max-width: 450px) {
   .breadcrumb {
-    margin-bottom: 48px;
+    margin-bottom: 24px;
     span, .router-link-active {
       font-size: 12px;
       letter-spacing: -0.6px;

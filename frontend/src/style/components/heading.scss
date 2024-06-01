@@ -11,7 +11,7 @@
   }
 }
 
-@media(max-width: 1440px) {
+@media(max-width: 1441px) {
   .heading {
 
     &__title {
@@ -21,7 +21,7 @@
   }
 }
 
-@media(max-width: 1024px) {
+@media(max-width: 1025px) {
   .heading {
     margin-bottom: 64px;
 
@@ -32,7 +32,7 @@
   }
 }
 
-@media(max-width: 768px) {
+@media(max-width: 769px) {
   .heading {
     margin-bottom: 64px;
 
@@ -43,12 +43,12 @@
   }
 }
 
-@media(max-width: 450px) {
+@media(max-width: 451px) {
   .heading {
     margin-bottom: 32px;
 
     &__title {
-      font-size: 28px;
+      font-size: 36px;
       letter-spacing: -1.26px;
     }
   }
