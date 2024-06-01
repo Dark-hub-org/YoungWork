@@ -47,7 +47,7 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
                     sent_to = participant
                     break
 
-            await self.create_conversation_message(
+            message_instance = await self.create_conversation_message(
                 conversation=conversation,
                 created_by=user,
                 body=message,
@@ -57,7 +57,7 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
                 f"red",
                 {
                     "type": "chat_message",
-                    "message": message,
+                    "message": ConversationMessageSerializer(message_instance).data,
                 }
             )
 
