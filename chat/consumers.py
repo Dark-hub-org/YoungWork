@@ -1,15 +1,18 @@
 from channels.db import database_sync_to_async
-from djangochannelsrestframework.generics import GenericAsyncAPIConsumer
-from djangochannelsrestframework.observer.generics import (ObserverModelInstanceMixin, action)
-from djangochannelsrestframework.observer import model_observer
+from djangochannelsrestframework.observer.generics import ObserverModelInstanceMixin, action
+from .serializers import (
+    ConversationSerializer, ConversationMessageSerializer,
+    ConversationDetailSerializer, ResumeConDetailSerializer,
+    VacancyConDetailSerializer
+)
 
+from djangochannelsrestframework.generics import GenericAsyncAPIConsumer
 from .models import Conversation, ConversationMessage
-from .serializers import ConversationSerializer, ConversationMessageSerializer, ConversationDetailSerializer, \
-    ResumeConDetailSerializer, VacancyConDetailSerializer
-from accounts.models import User
-from accounts.serializers import UserSerializer, UserChatSerializer
+from accounts.serializers import UserChatSerializer
 from resume.models import Resume
 from jobs.models import Vacancies
+
+import json
 
 
 class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
@@ -17,31 +20,26 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
     serializer_class = ConversationSerializer
     lookup_field = "pk"
 
-    async def disconnect(self, code):
-        if hasattr(self, "room_subscribe"):
-            await self.remove_user_from_room(self.room_subscribe)
-        await super().disconnect(code)
+    async def connect(self):
+        await self.channel_layer.group_add("red", self.channel_name)
+        await self.accept()
+
+    async def disconnect(self, close_code):
+        await self.channel_layer.group_discard("red", self.channel_name)
 
     @action()
-    async def join_room(self, pk, **kwargs):
-        self.room_subscribe = pk
-        await self.add_user_to_room(pk)
-
-    @action()
-    async def leave_room(self, pk, **kwargs):
-        await self.remove_user_from_room(pk)
-
-    @action()
-    async def create_message(self, message, **kwargs):
+    async def create_message(self, message, conversation_id, **kwargs):
         user = self.scope["user"]
         try:
-            conversation = await database_sync_to_async(Conversation.objects.filter(users=user).first)()
+            conversation = await database_sync_to_async(
+                lambda: Conversation.objects.filter(id=conversation_id, users=user).first()
+            )()
+
             if not conversation:
-                await self.send_json({"success": False, "message": "Беседа не найдена."})
+                await self.send_json({"success": False, "message": "Беседа не найдена или доступ запрещен."})
                 return
 
             sent_to = None
-
             users = await database_sync_to_async(lambda: list(conversation.users.all()))()
 
             for participant in users:
@@ -49,25 +47,39 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
                     sent_to = participant
                     break
 
-            if sent_to is None:
-                await self.send_json({"success": False, "message": "Нет других пользователей в беседе."})
-                return
-
-            await database_sync_to_async(ConversationMessage.objects.create)(
+            await self.create_conversation_message(
                 conversation=conversation,
                 created_by=user,
                 body=message,
-                sent_to=sent_to,
+                sent_to=sent_to
             )
-
-            await self.send_json({"success": True, "message": "Сообщение отправлено."})
+            await self.channel_layer.group_send(
+                f"red",
+                {
+                    "type": "chat_message",
+                    "message": message,
+                }
+            )
 
         except Exception as e:
             await self.send_json({"success": False, "message": f"Произошла ошибка: {str(e)}"})
 
-    @action()
-    async def subscribe_to_messages_in_room(self, pk, **kwargs):
-        await self.message_activity.subscribe(room=pk)
+    async def chat_message(self, event):
+        message = event['message']
+
+        await self.send(text_data=json.dumps({
+            'action': 'new_message',
+            'message': message,
+        }))
+
+    @database_sync_to_async
+    def create_conversation_message(self, conversation, created_by, body, sent_to):
+        return ConversationMessage.objects.create(
+            conversation=conversation,
+            created_by=created_by,
+            body=body,
+            sent_to=sent_to,
+        )
 
     @action()
     async def conversation_list(self, **kwargs):
@@ -152,42 +164,3 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
             await self.send_json({"success": False, "message": "Беседа не найдена."})
         except Exception as e:
             await self.send_json({"success": False, "message": f"Произошла ошибка: {str(e)}"})
-
-    @model_observer(ConversationMessage)
-    async def message_activity(self, message, observer=None, **kwargs):
-        await self.send_json(message)
-
-    @message_activity.groups_for_signal
-    def message_activity(self, instance: ConversationMessage, **kwargs):
-        yield f'room__{instance.conversation_id}'
-        yield f'pk__{instance.pk}'
-
-    @message_activity.groups_for_consumer
-    def message_activity(self, room=None, **kwargs):
-        if room is not None:
-            yield f'room__{room}'
-
-    @message_activity.serializer
-    def message_activity(self, instance: ConversationMessage, action, **kwargs):
-        return dict(data=ConversationMessageSerializer(instance).data, action=action.value, pk=instance.pk)
-
-    @database_sync_to_async
-    def get_room(self, pk):
-        return Conversation.objects.get(pk=pk)
-
-    @database_sync_to_async
-    def current_users(self, room: Conversation):
-        return list(room.users.all())
-
-    @database_sync_to_async
-    def remove_user_from_room(self, pk):
-        user = self.scope["user"]
-        room = Conversation.objects.get(pk=pk)
-        room.users.remove(user)
-
-    @database_sync_to_async
-    def add_user_to_room(self, pk):
-        user = self.scope["user"]
-        room = Conversation.objects.get(pk=pk)
-        if not room.users.filter(pk=user.pk).exists():
-            room.users.add(user)

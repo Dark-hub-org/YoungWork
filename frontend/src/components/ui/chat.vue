@@ -261,11 +261,12 @@ export default {
           this.chatSocket.send(JSON.stringify({
             action: 'create_message',
             message: this.message,
+            conversation_id: this.activeInterlocutor.id,
             request_id: new Date().getTime()
           }))
           this.chatSocket.send(JSON.stringify({
             action: "conversation_detail",
-            pk: user.id,
+            pk: this.activeInterlocutor.id,
             user_id: user.users[0].id,
             usertype: this.userData.usertype,
             request_id: new Date().getTime()
@@ -314,7 +315,7 @@ export default {
       return this.$store.state.userData
     },
     socketUrl() {
-      return `ws://127.0.0.1:8000/ws/?token=${this.userToken}`;
+      return `ws://127.0.0.1:8080/ws/?token=${this.userToken}`;
     },
     isLoader() {
       return Boolean(!this.chatsList)
