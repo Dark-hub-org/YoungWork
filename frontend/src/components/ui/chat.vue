@@ -264,11 +264,12 @@ export default {
           this.chatSocket.send(JSON.stringify({
             action: 'create_message',
             message: this.message,
+            conversation_id: this.activeInterlocutor.id,
             request_id: new Date().getTime()
           }))
           this.chatSocket.send(JSON.stringify({
             action: "conversation_detail",
-            pk: user.id,
+            pk: this.activeInterlocutor.id,
             user_id: user.users[0].id,
             usertype: this.userData.usertype,
             request_id: new Date().getTime()
@@ -297,7 +298,7 @@ export default {
       }
     },
     cleanMessage() {
-      this.message =  this.message.replace(/^\s*\n*/, '');
+      this.message = this.message.replace(/^\s*\n*/, '');
     },
 
     handleSocketChat(data) {
@@ -330,7 +331,7 @@ export default {
   watch: {
     isVisible: {
       handler(val) {
-        if(val) {
+        if (val) {
           this.openWebSocket()
         } else {
           this.closeWebSocket()

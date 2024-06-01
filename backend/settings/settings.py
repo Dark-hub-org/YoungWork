@@ -97,6 +97,9 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
     },
+    'CONFIG': {
+        "hosts": [('127.0.0.1', 6379)],
+    },
 }
 
 DATABASES = {
@@ -133,7 +136,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
