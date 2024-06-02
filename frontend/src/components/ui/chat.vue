@@ -267,13 +267,13 @@ export default {
             conversation_id: this.activeInterlocutor.id,
             request_id: new Date().getTime()
           }))
-          this.chatSocket.send(JSON.stringify({
-            action: "conversation_detail",
-            pk: this.activeInterlocutor.id,
-            user_id: user.users[0].id,
-            usertype: this.userData.usertype,
-            request_id: new Date().getTime()
-          }))
+          // this.chatSocket.send(JSON.stringify({
+          //   action: "conversation_detail",
+          //   pk: this.activeInterlocutor.id,
+          //   user_id: user.users[0].id,
+          //   usertype: this.userData.usertype,
+          //   request_id: new Date().getTime()
+          // }))
           this.getChats()
 
           this.message = ''
@@ -308,12 +308,13 @@ export default {
           this.chatsList = response.data
           break;
         case "conversation_detail":
+          console.log(response.data.conversation.messages)
           this.readItMessage(response.data.conversation.messages)
           this.currentDialog = response.data
           break;
         case "new_message":
-          this.currentDialog.conversation.messages.push(response.data.message)
-          this.getChats()
+          this.currentDialog.conversation.messages.unshift(response.message)
+          break;
       }
     }
   },
