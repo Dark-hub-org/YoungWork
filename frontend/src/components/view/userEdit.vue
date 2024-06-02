@@ -22,7 +22,6 @@
                 v-restrict-input-length="120"
                 type="text"
                 class="edit__data-input">
-            <!--            <div class="edit__data-input">{{userData.lastName}}</div>-->
             <span
                 class="edit__data-field__error"
                 :class="{ active: errorFields.lastname }">Заполните обязательно поле</span>
@@ -283,6 +282,7 @@ export default {
         if (this.checkValidData()) {
           await axios.patch(`/${this.userData.usertype}/edit-data/${this.userData.id}/`, data)
           this.$store.dispatch('setUserData')
+          location.reload()
         } else {
           this.checkValidData()
         }
