@@ -308,12 +308,12 @@ export default {
           this.chatsList = response.data
           break;
         case "conversation_detail":
-          console.log(response.data.conversation.messages)
           this.readItMessage(response.data.conversation.messages)
           this.currentDialog = response.data
           break;
         case "new_message":
           this.currentDialog.conversation.messages.unshift(response.message)
+            this.getChats()
           break;
       }
     }

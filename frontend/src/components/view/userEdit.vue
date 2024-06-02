@@ -142,7 +142,7 @@
           </div>
         </div>
 
-        <div class="edit__data-field about">
+        <div class="edit__data-field--about">
           <form class="edit__data-portfolio">
             <template v-if="userData.usertype === 'employer'">
               <div  v-for="image in userData.achievements" :key="image.id" class="edit__data-portfolio__item">
@@ -177,7 +177,7 @@
           </div>
         </div>
         <div v-if="userData.usertype === 'employer'" class="edit__data-block about">
-          <div class="edit__data-field about">
+          <div class="edit__data-field edit__data-field--about">
             <p class="edit__data-field__name">Название организации</p>
             <input
                 v-model.trim="userData.title_org"
@@ -190,21 +190,21 @@
           </div>
         </div>
         <div class="edit__data-block about">
-          <div class="edit__data-field about">
+          <div class="edit__data-field edit__data-field--about">
             <p class="edit__data-field__name">
               <template v-if="userData.usertype === 'employer'">Описание организации:</template>
               <template v-else>Описание:</template>
             </p>
-            <textarea v-model.trim="userData.about" class="edit__data-input about"></textarea>
+            <textarea v-model.trim="userData.about" class="edit__data-input edit__data-input--about"></textarea>
           </div>
         </div>
         <div class="edit__data-block about">
-          <div class="edit__data-field about">
+          <div class="edit__data-field edit__data-field--about">
             <p class="edit__data-field__name">
               <template v-if="userData.usertype === 'employer'">Краткое описание ваших достижений:</template>
               <template v-else>Краткое описание ваших работ</template>
             </p>
-            <textarea v-model.trim="userData.aboutWork" class="edit__data-input about"></textarea>
+            <textarea v-model.trim="userData.aboutWork" class="edit__data-input edit__data-input--about"></textarea>
           </div>
         </div>
       </form>
@@ -343,7 +343,6 @@ export default {
           const gallery = await axios.get(`/applicant/data/${id}`)
           this.userData.portfolio = gallery.data.portfolio
         }
-        // console.log(gallery.data)
       } catch (error) {
         console.log(error)
       }
@@ -355,9 +354,6 @@ export default {
       immediate: true,
     },
   },
-  // updated() {
-  //   this.$store.dispatch('setUserData')
-  // },
   mounted() {
     const self = this;
 
@@ -380,7 +376,6 @@ export default {
 
     this.dropzone.on("removedfile", function () {
       const logotype = `/media${self.userAvatar}`
-      console.log(logotype)
       self.deletePhotoAvatar(logotype, 'avatar')
     });
 
