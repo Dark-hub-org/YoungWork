@@ -21,11 +21,21 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
     lookup_field = "pk"
 
     async def connect(self):
-        await self.channel_layer.group_add("red", self.channel_name)
-        await self.accept()
+        user = self.scope["user"]
+        conversation = Conversation.objects.filter(users=user).first()
+        if conversation:
+            self.chat_name = str(conversation.id)
+            await self.channel_layer.group_add(self.chat_name, self.channel_name)
+            await self.accept()
+        else:
+            await self.close()
 
     async def disconnect(self, close_code):
-        await self.channel_layer.group_discard("red", self.channel_name)
+        user = self.scope["user"]
+        conversation = Conversation.objects.filter(users=user).first()
+        if conversation:
+            self.chat_name = str(conversation.id)
+            await self.channel_layer.group_discard(self.chat_name, self.channel_name)
 
     @action()
     async def create_message(self, message, conversation_id, **kwargs):
@@ -53,8 +63,9 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
                 body=message,
                 sent_to=sent_to
             )
+            chat_name = str(conversation_id)
             await self.channel_layer.group_send(
-                f"red",
+                f"{chat_name}",
                 {
                     "type": "chat_message",
                     "message": ConversationMessageSerializer(message_instance).data,
