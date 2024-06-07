@@ -1,12 +1,6 @@
 <template>
   <section class="constructor">
     <div class="wrapper constructor-wrapper">
-      <!--      <div ref="banner" class="dropzone constructor__banner">-->
-      <!--        <div class="constructor__banner-wrapper">-->
-      <!--          <p class="constructor__banner-title">Загрузите тизер</p>-->
-      <!--          <div class="constructor__banner-cross"></div>-->
-      <!--        </div>-->
-      <!--      </div>-->
       <h2 class="constructor__title">Создание вакансии</h2>
       <form class="constructor__form">
         <div class="constructor__form-block">
@@ -280,12 +274,17 @@
         </div>
       </form>
     </div>
+    <the-alert
+        v-if="isAlert"
+        :text="alertText">
+    </the-alert>
   </section>
 </template>
 <script>
 
 import axios from "axios";
 import Vue from 'vue';
+import TheAlert from "@/components/common/alert.vue";
 
 Vue.directive('restrict-input-length', {
   bind(el, binding) {
@@ -299,6 +298,7 @@ Vue.directive('restrict-input-length', {
 });
 
 export default {
+  components: {TheAlert},
   data() {
     return {
       editorConfig: {
@@ -331,7 +331,7 @@ export default {
         employ: false,
         graph: false,
         description: false,
-      }
+      },
     }
   },
   methods: {
@@ -415,6 +415,4 @@ export default {
   }
 }
 </script>
-<!--<style src="@/style/page/create.scss" lang="scss" scoped>-->
 
-<!--</style>-->

@@ -7,9 +7,9 @@
 </template>
 
 <script setup>
-import SiteHeader from "@/components/view/site-header.vue"
-import SiteContent from "@/components/view/site-content.vue"
-import SiteFooter from "@/components/view/site-footer.vue"
+import SiteHeader from "@/components/layout/site-header.vue"
+import SiteContent from "@/components/layout/site-content.vue"
+import SiteFooter from "@/components/layout/site-footer.vue"
 </script>
 
 <script>

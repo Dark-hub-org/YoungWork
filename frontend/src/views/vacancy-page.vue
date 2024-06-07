@@ -48,8 +48,8 @@
 </template>
 <script>
 import axios from "axios";
-import TheHeading from "@/components/ui/heading.vue";
-import TheRecommendations from "@/components/ui/recommendations.vue";
+import TheHeading from "@/components/layout/heading.vue";
+import TheRecommendations from "@/components/specific/recommendations.vue";
 
 export default {
   name: 'vacancy-page',

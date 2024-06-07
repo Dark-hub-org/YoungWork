@@ -2,20 +2,21 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import LandingContent from '@/components/view/landing-content';
-import VacancyContent from "@/components/view/vacancy-content.vue";
-import vacancyPage from './components/view/vacancy-page.vue';
-import createResume from '@/components/view/create-resume.vue';
-import Applicant from '@/components/view/applicant.vue';
-import Employer from '@/components/view/employer.vue';
-import UserEdit from '@/components/view/userEdit.vue';
-import resume from "@/components/view/resume.vue";
-import editVacancy from "@/components/view/edit-vacancy.vue";
-import createVacancy from "@/components/view/create-vacancy.vue";
-import favorites from "@/components/view/the-favorites.vue";
-import response from "@/components/view/response.vue";
-import editResume from "@/components/view/edit-resume.vue";
-import about from "@/components/view/about.vue";
+import ViewHome from '@/views/home.vue';
+import about from "@/views/about.vue";
+import VacancyContent from "@/views/vacancy-content.vue";
+import vacancyPage from './views/vacancy-page.vue';
+import createResume from '@/views/create-resume.vue';
+import Applicant from '@/views/applicant.vue';
+import Employer from '@/views/employer.vue';
+import UserEdit from '@/views/userEdit.vue';
+import resume from "@/views/resume.vue";
+import editVacancy from "@/views/edit-vacancy.vue";
+import createVacancy from "@/views/create-vacancy.vue";
+import favorites from "@/views/the-favorites.vue";
+import response from "@/views/response.vue";
+import editResume from "@/views/edit-resume.vue";
+
 
 
 Vue.use(VueRouter);
@@ -27,7 +28,7 @@ export default new VueRouter({
     {
       path: '/',
       name: 'home',
-      component: LandingContent,
+      component: ViewHome,
       meta: {
         breadcrumb: 'Главная'
       }

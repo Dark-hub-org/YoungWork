@@ -76,41 +76,41 @@
                 <div class="response__item-social">
                   <div class="response__item-social__block">
                     <a v-if="response.telegram" :href="'https://t.me/' + response.telegram" class="response__item-social__link">
-                      <img src="@/assets/telegram-icon.svg" alt="" class="response__item-social__img">
+                      <img src="../assets/telegram-icon.svg" alt="" class="response__item-social__img">
                       <span>@{{response.telegram}}</span>
                     </a>
                     <div v-else class="response__item-social__link">
-                      <img src="@/assets/telegram-icon.svg" alt="" class="response__item-social__img">
+                      <img src="../assets/telegram-icon.svg" alt="" class="response__item-social__img">
                       <span>Не указанно</span>
                     </div>
                   </div>
                   <div class="response__item-social__block">
                     <a v-if="response.email" :href="'mailto:' + response.email" class="response__item-social__link">
-                      <img src="@/assets/email-icon.svg" alt="" class="response__item-social__img">
+                      <img src="../assets/email-icon.svg" alt="" class="response__item-social__img">
                       <span>{{response.email}}</span>
                     </a>
                     <div v-else class="response__item-social__link">
-                      <img src="@/assets/email-icon.svg" alt="" class="response__item-social__img">
+                      <img src="../assets/email-icon.svg" alt="" class="response__item-social__img">
                       <span>Не указанно</span>
                     </div>
                   </div>
                   <div class="response__item-social__block">
                     <a v-if="response.phone_number" :href="'tel:' + response.phone_number" class="response__item-social__link">
-                      <img src="@/assets/phone-icon.svg" alt="" class="response__item-social__img">
+                      <img src="../assets/phone-icon.svg" alt="" class="response__item-social__img">
                       <span>{{response.phone_number}}</span>
                     </a>
                     <div v-else class="response__item-social__link">
-                      <img src="@/assets/phone-icon.svg" alt="" class="response__item-social__img">
+                      <img src="../assets/phone-icon.svg" alt="" class="response__item-social__img">
                       <span>Не указанно</span>
                     </div>
                   </div>
                   <div class="response__item-social__block">
                     <a v-if="response.website" :href="response.website" target="_blank" class="response__item-social__link response__item-social__site">
-                      <img src="@/assets/link-icon.svg" alt="" class="response__item-social__img">
+                      <img src="../assets/link-icon.svg" alt="" class="response__item-social__img">
                       <span>{{response.website}}</span>
                     </a>
                     <div v-else class="response__item-social__link">
-                      <img src="@/assets/link-icon.svg" alt="" class="response__item-social__img">
+                      <img src="../assets/link-icon.svg" alt="" class="response__item-social__img">
                       <span>Не указанно</span>
                     </div>
                   </div>
@@ -166,7 +166,7 @@
 
 <script>
 import axios from "axios";
-import TheHeading from "@/components/ui/heading.vue";
+import TheHeading from "@/components/layout/heading.vue";
 
 export default {
   name: 'the-favorites',

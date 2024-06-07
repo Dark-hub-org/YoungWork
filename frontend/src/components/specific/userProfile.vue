@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import UserContacts from "@/components/ui/userContacts.vue";
+import UserContacts from "@/components/specific/userContacts.vue";
 import axios from "axios";
 
 export default {

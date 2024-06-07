@@ -110,7 +110,7 @@
       <div class="wrapper">
         <div class="recommendation__block">
           <div class="recommendation__block-item">
-            <img src="@/assets/vacancy/vacancy-1.png" alt="it профессии" class="recommendation__block-img">
+            <img src="../assets/vacancy/vacancy-1.png" alt="it профессии" class="recommendation__block-img">
             <div class="recommendation__block-content">
               <router-link
                   to="/"
@@ -123,7 +123,7 @@
             </div>
           </div>
           <div class="recommendation__block-item">
-            <img src="@/assets/vacancy/vacancy-2.png" alt="строительные профессии" class="recommendation__block-img">
+            <img src="../assets/vacancy/vacancy-2.png" alt="строительные профессии" class="recommendation__block-img">
             <div class="recommendation__block-content">
               <router-link
                   to="/"
@@ -136,7 +136,7 @@
             </div>
           </div>
           <div class="recommendation__block-item">
-            <img src="@/assets/vacancy/vacancy-3.png" alt="работа с детьми" class="recommendation__block-img">
+            <img src="../assets/vacancy/vacancy-3.png" alt="работа с детьми" class="recommendation__block-img">
             <div class="recommendation__block-content">
               <router-link
                   to="/"
@@ -156,12 +156,12 @@
 
 <script>
 
-import TheFilters from "@/components/ui/filter.vue";
+import TheFilters from "@/components/common/filter.vue";
 import Paginate from 'vuejs-paginate'
 import axios from "axios";
-import TheHeading from "@/components/ui/heading.vue";
-import TheSearch from "@/components/ui/searchInput.vue";
-import TheLoader from "@/components/ui/loader.vue";
+import TheHeading from "@/components/layout/heading.vue";
+import TheSearch from "@/components/common/searchInput.vue";
+import TheLoader from "@/components/common/loader.vue";
 
 export default {
   name: 'vacancy-content',
@@ -283,10 +283,6 @@ export default {
 }
 
 </script>
-
-<!--<style src="@/style/page/vacancy.scss" lang="scss" scoped>-->
-
-<!--</style>-->
 <style lang="scss">
 @import "@/style/abstracts/varibles";
 
@@ -327,7 +323,7 @@ export default {
     padding: 10px 15px;
     width: 100%;
     height: 100%;
-    background-image: url("../../assets/arrow.svg");
+    background-image: url("../assets/arrow.svg");
     background-position: center;
     background-repeat: no-repeat;
   }

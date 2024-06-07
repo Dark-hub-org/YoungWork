@@ -22,7 +22,7 @@
                     placeholder="Например, 987654321098"
                     class="modal-verification__input"
                     :class="{error: isUserINNError}">
-                <img v-if="isUserINNError" src="@/assets/error-icon.svg" alt="иконка ошибка" class="modal-verification__error-icon">
+                <img v-if="isUserINNError" src="../assets/error-icon.svg" alt="иконка ошибка" class="modal-verification__error-icon">
                 <p v-if="isUserINNError" class="modal-verification__error">Неправильно заполнено поле</p>
                 <p class="modal-verification__label">10 цифр</p>
               </div>
@@ -103,8 +103,8 @@
 </template>
 
 <script>
-import UserProfile from "@/components/ui/userProfile.vue";
-import ModalWindow from "@/components/ui/modalWin.vue";
+import UserProfile from "@/components/specific/userProfile.vue";
+import ModalWindow from "@/components/common/modalWin.vue";
 
 import { Navigation} from 'swiper'
 import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
@@ -113,7 +113,7 @@ SwiperCore.use([Navigation])
 
 import axios from "axios";
 import 'swiper/swiper-bundle.css'
-import TheLoader from "@/components/ui/loader.vue";
+import TheLoader from "@/components/common/loader.vue";
 export default {
   name: 'employer-profile',
   components: {TheLoader, ModalWindow, UserProfile, Swiper, SwiperSlide},

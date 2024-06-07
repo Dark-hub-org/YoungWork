@@ -21,7 +21,7 @@
           </div>
           <div class="inner__info-card small">
             <picture>
-              <source media="(max-width: 1024px)" srcset="@/assets/inner/info-3__1024.png">
+              <source media="(max-width: 1024px)" srcset="../assets/inner/info-3__1024.png">
               <img src="@/assets/inner/info-3.png" alt="рукопожатие" class="inner__info-image">
             </picture>
             <div class="inner__info-block">
@@ -50,7 +50,7 @@
             <p class="reviews__slider-title">{{review.title}}</p>
             <p class="reviews__slider-text">{{review.text}}</p>
             <div class="reviews__slider-author">
-              <img :src="require(`../../assets/reviews/${review.src}`)" alt="" class="reviews__slider-author__img">
+              <img :src="require(`../assets/reviews/${review.src}`)" alt="" class="reviews__slider-author__img">
               <div class="reviews__slider-author__info">
                 <p class="reviews__slider-author__name">{{review.name}}</p>
                 <p class="reviews__slider-author__post">{{review.post}}</p>
@@ -59,7 +59,6 @@
             </div>
           </swiper-slide>
         </swiper>
-<!--        <a href="#" class="reviews__more">Смотреть все</a>-->
       </div>
     </section>
     <section class="recommendation">
@@ -79,11 +78,11 @@ import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
 SwiperCore.use([Navigation])
 
 import 'swiper/swiper-bundle.css'
-import TheHeading from "@/components/ui/heading.vue";
-import TheSearch from "@/components/ui/searchInput.vue";
-import TheRecommendations from "@/components/ui/recommendations.vue";
+import TheHeading from "@/components/layout/heading.vue";
+import TheSearch from "@/components/common/searchInput.vue";
+import TheRecommendations from "@/components/specific/recommendations.vue";
 export default {
-  name: "landing-content",
+  name: "view-home",
   components: {
     TheRecommendations,
     TheSearch,

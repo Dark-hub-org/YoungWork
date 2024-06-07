@@ -20,7 +20,7 @@
         </div>
         <div class="resume__contacts">
           <img v-if="resumeData.avatar" :src='"/img" + resumeData.avatar' alt="фото соискателя" class="resume__contacts-img">
-          <img v-else src="@/assets/header/anonim-logo.svg" class="resume__contacts-img resume__contacts-img--anonymous" alt="фото соискателя">
+          <img v-else src="../assets/header/anonim-logo.svg" class="resume__contacts-img resume__contacts-img--anonymous" alt="фото соискателя">
           <p class="resume__contacts-name">{{resumeData.last_name}} {{resumeData.first_name}} {{resumeData?.surname}}</p>
           <div class="resume__contacts-block">
             <p v-if="resumeData.region || resumeData.citizenship" class="resume__contacts-text">
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import TheHeading from "@/components/ui/heading.vue";
+import TheHeading from "@/components/layout/heading.vue";
 import axios from "axios";
 export default {
   components: {TheHeading},

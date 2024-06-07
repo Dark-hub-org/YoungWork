@@ -7,7 +7,7 @@
           <div ref="dropzone" class="dropzone edit__data-photo">
             <button v-if="userData.avatar" type="button" @click="deletePhotoAvatar(userData.avatar, 'avatar')"
                     class="edit__data-photo__delete"></button>
-            <img v-if="!userData.avatar" src="@/assets/create/cross-icon.svg" alt="иконка загрузки"
+            <img v-if="!userData.avatar" src="../assets/create/cross-icon.svg" alt="иконка загрузки"
                  class="edit__data-photo__icon">
             <img v-else :src='"/img" + userData.avatar' alt="" class="edit__data-photo__upload">
           </div>
@@ -97,7 +97,7 @@
 
           <div class="edit__data-field contact">
             <img
-                src="../../assets/phone-icon.svg"
+                src="../assets/phone-icon.svg"
                 alt="иконка телефона"
                 class="edit__data-img">
             <input
@@ -108,7 +108,7 @@
           </div>
           <div class="edit__data-field contact">
             <img
-                src="../../assets/email-icon.svg"
+                src="../assets/email-icon.svg"
                 alt="иконка e-mail"
                 class="edit__data-img">
             <input
@@ -120,7 +120,7 @@
           </div>
           <div class="edit__data-field contact">
             <img
-                src="../../assets/telegram-icon.svg"
+                src="../assets/telegram-icon.svg"
                 alt="иконка телеграмма"
                 class="edit__data-img">
             <input
@@ -131,7 +131,7 @@
           </div>
           <div class="edit__data-field contact">
             <img
-                src="../../assets/link-icon.svg"
+                src="../assets/link-icon.svg"
                 alt="иконка ссылки"
                 class="edit__data-img">
             <input
@@ -151,7 +151,7 @@
             </template>
 
             <div v-show="userData.usertype === 'employer'" ref="dropzoneEmployerPortfolio" class="dropzone edit__data-portfolio__item">
-              <img class="edit__data-portfolio__button" src="@/assets/btn-add.svg" alt="кнопка добавления">
+              <img class="edit__data-portfolio__button" src="../assets/btn-add.svg" alt="кнопка добавления">
             </div>
 
             <template v-if="userData.usertype === 'applicant'">
@@ -161,7 +161,7 @@
               </div>
             </template>
             <div v-show="userData.usertype === 'applicant'" ref="dropzoneApplicantPortfolio" class="dropzone edit__data-portfolio__item">
-              <img class="edit__data-portfolio__button" src="@/assets/btn-add.svg" alt="кнопка добавления">
+              <img class="edit__data-portfolio__button" src="../assets/btn-add.svg" alt="кнопка добавления">
             </div>
           </form>
         </div>
@@ -170,7 +170,7 @@
           <div ref="dropzoneSmall" class="dropzone edit__data-photo edit__data-photo--organization">
             <button v-if="userData.photo_org" type="button" @click="deletePhotoAvatar(userData.photo_org, 'logotype')"
                     class="edit__data-photo__delete"></button>
-            <img v-if="!userData.photo_org" src="@/assets/create/cross-icon.svg" alt="иконка загрузки"
+            <img v-if="!userData.photo_org" src="../assets/create/cross-icon.svg" alt="иконка загрузки"
                  class="edit__data-photo__icon">
             <img v-else :src='"/img" + userData.photo_org' alt="логотип компании" class="edit__data-photo__upload">
           </div>
@@ -346,7 +346,7 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    }
+    },
   },
   watch: {
     '$store.state.userData': {

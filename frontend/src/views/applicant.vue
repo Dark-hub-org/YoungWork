@@ -54,12 +54,12 @@
 </template>
 
 <script>
-import UserProfile from "@/components/ui/userProfile.vue";
+import UserProfile from "@/components/specific/userProfile.vue";
 
 import { Navigation} from 'swiper'
 import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
 import axios from "axios";
-import TheLoader from "@/components/ui/loader.vue";
+import TheLoader from "@/components/common/loader.vue";
 SwiperCore.use([Navigation])
 
 export default {

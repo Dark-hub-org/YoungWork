@@ -5,7 +5,7 @@
           to="/"
           tag="a"
           class="header-logo-link">
-        <img src="@/assets/logo.svg" alt="логотип" class="header__logo">
+        <img src="../../assets/logo.svg" alt="логотип" class="header__logo">
       </router-link>
       <nav
           :class="{active: isMenuActive}"
@@ -31,13 +31,13 @@
           </template>
           <template v-else>
             <router-link to="/favorites/" tag="li" class="header__button">
-              <img src="@/assets/star.svg" alt="кнопка избранных вакансий">
+              <img src="../../assets/star.svg" alt="кнопка избранных вакансий">
             </router-link>
             <button @click="isVisibleNotifications = !isVisibleNotifications" class="header__alerts" ref="alert">
-              <img src="@/assets/alerts.svg" alt="кнопка оповещений">
+              <img src="../../assets/alerts.svg" alt="кнопка оповещений">
             </button>
             <button ref="buttonChat" @click="isChatActive = !isChatActive" class="header__alerts">
-              <img src="@/assets/message.svg" alt="кнопка чата">
+              <img src="../../assets/message.svg" alt="кнопка чата">
             </button>
           </template>
         </ul>
@@ -61,7 +61,7 @@
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--section">
                 <div @click.stop="openSubMenu" class="supernova-wrapper-block">
-                  <img src="@/assets/vacancy.svg" alt="кнопка избранное" class="supernova-wrapper-image">
+                  <img src="../../assets/vacancy.svg" alt="кнопка избранное" class="supernova-wrapper-image">
                   <button class="supernova-wrapper-text">
                     <template v-if="userData.usertype === 'employer'">Вакансии</template>
                     <template v-if="userData.usertype === 'applicant'">Резюме</template>
@@ -90,7 +90,7 @@
               </li>
               <li class="supernova-wrapper-item supernova-wrapper-item--padding-top">
                 <div class="supernova-wrapper-block">
-                  <img src="@/assets/exit.svg" alt="кнопка избранное" class="supernova-wrapper-image">
+                  <img src="../../assets/exit.svg" alt="кнопка избранное" class="supernova-wrapper-image">
                   <button @click="switchType" class="supernova-wrapper-text">Сменить аккаунт</button>
                 </div>
               </li>
@@ -368,12 +368,12 @@
 </template>
 
 <script>
-import ModalWindow from "@/components/ui/modalWin.vue";
+import ModalWindow from "@/components/common/modalWin.vue";
 import _ from 'lodash';
 import axios from "axios"
-import TheChat from "@/components/ui/chat.vue";
-import TheNotification from "@/components/ui/notifications.vue";
-import TheAlert from "@/components/ui/alert.vue";
+import TheChat from "@/components/common/chat.vue";
+import TheNotification from "@/components/common/notifications.vue";
+import TheAlert from "@/components/common/alert.vue";
 
 export default {
   name: 'SiteHeader',

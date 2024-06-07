@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import TheHeading from "@/components/ui/heading.vue";
+import TheHeading from "@/components/layout/heading.vue";
 
 export default {
   name: "the-about",

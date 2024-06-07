@@ -3,13 +3,13 @@
     <div class="wrapper footer__wrapper">
       <ul class="footer-list footer__list">
         <li class="footer__list-item">
-          <img src="@/assets/logo.svg" alt="логотип" class="footer__logo">
+          <img src="../../assets/logo.svg" alt="логотип" class="footer__logo">
         </li>
         <li class="footer__list-item">
           <a href="/vacancy/" class="footer__list-link">
             Вакансии
           </a>
-          <a href="/" class="footer__list-link">Отзывы</a>
+          <a href="/YoungWork/frontend/static" class="footer__list-link">Отзывы</a>
         </li>
         <li class="footer__list-item">
           <a href="#" class="footer__list-link">Служба поддержки</a>

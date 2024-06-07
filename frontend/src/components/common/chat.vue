@@ -2,7 +2,7 @@
   <div v-if="isVisible" ref="chat" class="chat">
     <div class="chat__wrapper">
       <button @click="closeChat" class="chat__close">
-        <img src="@/assets/close-icon.svg" alt="кнопка закрытия">
+        <img src="../../assets/close-icon.svg" alt="кнопка закрытия">
       </button>
       <template v-if="!isLoader">
         <div class="chat__top">
@@ -12,7 +12,7 @@
             <template v-if="activeInterlocutor.users.length">
               <img v-if="activeInterlocutor.users[0].avatar !== null" class="chat__current-user-img"
                    :src='"/img/" + activeInterlocutor.users[0].avatar' alt="">
-              <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
+              <img v-else class="chat__current-user-img" src="../../assets/header/anonim-logo.svg" alt="">
               <div class="chat__current-user-data">
                 <p class="chat__current-user-name">{{ activeInterlocutor.users[0].first_name }}</p>
                 <template v-if="currentDialog.vacancy">
@@ -39,7 +39,7 @@
             <template v-else>
               <img v-if="activeInterlocutor.history[0].avatar !== null" class="chat__current-user-img"
                    :src='"/img/" + activeInterlocutor.history[0].avatar' alt="">
-              <img v-else class="chat__current-user-img" src="@/assets/header/anonim-logo.svg" alt="">
+              <img v-else class="chat__current-user-img" src="../../assets/header/anonim-logo.svg" alt="">
               <div class="chat__current-user-data">
                 <p class="chat__current-user-name">{{ activeInterlocutor.history[0].first_name }}</p>
                 <p class="chat__current-user-visit">Последний визит: {{ activeInterlocutor.history[0].last_login }}</p>
@@ -66,12 +66,12 @@
                     <template v-if="item.users.length">
                       <img v-if="item.users[0].avatar !== null" class="chat__main-list__image"
                            :src='"/img/" + item.users[0].avatar' alt="">
-                      <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
+                      <img v-else class="chat__main-list__image" src="../../assets/header/anonim-logo.svg" alt="">
                     </template>
                     <template v-else>
                       <img v-if="item.history[0].avatar !== null" class="chat__main-list__image"
                            :src='"/img/" + item.history[0].avatar' alt="">
-                      <img v-else class="chat__main-list__image" src="@/assets/header/anonim-logo.svg" alt="">
+                      <img v-else class="chat__main-list__image" src="../../assets/header/anonim-logo.svg" alt="">
                     </template>
                     <div class="chat__main-list__info">
                       <template v-if="item.users.length">
@@ -110,7 +110,7 @@
                     <template v-if="userData.id !== message.created_by.id">
                       <img v-if="message.created_by.avatar !== null" class="chat__main-massage__avatar"
                            :src='"/img/" + message.created_by.avatar' alt="аватар">
-                      <img v-else class="chat__main-massage__avatar" src="@/assets/header/anonim-logo.svg"
+                      <img v-else class="chat__main-massage__avatar" src="../../assets/header/anonim-logo.svg"
                            alt="анонимный аватар">
                     </template>
                     <div class="chat__main-massage">
@@ -156,7 +156,7 @@
 
 <script>
 import axios from "axios";
-import TheLoader from "@/components/ui/loader.vue";
+import TheLoader from "@/components/common/loader.vue";
 import WebSocketComponent from "@/services/websocket";
 
 export default {
