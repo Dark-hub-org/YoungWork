@@ -10,6 +10,8 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', TemplateView.as_view(template_name='index.html')),
                   path('about/', TemplateView.as_view(template_name='index.html')),
+                  path('privacy/', TemplateView.as_view(template_name='index.html')),
+                  path('agreement/', TemplateView.as_view(template_name='index.html')),
                   path('api/', include('djoser.urls')),
                   path('api/', include('djoser.urls.jwt')),
                   path('api/', include('accounts.urls')),
