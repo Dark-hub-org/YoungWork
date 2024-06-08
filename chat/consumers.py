@@ -20,16 +20,6 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
     serializer_class = ConversationSerializer
     lookup_field = "pk"
 
-    async def connect(self):
-        user = self.scope["user"]
-        conversation = Conversation.objects.filter(users=user).first()
-        if conversation:
-            self.chat_name = str(conversation.id)
-            await self.channel_layer.group_add(self.chat_name, self.channel_name)
-            await self.accept()
-        else:
-            await self.close()
-
     async def disconnect(self, close_code):
         user = self.scope["user"]
         conversation = Conversation.objects.filter(users=user).first()
@@ -149,6 +139,8 @@ class ChatConsumer(ObserverModelInstanceMixin, GenericAsyncAPIConsumer):
             conversation = await database_sync_to_async(
                 lambda: Conversation.objects.filter(users=user).get(pk=pk)
             )()
+            self.chat_name = str(conversation.id)
+            await self.channel_layer.group_add(self.chat_name, self.channel_name)
 
             if usertype == "employer":
                 resume = await database_sync_to_async(
