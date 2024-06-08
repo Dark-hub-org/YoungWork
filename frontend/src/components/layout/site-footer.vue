@@ -12,12 +12,12 @@
           <a href="/YoungWork/frontend/static" class="footer__list-link">Отзывы</a>
         </li>
         <li class="footer__list-item">
-          <a href="#" class="footer__list-link">Служба поддержки</a>
+<!--          <a href="#" class="footer__list-link">Служба поддержки</a>-->
           <a href="/about" class="footer__list-link">О сервисе</a>
         </li>
         <li class="footer__list-item">
-          <a href="#" class="footer__list-link">Пользовательское соглашение</a>
-          <a href="#" class="footer__list-link">Политика конфиденциальности</a>
+          <a href="/agreement" class="footer__list-link">Пользовательское соглашение</a>
+          <a href="/privacy" class="footer__list-link">Политика конфиденциальности</a>
         </li>
       </ul>
       <div class="footer__bottom">

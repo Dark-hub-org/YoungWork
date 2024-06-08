@@ -16,6 +16,9 @@ import createVacancy from "@/views/create-vacancy.vue";
 import favorites from "@/views/the-favorites.vue";
 import response from "@/views/response.vue";
 import editResume from "@/views/edit-resume.vue";
+import privacy from "@/views/privacy.vue";
+import userAgreement from "@/views/userAgreement.vue";
+
 
 
 
@@ -159,6 +162,28 @@ export default new VueRouter({
         }
       },
     },// о сервисе
+    {
+      path: '/privacy/',
+      name: 'the-privacy',
+      component: privacy,
+      meta: {
+        breadcrumb: {
+          label: 'Политика конфиденциальности',
+          parent: 'home',
+        }
+      },
+    },// политики конфиденциальности
+    {
+      path: '/agreement/',
+      name: 'user-agreement',
+      component: userAgreement,
+      meta: {
+        breadcrumb: {
+          label: 'Пользовательское соглашение',
+          parent: 'home',
+        }
+      },
+    },// пользовательское соглашение
   ],
 });
 
