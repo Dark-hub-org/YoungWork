@@ -29,7 +29,7 @@
     }
 
     &-input {
-      max-width: 1189px;
+      width: 100%;
       height: 73px;
       padding: 20px;
       border: 2px solid $colorInputBorder;
@@ -52,6 +52,28 @@
       }
       &.error {
         border-color: $colorError;
+      }
+    }
+    &-wrapper {
+      position: relative;
+      max-width: 1189px;
+      width: 100%;
+    }
+    &-button {
+      z-index: 2;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      width: 35px;
+      height: 35px;
+      transform: translateY(-50%);
+      background: url("@/assets/create/cross-icon.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      transition: all .3s ease;
+      &:hover {
+        transform: translateY(-50%) scale(1.2);
       }
     }
     &__input {

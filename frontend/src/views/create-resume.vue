@@ -126,13 +126,16 @@
         </div>
         <div class="create-resume__section">
           <h3 class="create-resume__section-title">Ключевые навыки:</h3>
-          <input
-              v-restrict-input-length="120"
-              type="text"
-              class="create-resume__section-input"
-              placeholder="Перечислите ваши навыки"
-              v-model.trim="resumeSkill"
-              @keyup.enter="addTagsSkills">
+          <div class="create-resume__section-wrapper">
+            <input
+                v-restrict-input-length="120"
+                type="text"
+                class="create-resume__section-input"
+                placeholder="Перечислите ваши навыки"
+                v-model.trim="resumeSkill"
+                @keyup.enter="addTagsSkills">
+            <button @click="addTagsSkills" type="button" class="create-resume__section-button"></button>
+          </div>
           <div class="create-resume__tags">
             <div class="create-resume__tag" v-for="item in skillsTags" :key="item">
               <span class="create-resume__tag-text">{{ item }}</span>
@@ -145,13 +148,16 @@
         </div>
         <div class="create-resume__section">
           <h3 class="create-resume__section-title">Ваши качества:</h3>
-          <input
-              v-restrict-input-length="120"
-              type="text"
-              class="create-resume__section-input"
-              placeholder="Перечислите ваши навыки"
-              v-model.trim="resumeQuality"
-              @keyup.enter="addTagsQuality">
+          <div class="create-resume__section-wrapper">
+            <input
+                v-restrict-input-length="120"
+                type="text"
+                class="create-resume__section-input"
+                placeholder="Перечислите ваши навыки"
+                v-model.trim="resumeQuality"
+                @keyup.enter="addTagsQuality">
+            <button @click="addTagsQuality" type="button" class="create-resume__section-button"></button>
+          </div>
           <div class="create-resume__tags">
             <div class="create-resume__tag" v-for="item in qualityTags" :key="item">
               <span class="create-resume__tag-text">{{ item }}</span>

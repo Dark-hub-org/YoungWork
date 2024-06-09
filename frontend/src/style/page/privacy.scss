@@ -52,6 +52,19 @@
         color:$colorOrangeLight;
       }
     }
+    table {
+      border-spacing: 0px;
+      border-collapse: collapse;
+
+      th, td {
+        border: 1px solid $colorGrey;
+        padding: 20px 10px;
+      }
+
+      th {
+        text-align: start;
+      }
+    }
   }
 }
 
