@@ -249,6 +249,8 @@
                       @input="isEmptyPassword = false"
                       :class="{error: this.isCheckPassword === false || isEmptyPassword}"
                       :type="isHidePassword ? 'password' : 'text'"
+                      name="password"
+                      autocomplete="on"
                       class="modal-form__input">
                   <template v-if="(this.isCheckPassword === false && password !== '') || isEmptyPassword">
                     <template v-if="!isCheckPassword && password !== ''">
