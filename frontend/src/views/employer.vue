@@ -153,10 +153,16 @@ export default {
   methods: {
     async checkValidOrganization() {
       try {
-        const response = await axios.get(`https://api-fns.ru/api/egr?req=${this.userINN}&key=${this.keyAPI}`)
+        let response = await axios.get(`https://api-fns.ru/api/egr?req=${this.userINN}&key=${this.keyAPI}`)
         const result = response.data.items[0].ЮЛ.Статус
+        console.log(result)
         if(result === 'Действующее') {
-          axios.patch(`employer/edit-data/${this.userData.id}/`, JSON.stringify({status_valid: true, inn: this.userINN}))
+          const data = {...this.userData}
+          data.status_valid = true
+          data.inn = this.userINN
+          await axios.patch(`/employer/edit-data/${this.userData.id}/`, data)
+          this.isModalVisible = false
+          this.userData.status_valid = true
         } else {
           alert('Error')
         }
