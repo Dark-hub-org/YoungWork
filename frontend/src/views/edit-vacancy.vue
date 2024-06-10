@@ -254,6 +254,7 @@
         </div>
         <div class="constructor__form-btns">
           <button
+              :disabled="!isDisabled"
               type="submit"
               @click.prevent="editVacancyData"
               class="button-orange-another constructor__form-submit"
@@ -304,7 +305,7 @@ export default {
       vacancyData: {},
       errorFields: {
         vacancyTitle: false,
-        salary: false,
+        employ: false,
         graph: false,
         description: false,
       },
@@ -328,7 +329,7 @@ export default {
       this.parseResponsibilities(this.vacancyData.description, 'Обязанности')
       this.parseResponsibilities(this.vacancyData.description, 'Требования')
       try {
-        if(this.validateFormVacancy) {
+        if(this.validateFormVacancy()) {
           const vacancyData = {
             job_title: this.vacancyData.job_title,
             company_name: this.userData.title_org,
@@ -353,7 +354,7 @@ export default {
           await axios(`/api/vac/${this.vacancyId}`)
         }
       } catch(error) {
-        console.log(this.vacancyData)
+        console.log(error)
       }
     },
     async switchVacancyActive(isActive) {
@@ -412,13 +413,18 @@ export default {
     validateFormVacancy() {
       this.errorFields.vacancyTitle = this.validateField(this.vacancyData.job_title)
       this.errorFields.graph = this.validateField(this.vacancyData.graph)
+      this.errorFields.employ = this.validateField(this.vacancyData.employ)
       this.errorFields.description = this.validateField(this.vacancyData.description)
+      console.log(Object.values(this.errorFields).every((error) => !error))
       return Object.values(this.errorFields).every((error) => !error)
     },
   },
   computed: {
     userData() {
       return this.$store.state.userData
+    },
+    isDisabled() {
+      return Object.values(this.errorFields).every((error) => !error)
     }
   },
   mounted() {
@@ -427,6 +433,3 @@ export default {
   }
 }
 </script>
-<!--<style src="@/style/page/create.scss" lang="scss" scoped>-->
-
-<!--</style>-->

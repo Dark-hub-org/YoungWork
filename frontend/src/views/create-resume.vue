@@ -170,14 +170,20 @@
           <ckeditor
               :config="editorConfig"
               v-model="resumeAbout"
+              @focus="errorFields.isErrorAbout = false"
               class="ckeditor-text">
           </ckeditor>
-          <p v-if="isErrorAbout" class="create-resume__error">
+          <p v-if="errorFields.isErrorAbout" class="create-resume__error">
             Пожалуйста, заполните поле
           </p>
         </div>
         <div class="create-resume__bottom">
-          <button @click="submitForm" type="button" class="button-orange-another">Опубликовать</button>
+          <button
+              :disabled="!isDisabled"
+              @click="submitForm"
+              type="button"
+              class="button-orange-another">Опубликовать
+          </button>
         </div>
       </form>
     </div>
@@ -216,21 +222,20 @@ export default {
 
       resumeSkill: '',
       skillsTags: [],
-      isErrorSkills: false,
 
       resumeQuality: '',
       qualityTags: [],
-      isErrorQuality: false,
 
       editorConfig: {
         toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
       },
       resumeAbout: '',
-      isErrorAbout: false,
+
 
       errorFields: {
         isErrorName: false,
         isErrorEmploy: false,
+        isErrorAbout: false,
       },
 
       resumeExperience: 'Нет опыта',
@@ -273,6 +278,7 @@ export default {
     validationDataResume() {
       this.errorFields.isErrorName = this.validateField(this.resumeName)
       this.errorFields.isErrorEmploy = this.validateField(this.resumeEmploy)
+      this.errorFields.isErrorAbout = this.validateField(this.resumeAbout)
       return Object.values(this.errorFields).every((error) => !error)
     },
     validateField(value) {
@@ -301,11 +307,10 @@ export default {
   computed: {
     userData() {
       return this.$store.state.userData
+    },
+    isDisabled() {
+      return Object.values(this.errorFields).every((error) => !error)
     }
   },
 }
 </script>
-
-<!--<style src="@/style/page/createResume.scss" lang="scss" scoped>-->
-
-<!--</style>-->

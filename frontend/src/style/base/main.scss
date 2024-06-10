@@ -22,6 +22,13 @@ body {
   margin-top: 158px;
 }
 
+button {
+  &:disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+}
+
 .wrapper {
   @include wrapper;
 }

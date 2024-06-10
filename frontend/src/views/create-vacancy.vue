@@ -266,6 +266,7 @@
         </div>
         <div class="constructor__form-btns">
           <button
+              :disabled="!isDisabled"
               type="submit"
               @click.prevent="createVacancy"
               class="button-orange-another constructor__form-submit"
@@ -274,17 +275,12 @@
         </div>
       </form>
     </div>
-    <the-alert
-        v-if="isAlert"
-        :text="alertText">
-    </the-alert>
   </section>
 </template>
 <script>
 
 import axios from "axios";
 import Vue from 'vue';
-import TheAlert from "@/components/common/alert.vue";
 
 Vue.directive('restrict-input-length', {
   bind(el, binding) {
@@ -298,7 +294,6 @@ Vue.directive('restrict-input-length', {
 });
 
 export default {
-  components: {TheAlert},
   data() {
     return {
       editorConfig: {
@@ -327,7 +322,6 @@ export default {
       logo: '',
       errorFields: {
         vacancyTitle: false,
-        salary: false,
         employ: false,
         graph: false,
         description: false,
@@ -410,6 +404,9 @@ export default {
     userData() {
       return this.$store.state.userData
     },
+    isDisabled() {
+      return Object.values(this.errorFields).every((error) => !error)
+    }
   },
   mounted() {
   }

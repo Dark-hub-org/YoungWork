@@ -170,14 +170,21 @@
           <ckeditor
               :config="editorConfig"
               v-model="resumeData.about_us"
+              @focus="errorFields.isErrorAbout"
               class="ckeditor-text">
           </ckeditor>
-<!--          <p v-if="isErrorAbout" class="create-resume__error">-->
-<!--            Пожалуйста, заполните поле-->
-<!--          </p>-->
+          <p v-if="errorFields.isErrorAbout" class="create-resume__error">
+            Пожалуйста, заполните поле
+          </p>
         </div>
         <div class="create-resume__bottom">
-          <button @click="submitForm(resumeData.id)" type="button" class="button-orange-another">Сохранить</button>
+          <button
+              @click="submitForm(resumeData.id)"
+              :disabled="!isDisabled"
+
+              type="button"
+              class="button-orange-another">Сохранить
+          </button>
           <button @click="changeStatusResume(resumeData)" type="button" class="button-orange">
             <template v-if="resumeData.active">
               Добавить в архив
@@ -216,14 +223,15 @@ export default {
   data() {
     return {
       resumeData: {},
-      errorFields: {
-        isErrorName: false,
-        isErrorEmploy: false,
-      },
       resumeSkill: '',
       resumeQuality: '',
       editorConfig: {
         toolbar: [['Bold'], ['Italic'], ['Underline'], ['Strike'], ['NumberedList'], ['BulletedList'], ['Styles'], ['Format']],
+      },
+      errorFields: {
+        isErrorName: false,
+        isErrorEmploy: false,
+        isErrorAbout: false,
       },
     }
   },
@@ -241,7 +249,6 @@ export default {
         if(this.validationDataResume()) {
           await axios.patch(`/api/edit-resume/${id}/`, this.resumeData)
           await axios.get(`/api/res/${id}`)
-          // location.reload()
         } else {
           this.validationDataResume()
         }
@@ -274,6 +281,7 @@ export default {
     validationDataResume() {
       this.errorFields.isErrorName = this.validateField(this.resumeData.resume_title)
       this.errorFields.isErrorEmploy = this.validateField(this.resumeData.employ)
+      this.errorFields.isErrorAbout = this.validateField(this.resumeData.about_us)
       return Object.values(this.errorFields).every((error) => !error)
     },
     validateField(value) {
@@ -301,6 +309,9 @@ export default {
   computed: {
     userId() {
       return this.$store.state.userData.id
+    },
+    isDisabled() {
+      return Object.values(this.errorFields).every((error) => !error)
     }
   },
   mounted() {
@@ -308,7 +319,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="@/style/page/createResume.scss" lang="scss" scoped>-->
-
-<!--</style>-->

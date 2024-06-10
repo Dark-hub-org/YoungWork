@@ -214,6 +214,7 @@
           <div class="modal-reg-wrapper">
             <p class="modal-title modal-title-reg">Войти</p>
             <form @submit.prevent="checkRegFields(); logIn()" class="modal-form modal-form-log">
+              <p class="modal-form__error" v-if="formError">{{formError}}</p>
               <div class="modal-form-block">
                 <label class="modal-form-name">Электронная почта</label>
                 <div class="modal-wrapper-input">
@@ -225,7 +226,7 @@
                       type="text"
                       class="modal-form__input"
                       :class="{error: this.isCheckEmail === false || isEmptyEmail}">
-                  <template v-if="this.isCheckEmail === false && email !== '' || isEmptyEmail">
+                  <template v-if="this.isCheckEmail === false && email.length || isEmptyEmail">
                     <div class="icon-error">
                     </div>
                     <label v-if="this.isCheckEmail === false" class="modal-input-error">
@@ -252,10 +253,15 @@
                       name="password"
                       autocomplete="on"
                       class="modal-form__input">
-                  <template v-if="(this.isCheckPassword === false && password !== '') || isEmptyPassword">
-                    <template v-if="!isCheckPassword && password !== ''">
+                  <template v-if="(this.isCheckPassword === false && password.length) || isEmptyPassword">
+                    <template v-if="!this.isCheckPassword && password.length < 8">
                       <label class="modal-input-error">
                         Пароль должен быть минимум 8 символов
+                      </label>
+                    </template>
+                    <template v-if="!this.isCheckPassword && password.length >= 8">
+                      <label class="modal-input-error">
+                        Неверный пароль
                       </label>
                     </template>
                     <template v-if="isEmptyPassword">
@@ -391,6 +397,7 @@ export default {
       password: '',
       userType: '',
       userId: '',
+      formError: '',
 
       isCheckEmail: undefined,
       isCheckPassword: undefined,
@@ -494,7 +501,9 @@ export default {
           window.location.reload();
         }
       } catch (error) {
-        console.log(error)
+        this.formError = error.response.data.detail
+        this.isCheckEmail = false
+        this.isCheckPassword = false
       }
     },
     logOut() {

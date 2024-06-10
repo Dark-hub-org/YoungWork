@@ -50,6 +50,12 @@
   flex-direction: column;
   width: 100%;
   max-width: 319px;
+
+  &__error {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: $colorError;
+  }
 }
 
 .modal-form-block {
@@ -97,6 +103,7 @@
 
 .modal-form__submit {
   font-weight: 800;
+  line-height: 1;
   font-size: 16px;
 }
 
