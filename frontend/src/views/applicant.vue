@@ -135,7 +135,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="@/style/page/applicant.scss" lang="scss" scoped>-->
-
-<!--</style>-->

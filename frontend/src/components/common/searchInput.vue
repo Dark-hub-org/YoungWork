@@ -45,9 +45,6 @@ export default {
 }
 </script>
 
-<!--<style src="@/style/components/searchInput.scss" lang="scss" scoped>-->
-
-<!--</style>-->
 <style>
 .clear-enter-active, .clear-leave-active {
   transition: opacity .15s;

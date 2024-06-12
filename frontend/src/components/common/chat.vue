@@ -267,13 +267,6 @@ export default {
             conversation_id: this.activeInterlocutor.id,
             request_id: new Date().getTime()
           }))
-          // this.chatSocket.send(JSON.stringify({
-          //   action: "conversation_detail",
-          //   pk: this.activeInterlocutor.id,
-          //   user_id: user.users[0].id,
-          //   usertype: this.userData.usertype,
-          //   request_id: new Date().getTime()
-          // }))
           this.getChats()
 
           this.message = ''
@@ -373,7 +366,3 @@ export default {
   },
 }
 </script>
-
-<!--<style src="@/style/components/chat.scss" lang="scss" scoped>-->
-
-<!--</style>-->

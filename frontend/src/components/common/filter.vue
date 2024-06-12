@@ -188,7 +188,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="@/style/components/filters.scss" lang="scss" scoped>-->
-
-<!--</style>-->

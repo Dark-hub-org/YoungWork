@@ -215,7 +215,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="@/style/page/favorites.scss" lang="scss" scoped>-->
-
-<!--</style>-->

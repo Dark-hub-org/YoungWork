@@ -110,9 +110,7 @@ export default {
   },
 }
 </script>
-<!--<style src="@/style/page/vacancyPage.scss" lang="scss" scoped>-->
 
-<!--</style>-->
 <style lang="scss">
 .vacancy__description {
   h2 {

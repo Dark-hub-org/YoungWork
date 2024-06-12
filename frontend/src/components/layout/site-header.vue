@@ -647,10 +647,6 @@ export default {
 }
 </script>
 
-<!--<style src="@/style/layout/header.scss" lang="scss" scoped>-->
-
-<!--</style>-->
-
 <style lang="scss">
 
 .modal-enter-active, .modal-leave-active {

@@ -15,7 +15,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="@/style/components/loader.scss" scoped lang="scss">-->
-
-<!--</style>-->

@@ -210,7 +210,3 @@ export default {
 
 }
 </script>
-
-<!--<style src="@/style/page/response.scss" lang="scss">-->
-
-<!--</style>-->

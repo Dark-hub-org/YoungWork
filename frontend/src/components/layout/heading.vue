@@ -20,9 +20,6 @@ export default {
 }
 </script>
 
-<!--<style lang="scss" src="@/style/components/heading.scss" scoped>-->
-
-<!--</style>-->
 <style lang="scss">
 @import "@/style/abstracts/varibles";
 

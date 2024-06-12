@@ -10,6 +10,3 @@ export default {
  }
 </script>
 
-<!--<style src="@/style/base/main.scss" lang="scss" scoped>-->
-
-<!--</style>-->

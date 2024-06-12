@@ -445,6 +445,3 @@ export default {
 }
 </script>
 
-<!--<style src="@/style/page/userEdit.scss" lang="scss" scoped>-->
-
-<!--</style>-->

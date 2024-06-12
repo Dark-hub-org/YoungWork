@@ -75,6 +75,3 @@ export default {
 }
 </script>
 
-<!--<style src="@/style/components/notifications.scss" lang="scss" scoped>-->
-
-<!--</style>-->

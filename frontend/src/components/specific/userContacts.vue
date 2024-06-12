@@ -49,7 +49,3 @@ export default {
   },
 }
 </script>
-
-<!--<style src="@/style/components/userContacts.scss" lang="scss" scoped>-->
-
-<!--</style>-->

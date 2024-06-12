@@ -179,6 +179,3 @@ export default {
 }
 </script>
 
-<!--<style src="@/style/components/recommendedVacancy.scss" lang="scss" scoped>-->
-
-<!--</style>-->

@@ -1,12 +1,12 @@
 <template>
-  <div class="reviews-slider__item">
-    <p class="slider-item__title">{{ review.title }}</p>
-    <p class="slider-item-text">{{ review.text }}</p>
-    <div class="slider-item-person">
-      <img :src="require(`../../assets/reviews/${review.src}`)" alt="работадатель" class="slider-item-person-image">
-      <div class="slider-item-person__info">
-        <p class="slider-item-person__info-name">{{ review.name }}</p>
-        <p class="slider-item-person__info-post">{{ review.post }}</p>
+  <div class="slider__item">
+    <p class="slider__item-title">{{ review.title }}</p>
+    <p class="slider__item-text">{{ review.text }}</p>
+    <div class="slider__item-person">
+      <img :src="require(`../../assets/reviews/${review.src}`)" alt="работадатель" class="slider__item-person__image">
+      <div class="slider__item-person__info">
+        <p class="slider__item-person__name">{{ review.name }}</p>
+        <p class="slider__item-person__post">{{ review.post }}</p>
       </div>
     </div>
   </div>
@@ -23,6 +23,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="@/style/components/sliderItem.scss" lang="scss" scoped>-->
-<!--</style>-->

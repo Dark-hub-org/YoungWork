@@ -236,7 +236,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="@/style/page/employer.scss" lang="scss" scoped>-->
-
-<!--</style>-->

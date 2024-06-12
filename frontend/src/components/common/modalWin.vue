@@ -48,7 +48,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="@/style/components/modalWin.scss" lang="scss" scoped>-->
-
-<!--</style>-->

@@ -178,7 +178,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="@/style/page/userProfile.scss" lang="scss">-->
-
-<!--</style>-->
