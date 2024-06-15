@@ -119,7 +119,7 @@
                   class="button-orange-another recommendation__block-content__link">
                 Перейти
               </router-link>
-              <h3 class="recommendation__block-content__title">IT-профессии</h3>
+              <p class="recommendation__block-content__title">IT-профессии</p>
             </div>
           </div>
           <div class="recommendation__block-item">
@@ -132,7 +132,7 @@
                   class="button-orange-another recommendation__block-content__link">
                 Перейти
               </router-link>
-              <h5 class="recommendation__block-content__title white">Строительные профессии</h5>
+              <p class="recommendation__block-content__title white">Строительные профессии</p>
             </div>
           </div>
           <div class="recommendation__block-item">
@@ -145,7 +145,7 @@
                   class="button-orange-another recommendation__block-content__link">
                 Перейти
               </router-link>
-              <h5 class="recommendation__block-content__title white">Работа с детьми</h5>
+              <p class="recommendation__block-content__title white">Работа с детьми</p>
             </div>
           </div>
         </div>

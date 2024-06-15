@@ -201,14 +201,12 @@
     gap: 24px;
     padding-bottom: 10px;
     margin-bottom: 24px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
-    -webkit-overflow-scrolling: touch;
+
     &::-webkit-scrollbar {
       height: 5px;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: $colorGreenM;
+      background-color: $colorOrangeM;
       border-radius: 16px;
     }
     &::-webkit-scrollbar-track {

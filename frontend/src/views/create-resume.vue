@@ -25,6 +25,7 @@
               class="create-resume__section-input"
               v-model.number="resumeSalary"
           >
+
         </div>
         <div class="create-resume__wrapper">
           <p class="create-resume__wrapper-title">Тип занятости</p>

@@ -277,12 +277,17 @@
 
     &::-webkit-scrollbar {
       height: 5px;
-      width: 5px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $colorGreyLight;
-      border-radius: 20px;
+      background-color: $colorOrangeM;
+      border-radius: 16px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+      margin-top: 15px;
+      margin-bottom: 15px;
     }
 
     &-item {
