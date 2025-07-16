@@ -1,43 +1,43 @@
 //abstracts
-@import "abstracts/varibles";
-@import "abstracts/mixin";
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
 
 //base
-@import "base/reset";
-@import "base/main";
+@use "base/reset" as *;
+@use "base/main" as *;
 
 //components
-@import "components/sliderComponent";
-@import "components/dropzone";
-@import "components/chat";
-@import "components/filters";
-@import "components/modalWin";
-@import "components/recommendedVacancy";
-@import "components/searchInput";
-@import "components/notifications";
-@import "components/heading";
-@import "components/userContacts";
-@import "components/alert";
-@import "components/loader";
-@import "components/sliderItem";
+@use "components/sliderComponent" as *;
+@use "components/dropzone" as *;
+@use "components/chat" as *;
+@use "components/filters" as *;
+@use "components/modalWin" as *;
+@use "components/recommendedVacancy" as *;
+@use "components/searchInput" as *;
+@use "components/notifications" as *;
+@use "components/heading" as *;
+@use "components/userContacts" as *;
+@use "components/alert" as *;
+@use "components/loader" as *;
+@use "components/sliderItem" as *;
 
 //layout
-@import "layout/header";
-@import "layout/footer";
+@use "layout/header" as *;
+@use "layout/footer" as *;
 
 //page
-@import "page/landing";
-@import "page/applicant";
-@import "page/create";
-@import "page/createResume";
-@import "page/employer";
-@import "page/favorites";
-@import "page/response";
-@import "page/resume";
-@import "page/vacancy";
-@import "page/vacancyPage";
-@import "page/userEdit";
-@import "page/userProfile";
-@import "page/about";
-@import "page/privacy";
-@import "page/userAgreemnt";
+@use "page/landing" as *;
+@use "page/applicant" as *;
+@use "page/create" as *;
+@use "page/createResume" as *;
+@use "page/employer" as *;
+@use "page/favorites" as *;
+@use "page/response" as *;
+@use "page/resume" as *;
+@use "page/vacancy" as *;
+@use "page/vacancyPage" as *;
+@use "page/userEdit" as *;
+@use "page/userProfile" as *;
+@use "page/about" as *;
+@use "page/privacy" as *;
+@use "page/userAgreemnt" as *;

@@ -1,3 +1,6 @@
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
+
 .notification {
   z-index: 100;
   position: absolute;

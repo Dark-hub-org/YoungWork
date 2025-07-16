@@ -24,8 +24,7 @@ class Applicant(models.Model):
     response = ArrayField(models.CharField(max_length=100), verbose_name="Отклики", default=list, blank=True, null=True)
     resume_count = models.IntegerField('Счетчик резюме', default=0)
 
-    portfolio = models.ManyToManyField(Applicant_image, related_name='portfolio',
-                                       verbose_name='Портфолио', blank=True, null=True)
+    portfolio = models.ManyToManyField(Applicant_image, related_name='portfolio', verbose_name='Портфолио', blank=True)
 
     class Meta:
         verbose_name = 'Соискатель'
@@ -42,8 +41,7 @@ class Employer(models.Model):
     photo_org = models.ImageField('Логотип', upload_to='employer', blank=True, null=True)
     inn = models.CharField('ИНН', blank=True, null=True, max_length=100, default='')
     status_valid = models.BooleanField('Статус проверки ИНН', null=True, default=False)
-    achievements = models.ManyToManyField(Employer_image, related_name='achievements',
-                                          verbose_name='Достижения', blank=True, null=True)
+    achievements = models.ManyToManyField(Employer_image, related_name='achievements', verbose_name='Достижения', blank=True)
     vacancy_count = models.IntegerField('Счетчик вакансий', default=0)
 
     class Meta:

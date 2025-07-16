@@ -1,3 +1,6 @@
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
+
 .slider__item {
   &-title {
     max-width: 405px;

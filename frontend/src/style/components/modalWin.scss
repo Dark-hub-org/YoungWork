@@ -1,3 +1,6 @@
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
+
 .modal-wrapper {
   z-index: 999;
   position: fixed;

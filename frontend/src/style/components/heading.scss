@@ -1,3 +1,6 @@
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
+
 .heading {
   max-width: 1440px;
   width: 100%;

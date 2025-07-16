@@ -1,3 +1,5 @@
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
 .response {
   &__quantity {
     margin-bottom: 64px;

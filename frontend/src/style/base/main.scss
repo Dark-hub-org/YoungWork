@@ -1,3 +1,6 @@
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
+
 #app {
   display: flex;
   flex-direction: column;

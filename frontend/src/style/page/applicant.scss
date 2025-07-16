@@ -1,3 +1,6 @@
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
+
 .profile {
   &__subtitle {
     margin-bottom: 10px;

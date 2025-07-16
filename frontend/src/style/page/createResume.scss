@@ -1,4 +1,5 @@
-
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
 .create-resume {
   &__title {
     text-align: center;

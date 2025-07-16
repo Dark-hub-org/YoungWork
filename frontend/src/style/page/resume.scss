@@ -1,3 +1,5 @@
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
 .resume {
   &__main {
     position: relative;

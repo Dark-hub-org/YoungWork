@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-7&3ue(5x^c@nf#i=asasdfasdf234-908ijhs-9weh84h56tnb
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://127.0.0.1:8000']
 
@@ -26,7 +26,15 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
-    ]
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+        'user': '1000/day'
+    }
 }
 
 SIMPLE_JWT = {
@@ -42,8 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
     'channels',
+    'channels_redis',
     'webpack_loader',
     'rest_framework',
     'djoser',
@@ -57,7 +67,6 @@ INSTALLED_APPS = [
     'chat',
     'notification',
     'favorites',
-    'daphne',
     'response',
 ]
 

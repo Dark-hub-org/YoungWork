@@ -1,3 +1,5 @@
+@use "@/style/abstracts/varibles" as *;
+@use "@/style/abstracts/mixin" as *;
 .agreement {
   margin-bottom: 80px;
   &__content {

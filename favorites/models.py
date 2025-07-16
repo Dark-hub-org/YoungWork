@@ -7,9 +7,8 @@ from accounts.models import User
 
 class Favorites(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    resume = models.ManyToManyField(Resume, verbose_name="Резюме", related_name='resume', null=True, blank=True)
-    vacancy = models.ManyToManyField(Vacancies, verbose_name="Вакансия", related_name='vacancies', null=True,
-                                     blank=True)
+    resume = models.ManyToManyField(Resume, verbose_name="Резюме", related_name='resume', blank=True)
+    vacancy = models.ManyToManyField(Vacancies, verbose_name="Вакансия", related_name='vacancies', blank=True)
 
     timestamp = models.DateTimeField("Время изменения", auto_now_add=True)
     created_by = models.ForeignKey(User, verbose_name="Создатель", related_name='user_favorites',
