@@ -1,0 +1,40 @@
+version: '3.11'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production-stage
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh run.sh
+    volumes:
+      - .:/app
+    environment:
+      DEBUG: "1"
+      DB_HOST: db
+      DB_NAME: Young_work
+      DB_USER: postgres
+      DB_PASSWORD: root
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: Young_work
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"

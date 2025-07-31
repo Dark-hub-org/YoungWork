@@ -1,12 +1,13 @@
 #!/bin/bash
-case $1 in
-  dev)
-    python manage.py runserver --settings=backend.settings.dev
-    ;;
-  prod)
-    python manage.py collectstatic --noinput
-    python manage.py makemigrations
-    python manage.py migrate
-    python manage.py runserver --settings=backend.settings.prod
-    ;;
-esac
+echo "Waiting for PostgreSQL..."
+
+while ! timeout 1 bash -c "echo > /dev/tcp/db/5432"; do
+  sleep 0.1
+done
+
+echo "PostgreSQL started"
+
+python manage.py collectstatic --noinput
+python manage.py makemigrations
+python manage.py migrate
+daphne -p 8000 backend.asgi:application
