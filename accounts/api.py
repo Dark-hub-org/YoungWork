@@ -120,38 +120,39 @@ def recommend(request):
         user = request.user
         usertype = user.usertype
         if usertype == 'applicant':
-            # try:
-            #     user_resume = Resume.objects.all()
-            #     user_resume_skills = user_resume.skills.split(",")
-            #     recommended_vacancies = Vacancies.objects.filter(description__icontains=user_resume_skills[0])
-            #
-            #     for skill in user_resume_skills[1:]:
-            #         recommended_vacancies = recommended_vacancies.filter(description__icontains=skill)
-            #
-            #     serializer = VacanciesDataSerializer(recommended_vacancies, many=True)
-            #     if serializer.data == []:
-            #         serializer = VacanciesDataSerializer(Vacancies.objects.all(), many=True)
-            #         return JsonResponse(serializer.data, safe=False)
-            #     return JsonResponse(serializer.data, safe=False)
-            # except ObjectDoesNotExist:
-            serializer = VacanciesDataSerializer(Vacancies.objects.exclude(created_by=request.user.id).all(), many=True)
+            try:
+                user_resume = Resume.objects.all()
+                user_resume_skills = user_resume.skills.split(",")
+                recommended_vacancies = Vacancies.objects.filter(description__icontains=user_resume_skills[0])
+
+                for skill in user_resume_skills[1:]:
+                    recommended_vacancies = recommended_vacancies.filter(description__icontains=skill)
+
+                serializer = VacanciesDataSerializer(recommended_vacancies, many=True)
+                if serializer.data == []:
+                    serializer = VacanciesDataSerializer(Vacancies.objects.all(), many=True)
+                    return JsonResponse(serializer.data, safe=False)
+                return JsonResponse(serializer.data, safe=False)
+            except ObjectDoesNotExist:
+                serializer = VacanciesDataSerializer(Vacancies.objects.exclude(created_by=request.user.id).all(),
+                                                     many=True)
             return JsonResponse(serializer.data, safe=False)
         else:
-            # try:
-            #     user_vacancy = Vacancies.objects.get()
-            #     user_vacancy_description = user_vacancy.requirements.split(' ')
-            #     recommended_resumes = Resume.objects.filter(skills__icontains=user_vacancy_description[0])
-            #
-            #     for skill in user_vacancy_description[1:]:
-            #         recommended_resumes = recommended_resumes.filter(skills__icontains=skill)
-            #
-            #     serializer = ResumeDataSerializer(recommended_resumes, many=True)
-            #     if serializer.data == []:
-            #         serializer = ResumeDataSerializer(Resume.objects.all(), many=True)
-            #         return JsonResponse(serializer.data, safe=False)
-            #     return JsonResponse(serializer.data, safe=False)
-            # except ObjectDoesNotExist:
-            serializer = ResumeDataSerializer(Resume.objects.exclude(created_by=request.user.id).all(), many=True)
+            try:
+                user_vacancy = Vacancies.objects.get()
+                user_vacancy_description = user_vacancy.requirements.split(' ')
+                recommended_resumes = Resume.objects.filter(skills__icontains=user_vacancy_description[0])
+
+                for skill in user_vacancy_description[1:]:
+                    recommended_resumes = recommended_resumes.filter(skills__icontains=skill)
+
+                serializer = ResumeDataSerializer(recommended_resumes, many=True)
+                if serializer.data == []:
+                    serializer = ResumeDataSerializer(Resume.objects.all(), many=True)
+                    return JsonResponse(serializer.data, safe=False)
+                return JsonResponse(serializer.data, safe=False)
+            except ObjectDoesNotExist:
+                serializer = ResumeDataSerializer(Resume.objects.exclude(created_by=request.user.id).all(), many=True)
             return JsonResponse(serializer.data, safe=False)
 
     except Exception as e:

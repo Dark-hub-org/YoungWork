@@ -189,7 +189,7 @@ export default {
     closeChat() {
       this.$emit('close-chat')
       this.currentDialog = [],
-      this.activeInterlocutor = null
+          this.activeInterlocutor = null
     },
     handleClickOutside(event) {
       if (this.isVisible && !this.$refs.chat.contains(event.target) && !this.chatButton.contains(event.target)) {
@@ -258,7 +258,7 @@ export default {
     sendMessage(user, event) {
       try {
         if (this.message.length && !event.shiftKey && this.activeInterlocutor.users.length) {
-          if(event.key === 'Enter') {
+          if (event.key === 'Enter') {
             event.preventDefault()
           }
           this.chatSocket.send(JSON.stringify({
@@ -306,7 +306,7 @@ export default {
           break;
         case "new_message":
           this.currentDialog.conversation.messages.unshift(response.message)
-            this.getChats()
+          this.getChats()
           break;
       }
     }
@@ -316,7 +316,7 @@ export default {
       return this.$store.state.userData
     },
     socketUrl() {
-      return `ws://127.0.0.1:8080/ws/?token=${this.userToken}`;
+      return `ws://127.0.0.1:8000/ws/?token=${this.userToken}`;
     },
     isLoader() {
       return Boolean(!this.chatsList)
