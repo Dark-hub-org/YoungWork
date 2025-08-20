@@ -43,15 +43,15 @@ export default {
     },
   },
   mounted() {
-    if(this.$store.state.access.length) {
+    if (this.$store.state.access.length) {
       setInterval(() => {
         this.getAccess()
-      }, 59000)
+      }, 149000)
     }
 
   },
   created() {
-    if(this.$store.state.access.length) {
+    if (this.$store.state.access.length) {
       this.setUserData()
     }
   },
