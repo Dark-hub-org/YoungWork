@@ -3,7 +3,7 @@
 ```text
 .
 ├── backend/
-│   ├── app.py
+│   └── app.py
 ├── nginx/
 │   └── nginx.conf
 ├── docker-compose.yml
