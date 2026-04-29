@@ -4,10 +4,10 @@
 .
 ├── backend/
 │   ├── app.py
-│   └── Dockerfile
 ├── nginx/
 │   └── nginx.conf
 ├── docker-compose.yml
+├── Dockerfile
 └── README.md
 ```
 
